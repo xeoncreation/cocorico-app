@@ -151,7 +151,7 @@ SELECT username FROM user_profiles WHERE user_id = auth.uid();
 
 ## 📊 Próximas mejoras sugeridas (opcionales)
 
-### Para el panel de admin:
+### Para el panel de admin
 1. Añadir gráfico de crecimiento de usuarios con recharts:
 ```typescript
 import { LineChart, Line, XAxis, YAxis } from "recharts";
@@ -175,7 +175,7 @@ async function UserGrowthChart() {
 3. Añadir botones de moderación (eliminar recetas, suspender usuarios)
 4. Logs de actividad del sistema
 
-### Para el perfil público:
+### Para el perfil público
 1. Botón "Seguir usuario" (tabla `user_follows`)
 2. Estadísticas sociales (vistas de recetas, followers)
 3. Badge de "Verificado" para ciertos usuarios

@@ -28,7 +28,7 @@
 - **Páginas**: Home, chat, recipes, dashboard, etc. todas con soporte i18n
 
 ### 5. Traducciones
-- **Archivos**: 
+- **Archivos**:
   - `src/messages/es.json` - Español
   - `src/messages/en.json` - English
 - **Contenido**: Home, navegación, favoritos, versiones, chat, etc.

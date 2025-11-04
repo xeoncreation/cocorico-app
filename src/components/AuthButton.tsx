@@ -2,7 +2,6 @@
 import { supabase } from "@/app/lib/supabase-client";
 import { Session } from "@supabase/supabase-js";
 import { useEffect, useState } from "react";
-import { useSearchParams } from "next/navigation";
 
 export default function AuthButton() {
   const [session, setSession] = useState<Session | null>(null);
@@ -10,19 +9,12 @@ export default function AuthButton() {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState<{ text: string; type: 'error' | 'success' } | null>(null);
-  const searchParams = useSearchParams();
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data }) => setSession(data.session));
     const { data: sub } = supabase.auth.onAuthStateChange((_e, s) => setSession(s));
-    
-    // Auto-open login if auth=required parameter is present
-    if (searchParams && typeof searchParams.get === 'function' && searchParams.get('auth') === 'required') {
-      setShowEmailInput(true);
-    }
-    
     return () => sub.subscription.unsubscribe();
-  }, [searchParams]);
+  }, []);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -63,11 +55,6 @@ export default function AuthButton() {
       return (
         <div className="relative">
           <form onSubmit={handleSubmit} className="flex flex-col gap-2 bg-white p-4 rounded-lg shadow-lg border-2 border-cocorico-yellow">
-            {searchParams && typeof searchParams.get === 'function' && searchParams.get('auth') === 'required' && (
-              <div className="mb-2 p-2 rounded bg-cocorico-orange/20 border border-cocorico-orange text-sm text-cocorico-brown font-medium">
-                🔒 Debes iniciar sesión para acceder
-              </div>
-            )}
             <input
               type="email"
               value={email}

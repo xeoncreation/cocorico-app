@@ -326,7 +326,7 @@ Antes de marcar como completado, verificar:
 - [ ] ✅ Responsive design en mobile
 - [ ] ✅ Animaciones smooth
 
-## 🎉 ¡Listo!
+## 🎉 Listo
 
 Tu app estará disponible en:
 - **Production**: https://tu-app.vercel.app

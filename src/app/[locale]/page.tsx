@@ -4,7 +4,7 @@ import { getTranslations } from "next-intl/server";
 import Reveal from "@/components/ui/Reveal";
 
 export default async function LocaleHomePage({
-  params: { locale }
+  params: { locale },
 }: {
   params: { locale: string };
 }) {

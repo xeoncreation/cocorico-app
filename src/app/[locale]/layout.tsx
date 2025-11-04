@@ -140,9 +140,8 @@ export default async function LocaleLayout({
             </div>
           </div>
         </footer>
-        
         <Toaster position="bottom-center" richColors />
-        <PushNotificationPrompt />
+  <PushNotificationPrompt />
       </div>
     </NextIntlClientProvider>
   );

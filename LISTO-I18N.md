@@ -149,14 +149,14 @@ export default async function MiPagina() {
 
 **NO ES UN PROBLEMA DEL CÓDIGO** - El código está verificado y funciona.
 
-### Diagnóstico realizado:
+### Diagnóstico realizado
 - ✅ Build: exitoso
 - ✅ Tests: todos pasan
 - ✅ TypeScript: sin errores
 - ✅ Middleware: correctamente configurado
 - ❌ Servidor: arranca pero proceso termina (problema ambiental)
 
-### Checklist de solución:
+### Checklist de solución
 1. ❓ ¿Dejaste la ventana de PowerShell abierta?
 2. ❓ ¿Configuraste el firewall? (ver Solución 3 arriba)
 3. ❓ ¿Tienes VPN/proxy activo? → Desactívalo

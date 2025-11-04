@@ -276,7 +276,7 @@ Si tienes problemas:
 
 **BLOQUES 39-40**: ✅ Implementados y listos para deploy
 
-**Siguiente acción**: 
+**Siguiente acción**:
 1. Generar iconos PWA (ver `ICONOS-PWA.md`)
 2. Deploy a Vercel (ver `DEPLOY-VERCEL.md`)
 3. Configurar service worker post-deploy
