@@ -46,14 +46,13 @@ export default function LiveVision({ onDetect, mode = "local" }: { onDetect: (la
           let canvas = canvasRef.current;
           if (!canvas) {
             canvas = document.createElement("canvas");
-            canvasRef.current = canvas as HTMLCanvasElement;
           }
-          canvas!.width = v.videoWidth;
-          canvas!.height = v.videoHeight;
-          const ctx = canvas!.getContext("2d");
+          canvas.width = v.videoWidth;
+          canvas.height = v.videoHeight;
+          const ctx = canvas.getContext("2d");
           if (!ctx) return;
-          ctx.drawImage(v, 0, 0, canvas!.width, canvas!.height);
-          const blob: Blob | null = await new Promise((resolve) => canvas!.toBlob(resolve as any, "image/jpeg", 0.8));
+          ctx.drawImage(v, 0, 0, canvas.width, canvas.height);
+          const blob: Blob | null = await new Promise((resolve) => canvas.toBlob(resolve as any, "image/jpeg", 0.8));
           if (!blob) return;
           const form = new FormData();
           form.append("image", blob, "frame.jpg");

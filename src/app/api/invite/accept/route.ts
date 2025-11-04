@@ -19,6 +19,13 @@ export async function POST(req: Request) {
       );
     }
 
+    if (!supabaseServer) {
+      return NextResponse.json(
+        { error: "Error de configuración del servidor" },
+        { status: 500 }
+      );
+    }
+
     // Buscar invitación válida
     const { data: invite, error: inviteError } = await supabaseServer
       .from("beta_invites")

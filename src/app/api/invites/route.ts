@@ -10,6 +10,10 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Email requerido" }, { status: 400 });
     }
 
+    if (!supabaseServer) {
+      return NextResponse.json({ error: "Error de configuración del servidor" }, { status: 500 });
+    }
+
     const { data: { user } } = await supabaseServer.auth.getUser();
 
     if (!user) {
@@ -43,6 +47,10 @@ export async function POST(req: Request) {
 
 export async function GET(req: Request) {
   try {
+    if (!supabaseServer) {
+      return NextResponse.json({ error: "Error de configuración del servidor" }, { status: 500 });
+    }
+
     const { data: { user } } = await supabaseServer.auth.getUser();
 
     if (!user) {
