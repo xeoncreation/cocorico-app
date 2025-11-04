@@ -49,26 +49,27 @@ export async function POST(req: NextRequest) {
         JSON.stringify({ error: 'Recipe content is required' }), 
         { status: 400 }
       );
-      }
-      const supabase = createRouteHandlerClient({ cookies });
-      const { data: { session } } = await supabase.auth.getSession();
+    }
+    
+    const supabase = createRouteHandlerClient({ cookies });
+    const { data: { session } } = await supabase.auth.getSession();
 
-      if (!session) {
-        return new Response(
-          JSON.stringify({ error: 'Authentication required' }), 
-          { status: 401 }
-        );
-      }
+    if (!session) {
+      return new Response(
+        JSON.stringify({ error: 'Authentication required' }), 
+        { status: 401 }
+      );
+    }
 
-      const now = Date.now();
-      const last = lastCall[session.user.id] || 0;
-      if (now - last < 8000) {
-        return new Response(
-          JSON.stringify({ error: 'Por favor espera unos segundos antes de hacer otra petición' }), 
-          { status: 429 }
-        );
-      }
-      lastCall[session.user.id] = now;
+    const now = Date.now();
+    const last = lastCall[session.user.id] || 0;
+    if (now - last < 8000) {
+      return new Response(
+        JSON.stringify({ error: 'Por favor espera unos segundos antes de hacer otra petición' }), 
+        { status: 429 }
+      );
+    }
+    lastCall[session.user.id] = now;
 
     const completion = await openai.chat.completions.create({
       model: "gpt-4",
