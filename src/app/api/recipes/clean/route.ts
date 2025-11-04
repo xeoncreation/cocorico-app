@@ -4,11 +4,9 @@ import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from 'next/headers';
 import OpenAI from 'openai';
 
+// Ensure this runs on Node.js runtime and is dynamic
+export const runtime = 'nodejs';
 export const dynamic = "force-dynamic";
-
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
 
 const lastCall: Record<string, number> = {};
 
@@ -72,6 +70,15 @@ export async function POST(req: NextRequest) {
       );
     }
     lastCall[session.user.id] = now;
+    // Instantiate OpenAI client lazily to avoid build-time evaluation
+    const apiKey = process.env.OPENAI_API_KEY;
+    if (!apiKey) {
+      return new Response(
+        JSON.stringify({ error: 'OPENAI_API_KEY is not configured' }),
+        { status: 500 }
+      );
+    }
+    const openai = new OpenAI({ apiKey });
 
     const completion = await openai.chat.completions.create({
       model: "gpt-4",
