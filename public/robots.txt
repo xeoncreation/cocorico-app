@@ -1,0 +1,17 @@
+# *
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /api
+Disallow: /dashboard
+Disallow: /auth
+
+# GPTBot
+User-agent: GPTBot
+Disallow: /
+
+# Host
+Host: https://cocorico.app
+
+# Sitemaps
+Sitemap: https://cocorico.app/sitemap.xml

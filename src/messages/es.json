@@ -1,0 +1,50 @@
+{
+  "nav": {
+    "home": "Inicio",
+    "search": "Buscar",
+    "learn": "Aprende",
+    "dashboard": "Mi panel",
+    "favorites": "Favoritos",
+    "versions": "Versiones",
+    "import": "Importar",
+    "lang": {
+      "_": "Idioma",
+      "en": "EN",
+      "es": "ES"
+    },
+    "stats": "Estadísticas"
+  },
+  "footer": {
+    "privacy": "Privacidad",
+    "terms": "Términos"
+  },
+  "home": {
+    "title": "¡Hola! Soy Cocorico 🐓",
+    "description": "Tu ayudante de cocina con inteligencia artificial. Encuentra recetas, guarda tus favoritas y aprende a cocinar sin desperdiciar.",
+    "chatButton": "Chatear con Cocorico",
+    "recipesButton": "Ver mis recetas"
+  },
+  "favorites": {
+    "title": "Mis favoritos",
+    "empty": "Aún no has guardado favoritos.",
+    "private": "privada"
+  },
+  "versions": {
+    "title": "Mis versiones IA",
+    "empty": "Aún no has guardado versiones.",
+    "type": "Tipo",
+    "baseDeleted": "Receta base eliminada"
+  },
+  "public": {
+    "ingredients": "Ingredientes",
+    "steps": "Pasos",
+    "unknown": "Desconocida",
+    "sharedBy": "Compartido con ❤️ por Cocorico 🐓",
+    "minutes": "min",
+    "related": "Otras recetas que podrían gustarte 🍽️"
+  },
+  "chat": {
+    "title": "Chat con Cocorico",
+    "subtitle": "Pregúntame sobre recetas, ingredientes, nutrición o cualquier duda de cocina"
+  }
+}

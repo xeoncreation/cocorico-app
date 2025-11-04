@@ -1,0 +1,6 @@
+# Añade estas líneas al archivo hosts manualmente
+# Ruta: C:\Windows\System32\drivers\etc\hosts
+# (Abre Bloc de notas como Administrador)
+
+127.0.0.1       localhost
+::1             localhost

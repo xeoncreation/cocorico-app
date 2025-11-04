@@ -1,0 +1,14 @@
+<svg xmlns='http://www.w3.org/2000/svg' width='1200' height='630' viewBox='0 0 1200 630'>
+  <defs>
+    <linearGradient id='g' x1='0' y1='0' x2='1' y2='1'>
+      <stop offset='0%' stop-color='#FFF7E6'/>
+      <stop offset='100%' stop-color='#FFE3A3'/>
+    </linearGradient>
+  </defs>
+  <rect width='1200' height='630' fill='url(#g)'/>
+  <circle cx='120' cy='90' r='40' fill='#F59E0B' opacity='0.15'/>
+  <circle cx='1080' cy='540' r='60' fill='#F59E0B' opacity='0.12'/>
+  <text x='80' y='300' font-family='Inter, system-ui, -apple-system, Segoe UI' font-weight='800' font-size='92' fill='#92400E'>Cocorico</text>
+  <text x='82' y='370' font-family='Inter, system-ui, -apple-system, Segoe UI' font-weight='500' font-size='34' fill='#A16207'>Recetas con IA</text>
+  <text x='82' y='420' font-family='Inter, system-ui, -apple-system, Segoe UI' font-weight='400' font-size='22' fill='#7C2D12'>Comparte tus recetas al instante</text>
+</svg>

@@ -1,0 +1,37 @@
+<svg width="200" height="200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Fondo circular -->
+  <circle cx="100" cy="100" r="90" fill="#FFF3E0"/>
+  
+  <!-- Cuerpo de Cocorico -->
+  <ellipse cx="100" cy="120" rx="60" ry="70" fill="#FF6B35"/>
+  
+  <!-- Cabeza -->
+  <circle cx="100" cy="70" r="40" fill="#FF6B35"/>
+  
+  <!-- Gorro de chef -->
+  <rect x="70" y="25" width="60" height="15" fill="white" rx="3"/>
+  <ellipse cx="100" cy="25" rx="35" ry="20" fill="white"/>
+  
+  <!-- Ojos -->
+  <circle cx="85" cy="70" r="8" fill="white"/>
+  <circle cx="115" cy="70" r="8" fill="white"/>
+  <circle cx="85" cy="70" r="4" fill="black"/>
+  <circle cx="115" cy="70" r="4" fill="black"/>
+  
+  <!-- Pico feliz -->
+  <polygon points="100,80 92,88 108,88" fill="#FFD700"/>
+  
+  <!-- Olla humeante -->
+  <rect x="140" y="130" width="40" height="30" fill="#616161" rx="5"/>
+  <ellipse cx="160" cy="130" rx="20" ry="8" fill="#757575"/>
+  
+  <!-- Vapor -->
+  <path d="M 150 120 Q 145 110 148 100" stroke="#B0BEC5" stroke-width="3" fill="none" opacity="0.6"/>
+  <path d="M 160 115 Q 155 105 158 95" stroke="#B0BEC5" stroke-width="3" fill="none" opacity="0.6"/>
+  <path d="M 170 120 Q 165 110 168 100" stroke="#B0BEC5" stroke-width="3" fill="none" opacity="0.6"/>
+  
+  <!-- Cuchara en ala -->
+  <ellipse cx="50" cy="110" rx="15" ry="25" fill="#FF8A65"/>
+  <ellipse cx="50" cy="100" rx="8" ry="10" fill="#C0C0C0"/>
+  <rect x="46" y="100" width="8" height="25" fill="#A0A0A0"/>
+</svg>

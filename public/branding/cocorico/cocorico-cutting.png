@@ -1,0 +1,38 @@
+<svg width="200" height="200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Fondo circular -->
+  <circle cx="100" cy="100" r="90" fill="#E3F2FD"/>
+  
+  <!-- Cuerpo de Cocorico -->
+  <ellipse cx="100" cy="130" rx="55" ry="60" fill="#FF6B35"/>
+  
+  <!-- Cabeza -->
+  <circle cx="100" cy="75" r="38" fill="#FF6B35"/>
+  
+  <!-- Ojos concentrados -->
+  <circle cx="85" cy="70" r="7" fill="white"/>
+  <circle cx="115" cy="70" r="7" fill="white"/>
+  <circle cx="85" cy="72" r="4" fill="black"/>
+  <circle cx="115" cy="72" r="4" fill="black"/>
+  
+  <!-- Pico -->
+  <polygon points="100,78 93,85 107,85" fill="#FFD700"/>
+  
+  <!-- Cresta -->
+  <path d="M 100 35 L 92 48 L 97 48 L 88 56 L 100 52 L 112 56 L 103 48 L 108 48 Z" fill="#FF1744"/>
+  
+  <!-- Tabla de cortar -->
+  <rect x="120" y="140" width="55" height="35" fill="#8D6E63" rx="3"/>
+  
+  <!-- Cuchillo -->
+  <rect x="130" y="135" width="35" height="6" fill="#C0C0C0"/>
+  <polygon points="165,135 175,138 165,141" fill="#E0E0E0"/>
+  <rect x="125" y="133" width="8" height="10" fill="#5D4037"/>
+  
+  <!-- Verduras cortadas -->
+  <circle cx="145" cy="160" r="5" fill="#4CAF50"/>
+  <circle cx="155" cy="158" r="4" fill="#FF5722"/>
+  <circle cx="150" cy="168" r="4" fill="#FFC107"/>
+  
+  <!-- Ala sosteniendo -->
+  <ellipse cx="140" cy="120" rx="18" ry="28" fill="#FF8A65"/>
+</svg>

@@ -1,0 +1,43 @@
+@import "@fontsource/poppins/400.css";
+@import "@fontsource/pacifico/400.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --cocorico-yellow: #FDD835;
+    --cocorico-orange: #FF6F00;
+    --cocorico-red: #E53935;
+    --cocorico-green: #4CAF50;
+    --cocorico-brown: #5D4037;
+    --radius: 0.5rem;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  img, picture, video, canvas, svg {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    /* Use white-space for better browser support */
+    white-space: normal;
+    overflow-wrap: break-word;
+  }
+}
