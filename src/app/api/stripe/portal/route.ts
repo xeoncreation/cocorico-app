@@ -3,6 +3,8 @@ import { NextResponse } from "next/server";
 import { supabaseServer } from "@/lib/supabase-client";
 import { stripe } from "@/lib/stripe";
 
+export const runtime = "nodejs";
+
 export async function POST() {
   const { data: { user } } = await supabaseServer!.auth.getUser();
   if (!user) return NextResponse.json({ error: "No autenticado" }, { status: 401 });

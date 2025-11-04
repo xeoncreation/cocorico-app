@@ -3,6 +3,8 @@ import { NextResponse } from "next/server";
 import { supabaseServer } from "@/lib/supabase-client";
 import { stripe } from "@/lib/stripe";
 
+export const runtime = "nodejs";
+
 export async function POST() {
   const { data: { user } } = await supabaseServer!.auth.getUser();
   if (!user) return NextResponse.json({ error: "No autenticado" }, { status: 401 });
@@ -20,10 +22,14 @@ export async function POST() {
     await supabaseServer!.from('user_subscriptions').upsert({ user_id: user.id, stripe_customer_id: customerId });
   }
 
+  const priceEnv = process.env.STRIPE_PRICE_MONTHLY || process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_MONTHLY;
+  if (!priceEnv || !priceEnv.startsWith('price_')) {
+    return NextResponse.json({ error: 'Falta STRIPE_PRICE_MONTHLY (price_...)' }, { status: 500 });
+  }
   const session = await stripe.checkout.sessions.create({
     mode: 'subscription',
     customer: customerId,
-    line_items: [{ price: process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_MONTHLY!, quantity: 1 }],
+    line_items: [{ price: priceEnv, quantity: 1 }],
     success_url: `${process.env.NEXT_PUBLIC_APP_URL}/settings?status=success`,
     cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/settings?status=cancel`,
     allow_promotion_codes: true

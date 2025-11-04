@@ -5,6 +5,7 @@ import { NextResponse } from "next/server";
 import { supabaseServer } from "@/lib/supabase-client";
 
 export const dynamic = "force-dynamic";
+export const runtime = "nodejs";
 
 export async function POST(req: Request) {
   const sig = (await headers()).get("stripe-signature")!;
