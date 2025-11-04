@@ -56,6 +56,23 @@ export default function SearchPage() {
   const pageSize = 12;
   const pages = Math.max(1, Math.ceil(total / pageSize));
 
+  // Initialize state from URL params on first mount
+  useEffect(() => {
+    try {
+      const search = new URLSearchParams(window.location.search);
+      const q0 = search.get("q");
+      const ingr0 = search.get("ingredients");
+      const diff0 = search.get("difficulty");
+      const max0 = search.get("maxTime");
+      const page0 = search.get("page");
+      if (q0) setQ(q0);
+      if (ingr0) setIngredients(ingr0.split(",").map((s) => s.trim()).filter(Boolean));
+      if (diff0) setDifficulty(diff0);
+      if (max0 && !Number.isNaN(Number(max0))) setMaxTime(Number(max0));
+      if (page0 && !Number.isNaN(Number(page0))) setPage(Math.max(1, Number(page0)));
+    } catch {}
+  }, []);
+
   return (
     <main className="max-w-6xl mx-auto p-6">
       <h1 className="text-3xl font-display text-cocorico-red mb-4">Buscar recetas</h1>

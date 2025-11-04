@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { createClient } from "@supabase/supabase-js";
 import { useRouter } from "next/navigation";
 
@@ -15,7 +15,22 @@ export default function NewRecipePage() {
   const [difficulty, setDifficulty] = useState("fácil");
   const [time, setTime] = useState<number | "">("");
   const [visibility, setVisibility] = useState("private");
+  const [ingredientsText, setIngredientsText] = useState("");
   const router = useRouter();
+
+  // Prefill ingredients from Lab (localStorage)
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem("cocorico_prefill_ingredients");
+      if (raw) {
+        const arr = JSON.parse(raw) as string[];
+        if (Array.isArray(arr) && arr.length) {
+          setIngredientsText(arr.join("\n"));
+        }
+        localStorage.removeItem("cocorico_prefill_ingredients");
+      }
+    } catch {}
+  }, []);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -37,7 +52,13 @@ export default function NewRecipePage() {
       time: Number(time) || null,
       visibility,
       slug,
-      content_json: { ingredients: [], steps: [] },
+      content_json: {
+        ingredients: ingredientsText
+          .split(/\n|,/)
+          .map((s) => s.trim())
+          .filter(Boolean),
+        steps: [],
+      },
     });
 
     if (error) return alert("Error al guardar: " + error.message);
@@ -61,6 +82,17 @@ export default function NewRecipePage() {
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         />
+        <div>
+          <label className="block text-sm text-neutral-600 mb-1">
+            Ingredientes (uno por línea)
+          </label>
+          <textarea
+            className="border rounded px-3 py-2 w-full min-h-[120px]"
+            placeholder={"tomate\ncebolla\nhuevo"}
+            value={ingredientsText}
+            onChange={(e) => setIngredientsText(e.target.value)}
+          />
+        </div>
         <div className="flex gap-3">
           <select
             className="border rounded px-3 py-2 flex-1"

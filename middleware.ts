@@ -1,13 +1,76 @@
-import createMiddleware from "next-intl/middleware";
+import createIntlMiddleware from "next-intl/middleware";
+import { NextRequest, NextResponse } from "next/server";
 
-// Middleware de i18n con next-intl (reactiva el matcher estándar)
-export default createMiddleware({
+// Middleware de i18n
+const intlMiddleware = createIntlMiddleware({
   locales: ["es", "en"],
   defaultLocale: "es",
 });
 
+function withSecurityHeaders(res: NextResponse) {
+  // Security headers — keep stricter ones for production to avoid dev issues
+  res.headers.set("X-Frame-Options", "DENY");
+  res.headers.set("X-Content-Type-Options", "nosniff");
+  res.headers.set("Referrer-Policy", "strict-origin-when-cross-origin");
+  res.headers.set("Permissions-Policy", "camera=(), microphone=(), geolocation=()");
+  // HSTS: only meaningful on HTTPS, safe to always send
+  res.headers.set("Strict-Transport-Security", "max-age=63072000; includeSubDomains; preload");
+  // Probe header to verify middleware header propagation in dev
+  res.headers.set("X-Test-Header", "hello");
+  // COEP/COOP/CORP may break some dev tooling; scope to production
+  if (process.env.NODE_ENV === "production") {
+    res.headers.set("Cross-Origin-Embedder-Policy", "require-corp");
+    res.headers.set("Cross-Origin-Opener-Policy", "same-origin");
+    res.headers.set("Cross-Origin-Resource-Policy", "same-origin");
+  }
+  return res;
+}
+
+export default function middleware(request: NextRequest) {
+  const { pathname } = request.nextUrl;
+  
+  // Rutas públicas que no requieren contraseña
+  const publicPaths = [
+    '/access',
+    '/api/verify-password',
+    '/health',
+    '/_next',
+    '/static',
+    '/favicon.ico',
+    '/manifest.webmanifest',
+    '/robots.txt',
+    '/sitemap.xml',
+  ];
+
+  // Verificar si la ruta es pública
+  const isPublicPath = publicPaths.some(path => pathname.startsWith(path));
+  
+  // Verificar si hay contraseña configurada
+  const sitePassword = process.env.SITE_PASSWORD;
+  
+  // Si no hay contraseña configurada o es ruta pública, solo aplicar i18n
+  if (!sitePassword || isPublicPath) {
+    const res = intlMiddleware(request);
+    return withSecurityHeaders(res);
+  }
+
+  // Verificar cookie de acceso
+  const hasAccess = request.cookies.get('site-access')?.value === 'granted';
+
+  if (!hasAccess) {
+    // Redirigir a página de acceso con returnUrl
+    const accessUrl = new URL('/access', request.url);
+    accessUrl.searchParams.set('returnUrl', pathname);
+    const redirectRes = NextResponse.redirect(accessUrl);
+    return withSecurityHeaders(redirectRes);
+  }
+
+  // Usuario tiene acceso, aplicar i18n
+  const res = intlMiddleware(request);
+  return withSecurityHeaders(res);
+}
+
 export const config = {
-  // Excluye API, assets, _next y archivos con extensión
-  // También excluimos /health para que no requiera prefijo de locale
+  // Excluye API, assets, _next, archivos con extensión y health
   matcher: ["/((?!api|_next|static|health|.*\\..*).*)"],
 };

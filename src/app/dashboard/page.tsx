@@ -50,12 +50,20 @@ export default function DashboardPage() {
         >
           Ver estadísticas 📊
         </Link>
-        <Link
-          href="/dashboard/new"
-          className="px-4 py-2 bg-amber-600 text-white rounded hover:bg-amber-700"
-        >
-          + Nueva receta
-        </Link>
+        <div className="flex gap-2">
+          <Link
+            href="/dashboard/lab"
+            className="px-3 py-2 border rounded text-sm text-amber-700 hover:bg-amber-50"
+          >
+            🧪 Laboratorio IA
+          </Link>
+          <Link
+            href="/dashboard/new"
+            className="px-4 py-2 bg-amber-600 text-white rounded hover:bg-amber-700"
+          >
+            + Nueva receta
+          </Link>
+        </div>
       </div>
 
       {recipes.length === 0 ? (
