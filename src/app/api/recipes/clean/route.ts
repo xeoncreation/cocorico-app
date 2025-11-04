@@ -1,9 +1,10 @@
 // API route to clean and standardize recipe content using OpenAI
-import OpenAI from 'openai';
-export const dynamic = "force-dynamic";
 import { NextRequest } from 'next/server';
 import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from 'next/headers';
+import OpenAI from 'openai';
+
+export const dynamic = "force-dynamic";
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
