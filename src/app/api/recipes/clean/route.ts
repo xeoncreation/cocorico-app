@@ -1,3 +1,4 @@
+// API route to clean and standardize recipe content using OpenAI
 import OpenAI from 'openai';
 export const dynamic = "force-dynamic";
 import { NextRequest } from 'next/server';
