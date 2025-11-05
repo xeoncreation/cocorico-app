@@ -3,13 +3,16 @@ import { NextResponse } from "next/server";
 
 // Force Node.js runtime to ensure Buffer and Node APIs are available during build/runtime
 export const runtime = "nodejs";
+// Avoid any static optimization attempts for this API route
+export const dynamic = "force-dynamic";
 
 export const maxDuration = 30; // seconds
 
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
-
 export async function POST(req: Request) {
   try {
+    // Initialize SDK at request-time to avoid build-time evaluation issues
+    const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+
     const form = await req.formData();
     const file = form.get("image") as File | null;
     if (!file) return NextResponse.json({ error: "No image provided" }, { status: 400 });
