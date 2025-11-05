@@ -1,6 +1,9 @@
 import OpenAI from "openai";
 import { NextResponse } from "next/server";
 
+// Force Node.js runtime to ensure Buffer and Node APIs are available during build/runtime
+export const runtime = "nodejs";
+
 export const maxDuration = 30; // seconds
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
