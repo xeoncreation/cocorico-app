@@ -1,0 +1,64 @@
+{
+  "expo": {
+    "name": "Cocorico",
+    "slug": "cocorico-mobile",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "automatic",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#fff8e1"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.cocorico.app",
+      "infoPlist": {
+        "NSCameraUsageDescription": "Cocorico necesita acceso a tu cámara para identificar ingredientes y ayudarte con recetas.",
+        "NSMicrophoneUsageDescription": "Cocorico necesita acceso al micrófono para comandos de voz mientras cocinas.",
+        "NSPhotoLibraryUsageDescription": "Cocorico necesita acceso a tus fotos para importar recetas de imágenes."
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#fff8e1"
+      },
+      "package": "com.cocorico.app",
+      "permissions": [
+        "CAMERA",
+        "RECORD_AUDIO",
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE",
+        "NOTIFICATIONS"
+      ]
+    },
+    "web": {
+      "favicon": "./assets/favicon.png",
+      "bundler": "metro"
+    },
+    "plugins": [
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Permite a Cocorico usar la cámara para identificar ingredientes."
+        }
+      ],
+      [
+        "expo-av",
+        {
+          "microphonePermission": "Permite a Cocorico usar el micrófono para comandos de voz."
+        }
+      ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "your-expo-project-id"
+      }
+    }
+  }
+}

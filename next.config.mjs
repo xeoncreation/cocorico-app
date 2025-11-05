@@ -1,8 +1,19 @@
 import createNextIntlPlugin from 'next-intl/plugin';
+import withPWAInit from 'next-pwa';
 
 // Hook up next-intl so server APIs like getMessages/getTranslations can find the i18n request config.
 // See: https://next-intl.dev/docs/usage/configuration#nextjs-plugin
 const withNextIntl = createNextIntlPlugin('./src/i18n/request.ts');
+
+// Configure PWA
+const withPWA = withPWAInit({
+  dest: 'public',
+  disable: process.env.NODE_ENV === 'development',
+  register: true,
+  skipWaiting: true,
+  runtimeCaching: [],
+  buildExcludes: [/middleware-manifest\.json$/],
+});
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -40,4 +51,4 @@ const nextConfig = {
   },
 };
 
-export default withNextIntl(nextConfig);
+export default withPWA(withNextIntl(nextConfig));

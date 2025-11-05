@@ -7,6 +7,7 @@ import { Toaster } from "sonner";
 import { Suspense } from "react";
 import AuthButton from "@/components/AuthButton";
 import PushNotificationPrompt from "@/components/PushNotificationPrompt";
+import MobileNav from "@/components/MobileNav";
 
 export default async function LocaleLayout({
   children,
@@ -141,7 +142,8 @@ export default async function LocaleLayout({
           </div>
         </footer>
         <Toaster position="bottom-center" richColors />
-  <PushNotificationPrompt />
+        <PushNotificationPrompt />
+        <MobileNav />
       </div>
     </NextIntlClientProvider>
   );

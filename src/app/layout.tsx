@@ -8,10 +8,17 @@ import { ThemeProvider } from "@/components/ThemeProvider";
 import Analytics from "@/components/Analytics";
 import type { Viewport } from "next";
 
+const siteUrl = (() => {
+  const val = process.env.NEXT_PUBLIC_SITE_URL;
+  // Ensure it includes protocol; fallback to localhost if invalid
+  if (val && /^https?:\/\//i.test(val)) return val;
+  return "http://localhost:3000";
+})();
+
 export const metadata = {
   title: "Cocorico 🐓 — Cocina inteligente, saludable y divertida",
   description: "Descubre recetas personalizadas con IA, aprende cocina saludable y comparte tus creaciones con el mundo. Tu asistente de cocina con inteligencia artificial.",
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"),
+  metadataBase: new URL(siteUrl),
   keywords: ["cocina", "recetas", "IA", "inteligencia artificial", "saludable", "chef", "cocorico"],
   authors: [{ name: "Cocorico Team" }],
   creator: "Cocorico",
@@ -29,7 +36,7 @@ export const metadata = {
   openGraph: {
     title: "Cocorico 🐓 — Tu asistente de cocina inteligente",
     description: "Recetas personalizadas con IA, aprende cocina saludable y comparte tus creaciones.",
-    url: process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",
+  url: siteUrl,
     siteName: "Cocorico",
     images: [
       { 
