@@ -36,10 +36,12 @@ export default function Navbar() {
         <Link href="/">Cocorico</Link>
       </div>
       <div className="flex items-center gap-3">
-        <div className="space-x-6 text-sm font-semibold text-cocorico-brown dark:text-neutral-200">
+        <div className="hidden md:flex space-x-4 text-sm font-semibold text-cocorico-brown dark:text-neutral-200">
           <Link href="/chat" className="hover:text-cocorico-red">Chat</Link>
-          <Link href="/dashboard/favorites" className="hover:text-cocorico-red">Favoritos</Link>
-          <Link href="/dashboard/stats" className="hover:text-cocorico-red">Estadísticas</Link>
+          <Link href="/recipes" className="hover:text-cocorico-red">Recetas</Link>
+          <Link href="/community" className="hover:text-cocorico-red">Comunidad</Link>
+          <Link href="/dashboard/challenges" className="hover:text-cocorico-red">Retos</Link>
+          <Link href="/pricing" className="hover:text-cocorico-red">Premium</Link>
         </div>
         
         {user ? (
@@ -54,12 +56,48 @@ export default function Navbar() {
               <span className="max-w-[120px] truncate">{user.email}</span>
             </button>
             {menuOpen && (
-              <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-md shadow-lg py-1 z-50">
+              <div className="absolute right-0 mt-2 w-56 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-md shadow-lg py-1 z-50">
+                <Link 
+                  href="/dashboard"
+                  className="block px-4 py-2 text-sm hover:bg-neutral-100 dark:hover:bg-neutral-700"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  📊 Dashboard
+                </Link>
+                <Link 
+                  href="/dashboard/achievements"
+                  className="block px-4 py-2 text-sm hover:bg-neutral-100 dark:hover:bg-neutral-700"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  🏆 Logros
+                </Link>
+                <Link 
+                  href="/dashboard/favorites"
+                  className="block px-4 py-2 text-sm hover:bg-neutral-100 dark:hover:bg-neutral-700"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  ⭐ Favoritos
+                </Link>
+                <Link 
+                  href="/dashboard/feedback"
+                  className="block px-4 py-2 text-sm hover:bg-neutral-100 dark:hover:bg-neutral-700"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  📝 Feedback
+                </Link>
+                <Link 
+                  href="/settings"
+                  className="block px-4 py-2 text-sm hover:bg-neutral-100 dark:hover:bg-neutral-700"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  ⚙️ Configuración
+                </Link>
+                <div className="border-t border-neutral-200 dark:border-neutral-700 my-1"></div>
                 <button
                   onClick={handleLogout}
                   className="w-full text-left px-4 py-2 text-sm hover:bg-neutral-100 dark:hover:bg-neutral-700 text-red-600 dark:text-red-400"
                 >
-                  Cerrar sesión
+                  🚪 Cerrar sesión
                 </button>
               </div>
             )}
