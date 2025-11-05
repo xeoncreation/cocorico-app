@@ -1,17 +1,23 @@
 import { redirect } from "next/navigation";
-import { cookies } from "next/headers";
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { supabaseServer } from "@/lib/supabase";
 import Link from "next/link";
 import Image from "next/image";
 import IntlText from "@/components/IntlText";
 
 export default async function FavoritesPage() {
-  const supabase = createServerComponentClient({ cookies });
-  const { data: { user } } = await supabase.auth.getUser();
+  if (!supabaseServer) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <p className="text-red-600">Supabase no configurado</p>
+      </div>
+    );
+  }
+
+  const { data: { user } } = await supabaseServer.auth.getUser();
   if (!user) redirect("/login");
 
   // Fetch favorites with recipe details and timestamps
-  const { data: favs } = await supabase
+  const { data: favs } = await supabaseServer
     .from("favorites")
     .select(`
       recipe_id,

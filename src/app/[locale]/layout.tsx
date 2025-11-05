@@ -33,7 +33,7 @@ export default async function LocaleLayout({
               </Link>
               
               {/* Navegación principal - Desktop */}
-              <div className="hidden md:flex items-center gap-6">
+              <div className="hidden md:flex items-center gap-4">
                 <Link 
                   href={`/${locale}/chat`} 
                   className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium text-cocorico-brown dark:text-neutral-200 hover:bg-cocorico-yellow/20 dark:hover:bg-neutral-700 transition"
@@ -44,25 +44,25 @@ export default async function LocaleLayout({
                   href={`/${locale}/recipes`} 
                   className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium text-cocorico-brown dark:text-neutral-200 hover:bg-cocorico-yellow/20 dark:hover:bg-neutral-700 transition"
                 >
-                  📖 {t("nav.search")}
+                  📖 Recetas
                 </Link>
                 <Link 
-                  href={`/${locale}/dashboard/favorites`} 
+                  href={`/${locale}/community`} 
                   className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium text-cocorico-brown dark:text-neutral-200 hover:bg-cocorico-yellow/20 dark:hover:bg-neutral-700 transition"
                 >
-                  ⭐ {t("nav.favorites")}
+                  👥 Comunidad
                 </Link>
                 <Link 
-                  href={`/${locale}/dashboard/stats`} 
+                  href={`/${locale}/dashboard/challenges`} 
                   className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium text-cocorico-brown dark:text-neutral-200 hover:bg-cocorico-yellow/20 dark:hover:bg-neutral-700 transition"
                 >
-                  📊 Estadísticas
+                  🏆 Retos
                 </Link>
                 <Link 
-                  href={`/${locale}/learn`} 
-                  className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium text-cocorico-brown dark:text-neutral-200 hover:bg-cocorico-yellow/20 dark:hover:bg-neutral-700 transition"
+                  href={`/${locale}/pricing`} 
+                  className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-semibold text-amber-600 dark:text-amber-400 hover:bg-amber-100 dark:hover:bg-amber-900/20 transition"
                 >
-                  📚 {t("nav.learn")}
+                  ⭐ Premium
                 </Link>
               </div>
               
@@ -129,13 +129,19 @@ export default async function LocaleLayout({
                   className="hover:text-cocorico-red dark:hover:text-amber-400 transition" 
                   href={`/${locale}/legal/privacy`}
                 >
-                  {t("footer.privacy")}
+                  Privacidad
                 </Link>
                 <Link 
                   className="hover:text-cocorico-red dark:hover:text-amber-400 transition" 
                   href={`/${locale}/legal/terms`}
                 >
-                  {t("footer.terms")}
+                  Términos
+                </Link>
+                <Link 
+                  className="hover:text-cocorico-red dark:hover:text-amber-400 transition" 
+                  href={`/${locale}/legal/cookies`}
+                >
+                  Cookies
                 </Link>
               </div>
             </div>
