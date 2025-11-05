@@ -47,6 +47,7 @@ export default function middleware(request: NextRequest) {
   
   // Verificar si hay contraseña configurada
   const sitePassword = process.env.SITE_PASSWORD;
+  const invitePassword = process.env.INVITE_PASSWORD;
   
   // Si no hay contraseña configurada o es ruta pública, solo aplicar i18n
   if (!sitePassword || isPublicPath) {
@@ -54,10 +55,24 @@ export default function middleware(request: NextRequest) {
     return withSecurityHeaders(res);
   }
 
-  // Verificar cookie de acceso
-  const hasAccess = request.cookies.get('site-access')?.value === 'granted';
+  // Verificar cookie de acceso (puede ser site-access o invite-access)
+  const hasSiteAccess = request.cookies.get('site-access')?.value === 'granted';
+  const hasInviteAccess = request.cookies.get('invite-access')?.value === 'granted';
 
-  if (!hasAccess) {
+  // Verificar si viene con key de invitado en URL
+  const inviteKey = request.nextUrl.searchParams.get('key');
+  if (inviteKey && invitePassword && inviteKey === invitePassword) {
+    // Otorgar acceso temporal de invitado
+    const res = intlMiddleware(request);
+    res.cookies.set('invite-access', 'granted', { 
+      maxAge: 86400, // 24 horas
+      httpOnly: true,
+      sameSite: 'lax',
+    });
+    return withSecurityHeaders(res);
+  }
+
+  if (!hasSiteAccess && !hasInviteAccess) {
     // Redirigir a página de acceso con returnUrl
     const accessUrl = new URL('/access', request.url);
     accessUrl.searchParams.set('returnUrl', pathname);

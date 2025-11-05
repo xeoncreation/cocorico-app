@@ -6,6 +6,15 @@ import { usePathname, useRouter } from "next/navigation";
 const SUPPORTED = [
   { code: "es", name: "Español", aliases: ["español", "spanish", "castellano", "es"] },
   { code: "en", name: "English", aliases: ["english", "inglés", "en"] },
+  // Los siguientes idiomas están preparados pero requieren archivos de traducción en src/messages/
+  // { code: "fr", name: "Français", aliases: ["frances", "french", "francés", "fr"] },
+  // { code: "de", name: "Deutsch", aliases: ["aleman", "german", "alemán", "de"] },
+  // { code: "it", name: "Italiano", aliases: ["italiano", "italian", "it"] },
+  // { code: "pt", name: "Português", aliases: ["portugues", "portuguese", "português", "pt"] },
+  // { code: "ja", name: "日本語", aliases: ["japanese", "japones", "japonés", "ja"] },
+  // { code: "ko", name: "한국어", aliases: ["korean", "coreano", "ko"] },
+  // { code: "zh", name: "中文", aliases: ["chinese", "chino", "zh"] },
+  // { code: "ar", name: "العربية", aliases: ["arabic", "arabe", "árabe", "ar"] },
 ];
 
 function detectCurrentLocale(pathname: string | null) {
