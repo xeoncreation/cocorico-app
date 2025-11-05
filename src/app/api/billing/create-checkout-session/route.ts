@@ -1,11 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { stripe } from '@/lib/stripe';
+import { getStripe } from '@/lib/stripe';
 import { createClient } from '@supabase/supabase-js';
 
 export const runtime = 'nodejs';
+export const dynamic = 'force-dynamic';
 
 export async function POST(req: NextRequest) {
   try {
+    const stripe = getStripe();
     const { userId, email } = await req.json() as { userId: string; email: string };
 
     if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
@@ -39,7 +41,7 @@ export async function POST(req: NextRequest) {
 
     let customerId = billing?.stripe_customer_id;
     if (!customerId) {
-      const customer = await stripe.customers.create({
+  const customer = await stripe.customers.create({
         email, metadata: { supabase_user_id: userId },
       });
       customerId = customer.id;
@@ -48,7 +50,7 @@ export async function POST(req: NextRequest) {
         .upsert({ user_id: userId, stripe_customer_id: customerId }, { onConflict: 'user_id' });
     }
 
-    const session = await stripe.checkout.sessions.create({
+  const session = await stripe.checkout.sessions.create({
       mode: 'subscription',
       customer: customerId,
       line_items: [{ price: priceEnv, quantity: 1 }],

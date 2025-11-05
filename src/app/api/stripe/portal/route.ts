@@ -1,11 +1,13 @@
 // @ts-nocheck - Las tablas se crearán al ejecutar la migración SQL
 import { NextResponse } from "next/server";
 import { supabaseServer } from "@/lib/supabase-client";
-import { stripe } from "@/lib/stripe";
+import { getStripe } from "@/lib/stripe";
 
 export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
 export async function POST() {
+  const stripe = getStripe();
   const { data: { user } } = await supabaseServer!.auth.getUser();
   if (!user) return NextResponse.json({ error: "No autenticado" }, { status: 401 });
 

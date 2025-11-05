@@ -1,5 +1,5 @@
 // @ts-nocheck - Las tablas se crearán al ejecutar la migración SQL
-import { stripe } from "@/lib/stripe";
+import { getStripe } from "@/lib/stripe";
 import { headers } from "next/headers";
 import { NextResponse } from "next/server";
 import { supabaseServer } from "@/lib/supabase-client";
@@ -8,11 +8,12 @@ export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
 
 export async function POST(req: Request) {
+  const stripe = getStripe();
   const sig = (await headers()).get("stripe-signature")!;
   const body = await req.text();
 
   try {
-    const event = stripe.webhooks.constructEvent(body, sig, process.env.STRIPE_WEBHOOK_SECRET!);
+  const event = stripe.webhooks.constructEvent(body, sig, process.env.STRIPE_WEBHOOK_SECRET!);
 
     if (!supabaseServer) {
       console.error("supabaseServer no disponible");

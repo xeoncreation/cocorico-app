@@ -2,12 +2,14 @@ import Stripe from "stripe";
 import { NextResponse } from "next/server";
 import { supabaseServer } from "@/lib/supabase-client";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: "2025-10-29.clover",
-});
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
 export async function POST(req: Request) {
   try {
+    const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+      apiVersion: "2025-10-29.clover",
+    });
     if (!supabaseServer) {
       return NextResponse.json({ error: "Error de configuración del servidor" }, { status: 500 });
     }
