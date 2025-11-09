@@ -38,9 +38,11 @@ export default function Navbar() {
       <div className="flex items-center gap-3">
         <div className="hidden md:flex space-x-4 text-sm font-semibold text-cocorico-brown dark:text-neutral-200">
           <Link href="/chat" className="hover:text-cocorico-red">Chat</Link>
+          <Link href="/dashboard/lab" className="hover:text-cocorico-red">Lab IA</Link>
           <Link href="/recipes" className="hover:text-cocorico-red">Recetas</Link>
           <Link href="/community" className="hover:text-cocorico-red">Comunidad</Link>
           <Link href="/dashboard/challenges" className="hover:text-cocorico-red">Retos</Link>
+          <Link href="/community/leaderboard" className="hover:text-cocorico-red">Ranking</Link>
           <Link href="/pricing" className="hover:text-cocorico-red">Premium</Link>
         </div>
         

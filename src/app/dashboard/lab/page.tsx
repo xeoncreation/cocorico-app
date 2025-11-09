@@ -2,6 +2,7 @@
 
 import IngredientScanner from "@/components/IngredientScanner";
 import SmartCamera from "@/components/SmartCamera";
+import AvatarCocorico from "@/components/AvatarCocorico";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -55,6 +56,9 @@ export default function LabPage() {
           )}
         </div>
       </div>
+
+      {/* Avatar overlay en esquina inferior derecha (modo AR) */}
+      <AvatarCocorico small overlay />
     </main>
   );
 }
