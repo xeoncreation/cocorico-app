@@ -3,8 +3,11 @@ import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 import Reveal from "@/components/ui/Reveal";
 import dynamic from "next/dynamic";
-// Cargar OnboardingModal sólo en cliente para evitar pasar funciones a Server Component
-const OnboardingModal = dynamic(() => import("@/components/OnboardingModal"), { ssr: false });
+// Cargar OnboardingModal sólo en cliente con manejo de errores
+const OnboardingModal = dynamic(() => import("@/components/OnboardingModal"), { 
+  ssr: false,
+  loading: () => null // No mostrar nada mientras carga
+});
 
 export default async function LocaleHomePage({
   params: { locale },
@@ -20,8 +23,8 @@ export default async function LocaleHomePage({
 
   return (
     <main className="flex flex-col items-center justify-center min-h-[90vh] text-center p-6 bg-gradient-to-b from-cocorico-yellow/20 via-white to-cocorico-orange/5 dark:from-neutral-900 dark:via-neutral-800 dark:to-neutral-900 relative">
-      {/* Onboarding inicial mostrado sólo en la página home localizada */}
-  <OnboardingModal />
+      {/* Onboarding temporal deshabilitado para debug en Vercel */}
+      {/* <OnboardingModal /> */}
       <Reveal>
         <Image
           src="/branding/cocorico-mascot-anim-optimized.gif"
