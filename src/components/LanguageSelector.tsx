@@ -67,40 +67,61 @@ export default function LanguageSelector({ compact = false }: { compact?: boolea
     <div className="relative">
       <button
         type="button"
-        className={`border rounded px-2 py-1 text-sm ${
+        className={`flex items-center gap-1.5 border rounded-lg px-3 py-2 text-sm font-medium transition ${
           open 
-            ? "border-amber-400 dark:border-amber-500" 
-            : "border-neutral-300 dark:border-neutral-600"
-        } hover:border-amber-300 dark:hover:border-amber-400 text-neutral-700 dark:text-neutral-200 bg-white dark:bg-neutral-800`}
+            ? "border-amber-400 dark:border-amber-500 bg-amber-50 dark:bg-amber-900/20" 
+            : "border-neutral-300 dark:border-neutral-600 hover:border-amber-300 dark:hover:border-amber-400"
+        } text-neutral-700 dark:text-neutral-200 bg-white dark:bg-neutral-800 shadow-sm`}
         onClick={() => setOpen((v) => !v)}
+        aria-label="Selector de idioma"
       >
-        {compact ? currentLocale.toUpperCase() : `Idioma: ${currentLocale.toUpperCase()}`}
+        <span className="text-base">🌍</span>
+        <span>{compact ? currentLocale.toUpperCase() : `${currentLocale.toUpperCase()}`}</span>
+        <svg 
+          className={`w-4 h-4 transition-transform ${open ? 'rotate-180' : ''}`} 
+          fill="none" 
+          stroke="currentColor" 
+          viewBox="0 0 24 24"
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+        </svg>
       </button>
       {open && (
-        <div className="absolute right-0 mt-2 w-56 rounded-md border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 shadow-lg z-50 p-2">
+        <div className="absolute right-0 mt-2 w-64 rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 shadow-xl z-50 p-3">
+          <label className="block text-xs font-semibold text-neutral-600 dark:text-neutral-400 mb-1.5">
+            Buscar idioma
+          </label>
           <input
             autoFocus
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Escribe tu idioma..."
-            className="w-full border border-neutral-300 dark:border-neutral-600 rounded px-2 py-1 text-sm mb-2 bg-white dark:bg-neutral-900 text-neutral-800 dark:text-neutral-200 placeholder:text-neutral-400 dark:placeholder:text-neutral-500"
+            placeholder="Escribe el nombre..."
+            className="w-full border-2 border-neutral-300 dark:border-neutral-600 rounded-lg px-3 py-2 text-sm mb-3 bg-white dark:bg-neutral-900 text-neutral-800 dark:text-neutral-200 placeholder:text-neutral-400 dark:placeholder:text-neutral-500 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-amber-400"
           />
-          <ul className="max-h-60 overflow-auto divide-y divide-neutral-200 dark:divide-neutral-700 rounded border border-neutral-200 dark:border-neutral-700">
+          <ul className="max-h-60 overflow-auto divide-y divide-neutral-200 dark:divide-neutral-700 rounded-lg border border-neutral-200 dark:border-neutral-700">
             {results.length === 0 && (
-              <li className="p-2 text-sm text-neutral-500 dark:text-neutral-400">Sin resultados</li>
+              <li className="p-3 text-sm text-center text-neutral-500 dark:text-neutral-400">
+                Sin resultados
+              </li>
             )}
             {results.map((l) => (
               <li key={l.code}>
                 <button
                   type="button"
                   onClick={() => goToLocale(l.code)}
-                  className={`w-full text-left px-3 py-2 text-sm hover:bg-amber-50 dark:hover:bg-amber-900/30 ${
+                  className={`w-full text-left px-4 py-3 text-sm transition ${
                     l.code === currentLocale 
-                      ? "bg-amber-50 dark:bg-amber-900/40 text-amber-900 dark:text-amber-100" 
-                      : "text-neutral-800 dark:text-neutral-200"
+                      ? "bg-amber-100 dark:bg-amber-900/40 text-amber-900 dark:text-amber-100 font-semibold" 
+                      : "text-neutral-800 dark:text-neutral-200 hover:bg-neutral-100 dark:hover:bg-neutral-700"
                   }`}
                 >
-                  {l.name} <span className="text-neutral-500 dark:text-neutral-400">({l.code.toUpperCase()})</span>
+                  <div className="flex items-center justify-between">
+                    <span>{l.name}</span>
+                    <span className="text-xs font-mono text-neutral-500 dark:text-neutral-400">
+                      {l.code.toUpperCase()}
+                      {l.code === currentLocale && ' ✓'}
+                    </span>
+                  </div>
                 </button>
               </li>
             ))}
