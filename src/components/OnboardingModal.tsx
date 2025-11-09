@@ -6,10 +6,10 @@ import { X, ChefHat, Camera, Trophy } from 'lucide-react';
 import { trackEvent } from '@/components/UmamiAnalytics';
 
 interface OnboardingModalProps {
-  onComplete: () => void;
+  onComplete?: () => void;
 }
 
-export default function OnboardingModal({ onComplete }: OnboardingModalProps) {
+export default function OnboardingModal({ onComplete = () => {} }: OnboardingModalProps) {
   const [step, setStep] = useState(0);
   const [show, setShow] = useState(false);
 

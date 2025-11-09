@@ -7,7 +7,7 @@ const intlMiddleware = createIntlMiddleware({
   defaultLocale: "es",
 });
 
-function withSecurityHeaders(res: NextResponse) {
+function withSecurityHeaders(res: NextResponse, isDev = process.env.NODE_ENV !== "production") {
   // Security headers — keep stricter ones for production to avoid dev issues
   res.headers.set("X-Frame-Options", "DENY");
   res.headers.set("X-Content-Type-Options", "nosniff");
@@ -15,10 +15,30 @@ function withSecurityHeaders(res: NextResponse) {
   res.headers.set("Permissions-Policy", "camera=(), microphone=(), geolocation=()");
   // HSTS: only meaningful on HTTPS, safe to always send
   res.headers.set("Strict-Transport-Security", "max-age=63072000; includeSubDomains; preload");
-  // Probe header to verify middleware header propagation in dev
-  res.headers.set("X-Test-Header", "hello");
+
+  // Content Security Policy (relajado en dev, más estricto en prod)
+  const csp = [
+    "default-src 'self'",
+    // Next.js dev features y Umami
+    `script-src 'self' https://cloud.umami.is ${isDev ? "'unsafe-eval' 'unsafe-inline'" : ""}`.trim(),
+    // Permitir estilos inline generados por Tailwind/Next
+    "style-src 'self' 'unsafe-inline'",
+    // Cargas de imágenes locales y datos embebidos
+    "img-src 'self' data: blob:",
+    // Conexiones a APIs externas (Supabase, Umami, etc.). Añade aquí si faltan dominios.
+    "connect-src 'self' https: ws:",
+    // Fuentes locales y data URIs
+    "font-src 'self' data:",
+    // Evitar incrustaciones no deseadas
+    "frame-ancestors 'none'",
+    // Permitir media locales
+    "media-src 'self' blob:",
+    // Workers y blobs
+    "worker-src 'self' blob:"
+  ].join("; ");
+  res.headers.set("Content-Security-Policy", csp);
   // COEP/COOP/CORP may break some dev tooling; scope to production
-  if (process.env.NODE_ENV === "production") {
+  if (!isDev) {
     res.headers.set("Cross-Origin-Embedder-Policy", "require-corp");
     res.headers.set("Cross-Origin-Opener-Policy", "same-origin");
     res.headers.set("Cross-Origin-Resource-Policy", "same-origin");
@@ -44,13 +64,16 @@ export default function middleware(request: NextRequest) {
 
   // Verificar si la ruta es pública
   const isPublicPath = publicPaths.some(path => pathname.startsWith(path));
+  // Hacer públicas únicamente las home localizadas y la raíz
+  // Considerar también páginas directas localizadas sin segmento adicional
+  const isLocaleHome = pathname === '/' || /^\/(es|en)$/.test(pathname);
   
   // Verificar si hay contraseña configurada
   const sitePassword = process.env.SITE_PASSWORD;
   const invitePassword = process.env.INVITE_PASSWORD;
   
   // Si no hay contraseña configurada o es ruta pública, solo aplicar i18n
-  if (!sitePassword || isPublicPath) {
+  if (!sitePassword || isPublicPath || isLocaleHome) {
     const res = intlMiddleware(request);
     return withSecurityHeaders(res);
   }

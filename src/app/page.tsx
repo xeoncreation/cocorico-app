@@ -1,14 +1,14 @@
 import { redirect } from "next/navigation";
-import { headers } from "next/headers";
 
-export default async function RootPage() {
-  // El middleware se encargará de la redirección,
-  // pero por seguridad agregamos redirección a /es si llegan aquí
-  const headersList = await headers();
-  const acceptLanguage = headersList.get("accept-language") || "";
-  
-  // Detectar si el navegador prefiere inglés
-  const preferredLocale = acceptLanguage.toLowerCase().startsWith("en") ? "en" : "es";
-  
-  redirect(`/${preferredLocale}`);
+// Página raíz mínima: delega al middleware para i18n y password.
+// Si el middleware falla, hacemos un fallback seguro hacia /es.
+export default function RootPage() {
+  try {
+    // Middleware debe redirigir; si no, fallback manual.
+    redirect("/es");
+  } catch (err) {
+    console.warn("[root] redirect fallback error", err);
+    redirect("/es");
+  }
+  return null;
 }

@@ -2,16 +2,27 @@ import Image from "next/image";
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 import Reveal from "@/components/ui/Reveal";
+import dynamic from "next/dynamic";
+// Cargar OnboardingModal sólo en cliente para evitar pasar funciones a Server Component
+const OnboardingModal = dynamic(() => import("@/components/OnboardingModal"), { ssr: false });
 
 export default async function LocaleHomePage({
   params: { locale },
 }: {
   params: { locale: string };
 }) {
-  const t = await getTranslations({ locale });
+  // Protección: si faltan claves i18n no romper la home (evita 500 en primeras cargas)
+  let t: any = (k: string) => k;
+  try {
+    t = await getTranslations({ locale });
+  } catch (err) {
+    console.warn("[home] Faltan traducciones para locale", locale, err);
+  }
 
   return (
-    <main className="flex flex-col items-center justify-center min-h-[90vh] text-center p-6 bg-gradient-to-b from-cocorico-yellow/20 via-white to-cocorico-orange/5 dark:from-neutral-900 dark:via-neutral-800 dark:to-neutral-900">
+    <main className="flex flex-col items-center justify-center min-h-[90vh] text-center p-6 bg-gradient-to-b from-cocorico-yellow/20 via-white to-cocorico-orange/5 dark:from-neutral-900 dark:via-neutral-800 dark:to-neutral-900 relative">
+      {/* Onboarding inicial mostrado sólo en la página home localizada */}
+  <OnboardingModal />
       <Reveal>
         <Image
           src="/branding/cocorico-mascot-anim-optimized.gif"
