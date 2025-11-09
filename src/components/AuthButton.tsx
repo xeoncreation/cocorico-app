@@ -56,14 +56,14 @@ export default function AuthButton() {
     if (showEmailInput) {
       return (
         <div className="relative">
-          <form onSubmit={handleSubmit} className="flex flex-col gap-2 bg-white p-4 rounded-lg shadow-lg border-2 border-cocorico-yellow">
+          <form onSubmit={handleSubmit} className="flex flex-col gap-2 bg-white dark:bg-neutral-800 p-4 rounded-lg shadow-lg border-2 border-cocorico-yellow absolute right-0 top-full mt-2 min-w-[280px] z-50">
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder={t('auth.emailPlaceholder')}
               required
-              className="px-3 py-2 border-2 border-cocorico-yellow/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-cocorico-red focus:border-cocorico-red"
+              className="px-3 py-2 border-2 border-cocorico-yellow/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-cocorico-red focus:border-cocorico-red dark:bg-neutral-700 dark:text-white"
               disabled={loading}
             />
             <div className="flex gap-2">
@@ -81,21 +81,21 @@ export default function AuthButton() {
                   setEmail("");
                   setMessage(null);
                 }}
-                className="px-4 py-2 rounded-lg border-2 border-cocorico-brown text-cocorico-brown hover:bg-cocorico-yellow/20 transition"
+                className="px-4 py-2 rounded-lg border-2 border-cocorico-brown text-cocorico-brown dark:text-neutral-300 dark:border-neutral-500 hover:bg-cocorico-yellow/20 dark:hover:bg-neutral-700 transition"
               >
                 {t('common.cancel')}
               </button>
             </div>
+            {message && (
+              <div className={`mt-2 p-3 rounded-lg text-sm font-medium ${
+                message.type === 'error' 
+                  ? 'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 border border-red-300 dark:border-red-700' 
+                  : 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 border border-green-300 dark:border-green-700'
+              }`}>
+                {message.text}
+              </div>
+            )}
           </form>
-          {message && (
-            <div className={`mt-2 p-3 rounded-lg text-sm font-medium ${
-              message.type === 'error' 
-                ? 'bg-red-100 text-red-700 border border-red-300' 
-                : 'bg-green-100 text-green-700 border border-green-300'
-            }`}>
-              {message.text}
-            </div>
-          )}
         </div>
       );
     }

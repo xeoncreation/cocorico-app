@@ -8,6 +8,7 @@ import { Suspense } from "react";
 import AuthButton from "@/components/AuthButton";
 import PushNotificationPrompt from "@/components/PushNotificationPrompt";
 import MobileNav from "@/components/MobileNav";
+import LanguageSelector from "@/components/LanguageSelector";
 
 export default async function LocaleLayout({
   children,
@@ -68,29 +69,8 @@ export default async function LocaleLayout({
               
               {/* Controles de usuario */}
               <div className="flex items-center gap-3">
-                {/* Selector de idioma */}
-                <div className="flex gap-1 bg-neutral-100 dark:bg-neutral-800 rounded-lg p-1">
-                  <Link 
-                    href={`/es`}
-                    className={`px-3 py-1.5 rounded-md text-xs font-semibold transition ${
-                      locale === 'es' 
-                        ? 'bg-cocorico-red text-white shadow-sm' 
-                        : 'text-cocorico-brown dark:text-neutral-300 hover:bg-white dark:hover:bg-neutral-700'
-                    }`}
-                  >
-                    ES
-                  </Link>
-                  <Link 
-                    href={`/en`}
-                    className={`px-3 py-1.5 rounded-md text-xs font-semibold transition ${
-                      locale === 'en' 
-                        ? 'bg-cocorico-red text-white shadow-sm' 
-                        : 'text-cocorico-brown dark:text-neutral-300 hover:bg-white dark:hover:bg-neutral-700'
-                    }`}
-                  >
-                    EN
-                  </Link>
-                </div>
+                {/* Selector de idioma con búsqueda */}
+                <LanguageSelector compact />
                 
                 {/* Botón de autenticación */}
                 <Suspense fallback={
