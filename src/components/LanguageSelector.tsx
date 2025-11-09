@@ -79,7 +79,7 @@ export default function LanguageSelector({ compact = false }: { compact?: boolea
       <button
         type="button"
         aria-haspopup="listbox"
-        aria-expanded={open}
+        aria-expanded={open ? "true" : "false"}
         className={`flex items-center gap-1 border rounded-lg px-2.5 py-1.5 text-sm font-medium ${
           open
             ? "border-amber-500 shadow-sm bg-amber-50 dark:bg-amber-900/30" 
@@ -89,7 +89,13 @@ export default function LanguageSelector({ compact = false }: { compact?: boolea
       >
         <span>{SUPPORTED.find(l=>l.code===currentLocale)?.flag || '�'}</span>
         {compact ? currentLocale.toUpperCase() : 'Idioma'}
-        <svg className={`w-3 h-3 transition-transform ${open ? 'rotate-180' : ''}`} viewBox="0 0 20 20" fill="currentColor"><path d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.24 4.24a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.08z"/></svg>
+        <svg 
+          className={`w-3 h-3 will-change-transform transition-transform duration-150 ${open ? 'rotate-180' : ''}`} 
+          viewBox="0 0 20 20" 
+          fill="currentColor"
+        >
+          <path d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.24 4.24a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.08z"/>
+        </svg>
       </button>
       {open && (
         <div className="absolute right-0 mt-2 w-72 rounded-xl border border-neutral-200 dark:border-neutral-700 bg-white/95 dark:bg-neutral-800/95 backdrop-blur-sm shadow-xl z-50 p-4 space-y-3">

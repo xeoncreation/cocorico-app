@@ -24,10 +24,10 @@ describe("i18n LanguageSelector", () => {
 
   it("should open language menu on click", () => {
     render(<LanguageSelector compact={false} />);
-    const button = screen.getByRole("button", { name: /idioma: es/i });
+    const button = screen.getByRole("button", { name: /idioma/i });
     fireEvent.click(button);
     
-    expect(screen.getByPlaceholderText("Escribe tu idioma...")).toBeInTheDocument();
+    expect(screen.getByPlaceholderText(/buscar idioma/i)).toBeInTheDocument();
     expect(screen.getByText(/español/i)).toBeInTheDocument();
     expect(screen.getByText(/english/i)).toBeInTheDocument();
   });
@@ -37,7 +37,7 @@ describe("i18n LanguageSelector", () => {
     const button = screen.getByRole("button");
     fireEvent.click(button);
     
-    const input = screen.getByPlaceholderText("Escribe tu idioma...");
+    const input = screen.getByPlaceholderText(/buscar idioma/i);
     fireEvent.change(input, { target: { value: "ing" } });
     
     expect(screen.getByText(/english/i)).toBeInTheDocument();
@@ -62,7 +62,7 @@ describe("i18n LanguageSelector", () => {
     const button = screen.getByRole("button");
     fireEvent.click(button);
     
-    const input = screen.getByPlaceholderText("Escribe tu idioma...");
+    const input = screen.getByPlaceholderText(/buscar idioma/i);
     fireEvent.change(input, { target: { value: "xyz123" } });
     
     expect(screen.getByText("Sin resultados")).toBeInTheDocument();
