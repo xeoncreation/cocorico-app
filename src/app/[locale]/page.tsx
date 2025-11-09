@@ -11,13 +11,12 @@ export default async function LocaleHomePage({
 }: {
   params: { locale: string };
 }) {
-  // Protección: si faltan claves i18n no romper la home (evita 500 en primeras cargas)
-  let t: any = (k: string) => k;
-  try {
-    t = await getTranslations({ locale });
-  } catch (err) {
-    console.warn("[home] Faltan traducciones para locale", locale, err);
-  }
+  // Seguro: siempre obtener traducciones o usar fallback
+  const t = await getTranslations({ locale }).catch((err) => {
+    console.error("[home] Error loading translations for", locale, err);
+    // Fallback simple que retorna la key
+    return (key: string) => key;
+  });
 
   return (
     <main className="flex flex-col items-center justify-center min-h-[90vh] text-center p-6 bg-gradient-to-b from-cocorico-yellow/20 via-white to-cocorico-orange/5 dark:from-neutral-900 dark:via-neutral-800 dark:to-neutral-900 relative">

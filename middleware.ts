@@ -17,34 +17,38 @@ function withSecurityHeaders(res: NextResponse, isDev = process.env.NODE_ENV !==
   res.headers.set("Strict-Transport-Security", "max-age=63072000; includeSubDomains; preload");
 
   // Content Security Policy (relajado en dev, más estricto en prod)
+  // NOTA: Next.js requiere 'unsafe-inline' para scripts y estilos inline incluso en producción.
+  // Para CSP estricto futuro, usar nonces/hashes generados por Next.js.
   const csp = [
     "default-src 'self'",
-    // Next.js dev features y Umami
-    `script-src 'self' https://cloud.umami.is ${isDev ? "'unsafe-eval' 'unsafe-inline'" : ""}`.trim(),
-    // Permitir estilos inline generados por Tailwind/Next
+    // Next.js runtime scripts + Umami (mantener unsafe-inline por compatibilidad)
+    `script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cloud.umami.is`,
+    // Estilos inline generados por Tailwind/Next
     "style-src 'self' 'unsafe-inline'",
-    // Cargas de imágenes locales y datos embebidos
+    // Imágenes locales, data URIs y blobs
     "img-src 'self' data: blob:",
-    // Conexiones a APIs externas: Supabase (*.supabase.co), Umami, OpenAI, Replicate, Stripe, WebSocket dev
+    // Conexiones a APIs externas: Supabase, Umami, OpenAI, Replicate, Stripe
     `connect-src 'self' https://*.supabase.co https://cloud.umami.is https://api.openai.com https://api.replicate.com https://api.stripe.com ${isDev ? "ws: wss:" : ""}`.trim(),
     // Fuentes locales y data URIs
     "font-src 'self' data:",
     // Evitar incrustaciones no deseadas
     "frame-ancestors 'none'",
-    // Permitir media locales
+    // Media locales y blobs
     "media-src 'self' blob:",
     // Workers y blobs
     "worker-src 'self' blob:",
-    // Formularios solo a self (Stripe checkout embebido si se usa iframes se gestiona aparte)
+    // Formularios solo a self y Stripe
     "form-action 'self' https://checkout.stripe.com"
   ].join("; ");
   res.headers.set("Content-Security-Policy", csp);
-  // COEP/COOP/CORP may break some dev tooling; scope to production
-  if (!isDev) {
-    res.headers.set("Cross-Origin-Embedder-Policy", "require-corp");
-    res.headers.set("Cross-Origin-Opener-Policy", "same-origin");
-    res.headers.set("Cross-Origin-Resource-Policy", "same-origin");
-  }
+  
+  // COEP/COOP/CORP deshabilitados por ahora - pueden bloquear recursos externos
+  // Activar sólo cuando todos los recursos estén correctamente configurados con CORS
+  // if (!isDev) {
+  //   res.headers.set("Cross-Origin-Embedder-Policy", "require-corp");
+  //   res.headers.set("Cross-Origin-Opener-Policy", "same-origin");
+  //   res.headers.set("Cross-Origin-Resource-Policy", "same-origin");
+  // }
   return res;
 }
 
