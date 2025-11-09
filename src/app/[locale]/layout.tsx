@@ -5,6 +5,7 @@ import MotionWrapper from "@/components/MotionWrapper";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { Toaster } from "sonner";
 import { Suspense } from "react";
+import OnboardingModal from "@/components/OnboardingModal";
 import AuthButton from "@/components/AuthButton";
 import PushNotificationPrompt from "@/components/PushNotificationPrompt";
 import MobileNav from "@/components/MobileNav";
@@ -53,7 +54,7 @@ export default async function LocaleLayout({
                   👥 Comunidad
                 </Link>
                 <Link 
-                  href={`/${locale}/dashboard/challenges`} 
+                  href="/dashboard/challenges" 
                   className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium text-cocorico-brown dark:text-neutral-200 hover:bg-cocorico-yellow/20 dark:hover:bg-neutral-700 transition"
                 >
                   🏆 Retos
@@ -149,6 +150,7 @@ export default async function LocaleLayout({
         </footer>
         <Toaster position="bottom-center" richColors />
         <PushNotificationPrompt />
+        <OnboardingModal onComplete={() => { /* opcional: callback */ }} />
         <MobileNav />
       </div>
     </NextIntlClientProvider>

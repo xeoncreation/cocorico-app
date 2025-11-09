@@ -68,6 +68,7 @@ export default function FeedbackPage() {
           <div>
             <label className="block text-sm font-medium mb-2">Tipo de feedback</label>
             <select
+              aria-label="Tipo de feedback"
               value={feedback.type}
               onChange={(e) => setFeedback({ ...feedback, type: e.target.value })}
               className="w-full px-4 py-3 border rounded-lg dark:bg-gray-800 dark:border-gray-700 focus:ring-2 focus:ring-[#e43f30] outline-none"
@@ -84,6 +85,7 @@ export default function FeedbackPage() {
           <div>
             <label className="block text-sm font-medium mb-2">Prioridad (opcional)</label>
             <select
+              aria-label="Prioridad del feedback"
               value={feedback.priority}
               onChange={(e) => setFeedback({ ...feedback, priority: e.target.value })}
               className="w-full px-4 py-3 border rounded-lg dark:bg-gray-800 dark:border-gray-700 focus:ring-2 focus:ring-[#e43f30] outline-none"

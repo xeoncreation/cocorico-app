@@ -76,6 +76,14 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="es" suppressHydrationWarning>
+      <head>
+        {/* Umami Analytics */}
+        <script
+          defer
+          src="https://cloud.umami.is/script.js"
+          data-website-id="0ff906b7-1420-4f27-ae6f-324727d42846"
+        />
+      </head>
       <body className="min-h-screen font-sans antialiased">
         <ThemeProvider>
           <ToastProvider>
