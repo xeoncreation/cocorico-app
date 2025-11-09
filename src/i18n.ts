@@ -1,12 +1,15 @@
 import {getRequestConfig} from "next-intl/server";
 
 export default getRequestConfig(async ({locale}) => {
-  const loc = locale || "es";
+  // Validar locale soportado
+  const supported = ['es', 'en'] as const;
+  const safeLocale = (supported as readonly string[]).includes(locale as any) ? locale : "es";
+  
   try {
-    const messages = (await import(`./messages/${loc}.json`)).default;
-    return {locale: loc, messages};
+    const messages = (await import(`./messages/${safeLocale}.json`)).default;
+    return {locale: safeLocale, messages};
   } catch (e) {
-    // Fallback: load Spanish as default if locale file missing
+    console.error(`[i18n] Failed to load messages for locale: ${safeLocale}`, e);
     const messages = (await import("./messages/es.json")).default;
     return {locale: "es", messages};
   }

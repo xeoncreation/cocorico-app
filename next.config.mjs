@@ -1,9 +1,8 @@
 import createNextIntlPlugin from 'next-intl/plugin';
 import withPWAInit from 'next-pwa';
 
-// Hook up next-intl so server APIs like getMessages/getTranslations can find the i18n request config.
-// See: https://next-intl.dev/docs/usage/configuration#nextjs-plugin
-const withNextIntl = createNextIntlPlugin('./src/i18n/request.ts');
+// Hook up next-intl - usar el archivo de la raíz que hace re-export
+const withNextIntl = createNextIntlPlugin('./i18n/request.ts');
 
 // Configure PWA
 const withPWA = withPWAInit({
@@ -35,12 +34,14 @@ const nextConfig = {
       // HSTS meaningful on HTTPS; harmless otherwise
       { key: 'Strict-Transport-Security', value: 'max-age=63072000; includeSubDomains; preload' },
     ];
-    const prodOnly = [
-      { key: 'Cross-Origin-Embedder-Policy', value: 'require-corp' },
-      { key: 'Cross-Origin-Opener-Policy', value: 'same-origin' },
-      { key: 'Cross-Origin-Resource-Policy', value: 'same-origin' },
-    ];
-    const headers = process.env.NODE_ENV === 'production' ? [...base, ...prodOnly] : base;
+    // COEP/COOP/CORP disabled - blocking external resources in Vercel
+    // const prodOnly = [
+    //   { key: 'Cross-Origin-Embedder-Policy', value: 'require-corp' },
+    //   { key: 'Cross-Origin-Opener-Policy', value: 'same-origin' },
+    //   { key: 'Cross-Origin-Resource-Policy', value: 'same-origin' },
+    // ];
+    // const headers = process.env.NODE_ENV === 'production' ? [...base, ...prodOnly] : base;
+    const headers = base;
     return [
       {
         // Apply broadly; Next may still override for internal assets
