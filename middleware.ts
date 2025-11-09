@@ -25,8 +25,8 @@ function withSecurityHeaders(res: NextResponse, isDev = process.env.NODE_ENV !==
     "style-src 'self' 'unsafe-inline'",
     // Cargas de imágenes locales y datos embebidos
     "img-src 'self' data: blob:",
-    // Conexiones a APIs externas (Supabase, Umami, etc.). Añade aquí si faltan dominios.
-    "connect-src 'self' https: ws:",
+    // Conexiones a APIs externas: Supabase (*.supabase.co), Umami, OpenAI, Replicate, Stripe, WebSocket dev
+    `connect-src 'self' https://*.supabase.co https://cloud.umami.is https://api.openai.com https://api.replicate.com https://api.stripe.com ${isDev ? "ws: wss:" : ""}`.trim(),
     // Fuentes locales y data URIs
     "font-src 'self' data:",
     // Evitar incrustaciones no deseadas
@@ -34,7 +34,9 @@ function withSecurityHeaders(res: NextResponse, isDev = process.env.NODE_ENV !==
     // Permitir media locales
     "media-src 'self' blob:",
     // Workers y blobs
-    "worker-src 'self' blob:"
+    "worker-src 'self' blob:",
+    // Formularios solo a self (Stripe checkout embebido si se usa iframes se gestiona aparte)
+    "form-action 'self' https://checkout.stripe.com"
   ].join("; ");
   res.headers.set("Content-Security-Policy", csp);
   // COEP/COOP/CORP may break some dev tooling; scope to production

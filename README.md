@@ -65,6 +65,9 @@ NEXT_PUBLIC_STRIPE_PRICE_ID_MONTHLY=price_xxx
 ✅ **Multilingual** (Español/Inglés) con selector de idioma buscable  
 ✅ **Importación** de recetas desde URL o foto  
 ✅ **Diseño responsive** con Tailwind y componentes shadcn/ui  
+✅ **Analytics** con Umami integrado para seguimiento de uso  
+✅ **Onboarding interactivo** para nuevos usuarios en home localizada  
+✅ **Seguridad reforzada** con CSP y headers de seguridad en middleware  
 
 ---
 
@@ -135,6 +138,39 @@ La app soporta **Español** y **English**. Los mensajes están en:
 - `src/messages/en.json`
 
 El selector de idioma permite buscar por nombre (ej: "español", "english").
+
+---
+
+## 📊 Analytics & Onboarding
+
+### Umami Analytics
+
+Cocorico integra **Umami** para seguimiento de uso respetuoso con la privacidad:
+
+- Script cargado en el `<head>` del layout global (`src/app/layout.tsx`)
+- ID del sitio: `0ff906b7-1420-4f27-ae6f-324727d42846`
+- Configuración: variables de entorno `NEXT_PUBLIC_UMAMI_WEBSITE_ID` (opcional si quieres cambiarlo)
+- Eventos personalizados en `src/components/UmamiAnalytics.tsx`
+
+### Onboarding Modal
+
+Nuevo modal interactivo de bienvenida aparece en primera visita a `/es` o `/en`:
+
+- Componente: `src/components/OnboardingModal.tsx`
+- Se carga dinámicamente (client-side) para evitar conflictos de SSR
+- Almacena flag `onboarding_completed` en localStorage
+- 4 pasos: bienvenida, crear receta, escáner, retos diarios
+- Tests: `tests/unit/OnboardingModal.test.tsx` y `tests/e2e/home-onboarding.spec.ts`
+
+### Content Security Policy (CSP)
+
+El middleware (`middleware.ts`) incluye CSP estricto para producción y relajado en dev:
+
+- Permite scripts de `https://cloud.umami.is`
+- Conexiones a Supabase (`*.supabase.co`), OpenAI, Replicate, Stripe
+- WebSockets para hot-reload en desarrollo
+- `frame-ancestors 'none'` para prevenir clickjacking
+- CSP deshabilitado temporalmente en dev para debugging; se activa en producción
 
 ---
 
