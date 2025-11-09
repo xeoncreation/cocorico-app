@@ -5,7 +5,6 @@ import MotionWrapper from "@/components/MotionWrapper";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { Toaster } from "sonner";
 import { Suspense } from "react";
-import OnboardingModal from "@/components/OnboardingModal";
 import AuthButton from "@/components/AuthButton";
 import PushNotificationPrompt from "@/components/PushNotificationPrompt";
 import MobileNav from "@/components/MobileNav";
@@ -150,7 +149,6 @@ export default async function LocaleLayout({
         </footer>
         <Toaster position="bottom-center" richColors />
         <PushNotificationPrompt />
-        <OnboardingModal onComplete={() => { /* opcional: callback */ }} />
         <MobileNav />
       </div>
     </NextIntlClientProvider>

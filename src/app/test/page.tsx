@@ -3,6 +3,9 @@
 import AuthButton from "@/components/AuthButton";
 import TestMessages from "@/components/TestMessages";
 
+// Force dynamic rendering (uses Supabase client)
+export const dynamic = "force-dynamic";
+
 export default function TestPage() {
   return (
     <div className="min-h-screen bg-zinc-50 dark:bg-black py-8">
