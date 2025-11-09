@@ -46,5 +46,37 @@
   "chat": {
     "title": "Chat con Cocorico",
     "subtitle": "Pregúntame sobre recetas, ingredientes, nutrición o cualquier duda de cocina"
+  },
+  "auth": {
+    "login": "Iniciar sesión",
+    "logout": "Salir",
+    "emailPlaceholder": "Tu email",
+    "sendLink": "Enviar enlace",
+    "magiclink": {
+      "sent": "Te enviamos un email con el enlace de acceso. Revísalo y vuelve aquí 👌",
+      "error": "No se pudo enviar el enlace: {message}"
+    },
+    "welcome": {
+      "title": "¡Bienvenido a Cocorico!",
+      "body": "Gracias por registrarte. Ya puedes empezar a crear recetas, chatear con la IA y unirte a la comunidad."
+    }
+  },
+  "emails": {
+    "welcome": {
+      "subject": "¡Bienvenido a Cocorico!",
+      "body": "Hola {name},\n\nGracias por unirte a Cocorico 🐓. Aquí tienes algunos pasos para empezar:\n1) Crea tu primera receta\n2) Explora la comunidad\n3) Completa un reto diario\n\n¡A cocinar!"
+    },
+    "verify": {
+      "subject": "Verifica tu correo",
+      "body": "Hola, haz clic en el enlace para verificar tu correo y acceder a Cocorico."
+    },
+    "reset": {
+      "subject": "Restablece tu contraseña",
+      "body": "Hola, haz clic en el enlace para restablecer tu contraseña."
+    }
+  },
+  "common": {
+    "cancel": "Cancelar",
+    "sending": "Enviando..."
   }
 }

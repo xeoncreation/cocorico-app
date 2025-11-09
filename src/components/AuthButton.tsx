@@ -2,8 +2,10 @@
 import { supabase } from "@/app/lib/supabase-client";
 import { Session } from "@supabase/supabase-js";
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 
 export default function AuthButton() {
+  const t = useTranslations();
   const [session, setSession] = useState<Session | null>(null);
   const [showEmailInput, setShowEmailInput] = useState(false);
   const [email, setEmail] = useState("");
@@ -38,9 +40,9 @@ export default function AuthButton() {
 
     setLoading(false);
     if (error) {
-      setMessage({ text: error.message, type: 'error' });
+      setMessage({ text: t('auth.magiclink.error', { message: error.message }), type: 'error' });
     } else {
-      setMessage({ text: "Te enviamos un email con el enlace de acceso. Revísalo y vuelve aquí 👌", type: 'success' });
+      setMessage({ text: t('auth.magiclink.sent'), type: 'success' });
       setShowEmailInput(false);
       setEmail("");
     }
@@ -59,7 +61,7 @@ export default function AuthButton() {
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="Tu email"
+              placeholder={t('auth.emailPlaceholder')}
               required
               className="px-3 py-2 border-2 border-cocorico-yellow/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-cocorico-red focus:border-cocorico-red"
               disabled={loading}
@@ -70,7 +72,7 @@ export default function AuthButton() {
                 disabled={loading}
                 className="px-4 py-2 rounded-lg bg-cocorico-red text-white hover:bg-cocorico-orange transition disabled:opacity-50 font-semibold"
               >
-                {loading ? "Enviando..." : "Enviar enlace"}
+                {loading ? t('common.sending') : t('auth.sendLink')}
               </button>
               <button 
                 type="button"
@@ -81,7 +83,7 @@ export default function AuthButton() {
                 }}
                 className="px-4 py-2 rounded-lg border-2 border-cocorico-brown text-cocorico-brown hover:bg-cocorico-yellow/20 transition"
               >
-                Cancelar
+                {t('common.cancel')}
               </button>
             </div>
           </form>
@@ -102,21 +104,19 @@ export default function AuthButton() {
         onClick={() => setShowEmailInput(true)} 
         className="px-4 py-2 rounded-lg bg-cocorico-yellow text-cocorico-red hover:bg-cocorico-orange/90 transition font-semibold text-sm"
       >
-        🔑 Iniciar sesión
+  🔑 {t('auth.login')}
       </button>
     );
   }
 
   return (
     <div className="flex items-center gap-2">
-      <span className="text-xs text-cocorico-brown hidden md:inline font-medium">
-        ✓ {session.user.email}
-      </span>
+      <span className="text-xs text-cocorico-brown hidden md:inline font-medium">✓ {session.user.email}</span>
       <button 
         onClick={signOut} 
         className="px-3 py-1.5 rounded-lg bg-cocorico-red text-white hover:bg-cocorico-orange transition text-xs font-semibold"
       >
-        Salir
+  {t('auth.logout')}
       </button>
     </div>
   );

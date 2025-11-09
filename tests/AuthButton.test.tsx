@@ -3,6 +3,22 @@ import '@testing-library/jest-dom';
 import AuthButton from '../src/components/AuthButton';
 import { supabase } from '@/app/lib/supabase-client';
 
+// Mock next-intl to avoid ESM import issues and provide stable strings
+jest.mock('next-intl', () => ({
+  useTranslations: () => (key: string) => {
+    const map: Record<string, string> = {
+      'auth.login': 'Iniciar sesión',
+      'auth.emailPlaceholder': 'Tu email',
+      'auth.sendLink': 'Enviar enlace',
+      'common.sending': 'Enviando...',
+      'common.cancel': 'Cancelar',
+      'auth.logout': 'Salir',
+      'auth.magiclink.sent': 'Te enviamos un email con el enlace de acceso. Revísalo y vuelve aquí 👌'
+    };
+    return map[key] || key;
+  }
+}));
+
 // Mock supabase client
 jest.mock('@/app/lib/supabase-client', () => ({
   supabase: {
