@@ -22,6 +22,70 @@ CSS variables in `styles/globals.css`:
 
 Set programmatically using `useTheme(userId)` from `src/lib/useTheme.tsx` or a future session hook.
 
+### Edge Function: `get_theme`
+
+Endpoint that returns the correct visual asset for a page given a `plan` (free|premium).
+
+Deployment:
+```
+supabase functions deploy get_theme --no-verify-jwt
+```
+
+Request (POST):
+```
+curl -X POST \
+	-H 'Content-Type: application/json' \
+	-d '{"page":"home","plan":"premium"}' \
+	https://<PROJECT>.supabase.co/functions/v1/get_theme
+```
+
+Response example:
+```json
+{
+	"ok": true,
+	"page": "home",
+	"plan": "premium",
+	"asset": "https://.../assets/premium/home_glass.mp4",
+	"fallback": "https://.../assets/free/home.gif"
+}
+```
+
+### Frontend Client Helper
+
+`src/lib/themeClient.ts` exposes `getThemeAsset(page, plan?)`:
+
+Features:
+- 60s in-memory cache (per `page:plan` key)
+- Automatic fallback to free asset if premium fails
+- Accepts optional AbortSignal
+
+Usage:
+```ts
+import { getThemeAsset } from '@/lib/themeClient';
+
+const asset = await getThemeAsset('home'); // plan auto-detected from data-theme
+```
+
+Integrated in `HomeHero.tsx` to load the proper video/image.
+
+### Table: `page_assets`
+
+Simplified schema after migration:
+```sql
+id uuid primary key
+page text unique not null
+asset_free text
+asset_premium text
+created_at timestamptz
+updated_at timestamptz
+```
+
+Migration script: `supabase/sql/migrations/2025-11-11-consolidate-page-assets.sql` consolidates legacy rows.
+
+### Admin Refresh
+
+Dispatch `triggerThemeRefresh()` after plan change in admin UI to refetch user plan and update `data-theme`.
+
 ## Scripts
 
 | Script | Purpose |
@@ -59,6 +123,8 @@ LOG_LEVEL=debug
 - Export users: `SUPABASE_SERVICE_ROLE=... npx ts-node scripts/export-users.ts`
 - Check health: `curl http://127.0.0.1:3000/health`
 - Theme verification: set `document.documentElement.dataset.theme = 'premium'` in dev tools.
+- Test edge function: `curl https://<PROJECT>.supabase.co/functions/v1/get_theme?page=home&plan=premium`
+- Client asset fetch: `await getThemeAsset('home')`
 
 ## Future Enhancements
 

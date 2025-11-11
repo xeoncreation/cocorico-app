@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getAssetsMap } from '@/lib/getAssetsMap';
+import { getThemeAsset } from '@/lib/themeClient';
 
 export default function HomeHero() {
   const [url, setUrl] = useState<string | null>(null);
@@ -7,8 +7,8 @@ export default function HomeHero() {
   useEffect(() => {
     (async () => {
       try {
-        const map = await getAssetsMap();
-        setUrl(map.get('home') || null);
+        const asset = await getThemeAsset('home');
+        setUrl(asset);
       } catch (err) {
         console.warn('HomeHero assets error:', err);
       }
