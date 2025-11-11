@@ -23,8 +23,7 @@ export default async function LocaleHomePage({
 
   return (
     <main className="flex flex-col items-center justify-center min-h-[90vh] text-center p-6 bg-gradient-to-b from-cocorico-yellow/20 via-white to-cocorico-orange/5 dark:from-neutral-900 dark:via-neutral-800 dark:to-neutral-900 relative">
-      {/* Onboarding temporal deshabilitado para debug en Vercel */}
-      {/* <OnboardingModal /> */}
+      <OnboardingModal />
       <Reveal>
         <Image
           src="/branding/cocorico-mascot-anim-optimized.gif"

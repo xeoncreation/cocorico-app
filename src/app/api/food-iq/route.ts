@@ -1,35 +1,37 @@
 import { NextResponse } from "next/server";
-import { createClient } from "@supabase/supabase-js";
-
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+import { supabaseServer } from "@/lib/supabase-client";
 
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
-  const name = searchParams.get("name");
-
+  const name = searchParams.get("name")?.trim();
+  
   if (!name) {
-    return NextResponse.json({ error: "name parameter required" }, { status: 400 });
+    return NextResponse.json({ error: "name required" }, { status: 400 });
   }
 
-  if (!supabaseUrl || !supabaseKey) {
-    return NextResponse.json({ error: "Supabase not configured" }, { status: 500 });
+  if (!supabaseServer) {
+    return NextResponse.json(
+      { error: "Supabase not configured. Check NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY." },
+      { status: 500 }
+    );
   }
 
   try {
-    const supabase = createClient(supabaseUrl, supabaseKey);
-
-    // Buscar por common_name (case-insensitive) o aliases
-    const { data, error } = await supabase
+    // Busca por nombre o alias (case-insensitive)
+    const { data, error } = await supabaseServer
       .from("food_iq")
       .select("*")
-      .or(`common_name.ilike.%${name}%,aliases.cs.{${name}}`);
+      .or(`common_name.ilike.%${name}%,aliases.cs.{${name}}`)
+      .limit(5);
 
-    if (error) throw error;
+    if (error) {
+      console.error("Food-IQ query error:", error);
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    }
 
     return NextResponse.json({ items: data || [] });
   } catch (e: any) {
-    console.error("Food-IQ query error:", e);
+    console.error("Food-IQ unexpected error:", e);
     return NextResponse.json({ error: "Query failed", detail: e.message }, { status: 500 });
   }
 }

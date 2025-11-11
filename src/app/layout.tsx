@@ -1,5 +1,6 @@
 
 import "./globals.css";
+import "../../styles/globals.css";
 import { GlobalErrorHandler } from "./error-handler";
 import PageTransition from "@/components/ui/PageTransition";
 import Navbar from "@/components/Navbar";

@@ -1,10 +1,11 @@
 "use client";
 import { createContext, useContext, useEffect, useState } from "react";
+import { useTheme as usePlanTheme } from "@/lib/useTheme"; // plan-based theme (free/premium)
 
 type Theme = "light" | "dark";
 const ThemeCtx = createContext<{ theme: Theme; toggle: () => void } | null>(null);
 
-export function ThemeProvider({ children }: { children: React.ReactNode }) {
+export function ThemeProvider({ children, userId }: { children: React.ReactNode; userId?: string }) {
   const [theme, setTheme] = useState<Theme>("light");
 
   useEffect(() => {
@@ -20,6 +21,9 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     else root.classList.remove("dark");
     localStorage.setItem("cocorico-theme", theme);
   }, [theme]);
+
+  // Apply plan-based theme variables (data-theme="free" | "premium")
+  usePlanTheme(userId);
 
   return (
     <ThemeCtx.Provider value={{ theme, toggle: () => setTheme(t => (t === "dark" ? "light" : "dark")) }}>

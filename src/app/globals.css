@@ -32,6 +32,31 @@
     max-width: 100%;
     height: auto;
   }
+
+  /* Theme tokens (dynamic by data-theme). Adjusted to avoid duplication. */
+  :root[data-theme="free"] {
+    --color-primary: #FF6B35;
+    --color-secondary: #31C48D;
+    --color-accent: #8A5CF6;
+    --color-bg: #FFFFFF;
+    --color-surface: #F7F7F7;
+    --color-text: #0F172A;
+    --blur: 0px;
+    --motion: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  :root[data-theme="premium"] {
+    --color-primary: #2EC4B6;
+    --color-secondary: #FFD166;
+    --color-accent: #F9FAFB;
+    --color-bg: rgba(255,255,255,0.06);
+    --color-surface: rgba(255,255,255,0.12);
+    --color-text: #E5E7EB;
+    --blur: 16px;
+    --motion: cubic-bezier(0.25, 0.1, 0.25, 1);
+    backdrop-filter: blur(var(--blur));
+  }
+
+  html, body, #__next { background: var(--color-bg); color: var(--color-text); }
 }
 
 @layer utilities {

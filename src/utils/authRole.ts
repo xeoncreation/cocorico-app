@@ -1,4 +1,5 @@
 import { supabaseServer } from "@/lib/supabase-client";
+// Updated to use user_profiles table instead of legacy user_roles
 
 /**
  * Verifica si un usuario tiene rol de administrador
@@ -7,13 +8,11 @@ import { supabaseServer } from "@/lib/supabase-client";
  */
 export async function isAdmin(userId: string): Promise<boolean> {
   if (!supabaseServer) return false;
-
   const { data } = await (supabaseServer as any)
-    .from("user_roles")
+    .from("user_profiles")
     .select("role")
     .eq("user_id", userId)
     .maybeSingle();
-
   return data?.role === "admin";
 }
 
@@ -24,12 +23,10 @@ export async function isAdmin(userId: string): Promise<boolean> {
  */
 export async function getUserRole(userId: string): Promise<string | null> {
   if (!supabaseServer) return null;
-
   const { data } = await (supabaseServer as any)
-    .from("user_roles")
+    .from("user_profiles")
     .select("role")
     .eq("user_id", userId)
     .maybeSingle();
-
   return data?.role || null;
 }

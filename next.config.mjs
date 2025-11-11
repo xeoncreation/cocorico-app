@@ -1,18 +1,15 @@
 import createNextIntlPlugin from 'next-intl/plugin';
 import withPWAInit from 'next-pwa';
 
-// Hook up next-intl - usar el archivo de la raíz que hace re-export
-const withNextIntl = createNextIntlPlugin('./i18n/request.ts');
+// Feature flags via env to aid troubleshooting without renaming config files
+const DISABLE_PWA = String(process.env.DISABLE_PWA || '').toLowerCase();
+const DISABLE_INTL = String(process.env.DISABLE_INTL || '').toLowerCase();
+const MINIMAL_NEXT_CONFIG = String(process.env.MINIMAL_NEXT_CONFIG || '').toLowerCase();
+const isTrue = (v) => v === '1' || v === 'true' || v === 'yes';
 
-// Configure PWA
-const withPWA = withPWAInit({
-  dest: 'public',
-  disable: process.env.NODE_ENV === 'development',
-  register: true,
-  skipWaiting: true,
-  runtimeCaching: [],
-  buildExcludes: [/middleware-manifest\.json$/],
-});
+const disablePWA = isTrue(DISABLE_PWA);
+const disableIntl = isTrue(DISABLE_INTL);
+const minimal = isTrue(MINIMAL_NEXT_CONFIG);
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -52,4 +49,25 @@ const nextConfig = {
   },
 };
 
-export default withPWA(withNextIntl(nextConfig));
+// Compose plugins conditionally based on flags
+let finalConfig = nextConfig;
+
+if (!minimal) {
+  if (!disableIntl) {
+    const withNextIntl = createNextIntlPlugin('./i18n/request.ts');
+    finalConfig = withNextIntl(finalConfig);
+  }
+  if (!disablePWA) {
+    const withPWA = withPWAInit({
+      dest: 'public',
+      disable: process.env.NODE_ENV === 'development',
+      register: true,
+      skipWaiting: true,
+      runtimeCaching: [],
+      buildExcludes: [/middleware-manifest\.json$/],
+    });
+    finalConfig = withPWA(finalConfig);
+  }
+}
+
+export default finalConfig;

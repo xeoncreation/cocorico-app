@@ -55,6 +55,16 @@ function withSecurityHeaders(res: NextResponse, isDev = process.env.NODE_ENV !==
 export default function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
   
+  // Admin protection (pages and API)
+  if (pathname.startsWith('/api/admin') || pathname.startsWith('/admin')) {
+    const secret = request.headers.get('x-admin-secret') ?? request.cookies.get('admin_secret')?.value;
+    if (!secret || secret !== process.env.ADMIN_SECRET) {
+      return new NextResponse('Unauthorized', { status: 401 });
+    }
+    // Continue to route handler or page
+    return NextResponse.next();
+  }
+  
   // Rutas públicas que no requieren contraseña
   const publicPaths = [
     '/access',
@@ -115,6 +125,10 @@ export default function middleware(request: NextRequest) {
 }
 
 export const config = {
-  // Excluye API, assets, _next, archivos con extensión y health
-  matcher: ["/((?!api|_next|static|health|.*\\..*).*)"],
+  // Apply to localized pages plus explicitly to admin routes (API + pages)
+  matcher: [
+    "/api/admin/:path*",
+    "/admin/:path*",
+    "/((?!api|_next|static|health|.*\\..*).*)",
+  ],
 };
