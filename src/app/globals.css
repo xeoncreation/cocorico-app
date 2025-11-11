@@ -53,6 +53,7 @@
     --color-text: #E5E7EB;
     --blur: 16px;
     --motion: cubic-bezier(0.25, 0.1, 0.25, 1);
+    -webkit-backdrop-filter: blur(var(--blur));
     backdrop-filter: blur(var(--blur));
   }
 

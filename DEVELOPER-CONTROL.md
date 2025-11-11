@@ -34,19 +34,19 @@ supabase functions deploy get_theme --no-verify-jwt
 Request (POST):
 ```
 curl -X POST \
-	-H 'Content-Type: application/json' \
-	-d '{"page":"home","plan":"premium"}' \
-	https://<PROJECT>.supabase.co/functions/v1/get_theme
+  -H 'Content-Type: application/json' \
+  -d '{"page":"home","plan":"premium"}' \
+  https://<PROJECT>.supabase.co/functions/v1/get_theme
 ```
 
 Response example:
 ```json
 {
-	"ok": true,
-	"page": "home",
-	"plan": "premium",
-	"asset": "https://.../assets/premium/home_glass.mp4",
-	"fallback": "https://.../assets/free/home.gif"
+  "ok": true,
+  "page": "home",
+  "plan": "premium",
+  "asset": "https://.../assets/premium/home_glass.mp4",
+  "fallback": "https://.../assets/free/home.gif"
 }
 ```
 

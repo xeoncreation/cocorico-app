@@ -1,37 +1,56 @@
-// @ts-nocheck
-// Edge Function: get_theme
-// Deploy with: supabase functions deploy get_theme --no-verify-jwt
-// Remember to set SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY as function env vars (never expose service key in client)
-import { serve } from "https://deno.land/std@0.224.0/http/server.ts";
+// supabase/functions/get_theme/index.ts
+// Returns asset URLs for a page based on user plan
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
-serve(async (req) => {
+Deno.serve(async (req) => {
   try {
-    const { user_id } = await req.json();
-    if (!user_id) throw new Error('user_id required');
+    // 1) Parse input
+    let page = "home";
+    let plan = "free"; // default plan
 
-    const supabase = createClient(
-      Deno.env.get("SUPABASE_URL")!,
-      Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!
+    if (req.method === "GET") {
+      const url = new URL(req.url);
+      page = url.searchParams.get("page") ?? "home";
+      plan = url.searchParams.get("plan") ?? "free";
+    } else if (req.method === "POST") {
+      const data = await req.json().catch(() => ({}));
+      page = data?.page ?? "home";
+      plan = data?.plan ?? "free";
+    }
+
+    // 2) Supabase client with SERVICE ROLE
+    const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
+    const serviceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
+    const sb = createClient(supabaseUrl, serviceKey);
+
+    // 3) Query page_assets for the requested page
+    const { data, error } = await sb
+      .from("page_assets")
+      .select("page, asset_free, asset_premium")
+      .eq("page", page)
+      .maybeSingle();
+
+    if (error) {
+      throw new Error(error.message);
+    }
+
+    // 4) Return appropriate asset based on plan
+    const asset = plan === "premium" ? data?.asset_premium : data?.asset_free;
+
+    return new Response(
+      JSON.stringify({ 
+        ok: true, 
+        page,
+        plan,
+        asset: asset || null,
+        fallback: data?.asset_free || null
+      }),
+      { headers: { "Content-Type": "application/json" }, status: 200 },
     );
-
-    const { data: profile, error: e1 } = await supabase
-      .from("user_profiles")
-      .select("plan")
-      .eq("user_id", user_id)
-      .maybeSingle();
-    if (e1) throw e1;
-    const plan = profile?.plan || 'free';
-
-    const { data: theme, error: e2 } = await supabase
-      .from("visual_themes")
-      .select("*")
-      .eq("plan", plan)
-      .maybeSingle();
-    if (e2) throw e2;
-
-    return new Response(JSON.stringify(theme || { plan }), { headers: { "Content-Type": "application/json" } });
-  } catch (err) {
-    return new Response(JSON.stringify({ error: String(err) }), { status: 400 });
+  } catch (e) {
+    return new Response(
+      JSON.stringify({ ok: false, error: String(e) }),
+      { headers: { "Content-Type": "application/json" }, status: 500 },
+    );
   }
 });

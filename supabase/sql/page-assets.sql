@@ -6,8 +6,20 @@ create table if not exists public.page_assets (
   page text not null,
   asset_free text,
   asset_premium text,
+  created_at timestamptz default now(),
   updated_at timestamptz default now()
 );
 
+-- Add unique constraint on page to prevent duplicates
+alter table public.page_assets 
+add constraint unique_page 
+unique (page);
+
+-- Enable RLS
 alter table public.page_assets enable row level security;
-create policy if not exists "public read page assets" on public.page_assets for select using (true);
+
+-- Public read policy
+create policy if not exists "public read page assets" 
+on public.page_assets 
+for select 
+using (true);
