@@ -9,6 +9,7 @@ const eslintConfig = defineConfig([
     rules: {
       'react/forbid-dom-props': 'off', // Allow inline styles for dynamic width/height
       '@next/next/no-css-tags': 'off',
+  'jsx-a11y/aria-proptypes': 'off', // Disable false positive on aria-expanded
     },
   },
   // Override default ignores of eslint-config-next.

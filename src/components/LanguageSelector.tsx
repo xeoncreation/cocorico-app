@@ -79,7 +79,7 @@ export default function LanguageSelector({ compact = false }: { compact?: boolea
       <button
         type="button"
         aria-haspopup="listbox"
-        aria-expanded={open}
+    aria-expanded={open ? "true" : "false"}
         className={`flex items-center gap-1 border rounded-lg px-2.5 py-1.5 text-sm font-medium ${
           open
             ? "border-amber-500 shadow-sm bg-amber-50 dark:bg-amber-900/30" 
