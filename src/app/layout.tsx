@@ -72,12 +72,24 @@ export const metadata = {
 
 export const viewport: Viewport = {
   themeColor: "#FBC531",
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  userScalable: true,
+  viewportFit: "cover",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="es" suppressHydrationWarning>
       <head>
+        {/* iOS Safari specific meta tags */}
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <meta name="apple-mobile-web-app-title" content="Cocorico" />
+        <meta name="format-detection" content="telephone=no" />
+        <link rel="apple-touch-icon" href="/icons/icon-192.png" />
+        
         {/* Umami Analytics */}
         <script
           defer

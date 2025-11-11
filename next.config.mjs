@@ -28,8 +28,8 @@ const nextConfig = {
       { key: 'X-Content-Type-Options', value: 'nosniff' },
       { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
       { key: 'Permissions-Policy', value: 'camera=(), microphone=(), geolocation=()' },
-      // HSTS meaningful on HTTPS; harmless otherwise
-      { key: 'Strict-Transport-Security', value: 'max-age=63072000; includeSubDomains; preload' },
+      // HSTS con tiempo reducido para evitar bloqueos permanentes en iOS
+      { key: 'Strict-Transport-Security', value: 'max-age=31536000' },
     ];
     // COEP/COOP/CORP disabled - blocking external resources in Vercel
     // const prodOnly = [
