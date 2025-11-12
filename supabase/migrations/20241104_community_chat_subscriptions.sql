@@ -5,7 +5,7 @@
 create table if not exists public.posts (
   id bigserial primary key,
   user_id uuid references auth.users(id) on delete cascade,
-  recipe_id bigint references recipes(id),
+  recipe_id uuid references public.recipes(id),
   image_url text,
   caption text,
   visibility text default 'public' check (visibility in ('public','private')),
