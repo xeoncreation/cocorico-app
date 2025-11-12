@@ -16,15 +16,27 @@ create index if not exists idx_beta_invites_token on public.beta_invites(token);
 -- RLS: solo admins pueden ver, crear o borrar invitaciones
 alter table public.beta_invites enable row level security;
 
-create policy "admins manage invites"
-on public.beta_invites
-for all
-using (
-  exists (
-    select 1 from user_roles
-    where user_id = auth.uid() and role = 'admin'
-  )
-);
+drop policy if exists "admins manage invites" on public.beta_invites;
+
+do $$
+begin
+  if exists (
+    select 1 from information_schema.tables
+    where table_schema = 'public' and table_name = 'user_roles'
+  ) then
+    create policy "admins manage invites"
+    on public.beta_invites
+    for all
+    using (
+      exists (
+        select 1 from public.user_roles
+        where user_id = auth.uid() and role = 'admin'
+      )
+    );
+  else
+    raise notice 'Skipping policy admins manage invites: public.user_roles does not exist';
+  end if;
+end $$;
 
 -- Comentarios para documentación
 comment on table public.beta_invites is 'Invitaciones privadas para beta cerrada. Solo admins pueden gestionar.';
