@@ -35,21 +35,30 @@ alter table public.recipe_versions enable row level security;
 alter table public.stats enable row level security;
 
 -- Favorites policies: users can see their own, insert/delete their own
-create policy if not exists favorites_select_self on public.favorites
+drop policy if exists favorites_select_self on public.favorites;
+drop policy if exists favorites_insert_self on public.favorites;
+drop policy if exists favorites_delete_self on public.favorites;
+
+create policy favorites_select_self on public.favorites
   for select using (auth.uid() = user_id);
-create policy if not exists favorites_insert_self on public.favorites
+create policy favorites_insert_self on public.favorites
   for insert with check (auth.uid() = user_id);
-create policy if not exists favorites_delete_self on public.favorites
+create policy favorites_delete_self on public.favorites
   for delete using (auth.uid() = user_id);
 
 -- Recipe versions policies: users can see/insert their own
-create policy if not exists recipe_versions_select_self on public.recipe_versions
+drop policy if exists recipe_versions_select_self on public.recipe_versions;
+drop policy if exists recipe_versions_insert_self on public.recipe_versions;
+
+create policy recipe_versions_select_self on public.recipe_versions
   for select using (auth.uid() = user_id);
-create policy if not exists recipe_versions_insert_self on public.recipe_versions
+create policy recipe_versions_insert_self on public.recipe_versions
   for insert with check (auth.uid() = user_id);
 
 -- Stats policies: allow insert from authenticated users (read optional)
-create policy if not exists stats_insert_any on public.stats
+drop policy if exists stats_insert_any on public.stats;
+
+create policy stats_insert_any on public.stats
   for insert with check (auth.role() = 'authenticated');
 
 -- Optional: allow admins to read stats (adjust as needed)
