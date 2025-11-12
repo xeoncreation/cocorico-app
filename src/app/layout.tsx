@@ -83,12 +83,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="es" suppressHydrationWarning>
       <head>
-        {/* iOS Safari specific meta tags */}
-        <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-        <meta name="apple-mobile-web-app-title" content="Cocorico" />
-        <meta name="format-detection" content="telephone=no" />
-        <link rel="apple-touch-icon" href="/icons/icon-192.png" />
+  {/* iOS Safari specific meta tags */}
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="Cocorico" />
+  <meta name="format-detection" content="telephone=no" />
         
         {/* Umami Analytics */}
         <script

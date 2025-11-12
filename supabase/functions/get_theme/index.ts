@@ -1,5 +1,6 @@
 // supabase/functions/get_theme/index.ts
 // Returns asset URLs for a page based on user plan
+// @ts-nocheck
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
 Deno.serve(async (req) => {

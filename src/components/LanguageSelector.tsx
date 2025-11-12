@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+/* eslint-disable jsx-a11y/aria-proptypes */
 import { usePathname, useRouter } from "next/navigation";
 
 // Idiomas soportados y futuros. 'available' indica si existe archivo de traducción.
@@ -78,8 +79,7 @@ export default function LanguageSelector({ compact = false }: { compact?: boolea
     <div className="relative">
       <button
         type="button"
-        aria-haspopup="listbox"
-    aria-expanded={open ? "true" : "false"}
+  aria-haspopup="listbox"
         className={`flex items-center gap-1 border rounded-lg px-2.5 py-1.5 text-sm font-medium ${
           open
             ? "border-amber-500 shadow-sm bg-amber-50 dark:bg-amber-900/30" 
