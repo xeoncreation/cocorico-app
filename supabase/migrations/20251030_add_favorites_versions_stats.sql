@@ -2,7 +2,7 @@
 create table if not exists public.favorites (
   id bigserial primary key,
   user_id uuid references auth.users(id) on delete cascade,
-  recipe_id bigint references public.recipes(id) on delete cascade,
+  recipe_id uuid references public.recipes(id) on delete cascade,
   created_at timestamptz default now()
 );
 
@@ -13,7 +13,7 @@ create unique index if not exists favorites_user_recipe_unique
 -- Recipe versions table
 create table if not exists public.recipe_versions (
   id bigserial primary key,
-  base_recipe_id bigint references public.recipes(id) on delete cascade,
+  base_recipe_id uuid references public.recipes(id) on delete cascade,
   user_id uuid references auth.users(id) on delete cascade,
   variant_type text,
   content jsonb,
@@ -24,7 +24,7 @@ create table if not exists public.recipe_versions (
 create table if not exists public.stats (
   id bigserial primary key,
   event text,
-  recipe_id bigint,
+  recipe_id uuid,
   metadata jsonb,
   created_at timestamptz default now()
 );
