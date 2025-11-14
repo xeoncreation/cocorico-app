@@ -1,0 +1,40 @@
+# Vercel ignore - archivos que no necesitan subirse al build
+
+# Documentación local
+*.md
+!README.md
+
+# Tests
+tests/
+test-results/
+playwright.*.config.ts
+jest.config.js
+*.test.ts
+*.test.tsx
+*.spec.ts
+*.spec.tsx
+
+# Dev scripts
+scripts/
+dev-output.txt
+server-log.txt
+
+# Supabase local
+supabase/.temp/
+supabase/.branches/
+.git/
+
+# Repo cleanup artifacts
+repo-cleanup/
+
+# Mobile app (separado)
+cocorico-mobile/
+
+# Configs locales
+.env.local
+.env.*.local
+hosts-fix.txt
+
+# Logs
+*.log
+npm-debug.log*
