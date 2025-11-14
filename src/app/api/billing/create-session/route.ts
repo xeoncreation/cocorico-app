@@ -1,6 +1,7 @@
-// @ts-nocheck - Las tablas se crearán al ejecutar la migración SQL
+// @ts-nocheck - user_subscriptions table not yet in Database type; requires migration
+// Tables user_subscriptions and user_billing will be created via future migration
 import Stripe from "stripe";
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { supabaseServer } from "@/app/lib/supabase-server";
 
 export const runtime = "nodejs";

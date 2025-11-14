@@ -1,6 +1,6 @@
-// @ts-nocheck - Las tablas se crearán al ejecutar la migración SQL
+// @ts-nocheck - user_subscriptions and user_roles plan column not yet in Database type; requires migration
 import Stripe from "stripe";
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { supabaseServer } from "@/app/lib/supabase-server";
 
 export const runtime = "nodejs";

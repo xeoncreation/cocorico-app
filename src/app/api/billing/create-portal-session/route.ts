@@ -1,14 +1,15 @@
-// @ts-nocheck - Las tablas se crearán al ejecutar la migración SQL
-import { NextRequest, NextResponse } from 'next/server';
+// @ts-nocheck - user_billing table not yet in Database type; requires migration
+import { NextResponse } from 'next/server';
 import { getStripe } from '@/lib/stripe';
 import { createClient } from '@supabase/supabase-js';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
-export async function POST(req: NextRequest) {
+export async function POST(req: Request) {
   const stripe = getStripe();
   const { userId } = await req.json();
+  
   if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
     return NextResponse.json(
       { error: 'Faltan variables de entorno de Supabase' },

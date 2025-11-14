@@ -1,4 +1,4 @@
-// @ts-nocheck - Las tablas se crearán al ejecutar la migración SQL
+// @ts-nocheck - user_subscriptions and user_roles.plan column not yet in Database type; requires migration
 import { getStripe } from "@/lib/stripe";
 import { headers } from "next/headers";
 import { NextResponse } from "next/server";

@@ -1,4 +1,4 @@
-// @ts-nocheck - Las tablas se crearán al ejecutar la migración SQL
+// @ts-nocheck - posts, post_likes, post_comments tables not yet in Database type; requires migration
 import { supabaseServer } from "@/app/lib/supabase-server";
 import Link from "next/link";
 import Image from "next/image";

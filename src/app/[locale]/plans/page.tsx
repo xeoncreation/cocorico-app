@@ -1,4 +1,4 @@
-// @ts-nocheck - Las tablas se crearán al ejecutar la migración SQL
+// @ts-nocheck - user_subscriptions table not yet in Database type; requires migration
 import Link from "next/link";
 import { supabaseServer } from "@/app/lib/supabase-server";
 

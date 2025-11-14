@@ -1,4 +1,4 @@
-// @ts-nocheck - Las tablas se crearán al ejecutar la migración SQL
+// @ts-nocheck - posts table not yet in Database type; requires migration
 "use client";
 
 import { useState } from "react";
