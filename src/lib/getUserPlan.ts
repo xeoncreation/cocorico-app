@@ -1,4 +1,4 @@
-// @ts-nocheck - user_profiles table not yet in Database type; requires migration
+// @ts-nocheck - profiles.plan column just added, Database type not regenerated yet
 import { redirect } from "next/navigation";
 import { supabaseServer } from "@/app/lib/supabase-server";
 
@@ -12,7 +12,7 @@ export async function requirePremiumOrRedirect() {
   if (!user) redirect("/login");
 
   const { data: profile, error } = await supabase
-    .from("user_profiles")
+    .from("profiles")
     .select("plan")
     .eq("id", user.id)
     .single();
