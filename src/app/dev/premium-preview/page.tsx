@@ -42,6 +42,7 @@ export default async function PremiumPreviewPage() {
           <h2 className="text-xl font-semibold">Efecto Liquid Glass</h2>
           <div className="relative rounded-2xl border border-white/10 bg-white/10 backdrop-blur-xl shadow-lg p-8">
             <p className="text-base">Este bloque usa glassmorphism con backdrop-blur y bordes translúcidos.</p>
+            {/* eslint-disable-next-line @next/next/no-css-tags */}
             <div 
               className="absolute inset-0 pointer-events-none"
               style={{
