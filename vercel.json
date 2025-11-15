@@ -9,7 +9,7 @@
   "trailingSlash": false,
   "env": {
     "NEXT_PUBLIC_SUPABASE_URL": "https://dxhgpjrgvkxudetbmxuw.supabase.co",
-    "NEXT_PUBLIC_APP_URL": "@next_public_app_url",
+    "NEXT_PUBLIC_APP_URL": "https://cocorico-app.vercel.app",
     "OPENAI_API_KEY": "@openai_api_key",
     "REPLICATE_API_TOKEN": "@replicate_api_token",
     "ADMIN_EMAIL": "@admin_email",
