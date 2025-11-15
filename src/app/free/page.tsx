@@ -1,4 +1,4 @@
-import ThemeProvider from "@/components/ThemeProvider";
+import PlanThemeProvider from "@/components/PlanThemeProvider";
 import VisualHero from "@/components/VisualHero";
 import { getAssetsMap } from "@/lib/getAssetsMap";
 import Link from "next/link";
@@ -11,7 +11,7 @@ export default async function FreePage() {
   const hero = assets.get("home");
 
   return (
-    <ThemeProvider theme={theme}>
+    <PlanThemeProvider theme={theme}>
       <main className="max-w-6xl mx-auto px-4 py-10 space-y-8">
         <header className="flex items-center justify-between">
           <h1 className="text-2xl md:text-3xl font-bold text-[var(--color-text)]">
@@ -52,6 +52,6 @@ export default async function FreePage() {
           </Link>
         </section>
       </main>
-    </ThemeProvider>
+    </PlanThemeProvider>
   );
 }
