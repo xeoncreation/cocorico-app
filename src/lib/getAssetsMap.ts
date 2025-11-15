@@ -1,9 +1,5 @@
-import { createClient } from '@supabase/supabase-js';
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-);
+// @ts-nocheck - page_assets table not yet in Database type
+import { supabaseServer } from "@/app/lib/supabase-server";
 
 export type PageAssetRow = {
   page: string;
@@ -11,17 +7,22 @@ export type PageAssetRow = {
   asset_premium: string | null;
 };
 
-export async function getAssetsMap() {
+export async function getAssetsMap(theme: "free" | "premium") {
+  const supabase = supabaseServer();
   const { data: rows, error } = await supabase
     .from('page_assets')
     .select('page, asset_free, asset_premium');
 
-  if (error) throw error;
+  if (error) {
+    console.error("Error fetching page_assets:", error);
+    return new Map<string, string | null>();
+  }
 
-  const plan = (document.documentElement.dataset.theme as 'free' | 'premium') || 'free';
   const entries = (rows as PageAssetRow[] | null)?.map(r => [
     r.page,
-    plan === 'premium' ? r.asset_premium ?? r.asset_free : r.asset_free,
+    theme === 'premium' ? r.asset_premium ?? r.asset_free : r.asset_free,
   ]) as [string, string | null][];
+  
   return new Map(entries || []);
 }
+
