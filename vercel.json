@@ -7,15 +7,7 @@
   "regions": ["iad1"],
   "cleanUrls": true,
   "trailingSlash": false,
-  "env": {
-    "NEXT_PUBLIC_SUPABASE_URL": "https://dxhgpjrgvkxudetbmxuw.supabase.co",
-    "NEXT_PUBLIC_APP_URL": "https://cocorico-app.vercel.app",
-    "OPENAI_API_KEY": "@openai_api_key",
-    "REPLICATE_API_TOKEN": "@replicate_api_token",
-    "ADMIN_EMAIL": "@admin_email",
-    "SITE_PASSWORD": "@site_password",
-    "NEXT_PUBLIC_UMAMI_WEBSITE_ID": "0ff906b7-1420-4f27-ae6f-324727d42846"
-  },
+  
   "headers": [
     {
       "source": "/manifest.webmanifest",
