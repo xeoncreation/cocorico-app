@@ -3,6 +3,7 @@ import { supabaseServer } from "@/app/lib/supabase-server";
 import Link from "next/link";
 import Image from "next/image";
 import { redirect } from "next/navigation";
+import FeedClient from "./feed-client";
 
 export const dynamic = "force-dynamic";
 
@@ -41,18 +42,22 @@ export default async function CommunityPage() {
       </div>
 
       {!posts || posts.length === 0 ? (
-        <div className="text-center py-20">
-          <p className="text-xl text-neutral-500 mb-4">
-            Aún no hay publicaciones en la comunidad
-          </p>
-          {user && (
-            <Link
-              href="/community/new"
-              className="inline-block bg-cocorico-yellow text-neutral-800 px-6 py-3 rounded-lg font-medium"
-            >
-              Sé el primero en publicar
-            </Link>
-          )}
+        <div className="py-6 space-y-6">
+          <div className="text-center py-8">
+            <p className="text-xl text-neutral-500 mb-4">
+              Aún no hay publicaciones en la comunidad
+            </p>
+            {user && (
+              <Link
+                href="/community/new"
+                className="inline-block bg-cocorico-yellow text-neutral-800 px-6 py-3 rounded-lg font-medium"
+              >
+                Sé el primero en publicar
+              </Link>
+            )}
+          </div>
+          {/* Fallback UI con contenido de muestra */}
+          <FeedClient />
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
