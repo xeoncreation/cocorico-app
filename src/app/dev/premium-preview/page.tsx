@@ -15,10 +15,10 @@ export default async function PremiumPreviewPage() {
       <main className="min-h-screen bg-gradient-to-b from-slate-900 via-slate-900/95 to-slate-800 text-white">
         <div className="max-w-6xl mx-auto px-4 py-10 space-y-8">
         <header className="flex items-center justify-between">
-          <h1 className="text-2xl md:text-3xl font-bold">Preview — Premium (Glass)</h1>
+          <h1 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-[#2EC4B6] to-[#FFD166] bg-clip-text text-transparent">Preview — Premium (Glass)</h1>
           <div className="flex gap-3">
-            <a className="underline" href="/api/dev/set-theme?theme=premium">Forzar Premium</a>
-            <a className="underline" href="/api/dev/set-theme?theme=free">Forzar Free</a>
+            <a className="underline text-[#2EC4B6] hover:text-[#FFD166] transition" href="/api/dev/set-theme?theme=premium">Forzar Premium</a>
+            <a className="underline text-[#FFD166] hover:text-[#2EC4B6] transition" href="/api/dev/set-theme?theme=free">Forzar Free</a>
           </div>
         </header>
 

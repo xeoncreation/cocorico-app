@@ -19,12 +19,12 @@ export default async function PremiumPage() {
       <main className="min-h-screen bg-gradient-to-b from-slate-900 via-slate-900/95 to-slate-800 text-white">
         <div className="max-w-6xl mx-auto px-4 py-10 space-y-8">
         <header className="flex items-center justify-between">
-          <h1 className="text-2xl md:text-3xl font-bold">
+          <h1 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-[#2EC4B6] to-[#FFD166] bg-clip-text text-transparent">
             Cocorico — Premium
           </h1>
           <Link 
             href="/free" 
-            className="underline hover:opacity-80 transition"
+            className="underline text-[#FFD166] hover:text-[#2EC4B6] transition"
           >
             Volver a Free
           </Link>
@@ -52,7 +52,7 @@ export default async function PremiumPage() {
           <h2 className="text-xl font-bold">Disfruta tu experiencia premium</h2>
           <Link
             href="/dashboard"
-            className="inline-block px-6 py-3 rounded-xl bg-[var(--color-primary)] text-white font-semibold hover:opacity-90 transition"
+            className="inline-block px-6 py-3 rounded-xl bg-gradient-to-r from-[#2EC4B6] to-[#FFD166] text-slate-900 font-semibold hover:opacity-90 transition shadow-lg"
           >
             Ir al Dashboard
           </Link>
