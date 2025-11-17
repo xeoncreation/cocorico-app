@@ -24,6 +24,9 @@
 .DS_Store
 *.pem
 
+# scripts con secretos
+setup-vercel-env.ps1
+
 # debug
 npm-debug.log*
 yarn-debug.log*
