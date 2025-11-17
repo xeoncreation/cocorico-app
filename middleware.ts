@@ -54,6 +54,27 @@ function withSecurityHeaders(res: NextResponse, isDev = process.env.NODE_ENV !==
 
 export default function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
+  const url = request.nextUrl;
+  const premiumParam = url.searchParams.get('premium');
+  const themeParam = url.searchParams.get('theme');
+
+  // Theme toggle via query (?premium=1 | ?premium=0) or (?theme=premium|free)
+  if (premiumParam === '1' || themeParam === 'premium') {
+    const redirectUrl = new URL(url);
+    redirectUrl.searchParams.delete('premium');
+    redirectUrl.searchParams.delete('theme');
+    const res = NextResponse.redirect(redirectUrl);
+    res.cookies.set('theme', 'premium', { httpOnly: false, sameSite: 'lax', path: '/' });
+    return withSecurityHeaders(res);
+  }
+  if (premiumParam === '0' || themeParam === 'free') {
+    const redirectUrl = new URL(url);
+    redirectUrl.searchParams.delete('premium');
+    redirectUrl.searchParams.delete('theme');
+    const res = NextResponse.redirect(redirectUrl);
+    res.cookies.set('theme', 'free', { httpOnly: false, sameSite: 'lax', path: '/' });
+    return withSecurityHeaders(res);
+  }
   
   // Admin protection (pages and API)
   if (pathname.startsWith('/api/admin') || pathname.startsWith('/admin')) {

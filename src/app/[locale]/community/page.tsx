@@ -7,7 +7,11 @@ import FeedClient from "./feed-client";
 
 export const dynamic = "force-dynamic";
 
-export default async function CommunityPage() {
+export default async function CommunityPage({
+  searchParams,
+}: {
+  searchParams?: { demo?: string };
+}) {
   const { data: { user } } = await supabaseServer().auth.getUser();
   
   const { data: posts, error } = await supabaseServer()
@@ -25,6 +29,8 @@ export default async function CommunityPage() {
 
   if (error) console.error("Error fetching posts:", error);
 
+  const showDemo = searchParams?.demo === "1" || !posts || posts.length === 0;
+
   return (
     <div className="max-w-5xl mx-auto py-10 px-4">
       <div className="flex justify-between items-center mb-8">
@@ -41,7 +47,23 @@ export default async function CommunityPage() {
         )}
       </div>
 
-      {!posts || posts.length === 0 ? (
+      {/* Toggle de vista previa */}
+      <div className="mb-6 text-sm text-neutral-500">
+        {searchParams?.demo === "1" ? (
+          <span>
+            Modo demo activo ·{" "}
+            <Link href="?" className="underline hover:text-neutral-700">
+              salir del modo demo
+            </Link>
+          </span>
+        ) : (
+          <Link href="?demo=1" className="underline hover:text-neutral-700">
+            Activar vista previa de feed (demo)
+          </Link>
+        )}
+      </div>
+
+      {showDemo ? (
         <div className="py-6 space-y-6">
           <div className="text-center py-8">
             <p className="text-xl text-neutral-500 mb-4">

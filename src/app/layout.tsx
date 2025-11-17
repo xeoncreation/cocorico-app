@@ -8,6 +8,7 @@ import { ToastProvider } from "../components/ui/ToastProvider";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import Analytics from "@/components/Analytics";
 import type { Viewport } from "next";
+import { cookies } from "next/headers";
 
 const siteUrl = (() => {
   const val = process.env.NEXT_PUBLIC_SITE_URL;
@@ -80,8 +81,9 @@ export const viewport: Viewport = {
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+  const theme = cookies().get("theme")?.value ?? "free";
   return (
-    <html lang="es" suppressHydrationWarning>
+    <html lang="es" suppressHydrationWarning data-theme={theme}>
       <head>
   {/* iOS Safari specific meta tags */}
   <meta name="apple-mobile-web-app-capable" content="yes" />
