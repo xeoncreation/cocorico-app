@@ -1,10 +1,18 @@
-'use client';
+import FeedbackClient from "./feedback-client";
+import { Metadata } from "next";
 
-import { useState } from 'react';
-import { useTranslations } from 'next-intl';
-import { trackEvent } from '@/components/UmamiAnalytics';
+export const metadata: Metadata = {
+  title: "Feedback | Cocorico",
+  description: "Envía sugerencias, reporta errores y revisa el estado de tus tickets.",
+};
 
 export default function FeedbackPage() {
+  return (
+    <main className="max-w-5xl mx-auto px-4 py-10">
+      <FeedbackClient />
+    </main>
+  );
+}
   const t = useTranslations();
   const [feedback, setFeedback] = useState({
     type: 'bug',
@@ -46,16 +54,17 @@ export default function FeedbackPage() {
   };
 
   return (
-    <div className="container mx-auto px-4 py-12 max-w-2xl">
-      <div className="mb-8">
-        <h1 className="text-4xl font-bold mb-3">📝 Feedback Beta</h1>
-        <p className="text-gray-600 dark:text-gray-400">
-          Tu opinión es crucial para mejorar Cocorico. Reporta bugs, sugiere features o comparte tu experiencia.
-        </p>
-      </div>
+    <div className="min-h-screen bg-gradient-to-br from-green-50/80 via-white to-emerald-50/60 dark:from-green-950/20 dark:via-neutral-900 dark:to-emerald-950/20 py-8">
+      <div className="container mx-auto px-4 max-w-2xl">
+        <div className="mb-8 text-center">
+          <h1 className="text-4xl font-bold mb-3 text-green-900 dark:text-green-300">📝 Feedback Beta</h1>
+          <p className="text-muted-foreground">
+            Tu opinión es crucial para mejorar Cocorico. Reporta bugs, sugiere features o comparte tu experiencia.
+          </p>
+        </div>
 
       {submitted ? (
-        <div className="bg-green-50 dark:bg-green-900/20 border-l-4 border-green-500 p-6 rounded-lg">
+        <div className="bg-green-50 dark:bg-green-900/20 border-l-4 border-green-500 p-6 rounded-lg glass-card-premium">
           <h2 className="text-xl font-semibold mb-2 text-green-800 dark:text-green-200">
             ✅ ¡Gracias por tu feedback!
           </h2>
@@ -64,7 +73,7 @@ export default function FeedbackPage() {
           </p>
         </div>
       ) : (
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-6 p-6 rounded-xl border border-green-200/60 bg-white/80 dark:bg-neutral-900/80 dark:border-green-800/40 glass-card-premium">
           <div>
             <label className="block text-sm font-medium mb-2">Tipo de feedback</label>
             <select

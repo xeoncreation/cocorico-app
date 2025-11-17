@@ -2,30 +2,23 @@
 
 import { useTranslations } from "next-intl";
 import ChatBox from "@/components/ChatBox";
-import Image from "next/image";
 
 export default function ChatPage() {
   const t = useTranslations();
 
   return (
-    <section className="p-6 max-w-4xl mx-auto">
-      <div className="flex items-center gap-3 mb-2">
-        <Image
-          src="/branding/cocorico-mascot-anim-optimized.gif"
-          alt="Cocorico animado"
-          width={56}
-          height={83}
-          className="drop-shadow-sm fade-edge-sm"
-          unoptimized
-        />
-        <h1 className="text-3xl font-display text-cocorico-red">
-          {t("chat.title")} 🐓
-        </h1>
+    <section className="min-h-screen bg-gradient-to-br from-pink-50/80 via-white to-rose-50/60 dark:from-pink-950/20 dark:via-neutral-900 dark:to-rose-950/20 py-8 px-4">
+      <div className="max-w-4xl mx-auto">
+        <div className="text-center mb-8 space-y-2">
+          <h1 className="text-3xl font-display text-pink-900 dark:text-pink-300">
+            {t("chat.title")} 🐓
+          </h1>
+          <p className="text-sm text-muted-foreground">
+            {t("chat.subtitle")}
+          </p>
+        </div>
+        <ChatBox />
       </div>
-      <p className="text-cocorico-brown mb-6">
-        {t("chat.subtitle")}
-      </p>
-      <ChatBox />
     </section>
   );
 }

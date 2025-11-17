@@ -167,9 +167,8 @@ export default function SearchClient() {
               key={r.id}
               href={`/recipes/${r.id}`}
               className={cn(
-                "rounded-2xl overflow-hidden border bg-surface transition hover:scale-[1.01]",
-                plan === "premium" &&
-                  "bg-white/10 border-white/20 backdrop-blur-xl shadow-lg"
+                "rounded-2xl overflow-hidden border border-orange-200/60 bg-white/80 dark:bg-neutral-900/80 dark:border-orange-800/40 transition hover:scale-[1.01]",
+                plan === "premium" && "glass-card-premium"
               )}
             >
               <div className="aspect-[4/3] overflow-hidden bg-muted">

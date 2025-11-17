@@ -43,22 +43,23 @@ export default function LearnClient() {
   ];
 
   return (
-    <section className="grid lg:grid-cols-[2fr,1fr] gap-6 items-start">
-      {/* CURSOS */}
-      <div className="space-y-6">
-        <h2 className="text-xl font-semibold flex items-center gap-2">
-          <BookOpen className="w-5 h-5 text-primary" />
-          Rutas de aprendizaje
-        </h2>
+    <section className="min-h-screen bg-gradient-to-br from-blue-50/80 via-white to-sky-50/60 dark:from-blue-950/20 dark:via-neutral-900 dark:to-sky-950/20 py-8 px-4">
+      <div className="max-w-7xl mx-auto grid lg:grid-cols-[2fr,1fr] gap-6 items-start">
+        {/* CURSOS */}
+        <div className="space-y-6">
+          <h2 className="text-xl font-semibold flex items-center gap-2 text-blue-900 dark:text-blue-300">
+            <BookOpen className="w-5 h-5" />
+            Rutas de aprendizaje
+          </h2>
 
-        {modules.map((mod) => (
-          <Card
-            key={mod.id}
-            className={cn(
-              "border border-border/60 bg-surface",
-              plan === "premium" && "bg-white/10 border-white/20 backdrop-blur-xl shadow-xl"
-            )}
-          >
+          {modules.map((mod) => (
+            <Card
+              key={mod.id}
+              className={cn(
+                "border border-blue-200/60 bg-white/80 dark:bg-neutral-900/80 dark:border-blue-800/40",
+                plan === "premium" && "glass-card-premium"
+              )}
+            >
             <CardHeader>
               <CardTitle className="text-base flex items-center gap-2">
                 <ChefHat className="w-4 h-4 text-primary" />

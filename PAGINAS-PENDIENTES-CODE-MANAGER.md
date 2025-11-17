@@ -220,14 +220,14 @@
 3. Feedback completo - Quality loop
 
 ### Fase 2 (Sprint 2-3 semanas):
-4. Badges/gamificación - Retención
-5. Plans/Stripe - Monetización
-6. Profile expandido - Personalización
+1. Badges/gamificación - Retención
+2. Plans/Stripe - Monetización
+3. Profile expandido - Personalización
 
 ### Fase 3 (Sprint 3-4 semanas):
-7. Learn completo - Valor educativo
-8. Community features - Social
-9. Legal pages - Compliance
+1. Learn completo - Valor educativo
+2. Community features - Social
+3. Legal pages - Compliance
 
 ---
 

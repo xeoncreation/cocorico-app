@@ -9,6 +9,7 @@ import AuthButton from "@/components/AuthButton";
 import PushNotificationPrompt from "@/components/PushNotificationPrompt";
 import MobileNav from "@/components/MobileNav";
 import LanguageSelector from "@/components/LanguageSelector";
+import LocaleNavbar from "@/components/LocaleNavbar";
 
 export default async function LocaleLayout({
   children,
@@ -34,50 +35,7 @@ export default async function LocaleLayout({
               </Link>
               
               {/* Navegación principal - Desktop */}
-              <div className="hidden md:flex items-center gap-4">
-                <Link 
-                  href={`/${locale}/chat`} 
-                  className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium text-cocorico-brown dark:text-neutral-200 hover:bg-cocorico-yellow/20 dark:hover:bg-neutral-700 transition"
-                >
-                  💬 Chat
-                </Link>
-                <Link 
-                  href="/dashboard/lab" 
-                  className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium text-cocorico-brown dark:text-neutral-200 hover:bg-cocorico-yellow/20 dark:hover:bg-neutral-700 transition"
-                >
-                  🧪 Lab IA
-                </Link>
-                <Link 
-                  href={`/${locale}/recipes`} 
-                  className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium text-cocorico-brown dark:text-neutral-200 hover:bg-cocorico-yellow/20 dark:hover:bg-neutral-700 transition"
-                >
-                  📖 Recetas
-                </Link>
-                <Link 
-                  href={`/${locale}/community`} 
-                  className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium text-cocorico-brown dark:text-neutral-200 hover:bg-cocorico-yellow/20 dark:hover:bg-neutral-700 transition"
-                >
-                  👥 Comunidad
-                </Link>
-                <Link 
-                  href="/dashboard/challenges" 
-                  className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium text-cocorico-brown dark:text-neutral-200 hover:bg-cocorico-yellow/20 dark:hover:bg-neutral-700 transition"
-                >
-                  🏆 Retos
-                </Link>
-                <Link 
-                  href="/community/leaderboard" 
-                  className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium text-cocorico-brown dark:text-neutral-200 hover:bg-cocorico-yellow/20 dark:hover:bg-neutral-700 transition"
-                >
-                  📊 Ranking
-                </Link>
-                <Link 
-                  href={`/${locale}/pricing`} 
-                  className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-semibold text-amber-600 dark:text-amber-400 hover:bg-amber-100 dark:hover:bg-amber-900/20 transition"
-                >
-                  ⭐ Premium
-                </Link>
-              </div>
+              <LocaleNavbar locale={locale} />
               
               {/* Controles de usuario */}
               <div className="flex items-center gap-3">

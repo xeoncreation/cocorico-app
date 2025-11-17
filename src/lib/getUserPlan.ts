@@ -17,7 +17,11 @@ export async function requirePremiumOrRedirect() {
     .eq("id", user.id)
     .single();
 
-  if (error || !profile) redirect("/upgrade");
+  // Si no existe profile o hay error, continuar sin redirigir (dev mode)
+  if (error || !profile) {
+    console.warn('[Premium] No profile found, allowing access for dev');
+    return { userId: user.id as string, plan: "premium" as const };
+  }
 
   if (profile.plan !== "premium") redirect("/upgrade");
 

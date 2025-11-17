@@ -67,13 +67,14 @@ export default function ProfilePage() {
   }
 
   return (
-    <div className="max-w-2xl mx-auto p-6">
-      <h1 className="text-3xl font-bold mb-6">Tu perfil</h1>
+    <div className="min-h-screen bg-gradient-to-br from-indigo-50/80 via-white to-purple-50/60 dark:from-indigo-950/20 dark:via-neutral-900 dark:to-purple-950/20 py-8">
+      <div className="max-w-2xl mx-auto px-4">
+        <h1 className="text-3xl font-bold mb-6 text-indigo-900 dark:text-indigo-300">👤 Tu perfil</h1>
 
-      <form onSubmit={handleSave} className="flex flex-col gap-6">
-        {/* Avatar */}
-        <div className="bg-white dark:bg-neutral-900 border dark:border-neutral-800 rounded-lg p-6">
-          <label className="font-semibold text-lg mb-3 block">Avatar</label>
+        <form onSubmit={handleSave} className="flex flex-col gap-6">
+          {/* Avatar */}
+          <div className="bg-white/80 dark:bg-neutral-900/80 border border-indigo-200/60 dark:border-indigo-800/40 rounded-lg p-6 glass-card-premium">
+            <label className="font-semibold text-lg mb-3 block text-indigo-900 dark:text-indigo-300">Avatar</label>
           <div className="flex items-center gap-4">
             <img
               src={profile.avatar_url || "/default-avatar.png"}
@@ -96,9 +97,9 @@ export default function ProfilePage() {
           </div>
         </div>
 
-        {/* Información básica */}
-        <div className="bg-white dark:bg-neutral-900 border dark:border-neutral-800 rounded-lg p-6 space-y-4">
-          <div>
+          {/* Información básica */}
+          <div className="bg-white/80 dark:bg-neutral-900/80 border border-indigo-200/60 dark:border-indigo-800/40 rounded-lg p-6 space-y-4 glass-card-premium">
+            <div>
             <label className="font-semibold block mb-2">Nombre de usuario</label>
             <input
               type="text"
@@ -148,9 +149,9 @@ export default function ProfilePage() {
           </div>
         </div>
 
-        {/* Estadísticas */}
-        <div className="bg-gradient-to-br from-cocorico-red to-orange-500 text-white rounded-lg p-6">
-          <h2 className="text-xl font-bold mb-4">📊 Tus Estadísticas</h2>
+          {/* Estadísticas */}
+          <div className="bg-gradient-to-br from-indigo-500 to-purple-500 text-white rounded-lg p-6 glass-card-premium">
+            <h2 className="text-xl font-bold mb-4">📊 Tus Estadísticas</h2>
           <div className="grid grid-cols-2 gap-4">
             <div className="bg-white/20 backdrop-blur rounded-lg p-4">
               <p className="text-sm opacity-90">Nivel</p>
@@ -176,10 +177,10 @@ export default function ProfilePage() {
           </div>
         </div>
 
-        {/* Enlace al perfil público */}
-        {profile.username && (
-          <div className="bg-white dark:bg-neutral-900 border dark:border-neutral-800 rounded-lg p-6 text-center">
-            <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-2">
+          {/* Enlace al perfil público */}
+          {profile.username && (
+            <div className="bg-white/80 dark:bg-neutral-900/80 border border-indigo-200/60 dark:border-indigo-800/40 rounded-lg p-6 text-center glass-card-premium">
+              <p className="text-sm text-muted-foreground mb-2">
               Tu perfil público:
             </p>
             <a
@@ -196,15 +197,16 @@ export default function ProfilePage() {
           </div>
         )}
 
-        {/* Botón de guardar */}
-        <button
-          type="submit"
-          disabled={saving}
-          className="w-full px-6 py-3 bg-cocorico-red hover:bg-cocorico-red/90 text-white rounded-lg font-semibold transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-        >
-          {saving ? "Guardando..." : "Guardar cambios"}
-        </button>
-      </form>
+          {/* Botón de guardar */}
+          <button
+            type="submit"
+            disabled={saving}
+            className="w-full px-6 py-3 bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-600 text-white rounded-lg font-semibold transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            {saving ? "Guardando..." : "Guardar cambios"}
+          </button>
+        </form>
+      </div>
     </div>
   );
 }
