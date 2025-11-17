@@ -26,6 +26,13 @@ const nextConfig = {
       },
     ],
   },
+  // On some Windows setups Next can fail to load vendor chunk names like "@supabase.js".
+  // Force transpiling Supabase packages to avoid external vendor-chunk resolution issues.
+  transpilePackages: [
+    "@supabase/supabase-js",
+    "@supabase/auth-helpers-nextjs",
+    "@supabase/auth-helpers-react",
+  ],
   reactStrictMode: true,
   async headers() {
     const base = [
