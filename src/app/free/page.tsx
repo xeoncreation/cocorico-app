@@ -6,7 +6,7 @@ import Link from "next/link";
 export const dynamic = "force-dynamic";
 
 export default async function FreePage() {
-  const theme: "free" = "free";
+  const theme = "free" as const;
   const assets = await getAssetsMap(theme);
   const hero = assets.get("home");
 

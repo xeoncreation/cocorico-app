@@ -6,7 +6,7 @@ import { getAssetsMap } from "@/lib/getAssetsMap";
 export const dynamic = "force-dynamic";
 
 export default async function PremiumPreviewPage() {
-  const theme: "premium" = "premium";
+  const theme = "premium" as const;
   const assets = await getAssetsMap(theme);
   const hero = assets.get("home"); // asegúrate de tener asset_premium para 'home'
 
@@ -25,15 +25,15 @@ export default async function PremiumPreviewPage() {
         <VisualHero url={hero} />
 
         <section className="grid md:grid-cols-3 gap-4">
-          <div className="p-5 rounded-2xl bg-white/10 border border-white/10 shadow-sm backdrop-blur-xl">
+          <div className="glass-card-premium p-5 rounded-2xl">
             <h3 className="font-semibold mb-2">Modo Cocina inmersivo</h3>
             <p className="text-sm opacity-80">Pasos guiados con video de fondo y controles grandes.</p>
           </div>
-          <div className="p-5 rounded-2xl bg-white/10 border border-white/10 shadow-sm backdrop-blur-xl">
+          <div className="glass-card-premium p-5 rounded-2xl">
             <h3 className="font-semibold mb-2">IA avanzada</h3>
             <p className="text-sm opacity-80">Macros, coste por ración, sustituciones inteligentes.</p>
           </div>
-          <div className="p-5 rounded-2xl bg-white/10 border border-white/10 shadow-sm backdrop-blur-xl">
+          <div className="glass-card-premium p-5 rounded-2xl">
             <h3 className="font-semibold mb-2">Interfaz Glass</h3>
             <p className="text-sm opacity-80">Blur dinámico, acentos luminosos, motion suave.</p>
           </div>
@@ -41,16 +41,12 @@ export default async function PremiumPreviewPage() {
 
         <section className="space-y-4">
           <h2 className="text-xl font-semibold">Efecto Liquid Glass</h2>
-          <div className="relative rounded-2xl border border-white/10 bg-white/10 backdrop-blur-xl shadow-lg p-8">
-            <p className="text-base">Este bloque usa glassmorphism con backdrop-blur y bordes translúcidos.</p>
-            {/* eslint-disable-next-line @next/next/no-css-tags */}
-            <div 
-              className="absolute inset-0 pointer-events-none"
-              style={{
-                maskImage: 'radial-gradient(180px 80px at 20% 10%, black, transparent)',
-                WebkitMaskImage: 'radial-gradient(180px 80px at 20% 10%, black, transparent)'
-              }}
-            />
+          <div className="glass-card-premium relative rounded-2xl p-8">
+            {/* patrón de fondo sutil para que el blur sea evidente */}
+            <div className="absolute -inset-6 -z-10 opacity-80 blur-0 bg-premium-radials" aria-hidden />
+            <p className="text-base mb-4">Este bloque usa glassmorphism con backdrop-blur y bordes translúcidos.</p>
+            <p className="text-sm opacity-70">Observa el efecto de desenfoque del fondo, los bordes brillantes y la sombra profunda.</p>
+            <div className="absolute inset-0 pointer-events-none mask-liquid-glass rounded-2xl" />
           </div>
         </section>
         </div>

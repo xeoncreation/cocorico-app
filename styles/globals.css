@@ -32,3 +32,39 @@
     --color-surface: rgba(255, 255, 255, 0.08);
   }
 }
+
+/* Utility: decorative radial background to enhance glass blur visibility */
+.bg-premium-radials {
+  background-image:
+    radial-gradient(1200px 400px at 10% -10%, rgba(46,196,182,0.6), transparent),
+    radial-gradient(900px 300px at 110% 20%, rgba(255,209,102,0.5), transparent),
+    radial-gradient(800px 300px at 50% 120%, rgba(255,255,255,0.15), transparent);
+}
+
+/* Utility: mask to simulate a highlight/refraction on glass blocks */
+.mask-liquid-glass {
+  -webkit-mask-image: radial-gradient(180px 80px at 20% 10%, black, transparent);
+  mask-image: radial-gradient(180px 80px at 20% 10%, black, transparent);
+  background: linear-gradient(135deg, rgba(255,255,255,0.3), transparent);
+}
+
+/* Utility: Ultra-visible glass card effect */
+.glass-card-premium {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px) saturate(180%) contrast(130%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%) contrast(130%);
+  border: 2px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 
+    0 8px 32px 0 rgba(0, 0, 0, 0.37),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.2);
+  position: relative;
+}
+
+.glass-card-premium::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(46,196,182,0.1), rgba(255,209,102,0.1));
+  pointer-events: none;
+  border-radius: inherit;
+}
