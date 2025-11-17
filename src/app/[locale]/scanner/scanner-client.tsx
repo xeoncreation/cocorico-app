@@ -319,6 +319,7 @@ export default function ScannerClient() {
         accept="image/*"
         className="hidden"
         onChange={handleFileUpload}
+        aria-label="Subir imagen de alimentos"
       />
       </div>
     </div>

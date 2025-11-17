@@ -91,6 +91,7 @@ export default function FeedbackClient() {
 
     let fileUrl = null;
 
+    // Upload image to Supabase Storage
     if (imageFile) {
       const fileName = `${Date.now()}-${imageFile.name}`;
       const { data, error } = await supabase.storage
@@ -105,12 +106,40 @@ export default function FeedbackClient() {
       }
     }
 
-    // TODO: Enviar datos a Supabase "feedback_tickets"
+    // Get current user
+    const { data: { user } } = await supabase.auth.getUser();
 
-    setUploading(false);
-    form.reset();
-    setImageFile(null);
-    alert("Feedback enviado correctamente. ¡Gracias por ayudarnos a mejorar Cocorico!");
+    // Save to database
+    try {
+      const { error: insertError } = await supabase
+        .from("feedback_tickets")
+        .insert({
+          user_id: user?.id,
+          title: values.title,
+          category: values.category,
+          description: values.description,
+          image_url: fileUrl,
+          status: "pending",
+          priority: "medium",
+        });
+
+      if (insertError) {
+        console.error("Error inserting feedback:", insertError);
+        alert("Error al guardar el feedback. Por favor intenta de nuevo.");
+      } else {
+        alert("✅ Feedback enviado correctamente. ¡Gracias por ayudarnos a mejorar Cocorico!");
+        form.reset();
+        setImageFile(null);
+        
+        // Reload tickets
+        window.location.reload();
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert("Error de conexión. Por favor intenta de nuevo.");
+    } finally {
+      setUploading(false);
+    }
   }
 
   return (

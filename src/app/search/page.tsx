@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useMemo, useState } from "react";
 import RecipeCard from "@/components/RecipeCard";
-import SearchFilters from "@/components/search/SearchFilters";
+import SearchFilters, { SearchFilterState } from "@/components/search/SearchFilters";
 
 type Recipe = {
   id: number;
@@ -15,24 +15,32 @@ type Recipe = {
 
 export default function SearchPage() {
   const [q, setQ] = useState("");
-  const [ingredients, setIngredients] = useState<string[]>([]);
-  const [difficulty, setDifficulty] = useState<string | null>(null);
-  const [maxTime, setMaxTime] = useState<number | null>(null);
+  const [filters, setFilters] = useState<SearchFilterState>({
+    maxTime: 120,
+    difficulty: [],
+    diets: [],
+    ingredients: [],
+  });
   const [page, setPage] = useState(1);
 
   const [loading, setLoading] = useState(false);
   const [results, setResults] = useState<Recipe[]>([]);
   const [total, setTotal] = useState(0);
+  
+  const plan = typeof document !== "undefined"
+    ? (document.documentElement.dataset.theme as "free" | "premium")
+    : "free";
 
   const queryString = useMemo(() => {
     const p = new URLSearchParams();
     if (q) p.set("q", q);
-    if (ingredients.length) p.set("ingredients", ingredients.join(","));
-    if (difficulty) p.set("difficulty", difficulty);
-    if (maxTime) p.set("maxTime", String(maxTime));
+    if (filters.ingredients.length) p.set("ingredients", filters.ingredients.join(","));
+    if (filters.difficulty.length) p.set("difficulty", filters.difficulty.join(","));
+    if (filters.diets.length) p.set("diets", filters.diets.join(","));
+    if (filters.maxTime) p.set("maxTime", String(filters.maxTime));
     p.set("page", String(page));
     return p.toString();
-  }, [q, ingredients, difficulty, maxTime, page]);
+  }, [q, filters, page]);
 
   useEffect(() => {
     let cancelled = false;
@@ -63,12 +71,20 @@ export default function SearchPage() {
       const q0 = search.get("q");
       const ingr0 = search.get("ingredients");
       const diff0 = search.get("difficulty");
+      const diets0 = search.get("diets");
       const max0 = search.get("maxTime");
       const page0 = search.get("page");
+      
       if (q0) setQ(q0);
-      if (ingr0) setIngredients(ingr0.split(",").map((s) => s.trim()).filter(Boolean));
-      if (diff0) setDifficulty(diff0);
-      if (max0 && !Number.isNaN(Number(max0))) setMaxTime(Number(max0));
+      
+      setFilters((prev) => ({
+        ...prev,
+        ingredients: ingr0 ? ingr0.split(",").map((s) => s.trim()).filter(Boolean) : [],
+        difficulty: diff0 ? diff0.split(",").map((s) => s.trim()).filter(Boolean) : [],
+        diets: diets0 ? diets0.split(",").map((s) => s.trim()).filter(Boolean) : [],
+        maxTime: max0 && !Number.isNaN(Number(max0)) ? Number(max0) : 120,
+      }));
+      
       if (page0 && !Number.isNaN(Number(page0))) setPage(Math.max(1, Number(page0)));
     } catch {}
   }, []);
@@ -76,12 +92,22 @@ export default function SearchPage() {
   return (
     <main className="max-w-6xl mx-auto p-6">
       <h1 className="text-3xl font-display text-cocorico-red mb-4">Buscar recetas</h1>
+      
+      {/* Search bar */}
+      <div className="mb-4">
+        <input
+          type="text"
+          placeholder="Buscar por nombre o descripción..."
+          value={q}
+          onChange={(e) => setQ(e.target.value)}
+          className="w-full px-4 py-2 border rounded-lg dark:bg-neutral-800 dark:border-neutral-700"
+        />
+      </div>
+      
       <SearchFilters
-        q={q} setQ={setQ}
-        ingredients={ingredients} setIngredients={setIngredients}
-        difficulty={difficulty} setDifficulty={setDifficulty}
-        maxTime={maxTime} setMaxTime={setMaxTime}
-        onSubmit={() => setPage(1)}
+        value={filters}
+        onChange={setFilters}
+        plan={plan}
       />
 
       <div className="mt-6">
