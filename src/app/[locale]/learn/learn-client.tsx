@@ -187,6 +187,7 @@ export default function LearnClient() {
           </CardContent>
         </Card>
       </aside>
+      </div>
     </section>
   );
 }
