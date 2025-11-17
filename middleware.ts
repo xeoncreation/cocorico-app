@@ -70,6 +70,8 @@ export default function middleware(request: NextRequest) {
     '/access',
     '/api/verify-password',
     '/health',
+    '/dev',           // Todas las rutas de desarrollo
+    '/api/dev',       // APIs de desarrollo
     '/_next',
     '/static',
     '/favicon.ico',
