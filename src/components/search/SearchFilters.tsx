@@ -1,99 +1,180 @@
 "use client";
-import { useState } from "react";
 
-export default function SearchFilters(props: {
-  q: string; setQ: (v: string) => void;
-  ingredients: string[]; setIngredients: (v: string[]) => void;
-  difficulty: string | null; setDifficulty: (v: string | null) => void;
-  maxTime: number | null; setMaxTime: (v: number | null) => void;
-  onSubmit: () => void;
+import { useState } from "react";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { SlidersHorizontal, X } from "lucide-react";
+import { cn } from "@/lib/utils";
+
+export type SearchFilterState = {
+  maxTime: number;
+  difficulty: string[];
+  diets: string[];
+  ingredients: string[];
+};
+
+export default function SearchFilters({
+  value,
+  onChange,
+  plan,
+}: {
+  value: SearchFilterState;
+  onChange: (s: SearchFilterState) => void;
+  plan: "free" | "premium";
 }) {
+  const [open, setOpen] = useState(false);
   const [ingInput, setIngInput] = useState("");
 
-  function addIng() {
+  const update = (patch: Partial<SearchFilterState>) =>
+    onChange({ ...value, ...patch });
+
+  const addIngredient = () => {
     const v = ingInput.trim().toLowerCase();
     if (!v) return;
-    if (!props.ingredients.includes(v)) {
-      props.setIngredients([...props.ingredients, v]);
+    if (!value.ingredients.includes(v)) {
+      update({ ingredients: [...value.ingredients, v] });
     }
     setIngInput("");
-  }
+  };
 
   return (
-    <form
-      className="rounded-xl bg-white dark:bg-neutral-900 border p-4 grid md:grid-cols-4 gap-4"
-      onSubmit={(e) => { e.preventDefault(); props.onSubmit(); }}
-    >
-      <div className="md:col-span-2">
-        <label className="text-sm font-semibold">Buscar</label>
-        <input
-          value={props.q}
-          onChange={(e) => props.setQ(e.target.value)}
-          placeholder="pasta, ensalada, curry…"
-          className="mt-1 w-full rounded border px-3 py-2 bg-white dark:bg-neutral-800"
-        />
-      </div>
-
-      <div>
-        <label htmlFor="difficulty-select" className="text-sm font-semibold">Dificultad</label>
-        <select
-          id="difficulty-select"
-          value={props.difficulty ?? ""}
-          onChange={(e) => props.setDifficulty(e.target.value || null)}
-          className="mt-1 w-full rounded border px-3 py-2 bg-white dark:bg-neutral-800"
-        >
-          <option value="">Todas</option>
-          <option value="fácil">Fácil</option>
-          <option value="media">Media</option>
-          <option value="difícil">Difícil</option>
-        </select>
-      </div>
-
-      <div>
-        <label htmlFor="maxTime-input" className="text-sm font-semibold">Tiempo máx. (min)</label>
-        <input
-          id="maxTime-input"
-          type="number" min={1}
-          value={props.maxTime ?? ""}
-          onChange={(e) => props.setMaxTime(e.target.value ? Number(e.target.value) : null)}
-          className="mt-1 w-full rounded border px-3 py-2 bg-white dark:bg-neutral-800"
-        />
-      </div>
-
-      <div className="md:col-span-4">
-        <label className="text-sm font-semibold">Ingredientes (pulsa "+")</label>
-        <div className="flex gap-2 mt-1">
-          <input
-            value={ingInput}
-            onChange={(e) => setIngInput(e.target.value)}
-            placeholder="tomate, arroz…"
-            className="flex-1 rounded border px-3 py-2 bg-white dark:bg-neutral-800"
-          />
-          <button type="button" onClick={addIng} className="px-3 py-2 rounded bg-cocorico-yellow text-cocorico-red font-semibold">
-            +
-          </button>
-        </div>
-        {!!props.ingredients.length && (
-          <div className="flex flex-wrap gap-2 mt-2">
-            {props.ingredients.map(i => (
-              <span key={i} className="px-2 py-1 text-sm rounded-full border">
-                {i}
-                <button
-                  type="button"
-                  className="ml-2 text-red-500"
-                  onClick={() => props.setIngredients(props.ingredients.filter(x => x !== i))}
-                >×</button>
-              </span>
-            ))}
-          </div>
+    <div className="space-y-3">
+      <Button
+        type="button"
+        variant="outline"
+        size="sm"
+        onClick={() => setOpen((s) => !s)}
+        className={cn(
+          "rounded-xl",
+          plan === "premium" && "bg-white/10 backdrop-blur-xl border-white/20"
         )}
-      </div>
+      >
+        <SlidersHorizontal className="w-4 h-4 mr-2" />
+        Filtros
+      </Button>
 
-      <div className="md:col-span-4">
-        <button className="px-4 py-2 rounded bg-cocorico-red text-white font-semibold">
-          Buscar
-        </button>
-      </div>
-    </form>
+      {open && (
+        <div
+          className={cn(
+            "w-full p-4 space-y-4 border rounded-2xl",
+            plan === "premium" &&
+              "bg-white/10 backdrop-blur-xl border-white/20 shadow-xl"
+          )}
+        >
+          {/* Tiempo */}
+          <section className="space-y-2">
+            <div className="flex justify-between text-xs text-muted-foreground">
+              <span>Tiempo máximo</span>
+              <span>{value.maxTime} min</span>
+            </div>
+            <input
+              type="range"
+              min={5}
+              max={180}
+              step={5}
+              value={value.maxTime}
+              onChange={(e) => update({ maxTime: Number(e.target.value) })}
+              className="w-full"
+              aria-label="Tiempo máximo (minutos)"
+            />
+          </section>
+
+          {/* Dificultad */}
+          <section className="space-y-2">
+            <span className="text-xs text-muted-foreground">Dificultad</span>
+            <div className="flex gap-2 flex-wrap">
+              {["easy", "medium", "hard"].map((dif) => (
+                <Badge
+                  key={dif}
+                  onClick={() =>
+                    update({
+                      difficulty: value.difficulty.includes(dif)
+                        ? value.difficulty.filter((d) => d !== dif)
+                        : [...value.difficulty, dif],
+                    })
+                  }
+                  className={cn(
+                    "cursor-pointer",
+                    value.difficulty.includes(dif) &&
+                      "bg-primary text-primary-foreground"
+                  )}
+                >
+                  {dif === "easy" && "Fácil"}
+                  {dif === "medium" && "Media"}
+                  {dif === "hard" && "Difícil"}
+                </Badge>
+              ))}
+            </div>
+          </section>
+
+          {/* Dietas */}
+          <section className="space-y-2">
+            <span className="text-xs text-muted-foreground">Dieta</span>
+            <div className="flex flex-wrap gap-2">
+              {["vegetariana", "vegana", "sin gluten", "low carb"].map(
+                (diet) => (
+                  <Badge
+                    key={diet}
+                    className={cn(
+                      "cursor-pointer",
+                      value.diets.includes(diet) &&
+                        "bg-secondary text-secondary-foreground"
+                    )}
+                    onClick={() =>
+                      update({
+                        diets: value.diets.includes(diet)
+                          ? value.diets.filter((d) => d !== diet)
+                          : [...value.diets, diet],
+                      })
+                    }
+                  >
+                    {diet}
+                  </Badge>
+                )
+              )}
+            </div>
+          </section>
+
+          {/* Ingredientes */}
+          <section className="space-y-2">
+            <span className="text-xs text-muted-foreground">Ingredientes</span>
+            <div className="flex gap-2">
+              <Input
+                placeholder="Añade ingrediente y pulsa Enter"
+                value={ingInput}
+                onChange={(e) => setIngInput(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    e.preventDefault();
+                    addIngredient();
+                  }
+                }}
+              />
+              <Button type="button" variant="outline" onClick={addIngredient}>
+                Añadir
+              </Button>
+            </div>
+
+            <div className="flex flex-wrap gap-2 text-xs">
+              {value.ingredients.map((i) => (
+                <Badge
+                  key={i}
+                  className="cursor-pointer flex items-center gap-1"
+                  onClick={() =>
+                    update({
+                      ingredients: value.ingredients.filter((x) => x !== i),
+                    })
+                  }
+                >
+                  {i}
+                  <X className="w-3 h-3" />
+                </Badge>
+              ))}
+            </div>
+          </section>
+        </div>
+      )}
+    </div>
   );
 }
