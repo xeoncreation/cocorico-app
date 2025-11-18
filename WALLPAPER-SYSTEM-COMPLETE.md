@@ -243,7 +243,7 @@ fontFamily: {
 - [x] No hay textos con colores duros (text-black, text-slate-900) sobre glass
 - [x] Home page actualizado con `glass-text-strong`
 
-### Tipografía
+### Tipografía (Checklist)
 - [x] Tailwind config tiene `font-sans` (Inter) y `font-display` (Poppins)
 - [x] `.coco-heading` clase helper definida
 
@@ -302,18 +302,18 @@ Cuando recibas las imágenes finales de Midjourney:
 **Si las páginas van lentas con fondos**:
 
 1. Reduce blur de 36px a 24px:
-```css
-.coco-page-background::before {
-  filter: blur(24px); /* Era 36px */
-}
-```
+   ```css
+   .coco-page-background::before {
+     filter: blur(24px); /* Era 36px */
+   }
+   ```
 
 2. Baja opacity de 0.9 a 0.7:
-```css
-.coco-page-background::before {
-  opacity: 0.7; /* Era 0.9 */
-}
-```
+   ```css
+   .coco-page-background::before {
+     opacity: 0.7; /* Era 0.9 */
+   }
+   ```
 
 3. En listas largas (Recipes, Search), quita glass de items individuales:
 ```tsx

@@ -33,6 +33,10 @@ export default function OnboardingClient({ locale, initialProfile }: Props) {
   };
 
   const progressPct = (step / totalSteps) * 100;
+  const pctToClass = (pct: number) => {
+    const v = Math.max(0, Math.min(100, Math.round(pct / 5) * 5));
+    return `w-pct-${v}` as const;
+  };
 
   return (
     <main className="max-w-xl mx-auto px-4 py-10">
@@ -46,7 +50,7 @@ export default function OnboardingClient({ locale, initialProfile }: Props) {
         </CardHeader>
         <CardContent className="space-y-6">
           <div className="w-full h-2 bg-white/10 rounded-full overflow-hidden">
-            <div className="h-full bg-primary transition-all duration-300" style={{ width: `${progressPct}%` }} />
+            <div className={["h-full bg-primary transition-all duration-300", pctToClass(progressPct)].join(" ")} />
           </div>
 
           {step === 1 && (

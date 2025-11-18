@@ -44,6 +44,10 @@ export default function XpHud() {
   const xpForNextLevel = profile.level * 100;
   const xpProgress = profile.xp % 100;
   const progressPercentage = (xpProgress / 100) * 100;
+  const pctToClass = (pct: number) => {
+    const v = Math.max(0, Math.min(100, Math.round(pct / 5) * 5));
+    return `w-pct-${v}` as const;
+  };
 
   return (
     <div className="coco-glass-card p-4 rounded-2xl space-y-3">
@@ -67,8 +71,10 @@ export default function XpHud() {
         </div>
         <div className="w-full bg-surface rounded-full h-2 overflow-hidden">
           <div
-            className="h-full bg-gradient-to-r from-yellow-400 via-orange-400 to-red-400 rounded-full transition-all duration-500"
-            style={{ width: `${progressPercentage}%` }}
+            className={[
+              "h-full bg-gradient-to-r from-yellow-400 via-orange-400 to-red-400 rounded-full transition-all duration-500",
+              pctToClass(progressPercentage),
+            ].join(" ")}
           />
         </div>
       </div>

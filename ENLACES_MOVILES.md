@@ -59,7 +59,7 @@ Escanea este código QR con la cámara de tu iPhone:
 
 ## 🤖 Android (Samsung, Google Pixel, etc.)
 
-### Enlace Directo:
+### Enlace directo (Android):
 ```
 https://cocorico-app.vercel.app/es
 ```

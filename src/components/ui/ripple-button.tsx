@@ -20,22 +20,14 @@ export function RippleButton({
 }: React.ComponentProps<typeof Button>) {
   const [ripples, setRipples] = useState<Ripple[]>([]);
 
-  const createRipple = (e: MouseEvent<HTMLButtonElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const size = Math.max(rect.width, rect.height);
-    const x = e.clientX - rect.left - size / 2;
-    const y = e.clientY - rect.top - size / 2;
-
+  const createRipple = (_e: MouseEvent<HTMLButtonElement>) => {
     const newRipple: Ripple = {
-      x,
-      y,
-      size,
+      x: 0,
+      y: 0,
+      size: 0,
       id: rippleId++,
     };
-
     setRipples((prev) => [...prev, newRipple]);
-
-    // limpiar ripple después de la animación
     setTimeout(() => {
       setRipples((prev) => prev.filter((r) => r.id !== newRipple.id));
     }, 600);
@@ -54,13 +46,7 @@ export function RippleButton({
       {ripples.map((r) => (
         <span
           key={r.id}
-          className="ripple-circle absolute rounded-full bg-white/50 pointer-events-none animate-ripple"
-          style={{
-            width: r.size,
-            height: r.size,
-            left: r.x,
-            top: r.y,
-          }}
+          className="ripple-center"
         />
       ))}
     </Button>
