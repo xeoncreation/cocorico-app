@@ -85,12 +85,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="es" suppressHydrationWarning data-theme={theme}>
       <head>
-  {/* iOS Safari specific meta tags */}
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-  <meta name="apple-mobile-web-app-title" content="Cocorico" />
-  <meta name="format-detection" content="telephone=no" />
-        
+        {/* iOS Safari specific meta tags */}
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <meta name="apple-mobile-web-app-title" content="Cocorico" />
+        <meta name="format-detection" content="telephone=no" />
         {/* Umami Analytics */}
         <script
           defer
@@ -98,14 +97,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           data-website-id="0ff906b7-1420-4f27-ae6f-324727d42846"
         />
       </head>
-      <body className="min-h-screen font-sans antialiased">
-        <ThemeProvider>
-          <ToastProvider>
-            <GlobalErrorHandler />
-            {children}
-            <Analytics />
-          </ToastProvider>
-        </ThemeProvider>
+      <body className="app-root-bg min-h-screen font-sans antialiased">
+        <div className="app-root-bg-inner">
+          <ThemeProvider>
+            <ToastProvider>
+              <GlobalErrorHandler />
+              {children}
+              <Analytics />
+            </ToastProvider>
+          </ThemeProvider>
+        </div>
       </body>
     </html>
   );

@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { createClient } from "@supabase/supabase-js";
 import Link from "next/link";
+import XpHud from "@/components/dashboard/XpHud";
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -39,9 +40,12 @@ export default function DashboardPage() {
 
   return (
     <main className="max-w-4xl mx-auto p-6 space-y-6">
-      <h1 className="text-2xl font-bold text-amber-800">
+      <h1 className="text-2xl font-bold text-amber-800 glass-text-strong">
         🐓 Mis recetas ({recipes.length})
       </h1>
+
+      {/* XP HUD */}
+      <XpHud />
 
       <div className="flex justify-between">
         <Link

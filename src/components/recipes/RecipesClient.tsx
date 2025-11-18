@@ -9,6 +9,7 @@ import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { Recipe, Visibility } from '@/types/recipes';
 import { Clock, Users, ChefHat } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { RippleButton } from '@/components/ui/ripple-button';
 
 const DEMO_RECIPES = [
   {

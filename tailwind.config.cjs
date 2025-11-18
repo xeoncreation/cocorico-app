@@ -8,46 +8,18 @@ module.exports = {
   ],
   theme: {
   	extend: {
-  		// Theme tokens based on CSS variables from styles/globals.css
-  		colors: {
-  			// Override to bind Tailwind primary/secondary/accent to theme variables
-  			primary: 'var(--color-primary)',
-  			secondary: 'var(--color-secondary)',
-  			accent: 'var(--color-accent)',
-  			surface: 'var(--color-surface)',
-  			text: 'var(--color-text)'
-  		},
-  		fontFamily: {
-  			sans: ['Inter', 'sans-serif'],
-  		},
-  		transitionTimingFunction: {
-  			smooth: 'var(--motion)'
-  		},
-  		borderRadius: {
-  			lg: 'var(--radius)',
-  			md: 'calc(var(--radius) - 2px)',
-  			sm: 'calc(var(--radius) - 4px)'
-  		},
 		colors: {
+			primary: 'var(--color-primary)',
+			secondary: 'var(--color-secondary)',
+			accent: 'var(--color-accent)',
+			surface: 'var(--color-surface)',
+			text: 'var(--color-text)',
 			background: 'hsl(var(--background))',
 			foreground: 'hsl(var(--foreground))',
-			card: {
-				DEFAULT: 'hsl(var(--card))',
-				foreground: 'hsl(var(--card-foreground))'
-			},
-			popover: {
-				DEFAULT: 'hsl(var(--popover))',
-				foreground: 'hsl(var(--popover-foreground))'
-			},
-			// Keep existing design tokens available
-			muted: {
-				DEFAULT: 'hsl(var(--muted))',
-				foreground: 'hsl(var(--muted-foreground))'
-			},
-			destructive: {
-				DEFAULT: 'hsl(var(--destructive))',
-				foreground: 'hsl(var(--destructive-foreground))'
-			},
+			card: { DEFAULT: 'hsl(var(--card))', foreground: 'hsl(var(--card-foreground))' },
+			popover: { DEFAULT: 'hsl(var(--popover))', foreground: 'hsl(var(--popover-foreground))' },
+			muted: { DEFAULT: 'hsl(var(--muted))', foreground: 'hsl(var(--muted-foreground))' },
+			destructive: { DEFAULT: 'hsl(var(--destructive))', foreground: 'hsl(var(--destructive-foreground))' },
 			border: 'hsl(var(--border))',
 			input: 'hsl(var(--input))',
 			ring: 'hsl(var(--ring))',
@@ -68,10 +40,25 @@ module.exports = {
 				dark: '#1A1A1A'
 			}
 		},
-  		boxShadow: {
-  			smooth: '0 4px 10px rgba(0,0,0,0.08)'
-  		}
+		fontFamily: { sans: ['Inter', 'sans-serif'] },
+		transitionTimingFunction: { smooth: 'var(--motion)' },
+		borderRadius: {
+			lg: 'var(--radius)',
+			md: 'calc(var(--radius) - 2px)',
+			sm: 'calc(var(--radius) - 4px)'
+		},
+		boxShadow: { smooth: '0 4px 10px rgba(0,0,0,0.08)' }
   	}
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [
+    require("tailwindcss-animate"),
+    require("@tailwindcss/typography"),
+    function ({ addComponents }) {
+      addComponents({
+        '.coco-glass-card': { '@apply glass-card': {} },
+        '.coco-glass-pill': { '@apply glass-pill flex items-center gap-2': {} },
+        '.coco-glass-icon': { '@apply glass-icon-circle': {} }
+      })
+    }
+  ],
 }

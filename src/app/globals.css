@@ -40,32 +40,62 @@
   }
 
   /* Theme tokens (dynamic by data-theme). Adjusted to avoid duplication. */
+  /* === Updated Liquid Glass Theme Tokens === */
   :root[data-theme="free"] {
-    --color-primary: #FF6B35;
-    --color-secondary: #31C48D;
-    --color-accent: #8A5CF6;
-    --color-bg: #FFFFFF;
-    --color-surface: #F7F7F7;
-    --color-text: #0F172A;
-    --blur: 0px;
+    /* Base colors */
+    --color-primary: #ff6b35;
+    --color-secondary: #31c48d;
+    --color-accent: #8a5cf6;
+    --color-bg: #050816; /* soft dark background */
+    --color-surface: rgba(15, 23, 42, 0.75);
+    --color-text: #f9fafb;
+
+    /* Liquid glass */
+    --glass-blur: 22px;
+    --glass-tint: rgba(255, 255, 255, 0.18);
+    --glass-border: rgba(255, 255, 255, 0.55);
+    --glass-inner-border: rgba(255, 255, 255, 0.95);
+    --glass-shadow-strong: 0 18px 40px rgba(15, 23, 42, 0.75);
+    --glass-shadow-soft: 0 0 40px rgba(56, 189, 248, 0.35);
+    --glass-highlight: rgba(255, 255, 255, 0.55);
+    --glass-noise-opacity: 0.12;
+
+    /* Gradients */
+    --app-gradient-1: #061727;
+    --app-gradient-2: #111827;
+    --app-gradient-3: #111827;
+
     --motion: cubic-bezier(0.4, 0, 0.2, 1);
   }
   :root[data-theme="premium"] {
-    --color-primary: #2EC4B6;
-    --color-secondary: #FFD166;
-    --color-accent: #F9FAFB;
-    --color-bg: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
-    --color-surface: rgba(255,255,255,0.12);
-    --color-text: #F9FAFB;
-    --blur: 24px;
-    --glass-border: rgba(255,255,255,0.18);
-    --glass-shadow: rgba(0,0,0,0.1);
+    /* Base colors */
+    --color-primary: #2ec4b6;
+    --color-secondary: #ffd166;
+    --color-accent: #f97316;
+    --color-bg: #020617;
+    --color-surface: rgba(15, 23, 42, 0.75);
+    --color-text: #f9fafb;
+
+    /* Liquid glass intensified */
+    --glass-blur: 26px;
+    --glass-tint: rgba(15, 23, 42, 0.28);
+    --glass-border: rgba(244, 244, 245, 0.65);
+    --glass-inner-border: rgba(255, 255, 255, 0.95);
+    --glass-shadow-strong: 0 22px 60px rgba(15, 23, 42, 0.95);
+    --glass-shadow-soft: 0 0 55px rgba(94, 234, 212, 0.5);
+    --glass-highlight: rgba(255, 255, 255, 0.75);
+    --glass-noise-opacity: 0.18;
+
+    --app-gradient-1: #020617;
+    --app-gradient-2: #0f172a;
+    --app-gradient-3: #020617;
+
     --motion: cubic-bezier(0.25, 0.1, 0.25, 1);
   }
 
-  html, body, #__next { 
-    background: var(--color-bg); 
-    color: var(--color-text); 
+  html, body, #__next {
+    background: var(--color-bg);
+    color: var(--color-text);
   }
   
   /* iOS-style Liquid Glass Typography */
@@ -83,24 +113,86 @@
 
 @layer components {
   /* iOS-style Liquid Glass Effects - Enhanced Version */
-  .glass-card-premium {
+  /* === Global App Background (gradient + blobs) === */
+  .app-root-bg {
+    min-height: 100vh;
+    background:
+      radial-gradient(circle at 0% 0%, rgba(236, 72, 153, 0.14), transparent 55%),
+      radial-gradient(circle at 100% 0%, rgba(56, 189, 248, 0.14), transparent 55%),
+      radial-gradient(circle at 0% 100%, rgba(190, 242, 100, 0.12), transparent 55%),
+      radial-gradient(circle at 100% 100%, rgba(94, 234, 212, 0.12), transparent 55%),
+      linear-gradient(
+        135deg,
+        var(--app-gradient-1),
+        var(--app-gradient-2),
+        var(--app-gradient-3)
+      );
+    color: var(--color-text);
+  }
+  .app-root-bg-inner { position: relative; isolation: isolate; }
+
+  /* === Liquid Glass Base Classes === */
+  .glass-base {
     position: relative;
-    background: linear-gradient(135deg, 
-      rgba(255, 255, 255, 0.1) 0%, 
-      rgba(255, 255, 255, 0.05) 100%) !important;
-    backdrop-filter: blur(24px) saturate(180%) !important;
-    -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
-    border: 1px solid rgba(255, 255, 255, 0.18) !important;
-    box-shadow: 
-      0 8px 32px rgba(0, 0, 0, 0.12),
-      0 2px 8px rgba(0, 0, 0, 0.08),
-      inset 0 1px 0 rgba(255, 255, 255, 0.15),
-      inset 0 -1px 0 rgba(0, 0, 0, 0.05),
-      0 0 0 1px rgba(255, 255, 255, 0.05) inset !important;
-    border-radius: 24px !important;
-    transition: all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+    border-radius: 999px;
+    background: linear-gradient(135deg, rgba(255,255,255,0.12), var(--glass-tint));
+    border: 1px solid var(--glass-border);
+    box-shadow: inset 0 0 0 0.5px var(--glass-inner-border), var(--glass-shadow-strong), var(--glass-shadow-soft);
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    backdrop-filter: blur(var(--glass-blur));
     overflow: hidden;
   }
+  .glass-card {
+    position: relative;
+    border-radius: 1.75rem;
+    background: linear-gradient(135deg, rgba(255,255,255,0.1), var(--glass-tint));
+    border: 1px solid var(--glass-border);
+    box-shadow: inset 0 0 0 0.5px var(--glass-inner-border), 0 18px 40px rgba(15,23,42,0.85), 0 0 45px rgba(59,130,246,0.45);
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    backdrop-filter: blur(var(--glass-blur));
+    overflow: hidden;
+  }
+  .glass-pill {
+    border-radius: 999px;
+    padding-inline: 1.25rem;
+    padding-block: 0.65rem;
+    background:
+      radial-gradient(circle at 0% 0%, rgba(255,255,255,0.18), transparent 55%),
+      linear-gradient(135deg, rgba(255,255,255,0.08), var(--glass-tint));
+    border: 1px solid var(--glass-border);
+    box-shadow: inset 0 0 0 0.5px var(--glass-inner-border), 0 16px 30px rgba(15,23,42,0.75), 0 0 40px rgba(147,197,253,0.38);
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    backdrop-filter: blur(var(--glass-blur));
+  }
+  .glass-icon-circle {
+    width: 3.1rem; height: 3.1rem;
+    border-radius: 999px; display: inline-flex; align-items: center; justify-content: center;
+    background:
+      radial-gradient(circle at 30% 0%, rgba(255,255,255,0.24), transparent 55%),
+      linear-gradient(135deg, rgba(15,23,42,0.45), var(--glass-tint));
+    border: 1px solid var(--glass-border);
+    box-shadow: inset 0 0 0 0.5px var(--glass-inner-border), 0 12px 22px rgba(15,23,42,0.8), 0 0 30px rgba(125,211,252,0.4);
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    backdrop-filter: blur(var(--glass-blur));
+  }
+  .glass-card::before, .glass-pill::before, .glass-icon-circle::before, .glass-base::before {
+    content: ""; position: absolute; inset: 0; border-radius: inherit;
+    background: linear-gradient(180deg, rgba(255,255,255,0.55), transparent 55%);
+    opacity: 0.7; mix-blend-mode: screen; pointer-events: none;
+  }
+  .glass-frosted-border {
+    border-image: linear-gradient(135deg, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0.18) 50%, rgba(255,255,255,0.6) 100%) 1;
+  }
+  /* Tint variants override --glass-tint locally */
+  .glass-card-orange { --glass-tint: rgba(255,111,0,0.18); }
+  .glass-card-green { --glass-tint: rgba(34,197,94,0.16); }
+  .glass-card-red { --glass-tint: rgba(239,68,68,0.16); }
+  .glass-card-blue { --glass-tint: rgba(59,130,246,0.18); }
+  .glass-card-purple { --glass-tint: rgba(168,85,247,0.21); }
+  .glass-text-strong { color: var(--color-text); text-shadow: 0 0 6px rgba(15,23,42,0.9); }
+
+  /* Deprecated legacy premium class retained for backward compatibility */
+  .glass-card-premium { @apply glass-card; }
   
   /* Reflejo de luz en los bordes (efecto gota de agua) */
   .glass-card-premium::before {
@@ -140,40 +232,10 @@
     z-index: 2;
   }
   
-  .glass-card-premium:hover {
-    background: linear-gradient(135deg, 
-      rgba(255, 255, 255, 0.15) 0%, 
-      rgba(255, 255, 255, 0.08) 100%) !important;
-    transform: translateY(-2px);
-    box-shadow: 
-      0 12px 48px rgba(0, 0, 0, 0.18),
-      0 4px 16px rgba(0, 0, 0, 0.12),
-      inset 0 1px 0 rgba(255, 255, 255, 0.2),
-      inset 0 -1px 0 rgba(0, 0, 0, 0.05),
-      0 0 0 1px rgba(255, 255, 255, 0.1) inset !important;
-  }
+  .glass-card:hover { transform: translateY(-2px); }
   
   /* iOS Button Style - Reflejo de colores internos */
-  .glass-button-premium {
-    position: relative;
-    background: linear-gradient(135deg, 
-      rgba(255, 255, 255, 0.2) 0%, 
-      rgba(255, 255, 255, 0.1) 100%);
-    backdrop-filter: blur(20px) saturate(180%);
-    -webkit-backdrop-filter: blur(20px) saturate(180%);
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    border-radius: 16px;
-    padding: 12px 24px;
-    font-weight: 600;
-    letter-spacing: -0.01em;
-    box-shadow: 
-      0 4px 24px rgba(0, 0, 0, 0.1),
-      0 2px 8px rgba(0, 0, 0, 0.06),
-      inset 0 1px 0 rgba(255, 255, 255, 0.2),
-      inset 0 -1px 0 rgba(0, 0, 0, 0.05);
-    transition: all 0.2s cubic-bezier(0.25, 0.1, 0.25, 1);
-    overflow: hidden;
-  }
+  .glass-button-premium { @apply glass-pill; position: relative; overflow: hidden; font-weight:600; }
   
   /* Reflejo brillante superior del botón */
   .glass-button-premium::before {
@@ -190,25 +252,9 @@
     pointer-events: none;
   }
   
-  .glass-button-premium:hover {
-    background: linear-gradient(135deg, 
-      rgba(255, 255, 255, 0.3) 0%, 
-      rgba(255, 255, 255, 0.15) 100%);
-    transform: scale(1.02);
-    box-shadow: 
-      0 6px 32px rgba(0, 0, 0, 0.15),
-      0 3px 12px rgba(0, 0, 0, 0.1),
-      inset 0 1px 0 rgba(255, 255, 255, 0.3),
-      inset 0 -1px 0 rgba(0, 0, 0, 0.05);
-  }
+  .glass-button-premium:hover { transform: scale(1.02); }
   
-  .glass-button-premium:active {
-    transform: scale(0.98);
-    box-shadow: 
-      0 2px 16px rgba(0, 0, 0, 0.12),
-      inset 0 2px 4px rgba(0, 0, 0, 0.1),
-      inset 0 1px 0 rgba(255, 255, 255, 0.15);
-  }
+  .glass-button-premium:active { transform: scale(0.98); }
   
   /* Liquid droplet effect - Efecto gota de agua */
   .glass-droplet {
@@ -216,8 +262,8 @@
     background: linear-gradient(135deg, 
       rgba(255, 255, 255, 0.25) 0%, 
       rgba(255, 255, 255, 0.15) 100%);
-    backdrop-filter: blur(16px) saturate(180%);
     -webkit-backdrop-filter: blur(16px) saturate(180%);
+    backdrop-filter: blur(16px) saturate(180%);
     border: 1px solid rgba(255, 255, 255, 0.3);
     border-radius: 12px;
     box-shadow: 
@@ -249,8 +295,8 @@
     background: linear-gradient(135deg, 
       rgba(255, 255, 255, 0.08) 0%, 
       rgba(255, 255, 255, 0.03) 100%);
-    backdrop-filter: blur(32px) saturate(200%);
     -webkit-backdrop-filter: blur(32px) saturate(200%);
+    backdrop-filter: blur(32px) saturate(200%);
     border: 1px solid rgba(255, 255, 255, 0.12);
     box-shadow: 
       0 16px 64px rgba(0, 0, 0, 0.15),

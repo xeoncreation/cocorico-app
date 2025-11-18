@@ -54,7 +54,7 @@ export function RippleButton({
       {ripples.map((r) => (
         <span
           key={r.id}
-          className="ripple-circle"
+          className="ripple-circle absolute rounded-full bg-white/50 pointer-events-none animate-ripple"
           style={{
             width: r.size,
             height: r.size,

@@ -6,17 +6,10 @@ export const metadata: Metadata = {
 	description: "Aprende técnicas, cocina mejor y desbloquea logros.",
 };
 
-export default function LearnPage() {
+export default function LearnPage({ params: { locale } }: { params: { locale: string } }) {
 	return (
-		<main className="max-w-7xl mx-auto px-4 py-8 space-y-8">
-			<header className="space-y-1">
-				<h1 className="text-3xl font-bold">Centro de aprendizaje</h1>
-				<p className="text-sm text-muted-foreground">
-					Cursos, técnicas, glosario y recursos descargables.
-				</p>
-			</header>
-
-			<LearnClient />
+		<main className="max-w-6xl mx-auto px-4 py-10">
+			<LearnClient locale={locale} />
 		</main>
 	);
 }

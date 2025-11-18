@@ -1,9 +1,9 @@
 import { MetadataRoute } from 'next';
 
 export default function robots(): MetadataRoute.Robots {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://cocorico.app';
   
-  // Si hay contraseña de sitio configurada, bloquear todo
+  // Block indexing if site password is set
   const isProtected = !!process.env.SITE_PASSWORD;
   
   if (isProtected) {
@@ -16,29 +16,16 @@ export default function robots(): MetadataRoute.Robots {
     };
   }
   
-  // Configuración normal cuando el sitio es público
+  // Normal configuration for public site
   return {
     rules: [
       {
         userAgent: '*',
-        allow: [
-          '/',
-          '/learn',
-          '/r/*',
-          '/recipes/search',
-          '/legal/privacy',
-          '/legal/terms',
-        ],
-        disallow: [
-          '/dashboard',
-          '/dashboard/*',
-          '/recipes/new',
-          '/recipes/*/edit',
-          '/chat',
-          '/api/*',
-        ],
+        allow: ['/', '/es/', '/en/', '/learn', '/community', '/recipes', '/search', '/pricing', '/legal/*'],
+        disallow: ['/admin', '/admin/', '/api', '/api/', '/dev-test', '/dev-test/', '/dashboard/', '/settings/', '/_next/'],
       },
     ],
     sitemap: `${baseUrl}/sitemap.xml`,
   };
 }
+

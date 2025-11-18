@@ -198,4 +198,180 @@ do $$ begin
   end if;
 end $$;
 
+-- Add onboarded_at if missing
+do $$ begin
+  if not exists (select 1 from information_schema.columns where table_schema='public' and table_name='user_profiles' and column_name='onboarded_at') then
+    alter table public.user_profiles add column onboarded_at timestamptz;
+  end if;
+end $$;
+
+-- Add xp and level for gamification if missing
+do $$ begin
+  if not exists (select 1 from information_schema.columns where table_schema='public' and table_name='user_profiles' and column_name='xp') then
+    alter table public.user_profiles add column xp int default 0;
+  end if;
+end $$;
+
+do $$ begin
+  if not exists (select 1 from information_schema.columns where table_schema='public' and table_name='user_profiles' and column_name='level') then
+    alter table public.user_profiles add column level int default 1;
+  end if;
+end $$;
+
 -- Migration complete
+
+-- ============================================
+-- RECIPES FULL-TEXT SEARCH SUPPORT (optional but recommended)
+-- ============================================
+do $$ begin
+  if exists (select 1 from information_schema.tables where table_schema='public' and table_name='recipes') then
+    -- Add search_vector column if missing
+    if not exists (select 1 from information_schema.columns where table_schema='public' and table_name='recipes' and column_name='search_vector') then
+      alter table public.recipes add column search_vector tsvector;
+    end if;
+    -- Initialize search_vector using Spanish config over title + description
+    update public.recipes set search_vector = to_tsvector('spanish', coalesce(title,'') || ' ' || coalesce(description,'')) where search_vector is null;
+    -- Create GIN index if missing
+    create index if not exists recipes_search_vector_idx on public.recipes using gin (search_vector);
+    -- Create or replace trigger function
+    create or replace function public.recipes_search_vector_update() returns trigger as $$
+    begin
+      new.search_vector := to_tsvector('spanish', coalesce(new.title,'') || ' ' || coalesce(new.description,''));
+      return new;
+    end
+    $$ language plpgsql;
+    -- Attach trigger
+    drop trigger if exists recipes_search_vector_trigger on public.recipes;
+    create trigger recipes_search_vector_trigger before insert or update of title, description on public.recipes
+    for each row execute function public.recipes_search_vector_update();
+  end if;
+end $$;
+
+-- ============================================
+-- EXTENSIONS FOR LEARN MODULES (additional fields)
+-- ============================================
+do $$ begin
+  if not exists (select 1 from information_schema.columns where table_schema='public' and table_name='learn_modules' and column_name='category') then
+    alter table public.learn_modules add column category text;
+  end if;
+end $$;
+
+do $$ begin
+  if not exists (select 1 from information_schema.columns where table_schema='public' and table_name='learn_modules' and column_name='cover_image_url') then
+    alter table public.learn_modules add column cover_image_url text;
+  end if;
+end $$;
+
+-- Seed demo modules if not present
+insert into public.learn_modules (slug, title, category, description, level, duration_minutes)
+select * from (values
+  ('knife-basics','Cuchillos: fundamentos','basics','Tipos de cuchillos y cómo usarlos', 'beginner', 12),
+  ('saute-technique','Salteado perfecto','techniques','Control de temperatura y movimiento', 'intermediate', 15),
+  ('food-safety-101','Seguridad alimentaria','safety','Manipulación y conservación segura', 'beginner', 10)
+) as v(slug,title,category,description,level,duration_minutes)
+where not exists (select 1 from public.learn_modules m where m.slug = v.slug);
+
+-- ============================================
+-- COOKING SESSIONS (for stats)
+-- ============================================
+create table if not exists public.cooking_sessions (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid references auth.users(id) on delete cascade,
+  recipe_id uuid references public.recipes(id) on delete set null,
+  minutes int,
+  cooked_at timestamptz default now()
+);
+
+alter table public.cooking_sessions enable row level security;
+
+do $$ begin
+  if not exists (select 1 from pg_policies where schemaname='public' and tablename='cooking_sessions' and policyname='cooking_sessions_own') then
+    create policy cooking_sessions_own on public.cooking_sessions for all to authenticated using (auth.uid() = user_id) with check (auth.uid() = user_id);
+  end if;
+end $$;
+
+-- ============================================
+-- FEEDBACK TICKETS
+-- ============================================
+create table if not exists public.feedback_tickets (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid references auth.users(id) on delete cascade,
+  category text not null,
+  title text not null,
+  message text not null,
+  status text not null default 'open' check (status in ('open','in_progress','resolved')),
+  votes int default 0,
+  screenshot_url text,
+  created_at timestamptz default now(),
+  updated_at timestamptz default now()
+);
+
+alter table public.feedback_tickets enable row level security;
+
+do $$ begin
+  if not exists (select 1 from pg_policies where schemaname='public' and tablename='feedback_tickets' and policyname='feedback_read_all') then
+    create policy feedback_read_all on public.feedback_tickets for select using (true);
+  end if;
+end $$;
+
+do $$ begin
+  if not exists (select 1 from pg_policies where schemaname='public' and tablename='feedback_tickets' and policyname='feedback_insert_own') then
+    create policy feedback_insert_own on public.feedback_tickets for insert to authenticated with check (auth.uid() = user_id);
+  end if;
+end $$;
+
+-- ============================================
+-- COMMUNITY V2 fields (extend existing posts)
+-- ============================================
+do $$ begin
+  if not exists (select 1 from information_schema.columns where table_schema='public' and table_name='community_posts' and column_name='type') then
+    alter table public.community_posts add column type text;
+  end if;
+end $$;
+
+do $$ begin
+  if not exists (select 1 from information_schema.columns where table_schema='public' and table_name='community_posts' and column_name='title') then
+    alter table public.community_posts add column title text;
+  end if;
+end $$;
+
+do $$ begin
+  if not exists (select 1 from information_schema.columns where table_schema='public' and table_name='community_posts' and column_name='body') then
+    alter table public.community_posts add column body text;
+  end if;
+end $$;
+
+do $$ begin
+  if not exists (select 1 from information_schema.columns where table_schema='public' and table_name='community_posts' and column_name='image_url') then
+    alter table public.community_posts add column image_url text;
+  end if;
+end $$;
+
+do $$ begin
+  if not exists (select 1 from information_schema.columns where table_schema='public' and table_name='community_posts' and column_name='likes_count') then
+    alter table public.community_posts add column likes_count int default 0;
+  end if;
+end $$;
+
+create table if not exists public.community_reports (
+  id uuid primary key default gen_random_uuid(),
+  post_id uuid references public.community_posts(id) on delete cascade,
+  user_id uuid references auth.users(id) on delete cascade,
+  reason text,
+  created_at timestamptz default now()
+);
+
+alter table public.community_reports enable row level security;
+
+-- ============================================
+-- STORAGE: avatars bucket policies (if bucket exists)
+-- ============================================
+-- Reset and create avatar policies (Postgres lacks IF NOT EXISTS for policy; dropping avoids errors)
+drop policy if exists "public read avatars" on storage.objects;
+create policy "public read avatars" on storage.objects for select to anon, authenticated using (bucket_id = 'avatars');
+
+drop policy if exists "authenticated write avatars" on storage.objects;
+create policy "authenticated write avatars" on storage.objects for insert to authenticated with check (bucket_id = 'avatars');
+
+drop policy if exists "authenticated update avatars" on storage.objects;
+create policy "authenticated update avatars" on storage.objects for update to authenticated using (bucket_id = 'avatars') with check (bucket_id = 'avatars');

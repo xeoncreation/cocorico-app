@@ -6,17 +6,22 @@ export async function GET() {
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) return new Response(JSON.stringify({ error: "Not authenticated" }), { status: 401 });
 
-  const [recipes, favorites, sessions, badges] = await Promise.all([
-    supabase.from("recipes").select("id, created_at").eq("user_id", user.id),
-    supabase.from("favorites").select("id").eq("user_id", user.id),
-    supabase.from("cooking_sessions").select("id, duration_minutes").eq("user_id", user.id),
-    supabase.from("user_badges").select("id, status").eq("user_id", user.id),
-  ]);
+  const [{ count: recipesCount }, { count: favoritesCount }, sessions, { count: badgesCount }] = await Promise.all([
+    supabase.from("recipes").select("*", { count: "exact", head: true }).eq("owner_id", user.id).eq("is_deleted", false),
+    supabase.from("favorites").select("*", { count: "exact", head: true }).eq("user_id", user.id),
+    supabase.from("cooking_sessions").select("minutes").eq("user_id", user.id),
+    supabase.from("user_badges").select("*", { count: "exact", head: true }).eq("user_id", user.id),
+  ] as any);
 
-  const totalRecipes = recipes.data?.length ?? 0;
-  const totalFavorites = favorites.data?.length ?? 0;
-  const totalMinutes = sessions.data?.reduce((acc: number, s: any) => acc + (s.duration_minutes ?? 0), 0) ?? 0;
-  const unlockedBadges = badges.data?.filter((b: any) => b.status === "unlocked").length ?? 0;
+  const totalMinutes = (sessions.data ?? []).reduce((acc: number, s: any) => acc + (s.minutes ?? 0), 0);
 
-  return new Response(JSON.stringify({ totalRecipes, totalFavorites, totalMinutes, unlockedBadges }), { status: 200 });
+  return new Response(
+    JSON.stringify({
+      totalRecipes: recipesCount ?? 0,
+      totalFavorites: favoritesCount ?? 0,
+      totalMinutes,
+      unlockedBadges: badgesCount ?? 0,
+    }),
+    { status: 200 }
+  );
 }
