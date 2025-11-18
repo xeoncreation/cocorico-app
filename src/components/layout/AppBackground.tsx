@@ -1,12 +1,13 @@
 import React from 'react';
 
-export type AppBackgroundVariant = 'home' | 'learn' | 'stats' | 'community';
+export type AppBackgroundVariant = 'home' | 'learn' | 'stats' | 'community' | 'profile';
 
 const backgroundMap: Record<AppBackgroundVariant, string | null> = {
   home: '/wallpapers/home-blur.webp',
   learn: '/wallpapers/learn-blur.webp',
   stats: '/wallpapers/stats-blur.webp',
   community: '/wallpapers/community-blur.webp',
+  profile: '/wallpapers/profile-blur.webp',
 };
 
 interface Props {

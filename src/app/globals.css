@@ -41,7 +41,41 @@
 
   /* Theme tokens (dynamic by data-theme). Adjusted to avoid duplication. */
   /* === Updated Liquid Glass Theme Tokens === */
-  :root[data-theme="free"] {
+  /* =============================================
+   PREMIUM ANIMATIONS
+   ============================================= */
+@keyframes coco-premium-glow {
+  0% {
+    box-shadow: 
+      inset 0 1px 1px 0 var(--glass-inner-border),
+      0 0 0 0.8px var(--glass-border),
+      0 3px 5px -2px rgba(0,0,0,0.07),
+      0 8px 14px -5px rgba(0,0,0,0.08),
+      0 20px 30px -12px rgba(0,0,0,0.11);
+  }
+  50% {
+    box-shadow: 
+      inset 0 1px 1px 0 var(--glass-inner-border),
+      0 0 0 0.8px var(--glass-border),
+      0 3px 5px -2px rgba(251,197,49,0.25),
+      0 8px 20px -5px rgba(251,197,49,0.35),
+      0 22px 42px -12px rgba(251,197,49,0.5),
+      0 0 30px -8px rgba(251,197,49,0.4);
+  }
+  100% {
+    box-shadow: 
+      inset 0 1px 1px 0 var(--glass-inner-border),
+      0 0 0 0.8px var(--glass-border),
+      0 3px 5px -2px rgba(0,0,0,0.07),
+      0 8px 14px -5px rgba(0,0,0,0.08),
+      0 20px 30px -12px rgba(0,0,0,0.11);
+  }
+}
+
+/* =============================================
+   THEME COLORS & TOKENS (FREE / PREMIUM)
+   ============================================= */
+:root[data-theme="free"] {
     /* Base colors */
     --color-primary: #ff6b35;
     --color-secondary: #31c48d;
@@ -190,6 +224,42 @@
   .glass-card-blue { --glass-tint: rgba(59,130,246,0.18); }
   .glass-card-purple { --glass-tint: rgba(168,85,247,0.21); }
   .glass-text-strong { color: var(--color-text); text-shadow: 0 0 6px rgba(15,23,42,0.9); }
+
+  /* Premium Glow Effect (applies only when .coco-premium is present on root) */
+  .coco-premium .glass-card.premium-glow,
+  .coco-premium .glass-pill.premium-glow,
+  .coco-premium .glass-icon-circle.premium-glow {
+    animation: coco-premium-glow 6s ease-in-out infinite;
+  }
+
+  /* =============================================
+     RIPPLE EFFECT (TOUCH FEEDBACK)
+     ============================================= */
+  .coco-ripple {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .coco-ripple::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(255,255,255,0.35) 0%, transparent 70%);
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+    pointer-events: none;
+    border-radius: inherit;
+  }
+
+  .coco-ripple:active::after {
+    transform: translate(-50%, -50%) scale(2.7);
+    opacity: 0.7;
+    transition: transform 450ms ease-out, opacity 450ms ease-out;
+  }
+
 
   /* Deprecated legacy premium class retained for backward compatibility */
   .glass-card-premium { @apply glass-card; }

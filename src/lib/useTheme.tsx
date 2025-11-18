@@ -15,7 +15,15 @@ const supabase = createClient(
 export const useTheme = (userId?: string) => {
   useEffect(() => {
     const apply = (plan: 'free' | 'premium' = 'free') => {
-      document.documentElement.dataset.theme = plan;
+      const root = document.documentElement;
+      root.dataset.theme = plan;
+      
+      // Add/remove coco-premium class for premium-specific effects
+      if (plan === 'premium') {
+        root.classList.add('coco-premium');
+      } else {
+        root.classList.remove('coco-premium');
+      }
     };
 
     // Always set an initial theme quickly to avoid FOUC.
