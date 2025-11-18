@@ -48,7 +48,17 @@ export default function LoginPage() {
         // Give a brief moment to ensure session is set
         setTimeout(() => router.push("/"), 600);
       } else {
-        const { error } = await supabase.auth.signInWithOtp({ email: data.email, options: { emailRedirectTo: window.location.origin } });
+        // Magic link - usar URL absoluta para iOS Safari
+        const redirectTo = typeof window !== 'undefined' 
+          ? `${window.location.protocol}//${window.location.host}`
+          : undefined;
+        
+        const { error } = await supabase.auth.signInWithOtp({ 
+          email: data.email, 
+          options: { 
+            emailRedirectTo: redirectTo
+          } 
+        });
         if (error) throw error;
         setMessage("Te enviamos un enlace mágico a tu correo. Revisa tu bandeja.");
       }

@@ -41,11 +41,15 @@ export default function SignupPage() {
         return;
       }
 
+      const redirectTo = typeof window !== 'undefined' 
+        ? `${window.location.protocol}//${window.location.host}`
+        : undefined;
+
       const { error } = await supabase.auth.signUp({
         email: data.email,
         password: data.password,
         options: {
-          emailRedirectTo: window.location.origin,
+          emailRedirectTo: redirectTo,
         },
       });
 

@@ -91,13 +91,15 @@ export default async function LocaleHomePage({
       <Reveal delay={1.0}>
         <div className="relative mt-8 opacity-95">
           <div className="glass-card-premium p-2 rounded-3xl inline-block">
-            <Image
-              src="/branding/cocorico/chef.png"
-              alt="Cocina saludable con IA"
+            <video
+              src="/branding/banner-home.webp.mp4"
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="rounded-2xl max-w-full h-auto"
               width={500}
               height={400}
-              className="rounded-2xl"
-              priority={false}
             />
           </div>
         </div>
