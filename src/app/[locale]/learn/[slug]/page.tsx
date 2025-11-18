@@ -1,6 +1,6 @@
 import { cookies } from "next/headers";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-import ModuleClient from "./module-client.tsx";
+import ModuleClient from "./module-client";
 import { notFound } from "next/navigation";
 
 export default async function LearnModulePage({
