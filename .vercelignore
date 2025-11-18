@@ -38,3 +38,10 @@ hosts-fix.txt
 # Logs
 *.log
 npm-debug.log*
+
+# Dual dev server build dirs
+.next-3000/
+.next-3001/
+
+# Stripe CLI binary
+stripe.exe
