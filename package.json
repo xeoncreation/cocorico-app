@@ -4,11 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "next dev -H 0.0.0.0 -p 3000",
-    "dev:127": "next dev -H 127.0.0.1 -p 3000",
+    "dev:127": "set NEXT_DIST_DIR=.next-3000&& next dev -H 127.0.0.1 -p 3000",
     "dev:all": "next dev -H 0.0.0.0 -p 3000",
     "dev:localhost": "next dev -H localhost -p 3000",
     "dev:ipv6": "next dev -H :: -p 3000",
-    "dev:3001": "next dev -p 3001 -H 127.0.0.1",
+    "dev:3001": "set NEXT_DIST_DIR=.next-3001&& next dev -p 3001 -H 127.0.0.1",
     "dev:no-pwa": "node scripts/run-dev.js --no-pwa",
     "dev:no-intl": "node scripts/run-dev.js --no-intl",
     "dev:min": "node scripts/run-dev.js --minimal",
@@ -76,6 +76,7 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.39.0",
+    "@tailwindcss/typography": "^0.5.19",
     "@testing-library/jest-dom": "^6.1.4",
     "@testing-library/react": "^14.1.0",
     "@types/jest": "^29.5.8",

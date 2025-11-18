@@ -13,6 +13,9 @@ const minimal = isTrue(MINIMAL_NEXT_CONFIG);
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Allow isolating build output when running multiple dev servers concurrently
+  // Use env var to avoid .next file locking conflicts on Windows
+  distDir: process.env.NEXT_DIST_DIR || '.next',
   // Allow production builds to succeed even if there are ESLint errors.
   // We will track and fix lint issues separately.
   eslint: {
