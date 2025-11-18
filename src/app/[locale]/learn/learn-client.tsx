@@ -43,12 +43,15 @@ export default function LearnClient() {
   ];
 
   return (
-    <section className="min-h-screen bg-gradient-to-br from-blue-50/80 via-white to-sky-50/60 dark:from-blue-950/20 dark:via-neutral-900 dark:to-sky-950/20 py-8 px-4">
-      <div className="max-w-7xl mx-auto grid lg:grid-cols-[2fr,1fr] gap-6 items-start">
+    <section className="min-h-screen bg-gradient-to-br from-blue-50/80 via-indigo-50/60 to-purple-50/80 dark:from-indigo-950/40 dark:via-blue-900/30 dark:to-purple-950/40 py-12 px-4">
+      <div className="max-w-7xl mx-auto grid lg:grid-cols-[2fr,1fr] gap-8 items-start">
         {/* CURSOS */}
         <div className="space-y-6">
-          <h2 className="text-xl font-semibold flex items-center gap-2 text-blue-900 dark:text-blue-300">
-            <BookOpen className="w-5 h-5" />
+          <h2 className={cn(
+            "text-2xl font-bold flex items-center gap-3 mb-4",
+            plan === "premium" ? "glass-text-premium" : "text-blue-900 dark:text-blue-300"
+          )}>
+            <BookOpen className="w-6 h-6" />
             Rutas de aprendizaje
           </h2>
 
@@ -61,13 +64,23 @@ export default function LearnClient() {
               )}
             >
             <CardHeader>
-              <CardTitle className="text-base flex items-center gap-2">
-                <ChefHat className="w-4 h-4 text-primary" />
+              <CardTitle className={cn(
+                "text-lg font-bold flex items-center gap-3",
+                plan === "premium" && "glass-text-premium"
+              )}>
+                <ChefHat className="w-5 h-5" />
                 {mod.title}
               </CardTitle>
-              <div className="flex gap-2 text-xs text-muted-foreground mt-1">
-                <span>{mod.level}</span>
-                <span>{mod.estimated} min</span>
+              <div className="flex gap-3 text-sm mt-2">
+                <span className={cn(
+                  "px-3 py-1 rounded-lg font-medium",
+                  plan === "premium" ? "glass-droplet" : "bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300"
+                )}>
+                  {mod.level}
+                </span>
+                <span className={plan === "premium" ? "text-white/80" : "text-muted-foreground"}>
+                  ⏱️ {mod.estimated} min
+                </span>
               </div>
             </CardHeader>
 
@@ -77,18 +90,34 @@ export default function LearnClient() {
                 <div
                   key={lesson.id}
                   className={cn(
-                    "p-3 border rounded-xl flex items-center justify-between",
-                    plan === "premium" && "bg-white/10 border-white/20 backdrop-blur-xl"
+                    "p-4 border rounded-2xl flex items-center justify-between transition-all hover:scale-102",
+                    plan === "premium" ? "glass-droplet" : "bg-white/80 dark:bg-neutral-800/80 border-blue-200 dark:border-blue-800 hover:shadow-lg"
                   )}
                 >
-                  <div className="flex items-center gap-2">
-                    <PlayCircle className="w-4 h-4 text-primary" />
-                    <span className="text-sm">{lesson.title}</span>
+                  <div className="flex items-center gap-3">
+                    <div className={cn(
+                      "w-10 h-10 rounded-xl flex items-center justify-center",
+                      plan === "premium" ? "glass-droplet" : "bg-blue-100 dark:bg-blue-900/30"
+                    )}>
+                      <PlayCircle className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+                    </div>
+                    <span className={cn(
+                      "text-base font-medium",
+                      plan === "premium" && "glass-text-premium"
+                    )}>
+                      {lesson.title}
+                    </span>
                   </div>
 
                   {/* Reproductor: placeholder boton */}
-                  <Button size="icon" variant="ghost" className="h-7 w-7">
-                    <PlayCircle className="w-4 h-4" />
+                  <Button 
+                    size="sm" 
+                    className={cn(
+                      "rounded-xl",
+                      plan === "premium" && "glass-button-premium"
+                    )}
+                  >
+                    Ver
                   </Button>
                 </div>
               ))}
@@ -102,20 +131,33 @@ export default function LearnClient() {
         {/* LOGROS EDUCATIVOS */}
         <Card
           className={cn(
-            "border border-border/60 bg-surface",
-            plan === "premium" && "bg-white/10 border-white/20 backdrop-blur-xl"
+            "border rounded-3xl",
+            plan === "premium" ? "glass-card-premium" : "bg-white/80 dark:bg-neutral-900/80 border-blue-200 dark:border-blue-800"
           )}
         >
           <CardHeader>
-            <CardTitle className="text-sm flex items-center gap-2">
-              <GraduationCap className="w-4 h-4 text-primary" />
+            <CardTitle className={cn(
+              "text-base font-bold flex items-center gap-2",
+              plan === "premium" && "glass-text-premium"
+            )}>
+              <GraduationCap className="w-5 h-5" />
               Logros educativos
             </CardTitle>
           </CardHeader>
 
-          <CardContent className="space-y-2 text-xs">
-            <Badge variant="outline">Primer módulo completado</Badge>
-            <Badge variant="outline">Cortes avanzados</Badge>
+          <CardContent className="space-y-3 text-sm">
+            <Badge className={cn(
+              "px-3 py-1 rounded-lg",
+              plan === "premium" && "glass-droplet"
+            )}>
+              ✅ Primer módulo completado
+            </Badge>
+            <Badge className={cn(
+              "px-3 py-1 rounded-lg",
+              plan === "premium" && "glass-droplet"
+            )}>
+              🔪 Cortes avanzados
+            </Badge>
 
             <Button
               asChild
