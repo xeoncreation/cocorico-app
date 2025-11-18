@@ -139,26 +139,24 @@ export default function ScannerClient() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-teal-50/80 via-white to-cyan-50/60 dark:from-teal-950/20 dark:via-neutral-900 dark:to-cyan-950/20 py-8">
       <div className="max-w-4xl mx-auto px-4 space-y-8">
-        {/* Header */}
-        <div className="text-center space-y-2">
-          <h1 className="text-3xl font-bold tracking-tight text-teal-900 dark:text-teal-300">
-            Food Scanner
-          </h1>
-          <p className="text-sm text-muted-foreground">
-            Detecta ingredientes con tu cámara o sube una imagen.
-          </p>
+        {/* Header with Cocorico */}
+        <div className="flex items-center justify-center gap-6">
+          <div className="hidden md:block">
+            <CocoricoMascot mood={mood} size="lg" animated />
+          </div>
+          <div className="text-center space-y-2">
+            <h1 className={`text-4xl font-bold tracking-tight ${plan === "premium" ? "glass-text-premium" : "text-teal-900 dark:text-teal-300"}`}>
+              Food Scanner
+            </h1>
+            <p className={`text-sm ${plan === "premium" ? "text-white/80" : "text-muted-foreground"} max-w-2xl mx-auto`}>
+              Identifica alimentos en tiempo real con tu cámara o sube una foto para descubrir sus valores nutricionales.
+            </p>
+          </div>
+          <div className="hidden md:block opacity-0">
+            {/* Spacer for symmetry */}
+            <div className="w-32 h-32"></div>
+          </div>
         </div>
-
-        {/* Mascot */}
-        <div className="flex justify-center">
-          <CocoricoMascot
-          mood={mood}
-          size="lg"
-          animated
-          showBubble={detecting}
-          bubbleText={detecting ? "Analizando alimentos..." : ""}
-        />
-      </div>
 
       {/* Mode Selection */}
       {mode === "idle" && (

@@ -22,60 +22,84 @@ export default async function LocaleHomePage({
   });
 
   return (
-    <main className="flex flex-col items-center justify-center min-h-[90vh] text-center p-6 bg-gradient-to-b from-cocorico-yellow/20 via-white to-cocorico-orange/5 dark:from-neutral-900 dark:via-neutral-800 dark:to-neutral-900 relative">
+    <main className="flex flex-col items-center justify-center min-h-[90vh] text-center px-4 sm:px-6 py-12 bg-gradient-to-br from-orange-50 via-amber-50 to-yellow-50 dark:from-purple-950 dark:via-pink-900 dark:to-orange-900 relative overflow-hidden">
       <OnboardingModal />
+      
+      {/* Cocorico Mascot animada */}
       <Reveal>
-        <Image
-          src="/branding/cocorico-mascot-anim-optimized.gif"
-          width={220}
-          height={326}
-          alt="Cocorico gallo"
-          className="mb-6 drop-shadow-lg fade-edge"
-          unoptimized
-          priority
-        />
+        <div className="mb-8 relative">
+          <Image
+            src="/branding/cocorico-mascot.png"
+            width={240}
+            height={240}
+            alt="Cocorico gallo"
+            className="drop-shadow-2xl animate-float"
+            priority
+          />
+        </div>
       </Reveal>
 
       <Reveal delay={0.2}>
-        <h1 className="text-5xl md:text-6xl font-display text-cocorico-red dark:text-amber-400 mb-3 animate-fade-in">
+        <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-orange-600 via-red-600 to-pink-600 dark:from-orange-400 dark:via-red-400 dark:to-pink-400 mb-4 tracking-tight">
           {t("home.title")}
         </h1>
       </Reveal>
 
       <Reveal delay={0.4}>
-        <p className="max-w-md text-cocorico-brown dark:text-neutral-300 mb-6 text-lg leading-relaxed">
+        <p className="max-w-2xl text-lg sm:text-xl text-orange-900 dark:text-orange-100 mb-8 leading-relaxed font-medium">
           {t("home.description")}
         </p>
       </Reveal>
 
       <Reveal delay={0.6}>
-        <div className="flex gap-4 flex-wrap justify-center">
+        <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
           <Link
             href={`/${locale}/chat`}
-            className="px-6 py-3 bg-cocorico-yellow dark:bg-amber-500 text-cocorico-red dark:text-white rounded-lg font-semibold hover:bg-cocorico-orange hover:scale-105 transition-all shadow-md hover:shadow-lg"
+            className="glass-button-premium px-8 py-4 text-lg font-semibold text-white shadow-2xl hover:shadow-3xl transform hover:-translate-y-1"
           >
-            {t("home.chatButton")}
+            🐓 {t("home.chatButton")}
           </Link>
           <Link
             href={`/${locale}/dashboard/favorites`}
-            className="px-6 py-3 border-2 border-cocorico-red dark:border-amber-400 text-cocorico-red dark:text-amber-400 rounded-lg font-semibold hover:bg-cocorico-red hover:text-white dark:hover:bg-amber-400 dark:hover:text-neutral-900 hover:scale-105 transition-all shadow-md hover:shadow-lg"
+            className="glass-button-premium px-8 py-4 text-lg font-semibold text-white shadow-2xl hover:shadow-3xl transform hover:-translate-y-1"
           >
-            {t("home.recipesButton")}
+            📖 {t("home.recipesButton")}
           </Link>
         </div>
       </Reveal>
 
       <Reveal delay={0.8}>
-        <div className="mt-10 opacity-90">
-          <Image
-            src="/branding/banner-home-optimized.gif"
-            alt="Cocina saludable con IA"
-            width={600}
-            height={405}
-            className="rounded-xl shadow-md fade-edge-lg hover:shadow-xl transition-shadow"
-            unoptimized
-            priority={false}
-          />
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-4xl mb-12">
+          <div className="glass-card-premium p-6 rounded-3xl text-center transform hover:scale-105 transition-transform">
+            <div className="text-4xl mb-3">🔍</div>
+            <h3 className="font-bold text-lg mb-2 glass-text-premium">Escáner IA</h3>
+            <p className="text-sm text-white/80">Identifica ingredientes al instante</p>
+          </div>
+          <div className="glass-card-premium p-6 rounded-3xl text-center transform hover:scale-105 transition-transform">
+            <div className="text-4xl mb-3">👥</div>
+            <h3 className="font-bold text-lg mb-2 glass-text-premium">Comunidad</h3>
+            <p className="text-sm text-white/80">Comparte tus creaciones</p>
+          </div>
+          <div className="glass-card-premium p-6 rounded-3xl text-center transform hover:scale-105 transition-transform">
+            <div className="text-4xl mb-3">🎯</div>
+            <h3 className="font-bold text-lg mb-2 glass-text-premium">Retos</h3>
+            <p className="text-sm text-white/80">Desafíate y mejora</p>
+          </div>
+        </div>
+      </Reveal>
+
+      <Reveal delay={1.0}>
+        <div className="relative mt-8 opacity-95">
+          <div className="glass-card-premium p-2 rounded-3xl inline-block">
+            <Image
+              src="/branding/cocorico/chef.png"
+              alt="Cocina saludable con IA"
+              width={500}
+              height={400}
+              className="rounded-2xl"
+              priority={false}
+            />
+          </div>
         </div>
       </Reveal>
     </main>

@@ -1,8 +1,14 @@
 import SubscribeButton from "@/components/SubscribeButton";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Precios | Cocorico",
+  description: "Elige el plan perfecto para ti. Prueba Cocorico gratis o desbloquea funciones premium.",
+};
 
 export default function PricingPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-orange-50 to-yellow-50 dark:from-neutral-950 dark:to-neutral-900 py-20">
+    <div className="min-h-screen bg-gradient-to-br from-orange-50 to-yellow-50 dark:from-purple-950 dark:via-pink-900 dark:to-orange-900 py-20">
       <div className="max-w-6xl mx-auto px-6">
         <div className="text-center mb-16">
           <h1 className="text-5xl font-bold mb-4 text-neutral-900 dark:text-white">

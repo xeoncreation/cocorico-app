@@ -1,4 +1,6 @@
 @import "@fontsource/poppins/400.css";
+@import "@fontsource/poppins/600.css";
+@import "@fontsource/poppins/700.css";
 @import "@fontsource/pacifico/400.css";
 
 @tailwind base;
@@ -21,6 +23,10 @@
 
   body {
     @apply bg-background text-foreground;
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    letter-spacing: -0.01em;
   }
 
   html {
@@ -48,16 +54,118 @@
     --color-primary: #2EC4B6;
     --color-secondary: #FFD166;
     --color-accent: #F9FAFB;
-    --color-bg: rgba(255,255,255,0.06);
+    --color-bg: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
     --color-surface: rgba(255,255,255,0.12);
-    --color-text: #E5E7EB;
-    --blur: 16px;
+    --color-text: #F9FAFB;
+    --blur: 24px;
+    --glass-border: rgba(255,255,255,0.18);
+    --glass-shadow: rgba(0,0,0,0.1);
     --motion: cubic-bezier(0.25, 0.1, 0.25, 1);
-    -webkit-backdrop-filter: blur(var(--blur));
-    backdrop-filter: blur(var(--blur));
   }
 
-  html, body, #__next { background: var(--color-bg); color: var(--color-text); }
+  html, body, #__next { 
+    background: var(--color-bg); 
+    color: var(--color-text); 
+  }
+  
+  /* iOS-style Liquid Glass Typography */
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+  }
+  
+  p, span, div {
+    letter-spacing: -0.01em;
+    line-height: 1.5;
+  }
+}
+
+@layer components {
+  /* iOS-style Liquid Glass Effects */
+  .glass-card-premium {
+    background: rgba(255, 255, 255, 0.08) !important;
+    backdrop-filter: blur(24px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.18) !important;
+    box-shadow: 
+      0 8px 32px rgba(0, 0, 0, 0.12),
+      inset 0 1px 0 rgba(255, 255, 255, 0.15),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.05) !important;
+    border-radius: 24px !important;
+    transition: all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+  }
+  
+  .glass-card-premium:hover {
+    background: rgba(255, 255, 255, 0.12) !important;
+    transform: translateY(-2px);
+    box-shadow: 
+      0 12px 48px rgba(0, 0, 0, 0.18),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.05) !important;
+  }
+  
+  /* iOS Button Style - Rounded rectangular with liquid edges */
+  .glass-button-premium {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 16px;
+    padding: 12px 24px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    box-shadow: 
+      0 4px 24px rgba(0, 0, 0, 0.1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    transition: all 0.2s cubic-bezier(0.25, 0.1, 0.25, 1);
+  }
+  
+  .glass-button-premium:hover {
+    background: rgba(255, 255, 255, 0.22);
+    transform: scale(1.02);
+    box-shadow: 
+      0 6px 32px rgba(0, 0, 0, 0.15),
+      inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  }
+  
+  .glass-button-premium:active {
+    transform: scale(0.98);
+    box-shadow: 
+      0 2px 16px rgba(0, 0, 0, 0.12),
+      inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  }
+  
+  /* Liquid droplet effect for smaller buttons */
+  .glass-droplet {
+    background: rgba(255, 255, 255, 0.18);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 12px;
+    box-shadow: 
+      0 4px 16px rgba(0, 0, 0, 0.08),
+      inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  }
+  
+  /* Full-screen glass panel */
+  .glass-panel-premium {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(32px) saturate(200%);
+    -webkit-backdrop-filter: blur(32px) saturate(200%);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 
+      0 16px 64px rgba(0, 0, 0, 0.15),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+  
+  /* Text with glass effect */
+  .glass-text-premium {
+    color: rgba(255, 255, 255, 0.95);
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
 }
 
 @layer utilities {
@@ -65,5 +173,25 @@
     /* Use white-space for better browser support */
     white-space: normal;
     overflow-wrap: break-word;
+  }
+  
+  /* iOS-style animations */
+  @keyframes bounce-slow {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+  
+  .animate-bounce-slow {
+    animation: bounce-slow 3s ease-in-out infinite;
+  }
+  
+  @keyframes float {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    33% { transform: translateY(-8px) rotate(2deg); }
+    66% { transform: translateY(-4px) rotate(-2deg); }
+  }
+  
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
   }
 }
