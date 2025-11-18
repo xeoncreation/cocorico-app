@@ -1,59 +1,49 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { createClient } from "@supabase/supabase-js";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { Card, CardHeader, CardContent, CardTitle } from "@/components/ui/card";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { RippleButton } from "@/components/ui/ripple-button";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 import {
-  Upload,
   Camera,
-  Link as LinkIcon,
+  Upload,
   Shield,
   Globe,
   Download,
   Loader2,
 } from "lucide-react";
 
-import { cn } from "@/lib/utils";
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-);
-
-// ----------------------------
-// Zod Schema
-// ----------------------------
 const ProfileSchema = z.object({
-  name: z.string().min(2),
-  bio: z.string().max(180).optional(),
+  display_name: z.string().min(2, "El nombre es obligatorio"),
+  bio: z.string().max(180, "Máximo 180 caracteres").optional(),
   instagram: z.string().optional(),
   tiktok: z.string().optional(),
   visibility: z.enum(["public", "private"]),
 });
 
+type ProfileFormValues = z.infer<typeof ProfileSchema>;
+
 export default function ProfileClient() {
+  const supabase = createClientComponentClient();
   const [plan, setPlan] = useState<"free" | "premium">("free");
   const [avatarFile, setAvatarFile] = useState<File | null>(null);
-  const [uploading, setUploading] = useState(false);
+  const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
+  const [loadingSave, setLoadingSave] = useState(false);
+  const [loadingExport, setLoadingExport] = useState(false);
 
-  useEffect(() => {
-    setPlan(
-      document.documentElement.dataset.theme === "premium" ? "premium" : "free"
-    );
-  }, []);
-
-  const form = useForm<z.infer<typeof ProfileSchema>>({
+  const form = useForm<ProfileFormValues>({
     resolver: zodResolver(ProfileSchema),
     defaultValues: {
-      name: "",
+      display_name: "",
       bio: "",
       instagram: "",
       tiktok: "",
@@ -61,161 +51,210 @@ export default function ProfileClient() {
     },
   });
 
+  useEffect(() => {
+    setPlan(
+      document.documentElement.dataset.theme === "premium" ? "premium" : "free"
+    );
+  }, []);
+
+  useEffect(() => {
+    (async () => {
+      const res = await fetch("/api/me/profile");
+      if (!res.ok) return;
+      const json = await res.json();
+      const p = json.profile;
+      if (!p) return;
+      form.reset({
+        display_name: p.display_name ?? "",
+        bio: p.bio ?? "",
+        instagram: p.instagram ?? "",
+        tiktok: p.tiktok ?? "",
+        visibility: p.visibility ?? "public",
+      });
+      setAvatarUrl(p.avatar_url ?? null);
+    })();
+  }, [form]);
+
   const uploadAvatar = async () => {
-    if (!avatarFile) return;
-    setUploading(true);
+    if (!avatarFile) return null;
+    const ext = avatarFile.name.split(".").pop();
+    const filePath = `avatars/${Date.now()}.${ext}`;
+    const { error } = await supabase.storage.from("assets").upload(filePath, avatarFile);
+    if (error) {
+      console.error(error);
+      return null;
+    }
+    const { data } = supabase.storage.from("assets").getPublicUrl(filePath);
+    return data.publicUrl;
+  };
 
-    const fileName = `avatar-${Date.now()}`;
-    await supabase.storage
-      .from("assets")
-      .upload(`avatars/${fileName}`, avatarFile);
+  const onSubmit = async (values: ProfileFormValues) => {
+    setLoadingSave(true);
+    let finalAvatarUrl = avatarUrl;
+    if (avatarFile) {
+      const uploaded = await uploadAvatar();
+      if (uploaded) {
+        finalAvatarUrl = uploaded;
+        setAvatarUrl(uploaded);
+      }
+    }
+    await fetch("/api/me/profile", {
+      method: "POST",
+      body: JSON.stringify({
+        ...values,
+        avatar_url: finalAvatarUrl,
+      }),
+    });
+    setLoadingSave(false);
+  };
 
-    setUploading(false);
-    alert("Avatar actualizado.");
+  const exportData = async () => {
+    setLoadingExport(true);
+    setTimeout(() => {
+      setLoadingExport(false);
+      alert("Exportación de datos en preparación (stub).");
+    }, 800);
   };
 
   return (
     <section className="space-y-10">
-      {/* --------------------------- */}
-      {/* AVATAR */}
-      {/* --------------------------- */}
       <Card
         className={cn(
           "border p-6 rounded-2xl space-y-6 bg-surface/80",
-          plan === "premium" &&
-            "bg-white/10 backdrop-blur-xl border-white/20 shadow-xl"
+          plan === "premium" && "glass-card glass-card-purple glass-frosted-border"
         )}
       >
         <CardHeader>
           <CardTitle>Foto de perfil</CardTitle>
         </CardHeader>
-
         <CardContent>
           <div className="flex items-center gap-6">
             <div className="w-20 h-20 rounded-full bg-surface border flex items-center justify-center overflow-hidden">
-              <Camera className="w-6 h-6 text-muted-foreground" />
+              {avatarUrl ? (
+                <img src={avatarUrl} alt="Avatar" className="w-full h-full object-cover" />
+              ) : (
+                <Camera className="w-6 h-6 text-muted-foreground" />
+              )}
             </div>
-
             <div className="space-y-3">
               <Input
                 type="file"
                 accept="image/*"
-                onChange={(e) => setAvatarFile(e.target.files?.[0] || null)}
+                aria-label="Seleccionar avatar"
+                onChange={(e) => setAvatarFile(e.target.files?.[0] ?? null)}
               />
-
-              <Button
-                disabled={uploading}
-                onClick={uploadAvatar}
-                className="rounded-xl"
+              <RippleButton
+                type="button"
+                disabled={loadingSave}
+                onClick={onSubmit.bind(null, form.getValues())}
+                className="rounded-xl inline-flex items-center gap-2"
               >
-                {uploading ? (
+                {loadingSave ? (
                   <>
-                    <Loader2 className="animate-spin w-4 h-4 mr-1" /> Subiendo...
+                    <Loader2 className="w-4 h-4 animate-spin" /> Subiendo…
                   </>
                 ) : (
                   <>
-                    <Upload className="w-4 h-4 mr-1" /> Actualizar Avatar
+                    <Upload className="w-4 h-4" /> Actualizar avatar
                   </>
                 )}
-              </Button>
+              </RippleButton>
             </div>
           </div>
         </CardContent>
       </Card>
 
-      {/* --------------------------- */}
-      {/* DATOS DE PERFIL */}
-      {/* --------------------------- */}
       <Card
         className={cn(
-          "border p-6 rounded-2xl bg-surface/80 space-y-6",
-          plan === "premium" &&
-            "bg-white/10 backdrop-blur-xl border-white/20 shadow-xl"
+          "border p-6 rounded-2xl bg-surface/80",
+          plan === "premium" && "glass-card glass-card-purple glass-frosted-border"
         )}
       >
         <CardHeader>
           <CardTitle>Datos personales</CardTitle>
         </CardHeader>
-
         <CardContent>
-          <form className="space-y-4">
-            <Input placeholder="Nombre" {...form.register("name")} />
-            <Textarea placeholder="Bio (máx 180 caracteres)" {...form.register("bio")} />
-
-            <div className="grid grid-cols-2 gap-4">
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+            <Input placeholder="Nombre visible" {...form.register("display_name")} />
+            <Textarea
+              placeholder="Bio (máx. 180 caracteres)"
+              rows={3}
+              {...form.register("bio")}
+            />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="text-xs font-medium flex gap-1 mb-1">
-                  <InstagramIcon /> Instagram
+                <label className="text-xs flex items-center gap-1 mb-1">
+                  <Globe className="w-3 h-3" /> Instagram
                 </label>
                 <Input placeholder="@usuario" {...form.register("instagram")} />
               </div>
-
               <div>
-                <label className="text-xs font-medium flex gap-1 mb-1">
-                  <LinkIcon className="w-3 h-3" /> TikTok
+                <label className="text-xs flex items-center gap-1 mb-1">
+                  <Globe className="w-3 h-3" /> TikTok
                 </label>
                 <Input placeholder="@usuario" {...form.register("tiktok")} />
               </div>
             </div>
-
-            {/* Privacidad */}
             <div className="space-y-2">
-              <label className="text-xs font-medium flex items-center gap-2 mb-1">
+              <label className="text-xs flex items-center gap-2">
                 <Shield className="w-4 h-4" /> Privacidad
               </label>
-
               <select
                 {...form.register("visibility")}
-                className="p-2 rounded-lg bg-surface border border-border"
+                className="p-2 rounded-lg bg-surface border border-border w-full"
               >
-                <option value="public">Público</option>
-                <option value="private">Privado</option>
+                <option value="public">Perfil público</option>
+                <option value="private">Solo tú</option>
               </select>
             </div>
-
-            <Button className="rounded-xl mt-4">Guardar cambios</Button>
+            <RippleButton
+              type="submit"
+              disabled={loadingSave}
+              className="mt-4 rounded-xl w-full h-11"
+            >
+              {loadingSave ? (
+                <>
+                  <Loader2 className="w-4 h-4 animate-spin mr-1" /> Guardando…
+                </>
+              ) : (
+                "Guardar cambios"
+              )}
+            </RippleButton>
           </form>
         </CardContent>
       </Card>
 
-      {/* --------------------------- */}
-      {/* EXPORTACIÓN GDPR */}
-      {/* --------------------------- */}
       <Card
         className={cn(
-          "border p-6 rounded-2xl bg-surface/80 space-y-4",
-          plan === "premium" &&
-            "bg-white/10 backdrop-blur-xl border-white/20 shadow-xl"
+          "border p-6 rounded-2xl bg-surface/80",
+          plan === "premium" && "glass-card glass-card-blue glass-frosted-border"
         )}
       >
         <CardHeader>
           <CardTitle>Exportar datos (GDPR)</CardTitle>
         </CardHeader>
-
-        <CardContent>
+        <CardContent className="space-y-3">
           <p className="text-sm text-muted-foreground">
-            Descarga toda tu información personal y contenido asociado con tu cuenta.
+            Descarga un archivo con tus datos personales y contenido asociado.
           </p>
-
-          <Button className="mt-3 rounded-xl">
-            <Download className="w-4 h-4 mr-1" /> Exportar ZIP
+          <Button
+            type="button"
+            onClick={exportData}
+            disabled={loadingExport}
+            className="rounded-xl inline-flex items-center gap-2"
+          >
+            {loadingExport ? (
+              <>
+                <Loader2 className="w-4 h-4 animate-spin" /> Preparando…
+              </>
+            ) : (
+              <>
+                <Download className="w-4 h-4" /> Exportar ZIP
+              </>
+            )}
           </Button>
         </CardContent>
       </Card>
     </section>
-  );
-}
-
-// Ícono pequeño de Instagram
-function InstagramIcon() {
-  return (
-    <svg
-      className="w-3 h-3"
-      viewBox="0 0 24 24"
-      fill="currentColor"
-      aria-hidden="true"
-    >
-      <path d="M7 2C4.2 2 2 4.2 2 7v10c0 2.8 2.2 5 5 5h10c2.8 0 5-2.2 5-5V7c0-2.8-2.2-5-5-5H7zm10 2c1.7 0 3 1.3 3 3v10c0 1.7-1.3 3-3 3H7c-1.7 0-3-1.3-3-3V7c0-1.7 1.3-3 3-3h10zm-5 3a5 5 0 100 10 5 5 0 000-10zm0 2a3 3 0 110 6 3 3 0 010-6zm4.5-.2a1.3 1.3 0 110 2.6 1.3 1.3 0 010-2.6z" />
-    </svg>
   );
 }

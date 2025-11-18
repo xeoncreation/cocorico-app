@@ -37,21 +37,32 @@ export default function StatsClient() {
   }, []);
 
   // Dummy data reemplazable por Supabase
-  const monthlyRecipes = [
-    { month: "Ene", value: 2 },
-    { month: "Feb", value: 3 },
-    { month: "Mar", value: 5 },
-    { month: "Abr", value: 8 },
-    { month: "May", value: 7 },
-    { month: "Jun", value: 12 },
-  ];
-
-  const categoryFavorites = [
-    { category: "Pasta", value: 16 },
-    { category: "Veggie", value: 10 },
-    { category: "Sopas", value: 5 },
-    { category: "Postres", value: 13 },
-  ];
+  const [stats, setStats] = useState<null | { totalRecipes: number; totalFavorites: number; totalMinutes: number; unlockedBadges: number }>(null);
+  const [monthlyRecipes, setMonthlyRecipes] = useState<{ month: string; value: number }[]>([]);
+  const [categoryFavorites, setCategoryFavorites] = useState<{ category: string; value: number }[]>([]);
+  useEffect(() => {
+    (async () => {
+      const res = await fetch('/api/dashboard/stats');
+      if (res.ok) {
+        const json = await res.json();
+        setStats(json);
+        setMonthlyRecipes([
+          { month: 'Ene', value: Math.max(1, Math.round(json.totalRecipes / 6)) },
+          { month: 'Feb', value: Math.max(1, Math.round(json.totalRecipes / 5)) },
+          { month: 'Mar', value: Math.max(1, Math.round(json.totalRecipes / 4)) },
+          { month: 'Abr', value: Math.max(1, Math.round(json.totalRecipes / 3)) },
+          { month: 'May', value: Math.max(1, Math.round(json.totalRecipes / 2)) },
+          { month: 'Jun', value: json.totalRecipes },
+        ]);
+        setCategoryFavorites([
+          { category: 'Pasta', value: Math.round(json.totalFavorites * 0.4) },
+          { category: 'Veggie', value: Math.round(json.totalFavorites * 0.25) },
+            { category: 'Sopas', value: Math.round(json.totalFavorites * 0.15) },
+            { category: 'Postres', value: Math.max(1, json.totalFavorites - Math.round(json.totalFavorites * 0.8)) },
+        ]);
+      }
+    })();
+  }, []);
 
   return (
     <section className="min-h-screen bg-gradient-to-br from-purple-50/80 via-white to-violet-50/60 dark:from-purple-950/20 dark:via-neutral-900 dark:to-violet-950/20 py-8 px-4">
@@ -145,7 +156,7 @@ export default function StatsClient() {
             </CardHeader>
 
             <CardContent className="space-y-3">
-              <p className="text-2xl font-bold text-purple-900 dark:text-purple-300">32 horas</p>
+              <p className="text-2xl font-bold text-purple-900 dark:text-purple-300">{stats ? `${Math.round((stats.totalMinutes||0)/60)} horas` : '--'}</p>
               <p className="text-xs text-muted-foreground">
                 Acumulado durante los últimos meses.
               </p>
@@ -174,7 +185,7 @@ export default function StatsClient() {
               más activos este mes.
             </p>
             <p className="text-xs text-muted-foreground mt-1">
-              Cocinas más que el 82% de la comunidad.
+              {stats ? `Recetas: ${stats.totalRecipes} · Favoritos: ${stats.totalFavorites}` : 'Cargando métricas...'}
             </p>
           </Card>
         </section>

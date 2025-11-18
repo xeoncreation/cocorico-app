@@ -79,6 +79,16 @@ export default async function DevDashboardPage() {
           </Link>
         </section>
 
+        {/* Link Cards Simplified Section */}
+        <section className="grid md:grid-cols-3 gap-6">
+          <DevLinkCard href="/dev/ui-preview" title="UI Preview" description="Prueba Free/Premium, glass y ripple." icon="👁️" />
+          <DevLinkCard href="/admin/users" title="Admin Usuarios" description="Consulta usuarios y planes." icon="👥" />
+          <DevLinkCard href="/dashboard/stats" title="Stats" description="Gráficos y métricas de uso." icon="📊" />
+          <DevLinkCard href="/dashboard/feedback" title="Feedback" description="Tickets y sugerencias." icon="🛠️" />
+          <DevLinkCard href="/plans" title="Planes" description="Comparativa Free vs Premium." icon="✨" />
+          <DevLinkCard href="/learn" title="Learn" description="Módulos de aprendizaje." icon="🎓" />
+        </section>
+
         {/* Theme Pages */}
         <section className="space-y-4">
           <h2 className="text-2xl font-bold text-slate-200">📄 Páginas Temáticas</h2>
@@ -241,5 +251,15 @@ export default async function DevDashboardPage() {
         </footer>
       </div>
     </main>
+  );
+}
+
+function DevLinkCard({href,title,description,icon}:{href:string;title:string;description:string;icon:string}){
+  return (
+    <a href={href} className="p-4 rounded-xl border border-slate-700 bg-slate-800/40 hover:bg-slate-700/40 transition flex flex-col gap-2">
+      <div className="text-2xl">{icon}</div>
+      <div className="text-sm font-semibold">{title}</div>
+      <p className="text-xs text-slate-400">{description}</p>
+    </a>
   );
 }
