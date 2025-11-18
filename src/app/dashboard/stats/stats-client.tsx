@@ -69,8 +69,8 @@ export default function StatsClient() {
           {/* RECETAS CREADAS */}
           <Card
             className={cn(
-              "p-4 border border-purple-200/60 bg-white/80 dark:bg-neutral-900/80 dark:border-purple-800/40 rounded-2xl",
-              plan === "premium" && "glass-card-premium"
+              "glass-card glass-card-purple glass-frosted-border",
+              plan === "premium" && ""
             )}
           >
             <CardHeader className="pb-2">
@@ -102,8 +102,8 @@ export default function StatsClient() {
           {/* FAVORITOS POR CATEGORÍA */}
           <Card
             className={cn(
-              "p-4 border border-purple-200/60 bg-white/80 dark:bg-neutral-900/80 dark:border-purple-800/40 rounded-2xl",
-              plan === "premium" && "glass-card-premium"
+              "glass-card glass-card-orange glass-frosted-border",
+              plan === "premium" && ""
             )}
           >
             <CardHeader className="pb-2">
@@ -133,8 +133,8 @@ export default function StatsClient() {
           {/* TIEMPO TOTAL */}
           <Card
             className={cn(
-              "p-4 border border-purple-200/60 bg-white/80 dark:bg-neutral-900/80 dark:border-purple-800/40 rounded-2xl space-y-3",
-              plan === "premium" && "glass-card-premium"
+              "glass-card glass-card-green glass-frosted-border space-y-3",
+              plan === "premium" && ""
             )}
           >
             <CardHeader className="pb-2">
@@ -164,8 +164,8 @@ export default function StatsClient() {
 
           <Card
             className={cn(
-              "p-4 border border-purple-200/60 bg-white/80 dark:bg-neutral-900/80 dark:border-purple-800/40 rounded-xl",
-              plan === "premium" && "glass-card-premium"
+              "glass-card glass-card-blue glass-frosted-border rounded-xl",
+              plan === "premium" && ""
             )}
           >
             <p className="text-sm">

@@ -63,8 +63,8 @@ export default function BadgesClient() {
             <Card
               key={b.id}
               className={cn(
-                "border border-amber-200/60 bg-white/80 dark:bg-neutral-900/80 dark:border-amber-800/40 p-4 space-y-2 rounded-xl transition",
-                plan === "premium" && "glass-card-premium",
+                "glass-card glass-card-orange glass-frosted-border p-4 space-y-2 rounded-xl transition",
+                plan === "premium" && "",
                 !b.unlocked && "opacity-60"
               )}
             >
@@ -90,16 +90,15 @@ export default function BadgesClient() {
                 )}
               </CardContent>
             </Card>
-          ))}
-        </div>
-
-        {/* RECOMPENSAS PREMIUM */}
-        <section className="space-y-3">
+                className={cn(
+                  "glass-card glass-card-orange glass-frosted-border p-4 space-y-2 rounded-xl transition",
+                  !b.unlocked && "opacity-60"
+                )}
           <h3 className="text-lg font-semibold text-amber-900 dark:text-amber-300">Recompensas premium</h3>
           <Card
             className={cn(
-              "p-4 border border-amber-200/60 bg-white/80 dark:bg-neutral-900/80 dark:border-amber-800/40 rounded-xl",
-              plan === "premium" && "glass-card-premium"
+              "glass-card glass-card-orange glass-frosted-border p-4 rounded-xl",
+              plan === "premium" && ""
             )}
           >
             <p className="text-sm">
@@ -107,8 +106,7 @@ export default function BadgesClient() {
               <span className="font-semibold text-amber-700 dark:text-amber-400">1 mes gratis de Premium</span>.
             </p>
           </Card>
-        </section>
-      </div>
-    </section>
-  );
+              className={cn(
+                "glass-card glass-card-purple glass-frosted-border p-4 rounded-xl",
+              )}
 }

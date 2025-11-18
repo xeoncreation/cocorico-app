@@ -1,0 +1,136 @@
+/* ============================
+   LIQUID GLASS BASE
+   ============================ */
+
+.glass-card {
+  position: relative;
+  border-radius: 1.5rem;
+  padding: 1.25rem;
+  background: radial-gradient(circle at top left, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.04));
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow:
+    0 24px 60px rgba(15, 23, 42, 0.45),
+    0 0 0 1px rgba(255, 255, 255, 0.04);
+  overflow: hidden;
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+/* Reflejo superior suave */
+.glass-card::before {
+  content: "";
+  position: absolute;
+  inset: -40%;
+  background: radial-gradient(circle at top, rgba(255, 255, 255, 0.25), transparent 60%);
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+/* Capa extra de brillo en bordes (similar iOS) */
+.glass-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.7) 0%,
+    rgba(255, 255, 255, 0.08) 40%,
+    rgba(255, 255, 255, 0.45) 100%
+  );
+  mix-blend-mode: soft-light;
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+/* ============================
+   COLOR ADAPTATION (TINTS)
+   ============================ */
+
+.glass-card {
+  --glass-tint: rgba(255, 255, 255, 0.08);
+  background:
+    radial-gradient(circle at top left, var(--glass-tint), rgba(255, 255, 255, 0.02)),
+    linear-gradient(135deg, rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.9));
+}
+
+.glass-card-orange {
+  --glass-tint: rgba(255, 111, 0, 0.22);
+  border-color: rgba(255, 163, 72, 0.7);
+  box-shadow:
+    0 24px 60px rgba(255, 111, 0, 0.45),
+    0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+.glass-card-green {
+  --glass-tint: rgba(46, 196, 182, 0.2);
+  border-color: rgba(110, 231, 183, 0.7);
+  box-shadow:
+    0 24px 60px rgba(46, 196, 182, 0.35),
+    0 0 0 1px rgba(255, 255, 255, 0.06);
+}
+.glass-card-red {
+  --glass-tint: rgba(248, 113, 113, 0.22);
+  border-color: rgba(248, 113, 113, 0.7);
+  box-shadow:
+    0 24px 60px rgba(248, 113, 113, 0.45),
+    0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+.glass-card-blue {
+  --glass-tint: rgba(59, 130, 246, 0.24);
+  border-color: rgba(96, 165, 250, 0.7);
+  box-shadow:
+    0 24px 60px rgba(59, 130, 246, 0.45),
+    0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+.glass-card-purple {
+  --glass-tint: rgba(139, 92, 246, 0.26);
+  border-color: rgba(167, 139, 250, 0.8);
+  box-shadow:
+    0 24px 60px rgba(139, 92, 246, 0.5),
+    0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+/* ============================
+   FROSTED EDGES (BORDES HELADOS)
+   ============================ */
+
+.glass-frosted-border {
+  border: 1px solid transparent;
+  border-radius: 1.5rem;
+  background-clip: padding-box;
+  border-image: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.45) 0%,
+    rgba(255, 255, 255, 0.12) 50%,
+    rgba(255, 255, 255, 0.5) 100%
+  ) 1;
+}
+
+/* ============================
+   RIPPLE EFFECT
+   ============================ */
+
+@keyframes ripple {
+  0% {
+    transform: scale(0);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(2.5);
+    opacity: 0;
+  }
+}
+
+.ripple-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.ripple-circle {
+  position: absolute;
+  border-radius: 9999px;
+  transform: scale(0);
+  background: rgba(255, 255, 255, 0.55);
+  animation: ripple 600ms ease-out;
+  pointer-events: none;
+}

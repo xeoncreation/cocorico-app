@@ -225,7 +225,7 @@ export default function RecipesClient() {
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
-        <div className={cn("p-8 rounded-2xl", plan === "premium" && "glass-card-premium")}>
+        <div className={cn("glass-card glass-card-orange glass-frosted-border p-8 rounded-2xl")}> 
           <p className={plan === "premium" ? "glass-text-premium" : ""}>Cargando recetas...</p>
         </div>
       </div>
@@ -239,8 +239,7 @@ export default function RecipesClient() {
       <div className="container mx-auto px-4 max-w-7xl">
         {/* Header */}
         <div className={cn(
-          "flex flex-col sm:flex-row justify-between items-center mb-8 p-6 rounded-3xl",
-          plan === "premium" ? "glass-card-premium" : "bg-white/80 dark:bg-neutral-900/80 border border-orange-200 dark:border-orange-800"
+          "flex flex-col sm:flex-row justify-between items-center mb-8 p-6 rounded-3xl glass-card glass-card-orange glass-frosted-border",
         )}>
           <div>
             <h1 className={cn(
@@ -253,18 +252,15 @@ export default function RecipesClient() {
               {showDemo ? '20 recetas demo para inspirarte' : `${recipes.length} recetas guardadas`}
             </p>
           </div>
-          <button
+          <RippleButton
             onClick={() => router.push(`/${locale}/recipes/new`)}
             className={cn(
-              "mt-4 sm:mt-0 px-6 py-3 rounded-xl font-semibold transition-all",
-              plan === "premium" 
-                ? "glass-button-premium" 
-                : "bg-orange-500 hover:bg-orange-600 text-white shadow-lg hover:shadow-xl"
+              "mt-4 sm:mt-0 px-6 py-3 rounded-xl font-semibold transition-all bg-orange-500 hover:bg-orange-600 text-white shadow-lg hover:shadow-xl"
             )}
           >
             <ChefHat className="inline w-5 h-5 mr-2" />
             Nueva Receta
-          </button>
+          </RippleButton>
         </div>
 
         {/* Toggle Demo/Real */}
@@ -303,8 +299,7 @@ export default function RecipesClient() {
               <div
                 key={idx}
                 className={cn(
-                  "group overflow-hidden rounded-2xl transition-all hover:scale-105 cursor-pointer",
-                  plan === "premium" ? "glass-card-premium" : "bg-white dark:bg-neutral-900 border border-orange-200 dark:border-orange-800 shadow-lg hover:shadow-2xl"
+                  "group overflow-hidden rounded-2xl transition-all hover:scale-105 cursor-pointer glass-card glass-card-orange glass-frosted-border",
                 )}
                 onClick={() => router.push(`/${locale}/recipes/new`)}
               >
@@ -348,8 +343,7 @@ export default function RecipesClient() {
               <div
                 key={recipe.id}
                 className={cn(
-                  "overflow-hidden rounded-2xl transition-all hover:scale-105",
-                  plan === "premium" ? "glass-card-premium" : "bg-white dark:bg-neutral-900 border border-orange-200 dark:border-orange-800 shadow-lg hover:shadow-2xl"
+                  "overflow-hidden rounded-2xl transition-all hover:scale-105 glass-card glass-card-orange glass-frosted-border",
                 )}
               >
                 <div className="p-6">
@@ -415,8 +409,7 @@ export default function RecipesClient() {
         {/* Empty State */}
         {recipes.length === 0 && !showDemo && (
           <div className={cn(
-            "text-center mt-10 p-12 rounded-3xl",
-            plan === "premium" ? "glass-card-premium" : "bg-white/80 dark:bg-neutral-900/80"
+            "text-center mt-10 p-12 rounded-3xl glass-card glass-card-orange glass-frosted-border"
           )}>
             <p className={cn(
               "text-lg mb-6",
@@ -428,8 +421,7 @@ export default function RecipesClient() {
               <Link
                 href={`/${locale}/recipes/new`}
                 className={cn(
-                  "px-6 py-3 rounded-xl font-semibold transition-all",
-                  plan === "premium" ? "glass-button-premium" : "bg-orange-500 hover:bg-orange-600 text-white shadow-lg"
+                  "px-6 py-3 rounded-xl font-semibold transition-all bg-orange-500 hover:bg-orange-600 text-white shadow-lg"
                 )}
               >
                 Crear receta
@@ -437,8 +429,7 @@ export default function RecipesClient() {
               <Link
                 href={`/${locale}/dashboard/import`}
                 className={cn(
-                  "px-6 py-3 rounded-xl font-semibold transition-all",
-                  plan === "premium" ? "glass-button-premium" : "border-2 border-amber-500 text-amber-600 hover:bg-amber-50"
+                  "px-6 py-3 rounded-xl font-semibold transition-all border-2 border-amber-500 text-amber-600 hover:bg-amber-50"
                 )}
               >
                 Importar desde URL/Foto
@@ -446,8 +437,7 @@ export default function RecipesClient() {
               <Link
                 href={`/${locale}/recipes/search`}
                 className={cn(
-                  "px-6 py-3 rounded-xl font-semibold transition-all",
-                  plan === "premium" ? "glass-button-premium" : "border-2 border-neutral-300 hover:bg-neutral-50"
+                  "px-6 py-3 rounded-xl font-semibold transition-all border-2 border-neutral-300 hover:bg-neutral-50"
                 )}
               >
                 Buscar recetas

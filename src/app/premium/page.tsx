@@ -39,15 +39,15 @@ export default async function PremiumPage() {
 
         {/* Bloques premium con estética glass */}
         <section className="grid md:grid-cols-3 gap-4">
-          <div className="glass-card-premium p-5 rounded-2xl">
+          <div className="glass-card glass-card-green glass-frosted-border p-5 rounded-2xl">
             <h3 className="font-semibold mb-2">Modo Cocina inmersivo</h3>
             <p className="text-sm opacity-80">Pasos guiados con video de fondo y control por gestos.</p>
           </div>
-          <div className="glass-card-premium p-5 rounded-2xl">
+          <div className="glass-card glass-card-blue glass-frosted-border p-5 rounded-2xl">
             <h3 className="font-semibold mb-2">Sugerencias IA avanzadas</h3>
             <p className="text-sm opacity-80">Optimiza macros, coste y tiempo por ración.</p>
           </div>
-          <div className="glass-card-premium p-5 rounded-2xl">
+          <div className="glass-card glass-card-purple glass-frosted-border p-5 rounded-2xl">
             <h3 className="font-semibold mb-2">Visuals dinámicos</h3>
             <p className="text-sm opacity-80">Hologramas y partículas sutiles en la interfaz.</p>
           </div>

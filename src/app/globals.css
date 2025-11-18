@@ -268,6 +268,58 @@
     font-weight: 600;
     letter-spacing: -0.02em;
   }
+    /* === Liquid Glass Color Variants === */
+    .glass-card-orange {
+      background: linear-gradient(135deg, rgba(255, 111, 0, 0.13) 0%, rgba(255,255,255,0.05) 100%) !important;
+    }
+    .glass-card-orange::after {
+      background: linear-gradient(135deg, rgba(255, 111, 0, 0.28), rgba(255,255,255,0.05));
+    }
+    .glass-card-green {
+      background: linear-gradient(135deg, rgba(46, 196, 182, 0.13) 0%, rgba(255,255,255,0.05) 100%) !important;
+    }
+    .glass-card-green::after {
+      background: linear-gradient(135deg, rgba(46, 196, 182, 0.28), rgba(255,255,255,0.05));
+    }
+    .glass-card-red {
+      background: linear-gradient(135deg, rgba(229, 57, 53, 0.13) 0%, rgba(255,255,255,0.05) 100%) !important;
+    }
+    .glass-card-red::after {
+      background: linear-gradient(135deg, rgba(229, 57, 53, 0.28), rgba(255,255,255,0.05));
+    }
+    .glass-card-blue {
+      background: linear-gradient(135deg, rgba(52, 120, 246, 0.13) 0%, rgba(255,255,255,0.05) 100%) !important;
+    }
+    .glass-card-blue::after {
+      background: linear-gradient(135deg, rgba(52, 120, 246, 0.28), rgba(255,255,255,0.05));
+    }
+    .glass-card-purple {
+      background: linear-gradient(135deg, rgba(138, 92, 246, 0.13) 0%, rgba(255,255,255,0.05) 100%) !important;
+    }
+    .glass-card-purple::after {
+      background: linear-gradient(135deg, rgba(138, 92, 246, 0.28), rgba(255,255,255,0.05));
+    }
+
+    /* === Ripple Effect for Buttons === */
+    .glass-button-premium {
+      position: relative;
+      overflow: hidden;
+    }
+    .glass-button-premium .ripple {
+      position: absolute;
+      border-radius: 50%;
+      transform: scale(0);
+      animation: ripple 0.6s linear;
+      background: rgba(255,255,255,0.5);
+      pointer-events: none;
+      z-index: 10;
+    }
+    @keyframes ripple {
+      to {
+        transform: scale(2.5);
+        opacity: 0;
+      }
+    }
 }
 
 @layer utilities {

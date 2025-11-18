@@ -2,7 +2,9 @@ import { supabaseServer } from "@/lib/supabase-client";
 import { redirect } from "next/navigation";
 import CocoricoAvatar from "@/components/CocoricoAvatar";
 
-const DEV_EMAIL = process.env.DEV_EMAIL || "carlos@xeoncreative.com";
+
+const DEV_EMAIL = process.env.DEV_EMAIL || "yo-90@outlook.com";
+
 
 export default async function DevLabPage() {
   if (!supabaseServer) {
@@ -10,9 +12,17 @@ export default async function DevLabPage() {
   }
 
   const { data: { user } } = await supabaseServer.auth.getUser();
-  
-  if (!user || user.email !== DEV_EMAIL) {
-    redirect("/");
+  if (!user) {
+    redirect("/login");
+  }
+  if (user.email !== DEV_EMAIL) {
+    return (
+      <div className="max-w-xl mx-auto py-24 text-center">
+        <h1 className="text-3xl font-bold mb-4">Acceso restringido</h1>
+        <p className="text-neutral-600 dark:text-neutral-400 mb-6">Solo el desarrollador principal puede acceder al laboratorio.</p>
+        <p className="text-sm text-neutral-400">Email detectado: {user.email}</p>
+      </div>
+    );
   }
 
   return (
