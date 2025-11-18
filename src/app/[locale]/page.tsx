@@ -4,6 +4,7 @@ import { getTranslations } from "next-intl/server";
 import Reveal from "@/components/ui/Reveal";
 import dynamic from "next/dynamic";
 import { RippleButton } from "@/components/ui/ripple-button";
+import { AppBackground } from "@/components/layout/AppBackground";
 // Cargar OnboardingModal sólo en cliente con manejo de errores
 const OnboardingModal = dynamic(() => import("@/components/OnboardingModal"), { 
   ssr: false,
@@ -23,7 +24,8 @@ export default async function LocaleHomePage({
   });
 
   return (
-    <main className="flex flex-col items-center justify-center min-h-[90vh] text-center px-4 sm:px-6 py-12 bg-gradient-to-br from-orange-50 via-amber-50 to-yellow-50 dark:from-purple-950 dark:via-pink-900 dark:to-orange-900 relative overflow-hidden">
+    <AppBackground variantOverride="home-free">
+      <main className="flex flex-col items-center justify-center min-h-[90vh] text-center px-4 sm:px-6 py-12 relative overflow-hidden">
       <OnboardingModal />
       
       {/* Cocorico Mascot animada */}
@@ -47,7 +49,7 @@ export default async function LocaleHomePage({
       </Reveal>
 
       <Reveal delay={0.4}>
-        <p className="max-w-2xl text-lg sm:text-xl text-orange-900 dark:text-orange-100 mb-8 leading-relaxed font-medium">
+        <p className="max-w-2xl text-lg sm:text-xl glass-text-strong mb-8 leading-relaxed font-medium">
           {t("home.description")}
         </p>
       </Reveal>
@@ -56,7 +58,7 @@ export default async function LocaleHomePage({
         <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
           <RippleButton
             asChild
-            className="glass-card glass-card-orange rounded-2xl px-8 py-4 text-lg font-semibold text-white shadow-2xl hover:shadow-3xl transform hover:-translate-y-1"
+            className="coco-btn-primary coco-ripple px-8 py-4 text-lg"
           >
             <Link href={`/${locale}/chat`}>
               🐓 {t("home.chatButton")}
@@ -64,7 +66,7 @@ export default async function LocaleHomePage({
           </RippleButton>
           <RippleButton
             asChild
-            className="glass-card glass-card-purple rounded-2xl px-8 py-4 text-lg font-semibold text-white shadow-2xl hover:shadow-3xl transform hover:-translate-y-1"
+            className="coco-btn-secondary coco-ripple px-8 py-4 text-lg"
           >
             <Link href={`/${locale}/dashboard/favorites`}>
               📖 {t("home.recipesButton")}
@@ -75,20 +77,20 @@ export default async function LocaleHomePage({
 
       <Reveal delay={0.8}>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-4xl mb-12">
-          <div className="glass-card glass-card-orange glass-frosted-border p-6 rounded-3xl text-center transform hover:scale-105 transition-transform">
+          <div className="coco-glass-card glass-card-orange p-6 rounded-3xl text-center transform hover:scale-105 transition-transform">
             <div className="text-4xl mb-3">🔍</div>
-            <h3 className="font-bold text-lg mb-2 glass-text-premium">Escáner IA</h3>
-            <p className="text-sm text-white/80">Identifica ingredientes al instante</p>
+            <h3 className="font-bold text-lg mb-2 glass-text-strong">Escáner IA</h3>
+            <p className="text-sm glass-text-strong opacity-80">Identifica ingredientes al instante</p>
           </div>
-          <div className="glass-card glass-card-blue glass-frosted-border p-6 rounded-3xl text-center transform hover:scale-105 transition-transform">
+          <div className="coco-glass-card glass-card-blue p-6 rounded-3xl text-center transform hover:scale-105 transition-transform">
             <div className="text-4xl mb-3">👥</div>
-            <h3 className="font-bold text-lg mb-2 glass-text-premium">Comunidad</h3>
-            <p className="text-sm text-white/80">Comparte tus creaciones</p>
+            <h3 className="font-bold text-lg mb-2 glass-text-strong">Comunidad</h3>
+            <p className="text-sm glass-text-strong opacity-80">Comparte tus creaciones</p>
           </div>
-          <div className="glass-card glass-card-purple glass-frosted-border p-6 rounded-3xl text-center transform hover:scale-105 transition-transform">
+          <div className="coco-glass-card glass-card-purple p-6 rounded-3xl text-center transform hover:scale-105 transition-transform">
             <div className="text-4xl mb-3">🎯</div>
-            <h3 className="font-bold text-lg mb-2 glass-text-premium">Retos</h3>
-            <p className="text-sm text-white/80">Desafíate y mejora</p>
+            <h3 className="font-bold text-lg mb-2 glass-text-strong">Retos</h3>
+            <p className="text-sm glass-text-strong opacity-80">Desafíate y mejora</p>
           </div>
         </div>
       </Reveal>
@@ -110,5 +112,6 @@ export default async function LocaleHomePage({
         </div>
       </Reveal>
     </main>
+    </AppBackground>
   );
 }

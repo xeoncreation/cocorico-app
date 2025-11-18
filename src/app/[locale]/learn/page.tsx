@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import LearnClient from "./learn-client";
+import { AppBackground } from "@/components/layout/AppBackground";
 
 export const metadata: Metadata = {
 	title: "Centro de Aprendizaje | Cocorico",
@@ -8,8 +9,10 @@ export const metadata: Metadata = {
 
 export default function LearnPage({ params: { locale } }: { params: { locale: string } }) {
 	return (
-		<main className="max-w-6xl mx-auto px-4 py-10">
-			<LearnClient locale={locale} />
-		</main>
+		<AppBackground variantOverride="learn">
+			<main className="max-w-6xl mx-auto px-4 py-10">
+				<LearnClient locale={locale} />
+			</main>
+		</AppBackground>
 	);
 }

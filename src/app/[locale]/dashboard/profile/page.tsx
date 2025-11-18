@@ -1,4 +1,5 @@
-import ProfileClient from "./profile-client";
+import ProfileClient from './profile-client';
+import { AppBackground } from '@/components/layout/AppBackground';
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -8,8 +9,10 @@ export const metadata: Metadata = {
 
 export default function ProfilePage() {
   return (
-    <main className="max-w-4xl mx-auto px-4 py-10">
-      <ProfileClient />
-    </main>
+    <AppBackground variantOverride="profile">
+      <main className="max-w-4xl mx-auto px-4 py-10">
+        <ProfileClient />
+      </main>
+    </AppBackground>
   );
 }

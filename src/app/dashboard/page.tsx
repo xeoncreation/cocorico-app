@@ -2,7 +2,11 @@
 
 import { useEffect, useState } from "react";
 import { createClient } from "@supabase/supabase-js";
-import Link from "next/link";
+import { createServerClient } from '@supabase/ssr'
+import { cookies } from 'next/headers'
+import { redirect } from 'next/navigation'
+import Link from 'next/link'
+import { AppBackground } from '@/components/layout/AppBackground'
 import XpHud from "@/components/dashboard/XpHud";
 
 const supabase = createClient(

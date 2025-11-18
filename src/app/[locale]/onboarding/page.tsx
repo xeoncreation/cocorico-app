@@ -2,7 +2,8 @@
 import { redirect } from "next/navigation";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
-import OnboardingClient from "./onboarding-client";
+import OnboardingClient from './onboarding-client';
+import { AppBackground } from '@/components/layout/AppBackground';
 
 export default async function OnboardingPage({ params: { locale } }: { params: { locale: string } }) {
   const supabase = createServerComponentClient({ cookies });
@@ -18,5 +19,9 @@ export default async function OnboardingPage({ params: { locale } }: { params: {
   if (profile?.onboarded_at) {
     redirect(`/${locale}/dashboard`);
   }
-  return <OnboardingClient locale={locale} initialProfile={profile ?? undefined} />;
+  return (
+    <AppBackground variantOverride="onboarding">
+      <OnboardingClient locale={locale} initialProfile={profile ?? undefined} />
+    </AppBackground>
+  );
 }

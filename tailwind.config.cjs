@@ -40,7 +40,10 @@ module.exports = {
 				dark: '#1A1A1A'
 			}
 		},
-		fontFamily: { sans: ['Inter', 'sans-serif'] },
+		fontFamily: { 
+			sans: ['Inter', 'system-ui', 'sans-serif'],
+			display: ['Poppins', 'system-ui', 'sans-serif']
+		},
 		transitionTimingFunction: { smooth: 'var(--motion)' },
 		borderRadius: {
 			lg: 'var(--radius)',

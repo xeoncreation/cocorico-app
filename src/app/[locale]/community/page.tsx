@@ -2,6 +2,7 @@ import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import CommunityClient from "./community-client";
+import { AppBackground } from "@/components/layout/AppBackground";
 
 export default async function CommunityPage({ params }: { params: { locale: string } }) {
   const supabase = createServerComponentClient({ cookies });
@@ -9,5 +10,9 @@ export default async function CommunityPage({ params }: { params: { locale: stri
 
   if (!user) redirect(`/${params.locale}/auth/login`);
 
-  return <CommunityClient locale={params.locale} />;
+  return (
+    <AppBackground variantOverride="community">
+      <CommunityClient locale={params.locale} />
+    </AppBackground>
+  );
 }
