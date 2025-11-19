@@ -376,7 +376,7 @@ export default function RecipesClient() {
                         onClick={() => router.push(`/${locale}/recipes/${recipe.id}`)}
                         className={cn(
                           "text-sm px-3 py-1 rounded-lg",
-                          plan === "premium" ? "glass-droplet" : "text-blue-600 hover:bg-blue-50"
+                          plan === "premium" ? "glass-droplet" : "text-cocorico-turquoise hover:bg-cocorico-datil/10"
                         )}
                       >
                         Ver

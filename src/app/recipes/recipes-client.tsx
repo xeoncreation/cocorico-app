@@ -145,7 +145,7 @@ export default function RecipesClient() {
         <h1 className="text-2xl font-bold">Mis Recetas</h1>
         <button
           onClick={() => router.push(`/${locale}/recipes/new`)}
-          className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded"
+          className="bg-cocorico-mango hover:bg-cocorico-red text-white px-4 py-2 rounded"
         >
           Nueva Receta
         </button>
@@ -168,7 +168,7 @@ export default function RecipesClient() {
               <div className="space-x-2">
                 <button
                   onClick={() => router.push(`/${locale}/recipes/${recipe.id}`)}
-                  className="text-blue-500 hover:text-blue-600"
+                  className="text-cocorico-turquoise hover:text-cocorico-avocado"
                 >
                   Ver
                 </button>

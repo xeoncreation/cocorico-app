@@ -43,7 +43,7 @@ export default async function LocaleHomePage({
       </Reveal>
 
       <Reveal delay={0.2}>
-        <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-orange-600 via-red-600 to-pink-600 dark:from-orange-400 dark:via-red-400 dark:to-pink-400 mb-4 tracking-tight">
+        <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cocorico-red via-cocorico-mango to-cocorico-datil dark:from-cocorico-mango dark:via-cocorico-datil dark:to-cocorico-turquoise mb-4 tracking-tight">
           {t("home.title")}
         </h1>
       </Reveal>
@@ -77,17 +77,17 @@ export default async function LocaleHomePage({
 
       <Reveal delay={0.8}>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-4xl mb-12">
-          <div className="coco-glass-card glass-card-orange p-6 rounded-3xl text-center transform hover:scale-105 transition-transform">
+          <div className="coco-glass-card glass-card-mango p-6 rounded-3xl text-center transform hover:scale-105 transition-transform">
             <div className="text-4xl mb-3">🔍</div>
             <h3 className="font-bold text-lg mb-2 glass-text-strong">Escáner IA</h3>
             <p className="text-sm glass-text-strong opacity-80">Identifica ingredientes al instante</p>
           </div>
-          <div className="coco-glass-card glass-card-blue p-6 rounded-3xl text-center transform hover:scale-105 transition-transform">
+          <div className="coco-glass-card glass-card-turquoise p-6 rounded-3xl text-center transform hover:scale-105 transition-transform">
             <div className="text-4xl mb-3">👥</div>
             <h3 className="font-bold text-lg mb-2 glass-text-strong">Comunidad</h3>
             <p className="text-sm glass-text-strong opacity-80">Comparte tus creaciones</p>
           </div>
-          <div className="coco-glass-card glass-card-purple p-6 rounded-3xl text-center transform hover:scale-105 transition-transform">
+          <div className="coco-glass-card glass-card-avocado p-6 rounded-3xl text-center transform hover:scale-105 transition-transform">
             <div className="text-4xl mb-3">🎯</div>
             <h3 className="font-bold text-lg mb-2 glass-text-strong">Retos</h3>
             <p className="text-sm glass-text-strong opacity-80">Desafíate y mejora</p>
@@ -97,7 +97,7 @@ export default async function LocaleHomePage({
 
       <Reveal delay={1.0}>
         <div className="relative mt-8 opacity-95">
-          <div className="glass-card glass-card-orange glass-frosted-border p-2 rounded-3xl inline-block">
+          <div className="glass-card glass-card-mango glass-frosted-border p-2 rounded-3xl inline-block">
             <video
               src="/branding/banner-home.webp.mp4"
               autoPlay

@@ -97,7 +97,7 @@ export default function TestMessages() {
             <div
               key={msg.id}
               className={`p-4 rounded ${
-                msg.role === 'user' ? 'bg-blue-100 ml-8' : 'bg-gray-100 mr-8'
+                msg.role === 'user' ? 'bg-cocorico-datil/20 ml-8' : 'bg-gray-100 mr-8'
               }`}
             >
               <div className="text-sm text-gray-600 mb-1">

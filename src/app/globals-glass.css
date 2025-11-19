@@ -54,39 +54,39 @@
     linear-gradient(135deg, rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.9));
 }
 
-.glass-card-orange {
-  --glass-tint: rgba(255, 111, 0, 0.22);
-  border-color: rgba(255, 163, 72, 0.7);
+.glass-card-mango {
+  --glass-tint: rgba(249, 123, 50, 0.22);
+  border-color: rgba(249, 123, 50, 0.7);
   box-shadow:
-    0 24px 60px rgba(255, 111, 0, 0.45),
+    0 24px 60px rgba(249, 123, 50, 0.45),
     0 0 0 1px rgba(255, 255, 255, 0.08);
 }
-.glass-card-green {
-  --glass-tint: rgba(46, 196, 182, 0.2);
-  border-color: rgba(110, 231, 183, 0.7);
+.glass-card-datil {
+  --glass-tint: rgba(243, 199, 81, 0.2);
+  border-color: rgba(243, 199, 81, 0.7);
   box-shadow:
-    0 24px 60px rgba(46, 196, 182, 0.35),
+    0 24px 60px rgba(243, 199, 81, 0.35),
     0 0 0 1px rgba(255, 255, 255, 0.06);
 }
+.glass-card-avocado {
+  --glass-tint: rgba(46, 138, 86, 0.22);
+  border-color: rgba(46, 138, 86, 0.7);
+  box-shadow:
+    0 24px 60px rgba(46, 138, 86, 0.45),
+    0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+.glass-card-turquoise {
+  --glass-tint: rgba(76, 206, 198, 0.24);
+  border-color: rgba(76, 206, 198, 0.7);
+  box-shadow:
+    0 24px 60px rgba(76, 206, 198, 0.45),
+    0 0 0 1px rgba(255, 255, 255, 0.08);
+}
 .glass-card-red {
-  --glass-tint: rgba(248, 113, 113, 0.22);
-  border-color: rgba(248, 113, 113, 0.7);
+  --glass-tint: rgba(229, 53, 38, 0.26);
+  border-color: rgba(229, 53, 38, 0.8);
   box-shadow:
-    0 24px 60px rgba(248, 113, 113, 0.45),
-    0 0 0 1px rgba(255, 255, 255, 0.08);
-}
-.glass-card-blue {
-  --glass-tint: rgba(59, 130, 246, 0.24);
-  border-color: rgba(96, 165, 250, 0.7);
-  box-shadow:
-    0 24px 60px rgba(59, 130, 246, 0.45),
-    0 0 0 1px rgba(255, 255, 255, 0.08);
-}
-.glass-card-purple {
-  --glass-tint: rgba(139, 92, 246, 0.26);
-  border-color: rgba(167, 139, 250, 0.8);
-  box-shadow:
-    0 24px 60px rgba(139, 92, 246, 0.5),
+    0 24px 60px rgba(229, 53, 38, 0.5),
     0 0 0 1px rgba(255, 255, 255, 0.08);
 }
 

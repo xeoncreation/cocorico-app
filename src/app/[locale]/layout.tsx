@@ -110,7 +110,7 @@ export default async function LocaleLayout({
                 <span className="px-2 py-1 bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400 rounded">
                   Vision: ON
                 </span>
-                <span className="px-2 py-1 bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400 rounded">
+                <span className="px-2 py-1 bg-cocorico-datil/20 text-cocorico-mango dark:bg-cocorico-mango/30 dark:text-cocorico-datil rounded">
                   Food-IQ: ON
                 </span>
               </div>

@@ -69,7 +69,7 @@ export default function CookiesPage() {
               </table>
             </div>
 
-            <div className="border-l-4 border-blue-500 pl-4">
+            <div className="border-l-4 border-cocorico-turquoise pl-4">
               <h3 className="text-xl font-semibold mb-2">🔵 Cookies de funcionalidad</h3>
               <p className="mb-2">Recuerdan tus preferencias para mejorar la experiencia.</p>
               
@@ -213,7 +213,7 @@ export default function CookiesPage() {
           </p>
         </section>
 
-        <div className="mt-12 p-6 bg-blue-50 dark:bg-blue-900/20 rounded-lg border-l-4 border-blue-500">
+        <div className="mt-12 p-6 bg-cocorico-datil/10 dark:bg-cocorico-turquoise/20 rounded-lg border-l-4 border-cocorico-turquoise">
           <p className="font-semibold mb-2">🍪 Resumen en 3 puntos</p>
           <ol className="text-sm space-y-1 list-decimal pl-6">
             <li>Usamos cookies necesarias para que funcione tu sesión</li>

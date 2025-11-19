@@ -230,11 +230,11 @@
     border-image: linear-gradient(135deg, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0.18) 50%, rgba(255,255,255,0.6) 100%) 1;
   }
   /* Tint variants override --glass-tint locally */
-  .glass-card-orange { --glass-tint: rgba(255,111,0,0.18); }
-  .glass-card-green { --glass-tint: rgba(34,197,94,0.16); }
-  .glass-card-red { --glass-tint: rgba(239,68,68,0.16); }
-  .glass-card-blue { --glass-tint: rgba(59,130,246,0.18); }
-  .glass-card-purple { --glass-tint: rgba(168,85,247,0.21); }
+  .glass-card-mango { --glass-tint: rgba(249,123,50,0.18); }
+  .glass-card-datil { --glass-tint: rgba(243,199,81,0.16); }
+  .glass-card-avocado { --glass-tint: rgba(46,138,86,0.16); }
+  .glass-card-turquoise { --glass-tint: rgba(76,206,198,0.18); }
+  .glass-card-red { --glass-tint: rgba(229,53,38,0.21); }
   .glass-text-strong { color: var(--color-text); text-shadow: 0 0 6px rgba(15,23,42,0.9); }
 
   /* Premium Glow Effect (applies only when .coco-premium is present on root) */
@@ -345,7 +345,7 @@
     box-shadow: 
       inset 0 0 0 0.5px var(--glass-inner-border), 
       0 16px 30px rgba(15,23,42,0.75), 
-      0 0 40px rgba(147,197,253,0.38);
+      0 0 40px rgba(249,123,50,0.38);
     -webkit-backdrop-filter: blur(var(--glass-blur));
     backdrop-filter: blur(var(--glass-blur));
     transition: all 0.3s ease;
@@ -355,7 +355,7 @@
     box-shadow: 
       inset 0 0 0 0.5px var(--glass-inner-border), 
       0 20px 40px rgba(15,23,42,0.85), 
-      0 0 50px rgba(147,197,253,0.5);
+      0 0 50px rgba(249,123,50,0.5);
     transform: translateY(-2px);
   }
 
@@ -389,7 +389,7 @@
   :root[data-theme="free"] .coco-btn-primary {
     background-image:
       radial-gradient(circle at 0% 0%, rgba(255, 255, 255, 0.25), transparent 55%),
-      linear-gradient(135deg, rgba(255, 107, 53, 0.85), rgba(255, 176, 96, 0.75));
+      linear-gradient(135deg, rgba(229, 53, 38, 0.85), rgba(249, 123, 50, 0.75));
     color: white;
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
   }
@@ -397,7 +397,7 @@
   :root[data-theme="premium"] .coco-btn-primary {
     background-image:
       radial-gradient(circle at 0% 0%, rgba(255, 255, 255, 0.25), transparent 55%),
-      linear-gradient(135deg, rgba(46, 196, 182, 0.9), rgba(56, 189, 248, 0.8));
+      linear-gradient(135deg, rgba(249, 123, 50, 0.9), rgba(76, 206, 198, 0.8));
     color: white;
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
   }

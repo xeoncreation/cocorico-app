@@ -36,7 +36,7 @@ export default function OnboardingModal({ onComplete = () => {} }: OnboardingMod
       description: 'Escribe ingredientes que tienes en casa y la IA te sugerirá recetas deliciosas.',
       action: 'Ir a crear receta',
       link: '/recipes/new',
-      color: 'from-blue-500 to-purple-500',
+      color: 'from-cocorico-red to-cocorico-mango',
     },
     {
       icon: Camera,
