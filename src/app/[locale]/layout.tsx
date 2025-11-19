@@ -10,6 +10,7 @@ import PushNotificationPrompt from "@/components/PushNotificationPrompt";
 import MobileNav from "@/components/MobileNav";
 import LanguageSelector from "@/components/LanguageSelector";
 import LocaleNavbar from "@/components/LocaleNavbar";
+import ThemeToggle from "@/components/ThemeToggle";
 
 export default async function LocaleLayout({
   children,
@@ -39,6 +40,9 @@ export default async function LocaleLayout({
               
               {/* Controles de usuario */}
               <div className="flex items-center gap-3">
+                {/* Toggle de tema claro/oscuro */}
+                <ThemeToggle />
+                
                 {/* Selector de idioma con búsqueda */}
                 <LanguageSelector compact />
                 
