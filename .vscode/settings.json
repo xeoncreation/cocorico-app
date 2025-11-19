@@ -21,5 +21,24 @@
     "MD034": false,
     "MD036": false,
     "MD040": false
+  },
+  "eslint.useFlatConfig": true,
+  "eslint.workingDirectories": [
+    { "directory": ".", "changeProcessCWD": true }
+  ],
+  "eslint.options": {
+    "ignorePath": ".eslintignore"
+  },
+  "eslint.validate": [
+    "typescript",
+    "typescriptreact"
+  ],
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "javascript.validate.enable": false,
+  "files.watcherExclude": {
+    "**/.next/**": true,
+    "**/node_modules/**": true,
+    "**/out/**": true,
+    "**/build/**": true
   }
 }

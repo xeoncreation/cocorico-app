@@ -22,7 +22,6 @@ export async function POST(req: Request) {
     const client = new ElevenLabsClient({ apiKey });
 
     // Some SDKs differ; attempt convert, else throw to fallback
-    // @ts-expect-error SDK typings mismatch for convert signature
     const audio: any = await client.textToSpeech.convert({
       voice: "Bella",
       model_id: "eleven_monolingual_v1",
