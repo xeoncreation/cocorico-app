@@ -1,17 +1,24 @@
 /* Cocorico theme tokens + liquid glass helpers */
 :root {
-  --coco-orange: #ff5a24;
-  --coco-orange-soft: rgba(255, 90, 36, 0.18);
-  --coco-yellow: #ffc94a;
-  --coco-green: #1fa971;
-  --coco-red: #e74c3c;
-  --coco-purple: #9333ea;
-  --coco-blue: #3b82f6;
-  --coco-pink: #ec4899;
-  --coco-amber: #f59e0b;
+  /* Primary warm food palette */
+  --coco-red: #E53526;
+  --coco-mango: #F97B32;
+  --coco-datil: #F3C751;
+  --coco-avocado: #2E8A56;
+  --coco-turquoise: #4CCEC6;
+  
+  /* Liquid glass colors */
+  --glass-warm-mist: rgba(255, 240, 230, 0.18);
+  --glass-soft-cream: rgba(255, 230, 210, 0.35);
+  --glass-warm-shadow: rgba(80, 45, 35, 0.25);
+  
+  /* Legacy aliases */
+  --coco-orange: #F97B32;
+  --coco-yellow: #F3C751;
+  --coco-green: #2E8A56;
 
   --bg-light: #fff7f0;
-  --bg-light-alt: #fbece0;
+  --bg-light-alt: #ffe6d2;
   --bg-dark: #1a1410;
   --bg-dark-alt: #2d1f1a;
 
@@ -19,9 +26,13 @@
   --text-muted: #8b7355;
   --text-on-glass: #fffbf5;
 
-  --glass-border: rgba(255, 183, 77, 0.3);
-  --glass-highlight: rgba(255, 237, 213, 0.4);
-  --glass-shadow: rgba(45, 31, 26, 0.15);
+  --glass-border: rgba(255, 255, 255, 0.35);
+  --glass-highlight: rgba(255, 255, 255, 0.25);
+  --glass-shadow: rgba(0, 0, 0, 0.25);
+  
+  /* Liquid Glass iOS 17 style */
+  --glass-blur: 22px;
+  --glass-radius: 32px;
 }
 
 :root[data-theme='dark'] {
@@ -39,13 +50,16 @@
   --glass-shadow: rgba(0, 0, 0, 0.5);
 }
 
-/* Lightweight glass token helpers */
+/* Lightweight glass token helpers - iOS 17 Liquid Glass style */
 .coco-glass {
-  background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+  background: var(--glass-warm-mist);
   border: 1px solid var(--glass-border);
-  -webkit-backdrop-filter: blur(14px) saturate(140%);
-  backdrop-filter: blur(14px) saturate(140%);
-  box-shadow: 0 10px 30px var(--glass-shadow);
+  box-shadow: 
+    inset 0 1px 3px var(--glass-highlight),
+    0 4px 20px var(--glass-shadow);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(140%);
+  backdrop-filter: blur(var(--glass-blur)) saturate(140%);
+  border-radius: var(--glass-radius);
 }
 
 .coco-btn-primary { background: linear-gradient(90deg, var(--coco-orange), var(--coco-yellow)); color: white }

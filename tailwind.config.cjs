@@ -31,12 +31,16 @@ module.exports = {
 				'5': 'hsl(var(--chart-5))'
 			},
 			cocorico: {
-				yellow: '#FBC531',
-				orange: '#E1701A',
-				red: '#C23616',
-				green: '#44BD32',
-				brown: '#8E5E3B',
-				cream: '#FFF8E1',
+				red: '#E53526',
+				mango: '#F97B32',
+				datil: '#F3C751',
+				avocado: '#2E8A56',
+				turquoise: '#4CCEC6',
+				// Legacy colors for compatibility
+				yellow: '#F3C751',
+				orange: '#F97B32',
+				green: '#2E8A56',
+				cream: '#FFE6D2',
 				dark: '#1A1A1A'
 			}
 		},
