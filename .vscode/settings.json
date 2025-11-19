@@ -41,4 +41,18 @@
     "**/out/**": true,
     "**/build/**": true
   }
+  ,
+  "files.exclude": {
+    "**/.next": true,
+    "**/.next-*": true,
+    "**/node_modules": true,
+    "**/out": true,
+    "**/build": true,
+    "**/dist": true,
+    "**/public": true,
+    "**/test-results": true,
+    "**/repo-cleanup": true,
+    "**/cocorico-mobile": true,
+    "**/playwright-report": true
+  }
 }

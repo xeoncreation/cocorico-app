@@ -31,19 +31,23 @@
   },
   "include": [
     "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    ".next/types/**/*.ts",
-    ".next/dev/types/**/*.ts",
-    "**/*.mts",
-    ".next\\dev/types/**/*.ts",
-    ".next\\dev/types/**/*.ts",
-    ".next-3001/types/**/*.ts"
+    "src/**/*",
+    ".next/types/**/*.ts"
   ],
   "exclude": [
     "node_modules",
     "scripts",
     "cocorico-mobile",
-    "supabase/functions"
+    "supabase/functions",
+    "public",
+    "out",
+    "build",
+    "dist",
+    "test-results",
+    "tests",
+    "repo-cleanup",
+    ".next",
+    ".next-*",
+    "playwright-report"
   ]
 }
