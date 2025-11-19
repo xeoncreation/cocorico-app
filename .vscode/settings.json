@@ -34,25 +34,42 @@
     "typescriptreact"
   ],
   "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.preferences.includePackageJsonAutoImports": "off",
+  "typescript.suggest.autoImports": false,
+  "typescript.disableAutomaticTypeAcquisition": true,
+  "typescript.surveys.enabled": false,
   "javascript.validate.enable": false,
+  "eslint.enable": true,
+  "eslint.probe": [
+    "typescript",
+    "typescriptreact"
+  ],
+  "eslint.format.enable": false,
   "files.watcherExclude": {
     "**/.next/**": true,
     "**/node_modules/**": true,
     "**/out/**": true,
     "**/build/**": true
-  }
-  ,
-  "files.exclude": {
+  },
+  "search.exclude": {
     "**/.next": true,
     "**/.next-*": true,
     "**/node_modules": true,
     "**/out": true,
     "**/build": true,
     "**/dist": true,
-    "**/public": true,
     "**/test-results": true,
     "**/repo-cleanup": true,
     "**/cocorico-mobile": true,
-    "**/playwright-report": true
-  }
+    "**/playwright-report": true,
+    "**/coverage": true
+  },
+  "typescript.preferences.includePackageJsonAutoImports": "off",
+  "typescript.suggest.autoImports": false,
+  "i18n-ally.localesPaths": [
+    "i18n",
+    "src/i18n",
+    "src/messages",
+    "src/app/api/messages"
+  ]
 }
