@@ -5,11 +5,14 @@ import VoiceChat from "@/components/VoiceChat";
 import Image from "next/image";
 import { useState } from "react";
 
+import { AppBackground } from "@/components/layout/AppBackground";
+
 export default function ChatPage() {
   const [activeTab, setActiveTab] = useState<"texto" | "voz">("texto");
 
   return (
-    <section className="p-6">
+    <AppBackground variantOverride="community">
+      <section className="p-6">
       <div className="flex items-center gap-3 mb-2">
         <Image
           src="/branding/cocorico-mascot-anim-optimized.gif"
@@ -48,6 +51,8 @@ export default function ChatPage() {
 
       {/* Contenido según pestaña activa */}
       {activeTab === "texto" ? <ChatBox /> : <VoiceChat />}
-    </section>
+      
+      </section>
+    </AppBackground>
   );
 }

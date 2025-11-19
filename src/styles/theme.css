@@ -1,0 +1,49 @@
+/* Cocorico theme tokens + liquid glass helpers */
+:root {
+  --coco-orange: #ff5a24;
+  --coco-orange-soft: rgba(255, 90, 36, 0.18);
+  --coco-yellow: #ffc94a;
+  --coco-green: #1fa971;
+
+  --bg-light: #fff7f0;
+  --bg-light-alt: #fbece0;
+  --bg-dark: #050814;
+  --bg-dark-alt: #050b18;
+
+  --text-main: #1e293b;
+  --text-muted: #64748b;
+  --text-on-glass: #f9fafb;
+
+  --glass-border: rgba(255, 255, 255, 0.7);
+  --glass-highlight: rgba(255, 255, 255, 0.95);
+  --glass-shadow: rgba(15, 23, 42, 0.6);
+}
+
+:root[data-theme='dark'] {
+  --bg-light: #050814;
+  --bg-light-alt: #050b18;
+  --bg-dark: #050814;
+  --bg-dark-alt: #020614;
+
+  --text-main: #e5e7eb;
+  --text-muted: #9ca3af;
+  --text-on-glass: #f9fafb;
+
+  --glass-border: rgba(180, 220, 255, 0.9);
+  --glass-highlight: rgba(255, 255, 255, 0.9);
+  --glass-shadow: rgba(0, 0, 0, 0.85);
+}
+
+/* Lightweight glass token helpers */
+.coco-glass {
+  background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+  border: 1px solid var(--glass-border);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  backdrop-filter: blur(14px) saturate(140%);
+  box-shadow: 0 10px 30px var(--glass-shadow);
+}
+
+.coco-btn-primary { background: linear-gradient(90deg, var(--coco-orange), var(--coco-yellow)); color: white }
+.coco-btn-secondary { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.06) }
+
+.coco-heading { font-family: 'Poppins', sans-serif; font-weight: 600; letter-spacing: -0.02em }

@@ -4,6 +4,7 @@ import { useState } from "react";
 import useSWR from "swr";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
+import GlassCard from "@/components/ui/GlassCard";
 
 interface Module {
   id: string;
@@ -27,9 +28,36 @@ export default function LearnClient({ locale }: { locale: string }) {
   );
 
   const modules = data?.modules || [];
+  // If there are no modules from the API, show a small demo set so the page isn't empty
+  const demoModules: Module[] = [
+    {
+      id: "demo-1",
+      title: "Introducción a la cocina saludable",
+      description: "Principios básicos para cocinar con menos desperdicio.",
+      slug: "intro-cocina-saludable",
+      duration_minutes: 15,
+      difficulty: "beginner",
+      category: "Fundamentos",
+      cover_image_url: "/branding/banner-home.png",
+      is_completed: false,
+    },
+    {
+      id: "demo-2",
+      title: "Técnicas de cocción rápidas",
+      description: "Métodos rápidos y sencillos para ahorrar tiempo.",
+      slug: "tecnicas-rapidas",
+      duration_minutes: 12,
+      difficulty: "beginner",
+      category: "Técnicas",
+      cover_image_url: "/branding/cocorico-cooking.png",
+      is_completed: false,
+    },
+  ];
+
+  const finalModules = modules.length > 0 ? modules : demoModules;
 
   // Group by category
-  const categories = Array.from(new Set(modules.map((m) => m.category)));
+  const categories = Array.from(new Set(finalModules.map((m) => m.category)));
 
   return (
     <div className="max-w-6xl mx-auto p-6">
@@ -40,7 +68,7 @@ export default function LearnClient({ locale }: { locale: string }) {
 
       <div className="space-y-8">
         {categories.map((category) => {
-          const categoryModules = modules.filter((m) => m.category === category);
+          const categoryModules = finalModules.filter((m) => m.category === category);
           return (
             <div key={category}>
               <h2 className="text-2xl font-semibold mb-4">{category}</h2>
@@ -48,11 +76,8 @@ export default function LearnClient({ locale }: { locale: string }) {
                 {categoryModules.map((module) => {
                   const progressValue = module.is_completed ? 100 : 0;
                   return (
-                    <Link
-                      key={module.id}
-                      href={`/${locale}/learn/${module.slug}`}
-                      className="block bg-card border border-border rounded-lg p-4 hover:shadow-lg transition"
-                    >
+                    <Link key={module.id} href={`/${locale}/learn/${module.slug}`}>
+                      <GlassCard className="p-4 hover:scale-[1.02] transition" variant="base">
                       {module.cover_image_url && (
                         <img
                           src={module.cover_image_url}
@@ -79,6 +104,7 @@ export default function LearnClient({ locale }: { locale: string }) {
                       {module.is_completed && (
                         <p className="text-xs text-primary mt-1">{t("completed") || "✓ Completed"}</p>
                       )}
+                      </GlassCard>
                     </Link>
                   );
                 })}

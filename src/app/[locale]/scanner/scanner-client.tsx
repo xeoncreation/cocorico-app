@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import GlassCard from "@/components/ui/GlassCard";
 import { Badge } from "@/components/ui/badge";
 import { Camera, Upload, X, Loader2, Info } from "lucide-react";
 import CocoricoMascot, { useMascotMood } from "@/components/CocoricoMascot";
@@ -161,7 +162,7 @@ export default function ScannerClient() {
       {/* Mode Selection */}
       {mode === "idle" && (
         <div className="grid md:grid-cols-2 gap-4">
-          <Card
+          <GlassCard
             className={cn(
               "cursor-pointer hover:scale-105 transition border border-teal-200/60 bg-white/80 dark:bg-neutral-900/80 dark:border-teal-800/40",
               plan === "premium" && "glass-card-premium"
@@ -179,9 +180,9 @@ export default function ScannerClient() {
                 Escanea alimentos en tiempo real con tu cámara
               </p>
             </CardContent>
-          </Card>
+          </GlassCard>
 
-          <Card
+          <GlassCard
             className={cn(
               "cursor-pointer hover:scale-105 transition border border-teal-200/60 bg-white/80 dark:bg-neutral-900/80 dark:border-teal-800/40",
               plan === "premium" && "glass-card-premium"
@@ -199,13 +200,13 @@ export default function ScannerClient() {
                 Sube una foto desde tu galería
               </p>
             </CardContent>
-          </Card>
+          </GlassCard>
         </div>
       )}
 
       {/* Camera View */}
       {mode === "camera" && (
-        <Card
+        <GlassCard
           className={cn(
             "overflow-hidden border border-teal-200/60 bg-white/80 dark:bg-neutral-900/80 dark:border-teal-800/40",
             plan === "premium" && "glass-card-premium"
@@ -251,12 +252,12 @@ export default function ScannerClient() {
               )}
             </Button>
           </CardContent>
-        </Card>
+        </GlassCard>
       )}
 
       {/* Results */}
       {detectedFoods.length > 0 && (
-        <Card
+        <GlassCard
           className={cn(
             "border border-teal-200/60 bg-white/80 dark:bg-neutral-900/80 dark:border-teal-800/40",
             plan === "premium" && "glass-card-premium"
@@ -307,7 +308,7 @@ export default function ScannerClient() {
               </div>
             ))}
           </CardContent>
-        </Card>
+        </GlassCard>
       )}
 
       {/* Hidden file input */}

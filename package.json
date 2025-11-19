@@ -28,7 +28,8 @@
     "audit:env": "ts-node scripts/audit-env.ts",
     "export:users": "ts-node scripts/export-users.ts",
     "dev:trace": "node --trace-exit node_modules/next/dist/bin/next dev -p 3000",
-    "dev:inspect": "node --inspect-brk node_modules/next/dist/bin/next dev -p 3000"
+    "dev:inspect": "node --inspect-brk node_modules/next/dist/bin/next dev -p 3000",
+    "generate:sprites": "node scripts/generate-sprites.js"
   },
   "dependencies": {
     "@fontsource/pacifico": "^5.2.7",
@@ -70,6 +71,8 @@
     "sonner": "^2.0.7",
     "stripe": "^19.2.1",
     "swr": "^2.3.6",
+    "lottie-web": "^5.12.2",
+    "three": "^0.169.0",
     "tailwind-merge": "^3.3.1",
     "tailwindcss-animate": "^1.0.7",
     "zod": "^3.25.76"
@@ -93,6 +96,8 @@
     "tailwindcss": "3.3.5",
     "ts-jest": "^29.1.1",
     "ts-node": "^10.9.2",
-    "typescript": "^5.2.2"
+    "typescript": "^5.2.2",
+    "sharp": "^0.33.5"
   }
+
 }

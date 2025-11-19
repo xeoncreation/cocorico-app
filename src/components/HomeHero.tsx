@@ -15,7 +15,16 @@ export default function HomeHero() {
     })();
   }, []);
 
-  if (!url) return null;
+  if (!url) {
+    // Prefer custom hero if available; fallback to existing banner
+    const fallback = "/branding/banner-home-optimized.gif";
+    return (
+      <div className="relative w-full h-[40vh] md:h-[56vh] overflow-hidden rounded-2xl">
+        <img src={fallback} alt="home visual" className="w-full h-full object-cover" />
+        <div className="absolute inset-0 bg-black/10 pointer-events-none" />
+      </div>
+    );
+  }
   const isVideo = url.endsWith('.mp4') || url.includes('.mp4?');
 
   return (
