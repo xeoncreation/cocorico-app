@@ -47,3 +47,103 @@
 .coco-btn-secondary { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.06) }
 
 .coco-heading { font-family: 'Poppins', sans-serif; font-weight: 600; letter-spacing: -0.02em }
+
+/* Liquid Glass Backgrounds */
+.coco-page-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.coco-bg-home-free {
+  background: linear-gradient(135deg, 
+    rgba(255, 90, 36, 0.15) 0%, 
+    rgba(255, 201, 74, 0.15) 50%, 
+    rgba(31, 169, 113, 0.15) 100%);
+}
+
+.coco-bg-home-premium {
+  background: linear-gradient(135deg, 
+    rgba(255, 90, 36, 0.25) 0%, 
+    rgba(255, 201, 74, 0.25) 25%,
+    rgba(147, 51, 234, 0.25) 75%, 
+    rgba(59, 130, 246, 0.25) 100%);
+  animation: premium-pulse 8s ease-in-out infinite;
+}
+
+@keyframes premium-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.9; }
+}
+
+.coco-bg-recipes-free {
+  background: linear-gradient(135deg, 
+    rgba(255, 201, 74, 0.18) 0%, 
+    rgba(31, 169, 113, 0.18) 100%);
+}
+
+.coco-bg-recipes-neutral {
+  background: linear-gradient(135deg, 
+    rgba(226, 232, 240, 0.4) 0%, 
+    rgba(203, 213, 225, 0.4) 100%);
+}
+
+.coco-bg-learn {
+  background: linear-gradient(135deg, 
+    rgba(59, 130, 246, 0.15) 0%, 
+    rgba(147, 51, 234, 0.15) 100%);
+}
+
+.coco-bg-stats {
+  background: linear-gradient(135deg, 
+    rgba(31, 169, 113, 0.15) 0%, 
+    rgba(16, 185, 129, 0.15) 100%);
+}
+
+.coco-bg-community {
+  background: linear-gradient(135deg, 
+    rgba(236, 72, 153, 0.15) 0%, 
+    rgba(245, 158, 11, 0.15) 100%);
+}
+
+.coco-bg-feedback {
+  background: linear-gradient(135deg, 
+    rgba(99, 102, 241, 0.15) 0%, 
+    rgba(168, 85, 247, 0.15) 100%);
+}
+
+.coco-bg-profile {
+  background: linear-gradient(135deg, 
+    rgba(20, 184, 166, 0.15) 0%, 
+    rgba(6, 182, 212, 0.15) 100%);
+}
+
+.coco-bg-onboarding {
+  background: linear-gradient(135deg, 
+    rgba(255, 90, 36, 0.2) 0%, 
+    rgba(255, 201, 74, 0.2) 50%, 
+    rgba(31, 169, 113, 0.2) 100%);
+}
+
+/* Dark mode adjustments */
+:root[data-theme='dark'] .coco-page-background {
+  opacity: 0.8;
+}
+
+:root[data-theme='dark'] .coco-bg-home-free,
+:root[data-theme='dark'] .coco-bg-home-premium,
+:root[data-theme='dark'] .coco-bg-recipes-free,
+:root[data-theme='dark'] .coco-bg-learn,
+:root[data-theme='dark'] .coco-bg-stats,
+:root[data-theme='dark'] .coco-bg-community,
+:root[data-theme='dark'] .coco-bg-feedback,
+:root[data-theme='dark'] .coco-bg-profile,
+:root[data-theme='dark'] .coco-bg-onboarding {
+  filter: brightness(0.7) saturate(1.2);
+}
