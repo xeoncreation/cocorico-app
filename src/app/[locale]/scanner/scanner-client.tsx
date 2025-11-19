@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import GlassCard from "@/components/ui/GlassCard";
 import { Badge } from "@/components/ui/badge";
 import { Camera, Upload, X, Loader2, Info } from "lucide-react";

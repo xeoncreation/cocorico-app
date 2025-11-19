@@ -9,6 +9,7 @@ import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { Recipe, Visibility } from '@/types/recipes';
 import { Clock, Users, ChefHat } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import GlassCard from '@/components/ui/GlassCard';
 import { RippleButton } from '@/components/ui/ripple-button';
 
 const DEMO_RECIPES = [
@@ -226,22 +227,23 @@ export default function RecipesClient() {
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
-        <div className={cn("glass-card glass-card-orange glass-frosted-border p-8 rounded-2xl")}> 
+        <GlassCard className={cn("p-8")} variant={plan === 'premium' ? 'premium' : 'accent'}>
           <p className={plan === "premium" ? "glass-text-premium" : ""}>Cargando recetas...</p>
-        </div>
+        </GlassCard>
       </div>
     );
   }
 
-  const displayRecipes = showDemo ? DEMO_RECIPES : recipes;
+  // Rendering branches below use `showDemo ? DEMO_RECIPES : recipes` directly
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-orange-50 via-amber-50 to-yellow-50 dark:from-orange-950/30 dark:via-amber-900/20 dark:to-yellow-900/30 py-8">
+    <div className="min-h-screen py-8 bg-transparent">
       <div className="container mx-auto px-4 max-w-7xl">
         {/* Header */}
-        <div className={cn(
-          "flex flex-col sm:flex-row justify-between items-center mb-8 p-6 rounded-3xl glass-card glass-card-orange glass-frosted-border",
-        )}>
+        <GlassCard className={cn(
+            "flex flex-col sm:flex-row justify-between items-center mb-8 p-6",
+            // keep a thinner radius in the glass card itself; the component provides default rounding
+          )} variant={plan === 'premium' ? 'premium' : 'accent'}>
           <div>
             <h1 className={cn(
               "text-4xl font-bold mb-2",
@@ -262,7 +264,7 @@ export default function RecipesClient() {
             <ChefHat className="inline w-5 h-5 mr-2" />
             Nueva Receta
           </RippleButton>
-        </div>
+        </GlassCard>
 
         {/* Toggle Demo/Real */}
         {!showDemo && recipes.length > 0 && (
@@ -297,11 +299,12 @@ export default function RecipesClient() {
           {showDemo ? (
             // Demo recipes
             DEMO_RECIPES.map((recipe, idx) => (
-              <div
+              <GlassCard
                 key={idx}
                 className={cn(
-                  "group overflow-hidden rounded-2xl transition-all hover:scale-105 cursor-pointer glass-card glass-card-orange glass-frosted-border",
+                  "group overflow-hidden transition-all hover:scale-105 cursor-pointer",
                 )}
+                variant={plan === 'premium' ? 'premium' : 'accent'}
                 onClick={() => router.push(`/${locale}/recipes/new`)}
               >
                 <div className="relative h-48 overflow-hidden">
@@ -336,16 +339,17 @@ export default function RecipesClient() {
                     </div>
                   </div>
                 </div>
-              </div>
+              </GlassCard>
             ))
           ) : (
             // Real recipes from DB
             recipes.map((recipe) => (
-              <div
+              <GlassCard
                 key={recipe.id}
                 className={cn(
-                  "overflow-hidden rounded-2xl transition-all hover:scale-105 glass-card glass-card-orange glass-frosted-border",
+                  "overflow-hidden transition-all hover:scale-105",
                 )}
+                variant={plan === 'premium' ? 'premium' : 'accent'}
               >
                 <div className="p-6">
                   <h2 className={cn(
@@ -402,16 +406,16 @@ export default function RecipesClient() {
                     </div>
                   </div>
                 </div>
-              </div>
+              </GlassCard>
             ))
           )}
         </div>
 
         {/* Empty State */}
         {recipes.length === 0 && !showDemo && (
-          <div className={cn(
-            "text-center mt-10 p-12 rounded-3xl glass-card glass-card-orange glass-frosted-border"
-          )}>
+          <GlassCard className={cn(
+            "text-center mt-10 p-12",
+          )} variant={plan === 'premium' ? 'premium' : 'accent'}>
             <p className={cn(
               "text-lg mb-6",
               plan === "premium" ? "glass-text-premium" : "text-neutral-600 dark:text-neutral-400"
@@ -444,7 +448,7 @@ export default function RecipesClient() {
                 Buscar recetas
               </Link>
             </div>
-          </div>
+          </GlassCard>
         )}
       </div>
     </div>

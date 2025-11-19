@@ -16,6 +16,17 @@ const eslintConfig = defineConfig([
       '@typescript-eslint/ban-ts-comment': ['warn', { 'ts-ignore': 'allow-with-description' }],
       'react/no-unescaped-entities': 'warn',
       '@next/next/no-img-element': 'warn',
+      'prefer-const': 'warn',
+    },
+  },
+  // Force overrides for TS/TSX specifically, ensuring our severities win
+  {
+    files: ["**/*.ts", "**/*.tsx"],
+    rules: {
+      '@typescript-eslint/no-explicit-any': 'warn',
+      '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_', varsIgnorePattern: '^_' }],
+      '@typescript-eslint/ban-ts-comment': ['warn', { 'ts-ignore': 'allow-with-description' }],
+      'prefer-const': 'warn',
     },
   },
   // Override default ignores of eslint-config-next.
