@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck - page_assets columns just added, Database type not regenerated yet
 import { supabaseServer } from "@/app/lib/supabase-server";
 

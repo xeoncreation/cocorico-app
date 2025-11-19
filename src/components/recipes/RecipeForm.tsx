@@ -28,9 +28,9 @@ export default function RecipeForm({
   });
 
   const { register, handleSubmit, control, formState: { errors } } = form;
-  // @ts-ignore - TypeScript inference issue with nested arrays
+  // @ts-expect-error - TypeScript inference issue with nested arrays
   const ing = useFieldArray({ control, name: "ingredients" });
-  // @ts-ignore - TypeScript inference issue with nested arrays
+  // @ts-expect-error - TypeScript inference issue with nested arrays
   const steps = useFieldArray({ control, name: "steps" });
 
   return (

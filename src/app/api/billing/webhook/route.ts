@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck - user_subscriptions and user_roles plan column not yet in Database type; requires migration
 import Stripe from "stripe";
 import { NextResponse } from "next/server";
@@ -40,7 +41,7 @@ export async function POST(req: Request) {
       const userId = subscription.metadata?.supabase_user_id;
 
       if (userId) {
-        // @ts-ignore - current_period_end existe pero TypeScript puede no reconocerlo
+        // @ts-expect-error - current_period_end existe pero TypeScript puede no reconocerlo
         const periodEnd = subscription.current_period_end || Math.floor(Date.now() / 1000);
         
         await supabaseServer()

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck - post_likes table not yet in Database type; requires migration
 "use client";
 

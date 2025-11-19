@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck - posts, post_likes, post_comments tables not yet in Database type; requires migration
 import { supabaseServer } from "@/app/lib/supabase-server";
 import { notFound, redirect } from "next/navigation";

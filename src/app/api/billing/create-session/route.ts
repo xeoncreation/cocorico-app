@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck - user_subscriptions table not yet in Database type; requires migration
 // Tables user_subscriptions and user_billing will be created via future migration
 import Stripe from "stripe";

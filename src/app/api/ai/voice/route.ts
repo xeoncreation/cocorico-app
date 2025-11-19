@@ -17,12 +17,12 @@ export async function POST(req: Request) {
     }
 
     // Lazy import to avoid bundling in edge
-    // @ts-ignore - elevenlabs-node lacks types
+    // @ts-expect-error elevenlabs-node package has no TS types
     const { ElevenLabsClient } = await import("elevenlabs-node");
     const client = new ElevenLabsClient({ apiKey });
 
     // Some SDKs differ; attempt convert, else throw to fallback
-    // @ts-ignore
+    // @ts-expect-error SDK typings mismatch for convert signature
     const audio: any = await client.textToSpeech.convert({
       voice: "Bella",
       model_id: "eleven_monolingual_v1",

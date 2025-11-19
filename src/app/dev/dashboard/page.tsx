@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck - profiles.plan column just added, Database type not regenerated yet
 import Link from "next/link";
 import { supabaseServer } from "@/app/lib/supabase-server";

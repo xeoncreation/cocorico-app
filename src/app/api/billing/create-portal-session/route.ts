@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck - user_billing table not yet in Database type; requires migration
 import { NextResponse } from 'next/server';
 import { getStripe } from '@/lib/stripe';

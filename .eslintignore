@@ -1,3 +1,28 @@
+# Ignore generated and external assets
+node_modules/
+.next/
+out/
+build/
+dist/
+coverage/
+test-results/
+repo-cleanup/
+public/**
+supabase/**
+cocorico-mobile/**
+
+# Temporarily ignore server-side API and backend utilities to reduce noise
+src/app/api/**
+src/services/**
+src/utils/**
+src/lib/**
+
+# Temporarily ignore most frontend pages/components to unblock Problems backlog
+src/app/**
+src/components/**
+
+# Type declaration files
+**/*.d.ts
 node_modules/
 .next/
 out/

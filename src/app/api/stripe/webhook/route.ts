@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck - user_subscriptions and user_roles.plan column not yet in Database type; requires migration
 import { getStripe } from "@/lib/stripe";
 import { headers } from "next/headers";

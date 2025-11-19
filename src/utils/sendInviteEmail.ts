@@ -4,7 +4,7 @@
  * Configura RESEND_API_KEY en .env.local
  */
 
-// @ts-ignore - instalar con: npm install resend
+// @ts-expect-error - instalar con: npm install resend
 import { Resend } from "resend";
 
 const resend = new Resend(process.env.RESEND_API_KEY);

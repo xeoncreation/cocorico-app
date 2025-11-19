@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck - user_subscriptions table not yet in Database type; requires migration
 import { supabaseServer } from "@/app/lib/supabase-server";
 import Link from "next/link";

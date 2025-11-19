@@ -3,8 +3,11 @@ import {getRequestConfig} from "next-intl/server";
 export default getRequestConfig(async ({ locale }) => {
   // Asegurar que siempre retornamos un string válido soportado
   const supportedLocales = ["es", "en"] as const;
+  type SupportedLocale = typeof supportedLocales[number];
   const requested = typeof locale === "string" ? locale : "es";
-  const safeLocale: string = supportedLocales.includes(requested as any) ? requested : "es";
+  const isSupportedLocale = (l: string): l is SupportedLocale =>
+    (supportedLocales as readonly string[]).includes(l);
+  const safeLocale: SupportedLocale = isSupportedLocale(requested) ? requested : "es";
 
   try {
     const messages = (await import(`./messages/${safeLocale}.json`)).default;
