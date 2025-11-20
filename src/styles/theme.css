@@ -90,9 +90,9 @@
 
 .coco-bg-home-premium {
   background: 
-    radial-gradient(circle at 30% 20%, rgba(147, 51, 234, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 30% 20%, rgba(249, 123, 50, 0.3) 0%, transparent 50%),
     radial-gradient(circle at 70% 60%, rgba(255, 138, 48, 0.25) 0%, transparent 50%),
-    radial-gradient(circle at 50% 90%, rgba(59, 130, 246, 0.2) 0%, transparent 50%),
+    radial-gradient(circle at 50% 90%, rgba(76, 206, 198, 0.2) 0%, transparent 50%),
     linear-gradient(135deg, #fff0e6 0%, #ffe8d6 100%);
   animation: premium-shimmer 10s ease-in-out infinite;
 }
@@ -117,8 +117,8 @@
 
 .coco-bg-learn {
   background: 
-    radial-gradient(circle at 30% 40%, rgba(59, 130, 246, 0.2) 0%, transparent 50%),
-    radial-gradient(circle at 70% 70%, rgba(147, 51, 234, 0.18) 0%, transparent 50%),
+    radial-gradient(circle at 30% 40%, rgba(76, 206, 198, 0.2) 0%, transparent 50%),
+    radial-gradient(circle at 70% 70%, rgba(46, 138, 86, 0.18) 0%, transparent 50%),
     linear-gradient(135deg, #f0f4ff 0%, #e8eeff 100%);
 }
 
@@ -131,15 +131,15 @@
 
 .coco-bg-community {
   background: 
-    radial-gradient(circle at 40% 40%, rgba(236, 72, 153, 0.2) 0%, transparent 50%),
-    radial-gradient(circle at 60% 70%, rgba(245, 158, 11, 0.18) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(229, 53, 38, 0.2) 0%, transparent 50%),
+    radial-gradient(circle at 60% 70%, rgba(249, 123, 50, 0.18) 0%, transparent 50%),
     linear-gradient(135deg, #fff5f7 0%, #fff0f3 100%);
 }
 
 .coco-bg-feedback {
   background: 
     radial-gradient(circle at 50% 40%, rgba(99, 102, 241, 0.2) 0%, transparent 50%),
-    radial-gradient(circle at 30% 80%, rgba(168, 85, 247, 0.18) 0%, transparent 50%),
+    radial-gradient(circle at 30% 80%, rgba(243, 199, 81, 0.18) 0%, transparent 50%),
     linear-gradient(135deg, #f5f3ff 0%, #ede9fe 100%);
 }
 
@@ -180,7 +180,7 @@
 
 :root[data-theme='dark'] .coco-bg-home-premium {
   background: 
-    radial-gradient(circle at 30% 30%, rgba(147, 51, 234, 0.15) 0%, transparent 60%),
+    radial-gradient(circle at 30% 30%, rgba(249, 123, 50, 0.15) 0%, transparent 60%),
     radial-gradient(circle at 70% 70%, rgba(255, 138, 48, 0.12) 0%, transparent 60%),
     linear-gradient(135deg, #1a1410 0%, #2d1f1a 100%);
   animation: premium-shimmer-dark 10s ease-in-out infinite;
@@ -195,7 +195,7 @@
 :root[data-theme='dark'] .coco-bg-feedback,
 :root[data-theme='dark'] .coco-bg-profile {
   background: 
-    radial-gradient(circle at 40% 50%, rgba(168, 85, 247, 0.1) 0%, transparent 70%),
+    radial-gradient(circle at 40% 50%, rgba(243, 199, 81, 0.1) 0%, transparent 70%),
     linear-gradient(135deg, #1a1410 0%, #2d1f1a 100%);
 }
 

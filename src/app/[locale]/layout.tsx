@@ -27,7 +27,7 @@ export default async function LocaleLayout({
     <NextIntlClientProvider messages={messages} locale={locale}>
       <div className="min-h-screen flex flex-col" data-locale={locale}>
         {/* Header único consolidado */}
-        <header className="bg-white/80 dark:bg-neutral-900/80 backdrop-blur-sm shadow-sm sticky top-0 z-50 border-b border-cocorico-yellow/20 dark:border-neutral-700">
+        <header className="bg-white/95 dark:bg-neutral-900/95 backdrop-blur-md shadow-lg sticky top-0 z-50 border-b border-cocorico-mango/30 dark:border-cocorico-datil/20">
           <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex items-center justify-between h-16">
               {/* Logo */}

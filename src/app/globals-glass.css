@@ -6,14 +6,15 @@
   position: relative;
   border-radius: 1.5rem;
   padding: 1.25rem;
-  background: radial-gradient(circle at top left, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.04));
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: radial-gradient(circle at top left, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.08));
+  border: 1px solid rgba(255, 255, 255, 0.35);
   box-shadow:
-    0 24px 60px rgba(15, 23, 42, 0.45),
-    0 0 0 1px rgba(255, 255, 255, 0.04);
+    0 24px 60px rgba(0, 0, 0, 0.55),
+    0 0 0 1px rgba(255, 255, 255, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
   overflow: hidden;
-  -webkit-backdrop-filter: blur(18px);
-  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(22px) saturate(150%);
+  backdrop-filter: blur(22px) saturate(150%);
 }
 
 /* Reflejo superior suave */
@@ -21,9 +22,10 @@
   content: "";
   position: absolute;
   inset: -40%;
-  background: radial-gradient(circle at top, rgba(255, 255, 255, 0.25), transparent 60%);
-  opacity: 0.4;
+  background: radial-gradient(circle at top, rgba(255, 255, 255, 0.4), transparent 60%);
+  opacity: 0.6;
   pointer-events: none;
+  z-index: 1;
 }
 
 /* Capa extra de brillo en bordes (similar iOS) */
@@ -34,13 +36,14 @@
   border-radius: inherit;
   background: linear-gradient(
     135deg,
-    rgba(255, 255, 255, 0.7) 0%,
-    rgba(255, 255, 255, 0.08) 40%,
-    rgba(255, 255, 255, 0.45) 100%
+    rgba(255, 255, 255, 0.8) 0%,
+    rgba(255, 255, 255, 0.1) 40%,
+    rgba(255, 255, 255, 0.6) 100%
   );
   mix-blend-mode: soft-light;
-  opacity: 0.7;
+  opacity: 0.85;
   pointer-events: none;
+  z-index: 1;
 }
 
 /* ============================
@@ -48,10 +51,10 @@
    ============================ */
 
 .glass-card {
-  --glass-tint: rgba(255, 255, 255, 0.08);
+  --glass-tint: rgba(255, 255, 255, 0.12);
   background:
-    radial-gradient(circle at top left, var(--glass-tint), rgba(255, 255, 255, 0.02)),
-    linear-gradient(135deg, rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.9));
+    radial-gradient(circle at top left, var(--glass-tint), rgba(255, 255, 255, 0.04)),
+    linear-gradient(135deg, rgba(30, 20, 15, 0.75), rgba(40, 25, 18, 0.8));
 }
 
 .glass-card-mango {

@@ -49,7 +49,7 @@ export default async function LocaleHomePage({
       </Reveal>
 
       <Reveal delay={0.4}>
-        <p className="max-w-2xl text-lg sm:text-xl glass-text-strong mb-8 leading-relaxed font-medium">
+        <p className="max-w-2xl text-lg sm:text-xl glass-text-medium mb-8 leading-relaxed">
           {t("home.description")}
         </p>
       </Reveal>
@@ -79,18 +79,18 @@ export default async function LocaleHomePage({
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-4xl mb-12">
           <div className="coco-glass-card glass-card-mango p-6 rounded-3xl text-center transform hover:scale-105 transition-transform">
             <div className="text-4xl mb-3">🔍</div>
-            <h3 className="font-bold text-lg mb-2 glass-text-strong">Escáner IA</h3>
-            <p className="text-sm glass-text-strong opacity-80">Identifica ingredientes al instante</p>
+            <h3 className="font-bold text-lg mb-2 glass-text-strong relative z-10">Escáner IA</h3>
+            <p className="text-sm glass-text-medium relative z-10">Identifica ingredientes al instante</p>
           </div>
           <div className="coco-glass-card glass-card-turquoise p-6 rounded-3xl text-center transform hover:scale-105 transition-transform">
             <div className="text-4xl mb-3">👥</div>
-            <h3 className="font-bold text-lg mb-2 glass-text-strong">Comunidad</h3>
-            <p className="text-sm glass-text-strong opacity-80">Comparte tus creaciones</p>
+            <h3 className="font-bold text-lg mb-2 glass-text-strong relative z-10">Comunidad</h3>
+            <p className="text-sm glass-text-medium relative z-10">Comparte tus creaciones</p>
           </div>
           <div className="coco-glass-card glass-card-avocado p-6 rounded-3xl text-center transform hover:scale-105 transition-transform">
             <div className="text-4xl mb-3">🎯</div>
-            <h3 className="font-bold text-lg mb-2 glass-text-strong">Retos</h3>
-            <p className="text-sm glass-text-strong opacity-80">Desafíate y mejora</p>
+            <h3 className="font-bold text-lg mb-2 glass-text-strong relative z-10">Retos</h3>
+            <p className="text-sm glass-text-medium relative z-10">Desafíate y mejora</p>
           </div>
         </div>
       </Reveal>
