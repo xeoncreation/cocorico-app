@@ -185,9 +185,9 @@ NEXT_PUBLIC_STRIPE_PRICE_ID_MONTHLY=price_xxx
 NEXT_PUBLIC_APP_URL=http://localhost:3000
 ```
 
-2) Crea el endpoint de webhook en Stripe (Dashboard) y copia su `Signing secret` en `STRIPE_WEBHOOK_SECRET`.
+1. Crea el endpoint de webhook en Stripe (Dashboard) y copia su `Signing secret` en `STRIPE_WEBHOOK_SECRET`.
 
-3) En local, si quieres probar el webhook, expón tu servidor con un túnel y actualiza la URL del endpoint en Stripe:
+1. En local, si quieres probar el webhook, expón tu servidor con un túnel y actualiza la URL del endpoint en Stripe:
 
 - ngrok: `ngrok http http://localhost:3000`
 - Stripe CLI: `stripe listen --forward-to localhost:3000/api/stripe/webhook`

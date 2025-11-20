@@ -5,12 +5,8 @@ import MotionWrapper from "@/components/MotionWrapper";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { Toaster } from "sonner";
 import { Suspense } from "react";
-import AuthButton from "@/components/AuthButton";
 import PushNotificationPrompt from "@/components/PushNotificationPrompt";
-import MobileNav from "@/components/MobileNav";
-import LanguageSelector from "@/components/LanguageSelector";
-import LocaleNavbar from "@/components/LocaleNavbar";
-import ThemeToggle from "@/components/ThemeToggle";
+import UnifiedNavbar from "@/components/navigation/UnifiedNavbar";
 
 export default async function LocaleLayout({
   children,
@@ -26,36 +22,8 @@ export default async function LocaleLayout({
   return (
     <NextIntlClientProvider messages={messages} locale={locale}>
       <div className="min-h-screen flex flex-col" data-locale={locale}>
-        {/* Header único consolidado */}
-        <header className="bg-white/95 dark:bg-neutral-900/95 backdrop-blur-md shadow-lg sticky top-0 z-50 border-b border-cocorico-mango/30 dark:border-cocorico-datil/20">
-          <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex items-center justify-between h-16">
-              {/* Logo */}
-              <Link href={`/${locale}`} className="flex items-center gap-2 font-display text-2xl text-cocorico-red dark:text-amber-400 hover:scale-105 transition-transform">
-                🐓 Cocorico
-              </Link>
-              
-              {/* Navegación principal - Desktop */}
-              <LocaleNavbar locale={locale} />
-              
-              {/* Controles de usuario */}
-              <div className="flex items-center gap-3">
-                {/* Toggle de tema claro/oscuro */}
-                <ThemeToggle />
-                
-                {/* Selector de idioma con búsqueda */}
-                <LanguageSelector compact />
-                
-                {/* Botón de autenticación */}
-                <Suspense fallback={
-                  <div className="w-32 h-10 bg-cocorico-yellow/30 dark:bg-neutral-700 rounded-lg animate-pulse" />
-                }>
-                  <AuthButton />
-                </Suspense>
-              </div>
-            </div>
-          </nav>
-        </header>
+        {/* Unified Navigation Bar */}
+        <UnifiedNavbar />
 
         {/* Contenido principal con animación */}
         <main className="flex-1">
@@ -119,7 +87,6 @@ export default async function LocaleLayout({
         </footer>
         <Toaster position="bottom-center" richColors />
         <PushNotificationPrompt />
-        <MobileNav />
       </div>
     </NextIntlClientProvider>
   );

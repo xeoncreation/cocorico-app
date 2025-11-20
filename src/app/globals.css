@@ -1,7 +1,6 @@
-@import "@fontsource/poppins/400.css";
-@import "@fontsource/poppins/600.css";
-@import "@fontsource/poppins/700.css";
-@import "@fontsource/pacifico/400.css";
+/* =============================================
+   COCORICO GLOBAL STYLES
+   ============================================= */
 
 @tailwind base;
 @tailwind components;
@@ -23,7 +22,7 @@
 
   body {
     @apply bg-background text-foreground;
-    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-family: var(--font-poppins), -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     letter-spacing: -0.01em;
