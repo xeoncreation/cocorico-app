@@ -45,6 +45,9 @@
     "typescriptreact"
   ],
   "eslint.format.enable": false,
+  "typescript.validate.enable": true,
+  "problems.showCurrentInStatus": true,
+  "problems.defaultViewMode": "tree",
   "files.watcherExclude": {
     "**/.next/**": true,
     "**/node_modules/**": true,
