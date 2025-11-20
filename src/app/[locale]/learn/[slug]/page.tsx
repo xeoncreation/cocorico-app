@@ -1,5 +1,5 @@
 import { cookies } from "next/headers";
-import { createServerComponentClient } from "@/lib/supabase/server";
+import { createServerComponentClient } from "@/lib/supabase/client";
 import ModuleClient from "./module-client";
 import { notFound } from "next/navigation";
 
@@ -8,7 +8,7 @@ export default async function LearnModulePage({
 }: {
   params: { locale: string; slug: string };
 }) {
-  const supabase = createServerComponentClient();
+  const supabase = await createServerComponentClient();
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) notFound();
 

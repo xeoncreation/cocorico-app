@@ -1,4 +1,4 @@
-import { createRouteHandlerClient } from "@/lib/supabase/server";
+import { createRouteHandlerClient } from "@/lib/supabase/client";
 import { cookies } from "next/headers";
 
 /**
@@ -7,7 +7,7 @@ import { cookies } from "next/headers";
  * Returns paginated posts with user info and engagement counts
  */
 export async function GET(req: Request) {
-  const supabase = createRouteHandlerClient();
+  const supabase = await createRouteHandlerClient();
   const { searchParams } = new URL(req.url);
   
   const type = searchParams.get("type"); // "text" | "recipe" | "photo"

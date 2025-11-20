@@ -1,6 +1,6 @@
 import FeedbackClient from "./feedback-client";
 import { Metadata } from "next";
-import { createServerComponentClient } from "@/lib/supabase/server";
+import { createServerComponentClient } from "@/lib/supabase/client";
 import { cookies } from "next/headers";
 import { AppBackground } from "@/components/layout/AppBackground";
 
@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 };
 
 export default async function FeedbackPage() {
-  const supabase = createServerComponentClient();
+  const supabase = await createServerComponentClient();
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) return <div className="p-6 text-red-500">Debes iniciar sesión.</div>;
 

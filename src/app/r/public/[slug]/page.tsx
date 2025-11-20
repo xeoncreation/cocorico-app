@@ -1,11 +1,11 @@
-import { createServerComponentClient } from "@/lib/supabase/server";
+import { createServerComponentClient } from "@/lib/supabase/client";
 import { cookies } from "next/headers";
 import { notFound } from "next/navigation";
 import AnalyticsPing from "@/components/AnalyticsPing";
 import { getTranslations } from "next-intl/server";
 
 export async function generateMetadata({ params }: { params: { slug: string } }) {
-  const supabase = createServerComponentClient();
+  const supabase = await createServerComponentClient();
   const { data } = await supabase
     .from("recipes")
     .select("title, description")
@@ -34,7 +34,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 
 export default async function PublicRecipePage({ params }: { params: { slug: string } }) {
   const t = await getTranslations();
-  const supabase = createServerComponentClient();
+  const supabase = await createServerComponentClient();
   const { data } = await supabase
     .from("recipes")
     .select("id, title, description, content_json, difficulty, time")

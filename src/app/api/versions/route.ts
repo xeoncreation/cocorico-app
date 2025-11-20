@@ -1,12 +1,12 @@
 import { NextResponse } from "next/server";
 export const dynamic = "force-dynamic";
-import { createRouteHandlerClient } from "@/lib/supabase/server";
+import { createRouteHandlerClient } from "@/lib/supabase/client";
 import { cookies } from "next/headers";
 
 export async function POST(req: Request) {
   try {
     const { base_recipe_id, variant_type, content } = await req.json();
-    const supabase = createRouteHandlerClient();
+    const supabase = await createRouteHandlerClient();
     
     const { data: { user }, error: uErr } = await supabase.auth.getUser();
     if (uErr || !user) {

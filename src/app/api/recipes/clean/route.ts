@@ -51,7 +51,7 @@ export async function POST(req: NextRequest) {
       );
     }
     
-    const supabase = createRouteHandlerClient();
+    const supabase = await createRouteHandlerClient();
     const { data: { session } } = await supabase.auth.getSession();
 
     if (!session) {

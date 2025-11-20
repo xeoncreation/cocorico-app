@@ -1,13 +1,13 @@
 // src/app/[locale]/onboarding/page.tsx
 import { redirect } from "next/navigation";
-import { createServerComponentClient } from "@/lib/supabase/server";
+import { createServerComponentClient } from "@/lib/supabase/client";
 import { cookies } from "next/headers";
 import OnboardingClient from './onboarding-client';
 import { AppBackground } from '@/components/layout/AppBackground';
 
 export default async function OnboardingPage({ params }: { params: { locale: string } }) {
   const { locale } = params;
-  const supabase = createServerComponentClient();
+  const supabase = await createServerComponentClient();
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) {
     redirect("/login");

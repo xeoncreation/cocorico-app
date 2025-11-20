@@ -1,10 +1,10 @@
 // src/app/api/recipes/search/route.ts
 import { NextRequest } from "next/server";
 import { cookies } from "next/headers";
-import { createRouteHandlerClient } from "@/lib/supabase/server";
+import { createRouteHandlerClient } from "@/lib/supabase/client";
 
 export async function GET(req: NextRequest) {
-  const supabase = createRouteHandlerClient();
+  const supabase = await createRouteHandlerClient();
   const { searchParams } = new URL(req.url);
   const q = searchParams.get("q") ?? "";
   const maxTime = searchParams.get("maxTime");

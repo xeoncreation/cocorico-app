@@ -1,12 +1,12 @@
 import { NextResponse } from "next/server";
 export const dynamic = "force-dynamic";
-import { createRouteHandlerClient } from "@/lib/supabase/server";
+import { createRouteHandlerClient } from "@/lib/supabase/client";
 import { cookies } from "next/headers";
 
 export async function POST(req: Request) {
   try {
     const { event, recipe_id, recipe_slug } = await req.json();
-    const supabase = createRouteHandlerClient();
+    const supabase = await createRouteHandlerClient();
     
     await supabase.from("stats").insert({ 
       event, 

@@ -1,4 +1,4 @@
-import { createServerComponentClient } from "@/lib/supabase/server";
+import { createServerComponentClient } from "@/lib/supabase/client";
 import { cookies } from "next/headers";
 import { AppBackground } from "@/components/layout/AppBackground";
 
@@ -10,7 +10,7 @@ export default async function StatsPage() {
 
   if (hasEnv) {
     try {
-      const supabase = createServerComponentClient();
+      const supabase = await createServerComponentClient();
 
       const pub = await supabase
         .from("recipes")
