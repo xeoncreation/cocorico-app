@@ -1,7 +1,11 @@
 {
   "version": "0.2",
-  "language": "en,es",
-  "dictionaries": ["en_US", "es"],
+  "language": "en,es-es",
+  "dictionaryDefinitions": [
+    { "name": "en-us", "path": "./node_modules/@cspell/dict-en-us/cspell-ext.json" },
+    { "name": "es-es", "path": "./node_modules/cspell-dict-es-es/cspell-ext.json" }
+  ],
+  "dictionaries": ["en-us", "es-es"],
   "words": [
     "cocorico",
     "probar",

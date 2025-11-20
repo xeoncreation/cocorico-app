@@ -1,3 +1,4 @@
+# <!-- cspell:words Cocorico Asistente Cocina Inteligente educativa anti-desperdicio recetas personalizadas variaciones culinarias favoritos estadísticas internacionalización escáner responsive onboarding seguridad migraciones cuota buscable bienvenida túnel facturación salud caché contribución -->
 # 🐓 Cocorico — Asistente de Cocina Inteligente con IA
 
 **Cocorico** es una aplicación educativa y anti-desperdicio que sugiere recetas personalizadas, guarda tus favoritas, genera variaciones con IA y aprende de tus hábitos culinarios.
