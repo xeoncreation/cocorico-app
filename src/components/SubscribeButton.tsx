@@ -27,7 +27,7 @@ export default function SubscribeButton() {
     <button
       onClick={handleClick}
       disabled={loading}
-      className="bg-white text-orange-600 font-semibold px-6 py-3 rounded-lg hover:bg-neutral-100 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+      className="w-full coco-btn-primary px-6 py-3 rounded-xl font-bold text-white hover:scale-105 transition-transform disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
     >
       {loading ? "Conectando con Stripe..." : "Hazte Premium 🥇"}
     </button>
