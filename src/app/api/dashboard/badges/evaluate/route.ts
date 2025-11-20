@@ -1,8 +1,7 @@
-import { cookies } from "next/headers";
-import { createRouteHandlerClient } from "@/lib/supabase/server";
+import { createRouteHandlerClient } from "@/lib/supabase/client";
 
 export async function POST() {
-  const supabase = createRouteHandlerClient();
+  const supabase = await createRouteHandlerClient();
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) return new Response(JSON.stringify({ error: "Not authenticated" }), { status: 401 });
 
@@ -17,7 +16,7 @@ export async function POST() {
     .select("minutes")
     .eq("user_id", user.id);
 
-  const totalMinutes = (sessions ?? []).reduce((acc, s) => acc + (s.minutes ?? 0), 0);
+  const totalMinutes = (sessions ?? []).reduce((acc: number, s: any) => acc + (s.minutes ?? 0), 0);
 
   type BadgeRule = { code: string; condition: () => boolean };
   const rules: BadgeRule[] = [

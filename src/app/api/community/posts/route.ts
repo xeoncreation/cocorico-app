@@ -1,8 +1,7 @@
-import { cookies } from "next/headers";
-import { createRouteHandlerClient } from "@/lib/supabase/server";
+import { createRouteHandlerClient } from "@/lib/supabase/client";
 
 export async function GET() {
-  const supabase = createRouteHandlerClient();
+  const supabase = await createRouteHandlerClient();
   const { data: { user } } = await supabase.auth.getUser();
   const { data: posts, error } = await supabase
     .from("community_posts")
@@ -10,27 +9,27 @@ export async function GET() {
     .order("created_at", { ascending: false })
     .limit(50);
   if (error) return new Response(JSON.stringify({ error: error.message }), { status: 400 });
-  const userIds = posts?.map(p => p.user_id) || [];
+  const userIds = posts?.map((p: any) => p.user_id) || [];
   const { data: profiles } = await supabase
     .from("user_profiles")
     .select("id, display_name, avatar_url")
     .in("id", userIds);
   const profileMap: Record<string, any> = {};
-  profiles?.forEach(p => { profileMap[p.id] = p; });
+  profiles?.forEach((p: any) => { profileMap[p.id] = p; });
   let followingSet = new Set<string>();
   if (user) {
     const { data: following } = await supabase
       .from("community_follows")
       .select("following")
       .eq("follower", user.id);
-    following?.forEach(f => followingSet.add(f.following));
+    following?.forEach((f: any) => followingSet.add(f.following));
   }
   const { data: comments } = await supabase
     .from("community_comments")
     .select("post_id, id");
   const commentCount: Record<string, number> = {};
-  comments?.forEach(c => { commentCount[c.post_id] = (commentCount[c.post_id] || 0) + 1; });
-  const enriched = posts.map(p => ({
+  comments?.forEach((c: any) => { commentCount[c.post_id] = (commentCount[c.post_id] || 0) + 1; });
+  const enriched = posts.map((p: any) => ({
     ...p,
     user: profileMap[p.user_id] || null,
     following: user ? followingSet.has(p.user_id) : false,
@@ -40,7 +39,7 @@ export async function GET() {
 }
 
 export async function POST(req: Request) {
-  const supabase = createRouteHandlerClient();
+  const supabase = await createRouteHandlerClient();
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) {
     return new Response(JSON.stringify({ error: "Not authenticated" }), { status: 401 });
