@@ -43,22 +43,27 @@ const nextConfig = {
       { key: 'X-Content-Type-Options', value: 'nosniff' },
       { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
       { key: 'Permissions-Policy', value: 'camera=(), microphone=(), geolocation=()' },
-      // HSTS con tiempo reducido para evitar bloqueos permanentes en iOS
-      { key: 'Strict-Transport-Security', value: 'max-age=31536000' },
+      { key: 'Strict-Transport-Security', value: 'max-age=31536000; includeSubDomains' },
+      {
+        key: 'Content-Security-Policy',
+        value: [
+          "default-src 'self'",
+          "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cloud.umami.is https://va.vercel-scripts.com",
+          "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+          "img-src 'self' data: blob: https://*.supabase.co https://via.placeholder.com",
+          "font-src 'self' data: https://fonts.gstatic.com",
+          "connect-src 'self' https://*.supabase.co https://api.openai.com https://api.stripe.com https://api.elevenlabs.io https://api.replicate.com https://cloud.umami.is",
+          "frame-ancestors 'none'",
+          "base-uri 'self'",
+          "form-action 'self'",
+        ].join('; ')
+      },
     ];
-    // COEP/COOP/CORP disabled - blocking external resources in Vercel
-    // const prodOnly = [
-    //   { key: 'Cross-Origin-Embedder-Policy', value: 'require-corp' },
-    //   { key: 'Cross-Origin-Opener-Policy', value: 'same-origin' },
-    //   { key: 'Cross-Origin-Resource-Policy', value: 'same-origin' },
-    // ];
-    // const headers = process.env.NODE_ENV === 'production' ? [...base, ...prodOnly] : base;
-    const headers = base;
+    
     return [
       {
-        // Apply broadly; Next may still override for internal assets
         source: '/:path*',
-        headers,
+        headers: base,
       },
     ];
   },
@@ -78,7 +83,53 @@ if (!minimal) {
       disable: process.env.NODE_ENV === 'development',
       register: true,
       skipWaiting: true,
-      runtimeCaching: [],
+      runtimeCaching: [
+        {
+          urlPattern: /^https:\/\/.*\.supabase\.co\/.*/i,
+          handler: 'NetworkFirst',
+          options: {
+            cacheName: 'supabase-api-cache',
+            expiration: {
+              maxEntries: 32,
+              maxAgeSeconds: 60 * 5, // 5 minutes
+            },
+            networkTimeoutSeconds: 10,
+          },
+        },
+        {
+          urlPattern: /\.(?:jpg|jpeg|png|webp|svg|gif|ico)$/i,
+          handler: 'CacheFirst',
+          options: {
+            cacheName: 'image-cache',
+            expiration: {
+              maxEntries: 100,
+              maxAgeSeconds: 60 * 60 * 24 * 30, // 30 days
+            },
+          },
+        },
+        {
+          urlPattern: /^https:\/\/fonts\.(?:googleapis|gstatic)\.com\/.*/i,
+          handler: 'CacheFirst',
+          options: {
+            cacheName: 'google-fonts-cache',
+            expiration: {
+              maxEntries: 20,
+              maxAgeSeconds: 60 * 60 * 24 * 365, // 1 year
+            },
+          },
+        },
+        {
+          urlPattern: /^https:\/\/cloud\.umami\.is\/.*/i,
+          handler: 'NetworkFirst',
+          options: {
+            cacheName: 'analytics-cache',
+            expiration: {
+              maxEntries: 10,
+              maxAgeSeconds: 60 * 60, // 1 hour
+            },
+          },
+        },
+      ],
       buildExcludes: [/middleware-manifest\.json$/],
     });
     finalConfig = withPWA(finalConfig);

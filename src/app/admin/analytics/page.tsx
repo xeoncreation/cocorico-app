@@ -1,12 +1,12 @@
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { createServerComponentClient } from "@/lib/supabase/server";
 import AnalyticsClient from "./AnalyticsClient";
 
 export const dynamic = "force-dynamic";
 
 export default async function AnalyticsPage() {
-  const supabase = createServerComponentClient({ cookies });
+  const supabase = createServerComponentClient();
   const { data: { user } } = await supabase.auth.getUser();
   
   // Solo admins pueden ver esta página

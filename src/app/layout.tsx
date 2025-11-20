@@ -1,6 +1,5 @@
 
 import "./globals.css";
-import "../../styles/globals.css";
 import "../../styles/theme.css";
 import { GlobalErrorHandler } from "./error-handler";
 import PageTransition from "@/components/ui/PageTransition";
@@ -10,6 +9,23 @@ import { ThemeProvider } from "@/components/ThemeProvider";
 import Analytics from "@/components/Analytics";
 import type { Viewport } from "next";
 import { cookies } from "next/headers";
+import { Poppins, Pacifico } from "next/font/google";
+
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["400", "600", "700"],
+  variable: "--font-poppins",
+  display: "swap",
+  preload: true,
+});
+
+const pacifico = Pacifico({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-pacifico",
+  display: "swap",
+  preload: true,
+});
 
 const siteUrl = (() => {
   const val = process.env.NEXT_PUBLIC_SITE_URL;
@@ -84,7 +100,7 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const theme = cookies().get("theme")?.value ?? "free";
   return (
-    <html lang="es" suppressHydrationWarning data-theme={theme}>
+    <html lang="es" suppressHydrationWarning data-theme={theme} className={`${poppins.variable} ${pacifico.variable}`}>
       <head>
         {/* iOS Safari specific meta tags */}
         <meta name="apple-mobile-web-app-capable" content="yes" />

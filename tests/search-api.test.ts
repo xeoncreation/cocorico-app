@@ -7,7 +7,7 @@ class MockReq {
 }
 
 // Mock Supabase client behaviour for textSearch and ilike
-jest.mock("@supabase/auth-helpers-nextjs", () => ({
+jest.mock("@/lib/supabase/server", () => ({
   createRouteHandlerClient: () => ({
     from: () => ({
       select: () => ({

@@ -1,6 +1,6 @@
 // API route to clean and standardize recipe content using OpenAI
 import { NextRequest } from 'next/server';
-import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs';
+import { createRouteHandlerClient } from '@/lib/supabase/server';
 import { cookies } from 'next/headers';
 import OpenAI from 'openai';
 
@@ -51,7 +51,7 @@ export async function POST(req: NextRequest) {
       );
     }
     
-    const supabase = createRouteHandlerClient({ cookies });
+    const supabase = createRouteHandlerClient();
     const { data: { session } } = await supabase.auth.getSession();
 
     if (!session) {

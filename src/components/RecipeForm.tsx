@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import { createClientComponentClient } from '@/lib/supabase/client';
 import { Recipe, Visibility } from '@/types/recipes';
 
 export default function RecipeForm({ recipe }: { recipe?: Recipe }) {

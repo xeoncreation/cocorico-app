@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import { createClientComponentClient } from '@/lib/supabase/client';
 import { Recipe } from '@/types/recipes';
 import FavoriteButton from '@/components/FavoriteButton';
 import RecipeVersions from '@/components/RecipeVersions';

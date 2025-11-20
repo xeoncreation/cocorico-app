@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { RippleButton } from "@/components/ui/ripple-button";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { createClientComponentClient } from "@/lib/supabase/client";
 
 export function FeedbackForm() {
   const supabase = createClientComponentClient();

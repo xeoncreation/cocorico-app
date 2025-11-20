@@ -13,7 +13,7 @@ const createChainableMock = () => {
   return mock;
 };
 
-jest.mock("@supabase/auth-helpers-nextjs", () => ({
+jest.mock("@/lib/supabase/server", () => ({
   createRouteHandlerClient: () => ({
     auth: { getUser: async () => ({ data: { user: { id: "u1" } } }) },
     from: () => createChainableMock(),

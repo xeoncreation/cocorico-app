@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useLocale } from 'next-intl';
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import { createClientComponentClient } from '@/lib/supabase/client';
 import { Recipe, Visibility } from '@/types/recipes';
 import { Clock, Users, ChefHat } from 'lucide-react';
 import { cn } from '@/lib/utils';

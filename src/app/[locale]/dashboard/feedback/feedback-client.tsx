@@ -3,7 +3,7 @@
 
 import { useState } from "react";
 import { RippleButton } from "@/components/ui/ripple-button";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { createClientComponentClient } from "@/lib/supabase/client";
 import useSWR from "swr";
 import { motion } from "framer-motion";
 

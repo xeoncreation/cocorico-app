@@ -1,11 +1,11 @@
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { createServerComponentClient } from "@/lib/supabase/server";
 import Link from "next/link";
 import IntlText from "@/components/IntlText";
 
 export default async function VersionsPage() {
-  const supabase = createServerComponentClient({ cookies });
+  const supabase = createServerComponentClient();
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) redirect("/?auth=required");
 

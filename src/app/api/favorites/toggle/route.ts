@@ -1,12 +1,12 @@
 import { NextResponse } from "next/server";
 export const dynamic = "force-dynamic";
 import { cookies } from "next/headers";
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { createRouteHandlerClient } from "@/lib/supabase/server";
 
 export async function POST(req: Request) {
   try {
     const { recipeId } = await req.json();
-    const supabase = createServerComponentClient({ cookies });
+    const supabase = createRouteHandlerClient();
     const { data: { user } } = await supabase.auth.getUser();
 
     if (!user) {

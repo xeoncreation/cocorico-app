@@ -1,6 +1,36 @@
-// Configuración Firebase para Web Push
-import { initializeApp, getApps } from "firebase/app";
-import { getMessaging, getToken, onMessage, Messaging } from "firebase/messaging";
+// Configuración Firebase para Web Push (OPCIONAL)
+// Firebase NO está instalado por defecto. Para habilitarlo:
+// 1. npm install firebase
+// 2. Configurar variables NEXT_PUBLIC_FIREBASE_* en .env.local
+
+type Messaging = any;
+
+let initializeApp: any = null;
+let getApps: any = null;
+let getMessaging: any = null;
+let getToken: any = null;
+let onMessage: any = null;
+let firebaseAvailable = false;
+
+// Intentar cargar Firebase de forma dinámica (solo si está instalado)
+if (typeof window !== "undefined") {
+  try {
+    // @ts-ignore - Firebase es opcional y puede no estar instalado
+    const firebaseApp = require("firebase/app");
+    // @ts-ignore - Firebase es opcional y puede no estar instalado
+    const firebaseMessaging = require("firebase/messaging");
+    
+    initializeApp = firebaseApp.initializeApp;
+    getApps = firebaseApp.getApps;
+    getMessaging = firebaseMessaging.getMessaging;
+    getToken = firebaseMessaging.getToken;
+    onMessage = firebaseMessaging.onMessage;
+    firebaseAvailable = true;
+  } catch (error) {
+    // Firebase no está instalado - esto es esperado y normal
+    firebaseAvailable = false;
+  }
+}
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -11,16 +41,26 @@ const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
 };
 
-// Inicializar Firebase solo en cliente y solo una vez
+// Inicializar Firebase solo si está disponible
 let messaging: Messaging | null = null;
 
-if (typeof window !== "undefined" && !getApps().length) {
-  const app = initializeApp(firebaseConfig);
-  messaging = getMessaging(app);
+if (firebaseAvailable && typeof window !== "undefined" && initializeApp && getApps) {
+  try {
+    if (!getApps().length) {
+      const app = initializeApp(firebaseConfig);
+      messaging = getMessaging?.(app) || null;
+    }
+  } catch (error) {
+    console.warn("⚠️ Error al inicializar Firebase:", error);
+    firebaseAvailable = false;
+  }
 }
 
 export async function requestPermission() {
-  if (typeof window === "undefined" || !messaging) return null;
+  if (!firebaseAvailable || typeof window === "undefined" || !messaging || !getToken) {
+    console.info("ℹ️ Firebase no disponible - notificaciones push deshabilitadas");
+    return null;
+  }
   
   try {
     const permission = await Notification.requestPermission();
@@ -41,14 +81,16 @@ export async function requestPermission() {
 }
 
 export function onMessageListener() {
-  if (!messaging) return Promise.resolve();
+  if (!firebaseAvailable || !messaging || !onMessage) {
+    return Promise.resolve(null);
+  }
   
   return new Promise((resolve) => {
-    onMessage(messaging!, (payload) => {
+    onMessage(messaging!, (payload: any) => {
       console.log("📬 Mensaje recibido:", payload);
       resolve(payload);
     });
   });
 }
 
-export { messaging };
+export { messaging, firebaseAvailable };
