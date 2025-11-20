@@ -77,9 +77,9 @@
    ============================================= */
 :root[data-theme="free"] {
     /* Base colors */
-    --color-primary: #ff6b35;
-    --color-secondary: #31c48d;
-    --color-accent: #8a5cf6;
+    --color-primary: #E53526;
+    --color-secondary: #2E8A56;
+    --color-accent: #F97B32;
     --color-bg: #050816; /* soft dark background */
     --color-surface: rgba(15, 23, 42, 0.75);
     --color-text: #f9fafb;
@@ -90,34 +90,56 @@
     --glass-border: rgba(255, 255, 255, 0.55);
     --glass-inner-border: rgba(255, 255, 255, 0.95);
     --glass-shadow-strong: 0 18px 40px rgba(15, 23, 42, 0.75);
-    --glass-shadow-soft: 0 0 40px rgba(56, 189, 248, 0.35);
+    --glass-shadow-soft: 0 0 40px rgba(249, 123, 50, 0.35);
     --glass-highlight: rgba(255, 255, 255, 0.55);
     --glass-noise-opacity: 0.12;
 
     /* Gradients */
-    --app-gradient-1: #061727;
-    --app-gradient-2: #111827;
-    --app-gradient-3: #111827;
+    --app-gradient-1: #1a1410;
+    --app-gradient-2: #2d1f1a;
+    --app-gradient-3: #1a1410;
 
-    /* --- Cocorico App : Rutas de fondos por sección --- */
-    --bg-home-free: url("/wallpapers/home-free.webp");
-    --bg-home-premium: url("/wallpapers/home-premium.webp");
-    --bg-recipes-free: url("/wallpapers/recipes-free.webp");
-    --bg-recipes-neutral: url("/wallpapers/recipes-neutral.webp");
-    --bg-learn: url("/wallpapers/learn.webp");
-    --bg-stats: url("/wallpapers/stats.webp");
-    --bg-community: url("/wallpapers/community.webp");
-    --bg-feedback: url("/wallpapers/feedback.webp");
-    --bg-profile: url("/wallpapers/profile.webp");
-    --bg-onboarding: url("/wallpapers/onboarding.webp");
+    /* --- Cocorico App : Fondos cálidos por sección --- */
+    --bg-home-free: radial-gradient(circle at 20% 50%, rgba(249, 123, 50, 0.25) 0%, transparent 50%),
+                    radial-gradient(circle at 80% 80%, rgba(229, 53, 38, 0.2) 0%, transparent 50%),
+                    radial-gradient(circle at 40% 90%, rgba(46, 138, 86, 0.15) 0%, transparent 50%),
+                    linear-gradient(135deg, #2d1f1a 0%, #1a1410 100%);
+    --bg-home-premium: radial-gradient(circle at 30% 20%, rgba(249, 123, 50, 0.3) 0%, transparent 50%),
+                       radial-gradient(circle at 70% 60%, rgba(243, 199, 81, 0.25) 0%, transparent 50%),
+                       radial-gradient(circle at 50% 90%, rgba(76, 206, 198, 0.2) 0%, transparent 50%),
+                       linear-gradient(135deg, #2d1f1a 0%, #1a1410 100%);
+    --bg-recipes-free: radial-gradient(circle at 60% 30%, rgba(243, 199, 81, 0.22) 0%, transparent 50%),
+                       radial-gradient(circle at 20% 70%, rgba(46, 138, 86, 0.18) 0%, transparent 50%),
+                       linear-gradient(135deg, #2d1f1a 0%, #1a1410 100%);
+    --bg-recipes-neutral: radial-gradient(circle at 40% 40%, rgba(249, 123, 50, 0.12) 0%, transparent 60%),
+                          linear-gradient(135deg, #1a1410 0%, #2d1f1a 100%);
+    --bg-learn: radial-gradient(circle at 30% 40%, rgba(76, 206, 198, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 70% 70%, rgba(46, 138, 86, 0.18) 0%, transparent 50%),
+                linear-gradient(135deg, #1a1410 0%, #2d1f1a 100%);
+    --bg-stats: radial-gradient(circle at 50% 30%, rgba(46, 138, 86, 0.22) 0%, transparent 50%),
+                radial-gradient(circle at 70% 80%, rgba(76, 206, 198, 0.18) 0%, transparent 50%),
+                linear-gradient(135deg, #1a1410 0%, #2d1f1a 100%);
+    --bg-community: radial-gradient(circle at 40% 40%, rgba(229, 53, 38, 0.2) 0%, transparent 50%),
+                    radial-gradient(circle at 60% 70%, rgba(249, 123, 50, 0.18) 0%, transparent 50%),
+                    linear-gradient(135deg, #2d1f1a 0%, #1a1410 100%);
+    --bg-feedback: radial-gradient(circle at 50% 40%, rgba(249, 123, 50, 0.2) 0%, transparent 50%),
+                   radial-gradient(circle at 30% 80%, rgba(243, 199, 81, 0.18) 0%, transparent 50%),
+                   linear-gradient(135deg, #1a1410 0%, #2d1f1a 100%);
+    --bg-profile: radial-gradient(circle at 40% 50%, rgba(76, 206, 198, 0.2) 0%, transparent 50%),
+                  radial-gradient(circle at 70% 70%, rgba(46, 138, 86, 0.18) 0%, transparent 50%),
+                  linear-gradient(135deg, #1a1410 0%, #2d1f1a 100%);
+    --bg-onboarding: radial-gradient(circle at 30% 30%, rgba(229, 53, 38, 0.25) 0%, transparent 50%),
+                     radial-gradient(circle at 70% 50%, rgba(243, 199, 81, 0.22) 0%, transparent 50%),
+                     radial-gradient(circle at 50% 85%, rgba(46, 138, 86, 0.2) 0%, transparent 50%),
+                     linear-gradient(135deg, #2d1f1a 0%, #1a1410 100%);
 
     --motion: cubic-bezier(0.4, 0, 0.2, 1);
   }
   :root[data-theme="premium"] {
     /* Base colors */
-    --color-primary: #2ec4b6;
-    --color-secondary: #ffd166;
-    --color-accent: #f97316;
+    --color-primary: #F97B32;
+    --color-secondary: #F3C751;
+    --color-accent: #4CCEC6;
     --color-bg: #020617;
     --color-surface: rgba(15, 23, 42, 0.75);
     --color-text: #f9fafb;
@@ -128,13 +150,13 @@
     --glass-border: rgba(244, 244, 245, 0.65);
     --glass-inner-border: rgba(255, 255, 255, 0.95);
     --glass-shadow-strong: 0 22px 60px rgba(15, 23, 42, 0.95);
-    --glass-shadow-soft: 0 0 55px rgba(94, 234, 212, 0.5);
+    --glass-shadow-soft: 0 0 55px rgba(76, 206, 198, 0.5);
     --glass-highlight: rgba(255, 255, 255, 0.75);
     --glass-noise-opacity: 0.18;
 
-    --app-gradient-1: #020617;
-    --app-gradient-2: #0f172a;
-    --app-gradient-3: #020617;
+    --app-gradient-1: #0f0b08;
+    --app-gradient-2: #1a1410;
+    --app-gradient-3: #0f0b08;
 
     --motion: cubic-bezier(0.25, 0.1, 0.25, 1);
   }
@@ -163,10 +185,10 @@
   .app-root-bg {
     min-height: 100vh;
     background:
-      radial-gradient(circle at 0% 0%, rgba(236, 72, 153, 0.14), transparent 55%),
-      radial-gradient(circle at 100% 0%, rgba(56, 189, 248, 0.14), transparent 55%),
-      radial-gradient(circle at 0% 100%, rgba(190, 242, 100, 0.12), transparent 55%),
-      radial-gradient(circle at 100% 100%, rgba(94, 234, 212, 0.12), transparent 55%),
+      radial-gradient(circle at 0% 0%, rgba(229, 53, 38, 0.14), transparent 55%),
+      radial-gradient(circle at 100% 0%, rgba(249, 123, 50, 0.14), transparent 55%),
+      radial-gradient(circle at 0% 100%, rgba(46, 138, 86, 0.12), transparent 55%),
+      radial-gradient(circle at 100% 100%, rgba(76, 206, 198, 0.12), transparent 55%),
       linear-gradient(
         135deg,
         var(--app-gradient-1),
