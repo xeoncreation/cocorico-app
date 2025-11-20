@@ -1,0 +1,15 @@
+anti-desperdicio
+multiusuario
+autocompletado
+cookbook
+onboarding
+healthcheck
+caché
+bienvenida
+facturación
+supabase
+umami
+stripe
+vercel
+shadcn
+intl

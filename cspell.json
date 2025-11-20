@@ -1,11 +1,12 @@
 {
   "version": "0.2",
-  "language": "en,es-es",
+  "language": "en,es",
   "dictionaryDefinitions": [
-    { "name": "en-us", "path": "./node_modules/@cspell/dict-en-us/cspell-ext.json" },
-    { "name": "es-es", "path": "./node_modules/cspell-dict-es-es/cspell-ext.json" }
+    { "name": "es-es", "path": "./node_modules/@cspell/dict-es-es/cspell-ext.json" }
   ],
-  "dictionaries": ["en-us", "es-es"],
+  "dictionaries": ["es-es"],
+  "allowCompoundWords": true,
+  "import": ["./cspell-words.txt"],
   "words": [
     "cocorico",
     "probar",
