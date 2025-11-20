@@ -1,6 +1,6 @@
 // API route to clean and standardize recipe content using OpenAI
 import { NextRequest } from 'next/server';
-import { createRouteHandlerClient } from '@/lib/supabase/server';
+import { createRouteHandlerClient } from '@/lib/supabase/client';
 import { cookies } from 'next/headers';
 import OpenAI from 'openai';
 

@@ -1,5 +1,4 @@
 import { createBrowserClient, createServerClient, type CookieOptions } from '@supabase/ssr';
-import { cookies } from 'next/headers';
 
 /**
  * Cliente Supabase para componentes del navegador ("use client")
@@ -16,6 +15,7 @@ export function createClientComponentClient() {
  * IMPORTANTE: Esta función debe llamarse dentro de componentes async
  */
 export async function createServerComponentClient() {
+  const { cookies } = await import('next/headers');
   const cookieStore = await cookies();
 
   return createServerClient(
@@ -53,6 +53,7 @@ export async function createServerComponentClient() {
  * Cliente Supabase para Route Handlers (API routes)
  */
 export async function createRouteHandlerClient() {
+  const { cookies } = await import('next/headers');
   const cookieStore = await cookies();
 
   return createServerClient(
