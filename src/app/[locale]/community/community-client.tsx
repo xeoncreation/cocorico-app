@@ -3,6 +3,9 @@
 import { useState } from "react";
 import useSWR from "swr";
 import { useTranslations } from "next-intl";
+import GlassCard from "@/components/ui/GlassCard";
+import { Button } from "@/components/ui/button";
+import { Users, TrendingUp, MessageCircle, Heart } from "lucide-react";
 
 interface Post {
   id: string;
@@ -20,7 +23,10 @@ interface Post {
   };
 }
 
-const fetcher = (url: string) => fetch(url).then((r) => r.json());
+const fetcher = (url: string) => fetch(url).then((r) => {
+  if (!r.ok) throw new Error("Failed to fetch");
+  return r.json();
+});
 
 export default function CommunityClient({ locale }: { locale: string }) {
   const t = useTranslations("Community");
@@ -34,10 +40,109 @@ export default function CommunityClient({ locale }: { locale: string }) {
 
   const { data, error, isLoading } = useSWR<{ posts: Post[] }>(
     `/api/community/feed?${queryParams.toString()}`,
-    fetcher
+    fetcher,
+    {
+      revalidateOnFocus: false,
+      shouldRetryOnError: false,
+    }
   );
 
   const posts = data?.posts || [];
+
+  // Show placeholder if API fails or returns empty
+  if (error || (!isLoading && posts.length === 0)) {
+    return (
+      <div className="max-w-4xl mx-auto p-6 space-y-8">
+        {/* Header */}
+        <div className="text-center space-y-4">
+          <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-purple-400 to-pink-500 text-white text-4xl shadow-2xl">
+            <Users />
+          </div>
+          <h1 className="text-4xl md:text-5xl font-extrabold text-cocorico-brown dark:text-amber-100">
+            {t("title") || "Comunidad Cocorico"}
+          </h1>
+          <p className="text-lg text-neutral-600 dark:text-neutral-300 max-w-2xl mx-auto">
+            Comparte tus recetas, progreso y consejos con miles de usuarios que buscan una vida más saludable
+          </p>
+        </div>
+
+        {/* Coming Soon Card */}
+        <GlassCard className="p-12 text-center space-y-6">
+          <div className="text-6xl mb-4">🚧</div>
+          <h2 className="text-3xl font-bold text-cocorico-brown dark:text-amber-100">
+            ¡Próximamente!
+          </h2>
+          <p className="text-lg text-neutral-600 dark:text-neutral-300 max-w-xl mx-auto">
+            Estamos preparando un espacio increíble donde podrás conectar con otros usuarios, 
+            compartir tus logros y aprender juntos.
+          </p>
+          
+          {/* Preview Features */}
+          <div className="grid md:grid-cols-3 gap-6 mt-8">
+            <div className="space-y-2">
+              <div className="text-4xl">📸</div>
+              <h3 className="font-bold text-cocorico-brown dark:text-amber-100">Comparte Fotos</h3>
+              <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                Presume tus creaciones culinarias
+              </p>
+            </div>
+            <div className="space-y-2">
+              <div className="text-4xl">🏆</div>
+              <h3 className="font-bold text-cocorico-brown dark:text-amber-100">Desafíos Grupales</h3>
+              <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                Participa en retos con la comunidad
+              </p>
+            </div>
+            <div className="space-y-2">
+              <div className="text-4xl">💬</div>
+              <h3 className="font-bold text-cocorico-brown dark:text-amber-100">Foros Temáticos</h3>
+              <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                Debates sobre nutrición y recetas
+              </p>
+            </div>
+          </div>
+
+          <Button 
+            className="mt-6 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-bold"
+            onClick={() => alert("¡Gracias por tu interés! Te notificaremos cuando esté disponible.")}
+          >
+            Notifícame cuando esté lista
+          </Button>
+        </GlassCard>
+
+        {/* Stats Preview */}
+        <div className="grid md:grid-cols-3 gap-6">
+          <GlassCard className="p-6 text-center">
+            <TrendingUp className="w-12 h-12 mx-auto mb-3 text-green-500" />
+            <div className="text-3xl font-bold text-cocorico-brown dark:text-amber-100 mb-1">
+              10K+
+            </div>
+            <p className="text-sm text-neutral-600 dark:text-neutral-400">
+              Usuarios activos esperando
+            </p>
+          </GlassCard>
+          <GlassCard className="p-6 text-center">
+            <Heart className="w-12 h-12 mx-auto mb-3 text-red-500" />
+            <div className="text-3xl font-bold text-cocorico-brown dark:text-amber-100 mb-1">
+              50K+
+            </div>
+            <p className="text-sm text-neutral-600 dark:text-neutral-400">
+              Recetas para compartir
+            </p>
+          </GlassCard>
+          <GlassCard className="p-6 text-center">
+            <MessageCircle className="w-12 h-12 mx-auto mb-3 text-blue-500" />
+            <div className="text-3xl font-bold text-cocorico-brown dark:text-amber-100 mb-1">
+              24/7
+            </div>
+            <p className="text-sm text-neutral-600 dark:text-neutral-400">
+              Conversaciones disponibles
+            </p>
+          </GlassCard>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-4xl mx-auto p-6">

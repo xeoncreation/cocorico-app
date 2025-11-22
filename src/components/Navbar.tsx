@@ -38,19 +38,19 @@ export default function Navbar() {
   };
 
   const navLinkClass = (path: string) => 
-    `hover:text-cocorico-red transition-colors ${
+    `hover:text-cocorico-red dark:hover:text-amber-400 transition-colors drop-shadow-sm ${
       isActive(path) 
-        ? 'text-cocorico-red dark:text-amber-400 font-bold border-b-2 border-cocorico-red dark:border-amber-400' 
-        : 'text-cocorico-brown dark:text-neutral-200'
+        ? 'text-cocorico-red dark:text-amber-400 font-black border-b-3 border-cocorico-red dark:border-amber-400' 
+        : 'text-neutral-900 dark:text-white font-bold'
     }`;
 
   return (
-    <nav className="flex items-center justify-between px-6 py-3 bg-white dark:bg-neutral-900 border-b border-neutral-200 dark:border-neutral-800">
-      <div className="font-display text-2xl text-cocorico-red dark:text-amber-300">
+    <nav className="flex items-center justify-between px-6 py-3 bg-white dark:bg-neutral-900 border-b-2 border-neutral-300 dark:border-neutral-700 shadow-md">
+      <div className="font-display text-2xl font-black text-cocorico-red dark:text-amber-400 drop-shadow-md">
         <Link href="/">Cocorico</Link>
       </div>
       <div className="flex items-center gap-3">
-        <div className="hidden md:flex space-x-4 text-sm font-semibold">
+        <div className="hidden md:flex space-x-4 text-sm font-bold">
           <Link href="/chat" className={navLinkClass("/chat")}>Chat</Link>
           <Link href="/scanner" className={navLinkClass("/scanner")}>Escáner</Link>
           <Link href="/recipes" className={navLinkClass("/recipes")}>Recetas</Link>

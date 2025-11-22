@@ -1,3 +1,12 @@
+/**
+ * Legal Layout - BLOQUE 1 FIX
+ * 
+ * CAMBIO: El layout padre [locale]/layout.tsx ya incluye UnifiedNavbar + Footer,
+ * por lo que no necesitamos duplicarlos aquí. Solo aplicamos estilos de contenedor.
+ * 
+ * NOTA: Este layout hereda automáticamente el header y footer del layout padre.
+ */
+
 import type { ReactNode } from "react";
 
 export default function LegalLayout({ children }: { children: ReactNode }) {
@@ -14,3 +23,4 @@ export default function LegalLayout({ children }: { children: ReactNode }) {
     </main>
   );
 }
+

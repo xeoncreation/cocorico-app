@@ -109,22 +109,23 @@ export default function UnifiedNavbar() {
   const navLinkClass = (href: string) => {
     const active = isActive(href);
     return `
-      flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium 
-      transition-all duration-200
+      flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-bold
+      transition-all duration-200 drop-shadow-sm
       ${
         active
-          ? "bg-cocorico-red/10 dark:bg-amber-400/10 text-cocorico-red dark:text-amber-400 font-bold border-b-2 border-cocorico-red dark:border-amber-400"
-          : "text-cocorico-brown dark:text-neutral-200 hover:bg-cocorico-yellow/20 dark:hover:bg-neutral-700 hover:text-cocorico-red dark:hover:text-amber-400"
+          ? "bg-cocorico-red/10 dark:bg-amber-400/10 text-cocorico-red dark:text-amber-400 font-black border-b-3 border-cocorico-red dark:border-amber-400"
+          : "text-neutral-900 dark:text-white hover:bg-cocorico-yellow/20 dark:hover:bg-neutral-700 hover:text-cocorico-red dark:hover:text-amber-400"
       }
     `.trim();
   };
 
   return (
-    <nav className="flex items-center justify-between px-4 sm:px-6 py-3 bg-white/95 dark:bg-neutral-900/95 backdrop-blur-md border-b border-neutral-200 dark:border-neutral-800 sticky top-0 z-50">
+    <nav className="flex items-center justify-between px-4 sm:px-6 py-3 bg-white dark:bg-neutral-900 backdrop-blur-md border-b-2 border-neutral-300 dark:border-neutral-700 sticky top-0 z-50 shadow-md">
       {/* Logo */}
       <Link
         href={withLocale("/")}
-        className="font-display text-2xl text-cocorico-red dark:text-amber-300 hover:scale-105 transition-transform"
+        className="font-display text-2xl font-black text-cocorico-red dark:text-amber-400 hover:scale-105 transition-transform drop-shadow-md"
+        aria-label={t("nav.home")}
       >
         🐓 Cocorico
       </Link>
@@ -136,8 +137,9 @@ export default function UnifiedNavbar() {
             key={link.href}
             href={withLocale(link.href)}
             className={navLinkClass(link.href)}
+            aria-current={isActive(link.href) ? "page" : undefined}
           >
-            <span>{link.icon}</span>
+            <span aria-hidden="true">{link.icon}</span>
             <span>{t(link.labelKey as any)}</span>
           </Link>
         ))}
@@ -160,8 +162,10 @@ export default function UnifiedNavbar() {
               onClick={() => setMenuOpen(!menuOpen)}
               className="flex items-center gap-2 rounded-full bg-cocorico-yellow/20 dark:bg-amber-700/30 px-3 py-1.5 text-sm font-medium hover:bg-cocorico-yellow/30 transition-colors"
               aria-label="User menu"
+              aria-expanded={menuOpen}
+              aria-haspopup="true"
             >
-              <div className="w-6 h-6 rounded-full bg-cocorico-red text-white flex items-center justify-center text-xs font-bold">
+              <div className="w-6 h-6 rounded-full bg-cocorico-red text-white flex items-center justify-center text-xs font-bold" aria-hidden="true">
                 {user.email?.[0]?.toUpperCase() || "U"}
               </div>
               <span className="hidden md:inline max-w-[120px] truncate">
@@ -178,15 +182,19 @@ export default function UnifiedNavbar() {
                   onClick={() => setMenuOpen(false)}
                   aria-hidden="true"
                 />
-                <div className="absolute right-0 mt-2 w-56 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-md shadow-lg py-1 z-50">
+                <div 
+                  className="absolute right-0 mt-2 w-56 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-md shadow-lg py-1 z-50"
+                  role="menu"
+                >
                   {userMenuLinks.map((link) => (
                     <Link
                       key={link.href}
                       href={withLocale(link.href)}
                       className="flex items-center gap-2 px-4 py-2 text-sm hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors"
                       onClick={() => setMenuOpen(false)}
+                      role="menuitem"
                     >
-                      <span>{link.icon}</span>
+                      <span aria-hidden="true">{link.icon}</span>
                       <span>{t(link.labelKey as any)}</span>
                     </Link>
                   ))}
@@ -194,8 +202,9 @@ export default function UnifiedNavbar() {
                   <button
                     onClick={handleLogout}
                     className="w-full flex items-center gap-2 text-left px-4 py-2 text-sm hover:bg-neutral-100 dark:hover:bg-neutral-700 text-red-600 dark:text-red-400 transition-colors"
+                    role="menuitem"
                   >
-                    <span>🚪</span>
+                    <span aria-hidden="true">🚪</span>
                     <span>{t("nav.logout")}</span>
                   </button>
                 </div>
@@ -205,7 +214,7 @@ export default function UnifiedNavbar() {
         ) : (
           <Link
             href={withLocale("/login")}
-            className="text-sm font-semibold text-cocorico-brown dark:text-neutral-200 hover:text-cocorico-red dark:hover:text-amber-400 transition-colors px-3 py-2 rounded-lg hover:bg-cocorico-yellow/10"
+            className="text-sm font-bold text-neutral-900 dark:text-white hover:text-cocorico-red dark:hover:text-amber-400 transition-colors px-3 py-2 rounded-lg hover:bg-cocorico-yellow/10 drop-shadow-sm"
           >
             {t("nav.login")}
           </Link>
@@ -222,7 +231,7 @@ export default function UnifiedNavbar() {
             <SheetContent side="right" className="w-72">
               <div className="py-4 flex flex-col gap-4">
                 {/* Logo in mobile menu */}
-                <div className="px-1 pb-2 font-display text-xl text-cocorico-red dark:text-amber-300">
+                <div className="px-1 pb-2 font-display text-xl font-black text-cocorico-red dark:text-amber-400">
                   🐓 Cocorico
                 </div>
                 <Separator />
@@ -233,14 +242,15 @@ export default function UnifiedNavbar() {
                     <Link
                       key={link.href}
                       href={withLocale(link.href)}
-                      className={`flex items-center gap-2 rounded-lg px-3 py-2.5 text-sm ${
+                      className={`flex items-center gap-2 rounded-lg px-3 py-2.5 text-sm font-bold ${
                         isActive(link.href)
-                          ? "bg-cocorico-red/10 text-cocorico-red dark:bg-amber-400/10 dark:text-amber-400 font-semibold"
-                          : "text-neutral-700 dark:text-neutral-200 hover:bg-neutral-100 dark:hover:bg-neutral-800"
+                          ? "bg-cocorico-red/10 text-cocorico-red dark:bg-amber-400/10 dark:text-amber-400 font-black"
+                          : "text-neutral-900 dark:text-white hover:bg-neutral-100 dark:hover:bg-neutral-800"
                       }`}
                       onClick={() => setMobileSheetOpen(false)}
+                      aria-current={isActive(link.href) ? "page" : undefined}
                     >
-                      <span>{link.icon}</span>
+                      <span aria-hidden="true">{link.icon}</span>
                       <span>{t(link.labelKey as any)}</span>
                     </Link>
                   ))}
@@ -258,10 +268,10 @@ export default function UnifiedNavbar() {
                       <Link
                         key={link.href}
                         href={withLocale(link.href)}
-                        className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-neutral-700 dark:text-neutral-200 hover:bg-neutral-100 dark:hover:bg-neutral-800"
+                        className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-bold text-neutral-900 dark:text-white hover:bg-neutral-100 dark:hover:bg-neutral-800"
                         onClick={() => setMobileSheetOpen(false)}
                       >
-                        <span>{link.icon}</span>
+                        <span aria-hidden="true">{link.icon}</span>
                         <span>{t(link.labelKey as any)}</span>
                       </Link>
                     ))}
@@ -269,7 +279,7 @@ export default function UnifiedNavbar() {
                       onClick={handleLogout}
                       className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 text-left"
                     >
-                      <span>🚪</span>
+                      <span aria-hidden="true">🚪</span>
                       <span>{t("nav.logout")}</span>
                     </button>
                   </div>

@@ -34,24 +34,19 @@ export default function ChatPage() {
 
   return (
     <section className="fixed inset-0 overflow-hidden bg-gradient-to-br from-pink-50/80 via-purple-50/60 to-rose-50/80 dark:from-purple-950/40 dark:via-pink-900/30 dark:to-rose-950/40">
-      {/* Mascota flotante a la derecha */}
-      <div className="hidden lg:block absolute top-20 right-8 z-10">
+      {/* Mascota flotante a la derecha - Solo visible en pantallas grandes */}
+      <div className="hidden xl:block absolute top-24 right-12 z-10 pointer-events-none">
         <div className="glass-card-premium p-4 rounded-3xl">
-          <CocoricoMascot mood={mood} size="xl" animated className="animate-float" />
+          <CocoricoMascot mood={mood} size="lg" animated className="animate-float" />
         </div>
-      </div>
-
-      {/* Mascota móvil arriba */}
-      <div className="lg:hidden absolute top-4 right-4 z-10">
-        <CocoricoMascot mood={mood} size="md" animated />
       </div>
 
       {/* Contenedor principal con liquid glass */}
       <div className={`flex flex-col h-full ${plan === "premium" ? "glass-panel-premium" : ""}`}>
-        <div className="flex-1 flex flex-col max-w-6xl mx-auto w-full px-4 py-6 lg:py-8">
+        <div className="flex-1 flex flex-col max-w-5xl mx-auto w-full px-4 py-6 lg:py-8">
           {/* Header */}
           <div className="text-center mb-6 space-y-2">
-            <h1 className={`text-4xl lg:text-5xl font-bold ${plan === "premium" ? "glass-text-premium" : "text-pink-900 dark:text-pink-300"}`}>
+            <h1 className={`text-3xl lg:text-4xl font-bold ${plan === "premium" ? "glass-text-premium" : "text-pink-900 dark:text-pink-300"}`}>
               {t("chat.title")} 🐓
             </h1>
             <p className={`text-sm lg:text-base ${plan === "premium" ? "text-white/80" : "text-muted-foreground"}`}>

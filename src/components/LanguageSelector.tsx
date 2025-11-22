@@ -5,9 +5,10 @@ import { useEffect, useMemo, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 
 // Idiomas soportados y futuros. 'available' indica si existe archivo de traducción.
+// BLOQUE 5: English marcado como available:false hasta completar traducciones
 const SUPPORTED = [
   { code: "es", name: "Español", flag: "🇪🇸", available: true, aliases: ["español", "spanish", "castellano", "es"] },
-  { code: "en", name: "English", flag: "🇬🇧", available: true, aliases: ["english", "inglés", "en"] },
+  { code: "en", name: "English", flag: "🇬🇧", available: false, aliases: ["english", "inglés", "en"] },
   { code: "fr", name: "Français", flag: "🇫🇷", available: false, aliases: ["frances", "french", "francés", "fr"] },
   { code: "de", name: "Deutsch", flag: "🇩🇪", available: false, aliases: ["aleman", "german", "alemán", "de"] },
   { code: "it", name: "Italiano", flag: "🇮🇹", available: false, aliases: ["italiano", "italian", "it"] },

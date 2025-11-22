@@ -2,6 +2,7 @@
 import { useEffect, useMemo, useState } from "react";
 import RecipeCard from "@/components/RecipeCard";
 import SearchFilters, { SearchFilterState } from "@/components/search/SearchFilters";
+import LegacyPageWrapper from "@/components/layout/LegacyPageWrapper";
 
 type Recipe = {
   id: number;
@@ -90,66 +91,68 @@ export default function SearchPage() {
   }, []);
 
   return (
-    <main className="max-w-6xl mx-auto p-6">
-      <h1 className="text-3xl font-display text-cocorico-red mb-4">Buscar recetas</h1>
-      
-      {/* Search bar */}
-      <div className="mb-4">
-        <input
-          type="text"
-          placeholder="Buscar por nombre o descripción..."
-          value={q}
-          onChange={(e) => setQ(e.target.value)}
-          className="w-full px-4 py-2 border rounded-lg dark:bg-neutral-800 dark:border-neutral-700"
+    <LegacyPageWrapper>
+      <main className="max-w-6xl mx-auto p-6">
+        <h1 className="text-3xl font-display text-cocorico-red mb-4">Buscar recetas</h1>
+        
+        {/* Search bar */}
+        <div className="mb-4">
+          <input
+            type="text"
+            placeholder="Buscar por nombre o descripción..."
+            value={q}
+            onChange={(e) => setQ(e.target.value)}
+            className="w-full px-4 py-2 border rounded-lg dark:bg-neutral-800 dark:border-neutral-700"
+          />
+        </div>
+        
+        <SearchFilters
+          value={filters}
+          onChange={setFilters}
+          plan={plan}
         />
-      </div>
-      
-      <SearchFilters
-        value={filters}
-        onChange={setFilters}
-        plan={plan}
-      />
 
-      <div className="mt-6">
-        {loading ? <p>Cargando…</p> : (
-          <>
-            <p className="text-sm text-neutral-500 mb-3">{total} resultados</p>
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {results.map(r => (
-                <RecipeCard 
-                  key={r.id} 
-                  title={r.title}
-                  slug={r.slug}
-                  image={r.image_url || undefined}
-                  difficulty={r.difficulty as "fácil" | "media" | "difícil" | undefined}
-                  time={r.time_minutes || undefined}
-                  excerpt={r.description || undefined}
-                />
-              ))}
-            </div>
-
-            {pages > 1 && (
-              <div className="mt-6 flex items-center justify-center gap-2">
-                <button
-                  disabled={page === 1}
-                  onClick={() => setPage(p => Math.max(1, p - 1))}
-                  className="px-3 py-1 rounded border disabled:opacity-50"
-                >
-                  ← Anterior
-                </button>
-                <span className="text-sm">{page}/{pages}</span>
-                <button
-                  disabled={page === pages}
-                  onClick={() => setPage(p => Math.min(pages, p + 1))}
-                  className="px-3 py-1 rounded border disabled:opacity-50"
-                >
-                  Siguiente →
-                </button>
+        <div className="mt-6">
+          {loading ? <p>Cargando…</p> : (
+            <>
+              <p className="text-sm text-neutral-500 mb-3">{total} resultados</p>
+              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                {results.map(r => (
+                  <RecipeCard 
+                    key={r.id} 
+                    title={r.title}
+                    slug={r.slug}
+                    image={r.image_url || undefined}
+                    difficulty={r.difficulty as "fácil" | "media" | "difícil" | undefined}
+                    time={r.time_minutes || undefined}
+                    excerpt={r.description || undefined}
+                  />
+                ))}
               </div>
-            )}
-          </>
-        )}
-      </div>
-    </main>
+
+              {pages > 1 && (
+                <div className="mt-6 flex items-center justify-center gap-2">
+                  <button
+                    disabled={page === 1}
+                    onClick={() => setPage(p => Math.max(1, p - 1))}
+                    className="px-3 py-1 rounded border disabled:opacity-50"
+                  >
+                    ← Anterior
+                  </button>
+                  <span className="text-sm">{page}/{pages}</span>
+                  <button
+                    disabled={page === pages}
+                    onClick={() => setPage(p => Math.min(pages, p + 1))}
+                    className="px-3 py-1 rounded border disabled:opacity-50"
+                  >
+                    Siguiente →
+                  </button>
+                </div>
+              )}
+            </>
+          )}
+        </div>
+      </main>
+    </LegacyPageWrapper>
   );
 }

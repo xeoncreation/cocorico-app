@@ -107,7 +107,7 @@ export default function ChatBox() {
 
       <form onSubmit={sendMessage} className="flex gap-2">
         <input
-          className="flex-1 border border-neutral-200 dark:border-neutral-700 rounded px-3 py-2 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-100"
+          className="flex-1 border border-neutral-200 dark:border-neutral-700 rounded px-3 py-2 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-100 text-base"
           placeholder="Escribe tu mensaje…"
           value={input}
           onChange={(e) => setInput(e.target.value)}

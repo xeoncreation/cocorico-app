@@ -3,7 +3,6 @@ import "./globals.css";
 import "../../styles/theme.css";
 import { GlobalErrorHandler } from "./error-handler";
 import PageTransition from "@/components/ui/PageTransition";
-import Navbar from "@/components/Navbar";
 import { ToastProvider } from "../components/ui/ToastProvider";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import Analytics from "@/components/Analytics";
@@ -97,12 +96,30 @@ export const viewport: Viewport = {
   viewportFit: "cover",
 };
 
+/**
+ * Root Layout - BLOQUE 1 ARCHITECTURE
+ * 
+ * ARQUITECTURA ACTUAL:
+ * - Este layout provee providers globales (Theme, Toast, etc.)
+ * - Las páginas bajo [locale]/ heredan de [locale]/layout.tsx (tiene UnifiedNavbar + Footer)
+ * - Las páginas a nivel raíz (/chat, /recipes, /login, etc.) NO tienen navegación automática
+ * 
+ * DECISIÓN DE DISEÑO:
+ * - Root layout NO incluye Navbar/Footer para evitar duplicación
+ * - Páginas bajo [locale]/ usan UnifiedNavbar (i18n friendly)
+ * - Páginas raíz legacy deben añadir Navbar manualmente o migrar a [locale]/
+ * 
+ * TODO (ARQUITECTURA A LARGO PLAZO):
+ * - Migrar /chat, /recipes, /dashboard, etc. a [locale]/
+ * - Deprecar páginas raíz en favor de arquitectura localizada
+ */
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const theme = cookies().get("theme")?.value ?? "free";
   return (
     <html lang="es" suppressHydrationWarning data-theme={theme} className={`${poppins.variable} ${pacifico.variable}`}>
       <head>
-        {/* iOS Safari specific meta tags */}
+        {/* iOS Safari specific meta tags - BLOQUE 9: PWA */}
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
         <meta name="apple-mobile-web-app-title" content="Cocorico" />

@@ -22,45 +22,46 @@ export default async function LocaleLayout({
   return (
     <NextIntlClientProvider messages={messages} locale={locale}>
       <div className="min-h-screen flex flex-col" data-locale={locale}>
-        {/* Unified Navigation Bar */}
+        {/* BLOQUE 1: Unified Navigation Bar - sticky con z-50 */}
         <UnifiedNavbar />
 
-        {/* Contenido principal con animación */}
-        <main className="flex-1">
+        {/* BLOQUE 2: Main content con padding-top para evitar overlap con navbar sticky 
+            UnifiedNavbar tiene sticky top-0 y altura ~60-70px, usamos pt-16 (64px) + mt-1 para separación */}
+        <main className="flex-1 pt-16 mt-1">
           <ErrorBoundary>
             <MotionWrapper>{children}</MotionWrapper>
           </ErrorBoundary>
         </main>
 
-        {/* Footer único consolidado */}
-        <footer className="bg-white dark:bg-neutral-900 border-t border-neutral-200 dark:border-neutral-800 mt-auto">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        {/* BLOQUE 3: Footer único consolidado con enlaces legales */}
+        <footer className="bg-white dark:bg-neutral-950 border-t-4 border-neutral-400 dark:border-neutral-600 mt-auto shadow-[0_-12px_24px_-4px_rgba(0,0,0,0.4)]">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
             <div className="flex flex-col md:flex-row items-center justify-between gap-4">
               {/* Logo y descripción */}
               <div className="flex items-center gap-2 text-center md:text-left">
-                <span className="font-display text-xl text-cocorico-red dark:text-amber-400">🐓 Cocorico</span>
-                <span className="text-xs text-neutral-500 dark:text-neutral-400">
+                <span className="font-display text-xl font-extrabold text-cocorico-red dark:text-amber-400 drop-shadow-md">🐓 Cocorico</span>
+                <span className="text-base font-black text-black dark:text-white drop-shadow-md">
                   — hecho con ❤️ y un toque de IA
                 </span>
               </div>
               
               {/* Enlaces legales */}
-              <div className="flex items-center gap-4 text-xs text-neutral-500 dark:text-neutral-400">
-                <span>© {new Date().getFullYear()}</span>
+              <div className="flex items-center gap-5 text-base font-black text-black dark:text-white">
+                <span className="font-black">© {new Date().getFullYear()}</span>
                 <Link 
-                  className="hover:text-cocorico-red dark:hover:text-amber-400 transition" 
+                  className="hover:text-cocorico-red dark:hover:text-amber-400 transition underline-offset-4 hover:underline font-black" 
                   href={`/${locale}/legal/privacy`}
                 >
                   Privacidad
                 </Link>
                 <Link 
-                  className="hover:text-cocorico-red dark:hover:text-amber-400 transition" 
+                  className="hover:text-cocorico-red dark:hover:text-amber-400 transition underline-offset-4 hover:underline font-black" 
                   href={`/${locale}/legal/terms`}
                 >
                   Términos
                 </Link>
                 <Link 
-                  className="hover:text-cocorico-red dark:hover:text-amber-400 transition" 
+                  className="hover:text-cocorico-red dark:hover:text-amber-400 transition underline-offset-4 hover:underline font-black" 
                   href={`/${locale}/legal/cookies`}
                 >
                   Cookies
@@ -69,16 +70,16 @@ export default async function LocaleLayout({
             </div>
             
             {/* Build tag con status de features */}
-            <div className="mt-4 pt-4 border-t border-neutral-100 dark:border-neutral-800 flex justify-center">
-              <div className="flex items-center gap-3 text-xs font-mono text-neutral-400 dark:text-neutral-500">
-                <span className="px-2 py-1 bg-neutral-100 dark:bg-neutral-800 rounded">Cocorico v0.1.0</span>
-                <span className="px-2 py-1 bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400 rounded">
+            <div className="mt-5 pt-5 border-t-4 border-neutral-300 dark:border-neutral-700 flex justify-center">
+              <div className="flex items-center gap-3 text-sm font-mono font-black">
+                <span className="px-4 py-2 bg-neutral-300 dark:bg-neutral-700 text-black dark:text-white rounded-md border-2 border-neutral-500 dark:border-neutral-500 shadow-lg">Cocorico v0.1.0</span>
+                <span className="px-4 py-2 bg-green-400 text-green-950 dark:bg-green-600 dark:text-white rounded-md border-2 border-green-700 dark:border-green-400 shadow-lg">
                   Voice: ON
                 </span>
-                <span className="px-2 py-1 bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400 rounded">
+                <span className="px-4 py-2 bg-green-400 text-green-950 dark:bg-green-600 dark:text-white rounded-md border-2 border-green-700 dark:border-green-400 shadow-lg">
                   Vision: ON
                 </span>
-                <span className="px-2 py-1 bg-cocorico-datil/20 text-cocorico-mango dark:bg-cocorico-mango/30 dark:text-cocorico-datil rounded">
+                <span className="px-4 py-2 bg-amber-400 text-amber-950 dark:bg-amber-600 dark:text-white rounded-md border-2 border-amber-700 dark:border-amber-400 shadow-lg">
                   Food-IQ: ON
                 </span>
               </div>

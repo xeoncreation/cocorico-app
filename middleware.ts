@@ -1,7 +1,8 @@
 import createIntlMiddleware from "next-intl/middleware";
 import { NextRequest, NextResponse } from "next/server";
 
-// Middleware de i18n
+// BLOQUE 5: Middleware de i18n con English temporalmente deshabilitado
+// Solo Español está completamente disponible, English redirige a ES
 const intlMiddleware = createIntlMiddleware({
   locales: ["es", "en"],
   defaultLocale: "es",
@@ -57,6 +58,18 @@ export default function middleware(request: NextRequest) {
   const url = request.nextUrl;
   const premiumParam = url.searchParams.get('premium');
   const themeParam = url.searchParams.get('theme');
+
+  // BLOQUE 5: Redirigir /en a /es hasta que English esté completamente traducido
+  if (pathname.startsWith('/en')) {
+    const newPath = pathname.replace(/^\/en/, '/es');
+    const redirectUrl = new URL(newPath, request.url);
+    // Preservar query params
+    url.searchParams.forEach((value, key) => {
+      redirectUrl.searchParams.set(key, value);
+    });
+    const res = NextResponse.redirect(redirectUrl);
+    return withSecurityHeaders(res);
+  }
 
   // Theme toggle via query (?premium=1 | ?premium=0) or (?theme=premium|free)
   if (premiumParam === '1' || themeParam === 'premium') {

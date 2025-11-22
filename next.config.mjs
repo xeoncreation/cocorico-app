@@ -7,7 +7,7 @@ const DISABLE_INTL = String(process.env.DISABLE_INTL || '').toLowerCase();
 const MINIMAL_NEXT_CONFIG = String(process.env.MINIMAL_NEXT_CONFIG || '').toLowerCase();
 const isTrue = (v) => v === '1' || v === 'true' || v === 'yes';
 
-const disablePWA = isTrue(DISABLE_PWA);
+const disablePWA = true; // isTrue(DISABLE_PWA);
 const disableIntl = isTrue(DISABLE_INTL);
 const minimal = isTrue(MINIMAL_NEXT_CONFIG);
 

@@ -76,6 +76,14 @@
     "src/app/api/messages"
   ],
   "cSpell.language": "en,es",
+  "cSpell.enabled": true,
+  "cSpell.minWordLength": 4,
+  "cSpell.flagWords": [],
+  "cSpell.allowCompoundWords": true,
+  "cSpell.ignoreRegExpList": [
+    "/'[^']*'/g",
+    "/\"[^\"]*\"/g"
+  ],
   "cSpell.words": [
     "Cocorico",
     "Precios",

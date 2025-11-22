@@ -13,7 +13,8 @@ type BackgroundVariant =
   | "community"
   | "feedback"
   | "profile"
-  | "onboarding";
+  | "onboarding"
+  | "dashboard";
 
 /**
  * Devuelve la clase CSS de fondo según la ruta actual y, opcionalmente,
@@ -94,6 +95,7 @@ export function AppBackground({
     feedback: "coco-bg-feedback",
     profile: "coco-bg-profile",
     onboarding: "coco-bg-onboarding",
+    dashboard: "coco-bg-home-free",
   };
 
   return (

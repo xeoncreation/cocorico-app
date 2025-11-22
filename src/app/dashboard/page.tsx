@@ -8,6 +8,7 @@ import { redirect } from 'next/navigation'
 import Link from 'next/link'
 import { AppBackground } from '@/components/layout/AppBackground'
 import XpHud from "@/components/dashboard/XpHud";
+import LegacyPageWrapper from "@/components/layout/LegacyPageWrapper";
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -43,73 +44,75 @@ export default function DashboardPage() {
   if (loading) return <p className="p-6">Cargando tus recetas...</p>;
 
   return (
-    <main className="max-w-4xl mx-auto p-6 space-y-6">
-      <h1 className="text-2xl font-bold text-amber-800 glass-text-strong">
-        🐓 Mis recetas ({recipes.length})
-      </h1>
+    <LegacyPageWrapper>
+      <main className="max-w-4xl mx-auto p-6 space-y-6">
+        <h1 className="text-2xl font-bold text-amber-800 glass-text-strong">
+          🐓 Mis recetas ({recipes.length})
+        </h1>
 
-      {/* XP HUD */}
-      <XpHud />
+        {/* XP HUD */}
+        <XpHud />
 
-      <div className="flex justify-between">
-        <Link
-          href="/dashboard/stats"
-          className="px-3 py-2 border rounded text-sm text-amber-700 hover:bg-amber-50"
-        >
-          Ver estadísticas 📊
-        </Link>
-        <div className="flex gap-2">
+        <div className="flex justify-between">
           <Link
-            href="/dashboard/lab"
+            href="/dashboard/stats"
             className="px-3 py-2 border rounded text-sm text-amber-700 hover:bg-amber-50"
           >
-            🧪 Laboratorio IA
+            Ver estadísticas 📊
           </Link>
-          <Link
-            href="/dashboard/new"
-            className="px-4 py-2 bg-amber-600 text-white rounded hover:bg-amber-700"
-          >
-            + Nueva receta
-          </Link>
-        </div>
-      </div>
-
-      {recipes.length === 0 ? (
-        <p className="text-neutral-600">
-          Aún no has creado ninguna receta. ¡Empieza ahora!
-        </p>
-      ) : (
-        <ul className="divide-y divide-neutral-200">
-          {recipes.map((r) => (
-            <li
-              key={r.id}
-              className="py-3 flex items-center justify-between text-sm"
+          <div className="flex gap-2">
+            <Link
+              href="/dashboard/lab"
+              className="px-3 py-2 border rounded text-sm text-amber-700 hover:bg-amber-50"
             >
-              <Link
-                href={`/r/${user.id}/${r.slug}`}
-                className="text-amber-800 hover:underline"
+              🧪 Laboratorio IA
+            </Link>
+            <Link
+              href="/dashboard/new"
+              className="px-4 py-2 bg-amber-600 text-white rounded hover:bg-amber-700"
+            >
+              + Nueva receta
+            </Link>
+          </div>
+        </div>
+
+        {recipes.length === 0 ? (
+          <p className="text-neutral-600">
+            Aún no has creado ninguna receta. ¡Empieza ahora!
+          </p>
+        ) : (
+          <ul className="divide-y divide-neutral-200">
+            {recipes.map((r) => (
+              <li
+                key={r.id}
+                className="py-3 flex items-center justify-between text-sm"
               >
-                {r.title}
-              </Link>
-              <div className="flex gap-3 text-neutral-500">
-                <span>{r.visibility}</span>
                 <Link
-                  href={`/dashboard/edit/${r.id}`}
-                  className="hover:text-amber-700"
+                  href={`/r/${user.id}/${r.slug}`}
+                  className="text-amber-800 hover:underline"
                 >
-                  ✏️ Editar
+                  {r.title}
                 </Link>
-                <Link
-                  href={`/dashboard/delete/${r.id}`}
-                  className="hover:text-red-700"
-                >
-                  🗑️ Eliminar
-                </Link>
-              </div>
-            </li>
-          ))}
-        </ul>
-      )}
-    </main>
+                <div className="flex gap-3 text-neutral-500">
+                  <span>{r.visibility}</span>
+                  <Link
+                    href={`/dashboard/edit/${r.id}`}
+                    className="hover:text-amber-700"
+                  >
+                    ✏️ Editar
+                  </Link>
+                  <Link
+                    href={`/dashboard/delete/${r.id}`}
+                    className="hover:text-red-700"
+                  >
+                    🗑️ Eliminar
+                  </Link>
+                </div>
+              </li>
+            ))}
+          </ul>
+        )}
+      </main>
+    </LegacyPageWrapper>
   );
 }

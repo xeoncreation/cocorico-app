@@ -1,11 +1,14 @@
-"use client";
-import Navbar from "@/components/Navbar";
+/**
+ * Community Layout - BLOQUE 1 FIX
+ * 
+ * CAMBIO: Eliminado layout personalizado. Community ahora usa el layout 
+ * global de [locale]/layout.tsx que ya incluye UnifiedNavbar + Footer.
+ * 
+ * Este archivo ya no es necesario pero se mantiene como referencia.
+ * Considera eliminarlo si no hay estilos específicos necesarios.
+ */
 
 export default function CommunityLayout({ children }: { children: React.ReactNode }) {
-  return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-b from-white to-orange-50/30 dark:from-neutral-900 dark:to-neutral-900">
-      <Navbar />
-      <main className="flex-1">{children}</main>
-    </div>
-  );
+  // Solo pasa los children - el layout padre [locale] ya tiene nav+footer
+  return <>{children}</>;
 }

@@ -2,6 +2,7 @@ import { supabaseServer } from "@/lib/supabase-client";
 import { isAdmin } from "@/utils/authRole";
 import { redirect } from "next/navigation";
 import Link from "next/link";
+import LegacyPageWrapper from "@/components/layout/LegacyPageWrapper";
 
 export const dynamic = "force-dynamic";
 
@@ -15,15 +16,17 @@ export default async function AdminPage() {
   const ok = await isAdmin(user.id);
   if (!ok) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-screen">
-        <h1 className="text-3xl font-bold text-red-500 mb-4">⛔ Acceso denegado</h1>
-        <p className="text-neutral-600 dark:text-neutral-400 mb-4">
-          No tienes permisos de administrador
-        </p>
-        <Link href="/dashboard" className="text-cocorico-red underline">
-          Volver al dashboard
-        </Link>
-      </div>
+      <LegacyPageWrapper>
+        <div className="flex flex-col items-center justify-center min-h-screen">
+          <h1 className="text-3xl font-bold text-red-500 mb-4">⛔ Acceso denegado</h1>
+          <p className="text-neutral-600 dark:text-neutral-400 mb-4">
+            No tienes permisos de administrador
+          </p>
+          <Link href="/dashboard" className="text-cocorico-red underline">
+            Volver al dashboard
+          </Link>
+        </div>
+      </LegacyPageWrapper>
     );
   }
 
@@ -42,48 +45,50 @@ export default async function AdminPage() {
     .select("*", { count: "exact", head: true });
 
   return (
-    <div className="p-8 max-w-7xl mx-auto">
-      <div className="mb-8">
-        <h1 className="text-4xl font-bold mb-2">Panel de administración 🧑‍🍳</h1>
-        <p className="text-neutral-600 dark:text-neutral-400">
-          Vista general del sistema y gestión de usuarios
-        </p>
+    <LegacyPageWrapper>
+      <div className="p-8 max-w-7xl mx-auto">
+        <div className="mb-8">
+          <h1 className="text-4xl font-bold mb-2">Panel de administración 🧑‍🍳</h1>
+          <p className="text-neutral-600 dark:text-neutral-400">
+            Vista general del sistema y gestión de usuarios
+          </p>
+        </div>
+
+        {/* Métricas principales */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+          <MetricCard
+            title="Usuarios"
+            value={usersCount || 0}
+            color="text-cocorico-red"
+            icon="👥"
+          />
+          <MetricCard
+            title="Recetas"
+            value={recipesCount}
+            color="text-cocorico-yellow"
+            icon="📖"
+          />
+          <MetricCard
+            title="Mensajes IA"
+            value={messagesCount}
+            color="text-green-500"
+            icon="💬"
+          />
+        </div>
+
+        {/* Tabla de usuarios recientes */}
+        <section className="bg-white dark:bg-neutral-900 rounded-xl shadow border dark:border-neutral-800 p-6">
+          <h2 className="text-2xl mb-4 font-semibold">Últimos usuarios registrados</h2>
+          <UsersTable />
+        </section>
+
+        {/* Sección de recetas recientes */}
+        <section className="mt-8 bg-white dark:bg-neutral-900 rounded-xl shadow border dark:border-neutral-800 p-6">
+          <h2 className="text-2xl mb-4 font-semibold">Últimas recetas publicadas</h2>
+          <RecipesTable />
+        </section>
       </div>
-
-      {/* Métricas principales */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-        <MetricCard
-          title="Usuarios"
-          value={usersCount || 0}
-          color="text-cocorico-red"
-          icon="👥"
-        />
-        <MetricCard
-          title="Recetas"
-          value={recipesCount}
-          color="text-cocorico-yellow"
-          icon="📖"
-        />
-        <MetricCard
-          title="Mensajes IA"
-          value={messagesCount}
-          color="text-green-500"
-          icon="💬"
-        />
-      </div>
-
-      {/* Tabla de usuarios recientes */}
-      <section className="bg-white dark:bg-neutral-900 rounded-xl shadow border dark:border-neutral-800 p-6">
-        <h2 className="text-2xl mb-4 font-semibold">Últimos usuarios registrados</h2>
-        <UsersTable />
-      </section>
-
-      {/* Sección de recetas recientes */}
-      <section className="mt-8 bg-white dark:bg-neutral-900 rounded-xl shadow border dark:border-neutral-800 p-6">
-        <h2 className="text-2xl mb-4 font-semibold">Últimas recetas publicadas</h2>
-        <RecipesTable />
-      </section>
-    </div>
+    </LegacyPageWrapper>
   );
 }
 
