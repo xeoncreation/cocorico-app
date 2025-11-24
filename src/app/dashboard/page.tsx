@@ -52,33 +52,6 @@ export default function DashboardPage() {
     </>
   );
 }
-              </div>
-            </main>
-          </LegacyPageWrapper>
-        </>
-      );
-  return (
-    <LegacyPageWrapper>
-      <main className="max-w-4xl mx-auto p-6 space-y-6">
-        <h1 className="text-2xl font-bold text-amber-800 glass-text-strong">
-          🐓 Mis recetas ({recipes.length})
-        </h1>
-
-        {/* XP HUD */}
-        <XpHud />
-
-        <div className="flex justify-between">
-          <Link
-            href="/dashboard/stats"
-            className="px-3 py-2 border rounded text-sm text-amber-700 hover:bg-amber-50"
-          >
-            Ver estadísticas 📊
-          </Link>
-          <div className="flex gap-2">
-            <Link
-              href="/dashboard/lab"
-              className="px-3 py-2 border rounded text-sm text-amber-700 hover:bg-amber-50"
-            >
               🧪 Laboratorio IA
             </Link>
             <Link

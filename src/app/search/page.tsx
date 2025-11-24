@@ -19,6 +19,28 @@ export default function SearchPage() {
   const [results, setResults] = useState<Recipe[]>([]);
   const [total, setTotal] = useState(0);
 
+  // Example: fetch results when filters change
+  useEffect(() => {
+    let cancelled = false;
+    async function run() {
+      setLoading(true);
+      try {
+        // Replace with actual query string logic
+        const queryString = '';
+        const res = await fetch(`/api/recipes/search?${queryString}`);
+        const data = await res.json();
+        if (!cancelled) {
+          setResults(data.results || []);
+          setTotal(data.total || 0);
+        }
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
+    }
+    run();
+    return () => { cancelled = true; };
+  }, [q, filters, plan]);
+
   return (
     <>
       <Wallpaper
@@ -62,23 +84,6 @@ export default function SearchPage() {
       </LegacyPageWrapper>
     </>
   );
-  }, [q, filters, page]);
-
-  useEffect(() => {
-    let cancelled = false;
-    async function run() {
-      setLoading(true);
-      try {
-        const res = await fetch(`/api/recipes/search?${queryString}`);
-        const data = await res.json();
-        if (!cancelled) {
-          setResults(data.results || []);
-          setTotal(data.total || 0);
-        }
-      } finally {
-        if (!cancelled) setLoading(false);
-      }
-    }
     run();
     return () => { cancelled = true; };
   }, [queryString]);

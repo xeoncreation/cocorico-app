@@ -36,20 +36,3 @@ export default function StatsPage() {
     </>
   );
 }
-          <h3 className="text-3xl font-bold text-neutral-700">
-            {privateRecipes}
-          </h3>
-          <p className="text-sm text-neutral-600">Recetas privadas</p>
-        </div>
-      </div>
-      <p className="text-center text-sm text-neutral-500">
-        {hasEnv ? (
-          <>Datos actualizados automáticamente desde Supabase 🔄</>
-        ) : (
-          <>Conecta Supabase para ver métricas reales 🔒</>
-        )}
-      </p>
-    </main>
-    </AppBackground>
-  );
-}
