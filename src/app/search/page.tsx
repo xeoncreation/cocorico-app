@@ -13,7 +13,12 @@ type Recipe = {
 export default function SearchPage() {
   // Add necessary state and logic here
   const [q, setQ] = useState("");
-  const [filters, setFilters] = useState<SearchFilterState>({});
+  const [filters, setFilters] = useState<SearchFilterState>({
+    maxTime: 120,
+    difficulty: [],
+    diets: [],
+    ingredients: [],
+  });
   const [plan, setPlan] = useState<string>("");
   const [loading, setLoading] = useState(false);
   const [results, setResults] = useState<Recipe[]>([]);
