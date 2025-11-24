@@ -1,31 +1,16 @@
 
+
 "use client";
 
 import { useEffect, useState } from "react";
-import { createClient } from "@supabase/supabase-js";
-import { createServerClient } from '@supabase/ssr'
-import { cookies } from 'next/headers'
-import { redirect } from 'next/navigation'
-import Link from 'next/link'
-import { AppBackground } from '@/components/layout/AppBackground'
+import Link from 'next/link';
 import XpHud from "@/components/dashboard/XpHud";
 import LegacyPageWrapper from "@/components/layout/LegacyPageWrapper";
 import Wallpaper from "@/components/layout/Wallpaper";
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-);
-
 export default function DashboardPage() {
-  const [recipes, setRecipes] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [user, setUser] = useState<any>(null);
-
-  useEffect(() => {
-    // Aquí iría la lógica de carga de recetas y usuario
-  }, []);
-
+  // TODO: Integrar lógica real de recetas y usuario
+  const recipes: any[] = [];
   return (
     <>
       <Wallpaper
@@ -37,13 +22,31 @@ export default function DashboardPage() {
           <h1 className="text-2xl font-bold text-amber-800 glass-text-strong">
             🐓 Mis recetas ({recipes.length})
           </h1>
-
           {/* XP HUD */}
           <XpHud />
-
           <div className="flex justify-between">
-            {/* ...resto del contenido... */}
+            <Link
+              href="/dashboard/stats"
+              className="px-3 py-2 border rounded text-sm text-amber-700 hover:bg-amber-50"
+            >
+              Ver estadísticas 📊
+            </Link>
+            <div className="flex gap-2">
+              <Link
+                href="/dashboard/lab"
+                className="px-3 py-2 border rounded text-sm text-amber-700 hover:bg-amber-50"
+              >
+                🧪 Laboratorio IA
+              </Link>
+              <Link
+                href="/dashboard/new"
+                className="px-4 py-2 bg-amber-600 text-white rounded hover:bg-amber-700"
+              >
+                + Nueva receta
+              </Link>
+            </div>
           </div>
+          {/* ...más contenido y lógica de recetas... */}
         </main>
       </LegacyPageWrapper>
     </>

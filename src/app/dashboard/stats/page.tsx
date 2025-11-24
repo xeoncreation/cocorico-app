@@ -1,12 +1,13 @@
 
+
 import { AppBackground } from "@/components/layout/AppBackground";
 import Wallpaper from "@/components/layout/Wallpaper";
 
 export default function StatsPage() {
-  const hasEnv = !!(process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
-  let users = 0;
-  let publicRecipes = 0;
-  let privateRecipes = 0;
+  // TODO: Integrar lógica real de estadísticas
+  const users = 0;
+  const publicRecipes = 0;
+  const privateRecipes = 0;
   return (
     <>
       <Wallpaper
