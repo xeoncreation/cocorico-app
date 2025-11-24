@@ -36,7 +36,6 @@ export default function ScannerPage() {
       setError("Error de red al consultar el producto.");
       setProduct(null);
     } finally {
-      setLoading(false);
     }
   }
 

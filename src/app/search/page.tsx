@@ -84,41 +84,6 @@ export default function SearchPage() {
       </LegacyPageWrapper>
     </>
   );
-      const max0 = search.get("maxTime");
-      const page0 = search.get("page");
-      
-      if (q0) setQ(q0);
-      
-      setFilters((prev) => ({
-        ...prev,
-        ingredients: ingr0 ? ingr0.split(",").map((s) => s.trim()).filter(Boolean) : [],
-        difficulty: diff0 ? diff0.split(",").map((s) => s.trim()).filter(Boolean) : [],
-        diets: diets0 ? diets0.split(",").map((s) => s.trim()).filter(Boolean) : [],
-        maxTime: max0 && !Number.isNaN(Number(max0)) ? Number(max0) : 120,
-      }));
-      
-      if (page0 && !Number.isNaN(Number(page0))) setPage(Math.max(1, Number(page0)));
-    } catch {}
-  }, []);
-
-  return (
-    <LegacyPageWrapper>
-      <main className="max-w-6xl mx-auto p-6">
-        <h1 className="text-3xl font-display text-cocorico-red mb-4">Buscar recetas</h1>
-        
-        {/* Search bar */}
-        <div className="mb-4">
-          <input
-            type="text"
-            placeholder="Buscar por nombre o descripción..."
-            value={q}
-            onChange={(e) => setQ(e.target.value)}
-            className="w-full px-4 py-2 border rounded-lg dark:bg-neutral-800 dark:border-neutral-700"
-          />
-        </div>
-        
-        <SearchFilters
-          value={filters}
           onChange={setFilters}
           plan={plan}
         />
