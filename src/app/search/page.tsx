@@ -84,21 +84,6 @@ export default function SearchPage() {
       </LegacyPageWrapper>
     </>
   );
-                    difficulty={r.difficulty as "fácil" | "media" | "difícil" | undefined}
-                    time={r.time_minutes || undefined}
-                    excerpt={r.description || undefined}
-                  />
-                ))}
-              </div>
-
-              {pages > 1 && (
-                <div className="mt-6 flex items-center justify-center gap-2">
-                  <button
-                    disabled={page === 1}
-                    onClick={() => setPage(p => Math.max(1, p - 1))}
-                    className="px-3 py-1 rounded border disabled:opacity-50"
-                  >
-                    ← Anterior
                   </button>
                   <span className="text-sm">{page}/{pages}</span>
                   <button
