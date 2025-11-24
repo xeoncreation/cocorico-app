@@ -36,6 +36,7 @@ export default function ScannerPage() {
       setError("Error de red al consultar el producto.");
       setProduct(null);
     } finally {
+      setLoading(false);
     }
   }
 
@@ -49,5 +50,8 @@ export default function ScannerPage() {
         <div className="max-w-md mx-auto px-4 py-6">
           <h1 className="text-3xl font-extrabold mb-2 drop-shadow-lg">
             Cocorico Scan
-
           </h1>
+        </div>
+      </div>
+    </>
+  );
