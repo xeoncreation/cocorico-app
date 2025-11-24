@@ -84,21 +84,6 @@ export default function SearchPage() {
       </LegacyPageWrapper>
     </>
   );
-          onChange={setFilters}
-          plan={plan}
-        />
-
-        <div className="mt-6">
-          {loading ? <p>Cargando…</p> : (
-            <>
-              <p className="text-sm text-neutral-500 mb-3">{total} resultados</p>
-              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                {results.map(r => (
-                  <RecipeCard 
-                    key={r.id} 
-                    title={r.title}
-                    slug={r.slug}
-                    image={r.image_url || undefined}
                     difficulty={r.difficulty as "fácil" | "media" | "difícil" | undefined}
                     time={r.time_minutes || undefined}
                     excerpt={r.description || undefined}

@@ -12,5 +12,5 @@ export default function DashboardPage() {
   // TODO: Integrar lógica real de recetas y usuario
   const recipes: any[] = [];
   return (
-    }
+    <>
       <Wallpaper
