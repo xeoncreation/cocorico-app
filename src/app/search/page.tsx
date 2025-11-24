@@ -84,21 +84,6 @@ export default function SearchPage() {
       </LegacyPageWrapper>
     </>
   );
-    run();
-    return () => { cancelled = true; };
-  }, [queryString]);
-
-  const pageSize = 12;
-  const pages = Math.max(1, Math.ceil(total / pageSize));
-
-  // Initialize state from URL params on first mount
-  useEffect(() => {
-    try {
-      const search = new URLSearchParams(window.location.search);
-      const q0 = search.get("q");
-      const ingr0 = search.get("ingredients");
-      const diff0 = search.get("difficulty");
-      const diets0 = search.get("diets");
       const max0 = search.get("maxTime");
       const page0 = search.get("page");
       
