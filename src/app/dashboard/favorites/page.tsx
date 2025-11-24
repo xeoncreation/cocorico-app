@@ -1,9 +1,12 @@
+
 import { redirect } from "next/navigation";
 import Wallpaper from "@/components/layout/Wallpaper";
 import { supabaseServer } from "@/lib/supabase";
 import Link from "next/link";
 import Image from "next/image";
 import IntlText from "@/components/IntlText";
+
+export default function FavoritesPage() {
   return (
     <>
       <Wallpaper
@@ -36,9 +39,7 @@ import IntlText from "@/components/IntlText";
       </main>
     </>
   );
-        prep_time,
-        servings
-      )
+}
     `)
     .eq("user_id", user.id)
     .order("created_at", { ascending: false });

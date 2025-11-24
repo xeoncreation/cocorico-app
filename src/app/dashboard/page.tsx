@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useEffect, useState } from "react";
@@ -22,23 +23,32 @@ export default function DashboardPage() {
   const [user, setUser] = useState<any>(null);
 
   useEffect(() => {
-    async function load() {
-      return (
-        <>
-          <Wallpaper
-            imageLight="/branding/MIS_RECETAS_MODO_CLARO.jpg"
-            imageDark="/branding/MIS_RECETAS_MODO_OSCURO.jpg"
-          />
-          <LegacyPageWrapper>
-            <main className="max-w-4xl mx-auto p-6 space-y-6">
-              <h1 className="text-2xl font-bold text-amber-800 glass-text-strong">
-                🐓 Mis recetas ({recipes.length})
-              </h1>
+    // Aquí iría la lógica de carga de recetas y usuario
+  }, []);
 
-              {/* XP HUD */}
-              <XpHud />
+  return (
+    <>
+      <Wallpaper
+        imageLight="/branding/MIS_RECETAS_MODO_CLARO.jpg"
+        imageDark="/branding/MIS_RECETAS_MODO_OSCURO.jpg"
+      />
+      <LegacyPageWrapper>
+        <main className="max-w-4xl mx-auto p-6 space-y-6">
+          <h1 className="text-2xl font-bold text-amber-800 glass-text-strong">
+            🐓 Mis recetas ({recipes.length})
+          </h1>
 
-              <div className="flex justify-between">
+          {/* XP HUD */}
+          <XpHud />
+
+          <div className="flex justify-between">
+            {/* ...resto del contenido... */}
+          </div>
+        </main>
+      </LegacyPageWrapper>
+    </>
+  );
+}
                 <Link
                   href="/dashboard/stats"
                   className="px-3 py-2 border rounded text-sm text-amber-700 hover:bg-amber-50"

@@ -1,3 +1,4 @@
+
 import ProfileClient from './profile-client';
 import { AppBackground } from '@/components/layout/AppBackground';
 import Wallpaper from "@/components/layout/Wallpaper";
@@ -8,6 +9,7 @@ export const metadata: Metadata = {
   description: "Edita tu información personal, avatar y preferencias.",
 };
 
+export default function ProfilePage() {
   return (
     <>
       <Wallpaper

@@ -1,7 +1,9 @@
+
 import CocoricoTip from "@/components/CocoricoTip";
 import LegacyPageWrapper from "@/components/layout/LegacyPageWrapper";
 import Wallpaper from "@/components/layout/Wallpaper";
 
+export default function LearnPage() {
   return (
     <>
       <Wallpaper
