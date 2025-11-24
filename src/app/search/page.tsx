@@ -78,7 +78,12 @@ export default function SearchPage() {
                   {results.map(r => (
                     <RecipeCard 
                       key={r.id}
-                      {...r}
+                      title={r.title || "Receta"}
+                      slug={r.slug || r.id.toString()}
+                      image={r.image_url}
+                      difficulty={r.difficulty as "fácil" | "media" | "difícil" | undefined}
+                      time={r.time_minutes}
+                      excerpt={r.description}
                     />
                   ))}
                 </div>
