@@ -7,7 +7,12 @@ import LegacyPageWrapper from "@/components/layout/LegacyPageWrapper";
 
 type Recipe = {
   id: number;
-  // ...other fields
+  title: string;
+  slug: string;
+  image_url?: string;
+  difficulty?: "fácil" | "media" | "difícil";
+  time_minutes?: number;
+  description?: string;
 };
 
 export default function SearchPage() {
