@@ -1,46 +1,55 @@
 "use client";
 import { useEffect, useMemo, useState } from "react";
+import Wallpaper from "@/components/layout/Wallpaper";
 import RecipeCard from "@/components/RecipeCard";
 import SearchFilters, { SearchFilterState } from "@/components/search/SearchFilters";
 import LegacyPageWrapper from "@/components/layout/LegacyPageWrapper";
 
 type Recipe = {
   id: number;
-  title: string;
-  slug: string;
-  description: string | null;
-  image_url: string | null;
-  time_minutes: number | null;
-  difficulty: string | null;
-};
-
-export default function SearchPage() {
-  const [q, setQ] = useState("");
-  const [filters, setFilters] = useState<SearchFilterState>({
-    maxTime: 120,
-    difficulty: [],
-    diets: [],
-    ingredients: [],
-  });
-  const [page, setPage] = useState(1);
-
-  const [loading, setLoading] = useState(false);
-  const [results, setResults] = useState<Recipe[]>([]);
-  const [total, setTotal] = useState(0);
-  
-  const plan = typeof document !== "undefined"
-    ? (document.documentElement.dataset.theme as "free" | "premium")
-    : "free";
-
-  const queryString = useMemo(() => {
-    const p = new URLSearchParams();
-    if (q) p.set("q", q);
-    if (filters.ingredients.length) p.set("ingredients", filters.ingredients.join(","));
-    if (filters.difficulty.length) p.set("difficulty", filters.difficulty.join(","));
-    if (filters.diets.length) p.set("diets", filters.diets.join(","));
-    if (filters.maxTime) p.set("maxTime", String(filters.maxTime));
-    p.set("page", String(page));
-    return p.toString();
+  return (
+    <>
+      <Wallpaper
+        imageLight="/branding/SEARCH_MODO_CLARO.jpg"
+        imageDark="/branding/SEARCH_MODO_OSCURO.jpg"
+      />
+      <LegacyPageWrapper>
+        <main className="max-w-6xl mx-auto p-6">
+          <h1 className="text-3xl font-display text-cocorico-red mb-4">Buscar recetas</h1>
+          {/* Search bar */}
+          <div className="mb-4">
+            <input
+              type="text"
+              placeholder="Buscar por nombre o descripción..."
+              value={q}
+              onChange={(e) => setQ(e.target.value)}
+              className="w-full px-4 py-2 border rounded-lg dark:bg-neutral-800 dark:border-neutral-700"
+            />
+          </div>
+          <SearchFilters
+            value={filters}
+            onChange={setFilters}
+            plan={plan}
+          />
+          <div className="mt-6">
+            {loading ? <p>Cargando…</p> : (
+              <>
+                <p className="text-sm text-neutral-500 mb-3">{total} resultados</p>
+                <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                  {results.map(r => (
+                    <RecipeCard 
+                      key={r.id}
+                      {...r}
+                    />
+                  ))}
+                </div>
+              </>
+            )}
+          </div>
+        </main>
+      </LegacyPageWrapper>
+    </>
+  );
   }, [q, filters, page]);
 
   useEffect(() => {

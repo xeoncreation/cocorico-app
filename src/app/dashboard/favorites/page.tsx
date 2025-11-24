@@ -1,34 +1,41 @@
 import { redirect } from "next/navigation";
+import Wallpaper from "@/components/layout/Wallpaper";
 import { supabaseServer } from "@/lib/supabase";
 import Link from "next/link";
 import Image from "next/image";
 import IntlText from "@/components/IntlText";
-
-export default async function FavoritesPage() {
-  if (!supabaseServer) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <p className="text-red-600">Supabase no configurado</p>
-      </div>
-    );
-  }
-
-  const { data: { user } } = await supabaseServer.auth.getUser();
-  if (!user) redirect("/login");
-
-  // Fetch favorites with recipe details and timestamps
-  const { data: favs } = await supabaseServer
-    .from("favorites")
-    .select(`
-      recipe_id,
-      created_at,
-      recipes:recipe_id (
-        id,
-        title,
-        slug,
-        user_id,
-        visibility,
-        created_at,
+  return (
+    <>
+      <Wallpaper
+        imageLight="/branding/FAVORITOS_MODO_CLARO.jpg"
+        imageDark="/branding/FAVORITOS_MODO_OSCURO.jpg"
+      />
+      <main className="min-h-screen bg-gradient-to-br from-orange-50 to-yellow-50 dark:from-neutral-900 dark:to-neutral-800 py-8 px-4">
+        <div className="max-w-4xl mx-auto">
+          {/* Header */}
+          <div className="flex items-center gap-4 mb-8">
+            <Image
+              src="/branding/cocorico-mascot-anim-optimized.gif"
+              alt="Cocorico animado"
+              width={64}
+              height={95}
+              className="drop-shadow-md"
+              unoptimized
+            />
+            <div>
+              <h1 className="text-3xl font-bold text-amber-900 dark:text-amber-100">
+                💛 <IntlText k="favorites.title" fallback="Mis Favoritos" />
+              </h1>
+              <p className="text-neutral-600 dark:text-neutral-400 mt-1">
+                <IntlText k="favorites.subtitle" fallback="Recetas que has guardado" />
+              </p>
+            </div>
+          </div>
+          {/* ...resto del contenido... */}
+        </div>
+      </main>
+    </>
+  );
         prep_time,
         servings
       )

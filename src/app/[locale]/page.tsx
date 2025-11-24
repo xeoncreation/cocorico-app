@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Wallpaper from "@/components/layout/Wallpaper";
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 import Reveal from "@/components/ui/Reveal";
@@ -35,7 +36,12 @@ export default async function LocaleHomePage({
   });
 
   return (
-    <AppBackground variantOverride="home-free">
+    <>
+      <Wallpaper
+        imageLight="/branding/HOME_MODO_CLARO.jpg"
+        imageDark="/branding/HOME_MODO_OSCURO.jpg"
+      />
+      <AppBackground variantOverride="home-free">
       <main className="flex flex-col items-center justify-center min-h-[90vh] text-center px-4 sm:px-6 py-12 relative overflow-hidden">
       <OnboardingModal />
       <FloatingActionButton />
@@ -135,7 +141,8 @@ export default async function LocaleHomePage({
           </div>
         </div>
       </Reveal>
-    </main>
-    </AppBackground>
+      </main>
+      </AppBackground>
+    </>
   );
 }

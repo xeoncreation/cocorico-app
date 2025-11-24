@@ -1,5 +1,6 @@
 'use client';
 
+import Wallpaper from "@/components/layout/Wallpaper";
 import { useEffect, useState } from 'react';
 import { createClientComponentClient } from '@/lib/supabase/client';
 import { Recipe } from '@/types/recipes';
@@ -32,12 +33,36 @@ export default function EditRecipePage({ params }: { params: { id: string } }) {
   }, [params.id]);
 
   if (loading) {
-    return <div className="p-4">Cargando...</div>;
+    return (
+      <>
+        <Wallpaper
+          imageLight="/branding/EDITAR_RECETA_MODO_CLARO.jpg"
+          imageDark="/branding/EDITAR_RECETA_MODO_OSCURO.jpg"
+        />
+        <div className="p-4">Cargando...</div>
+      </>
+    );
   }
 
   if (!recipe) {
-    return <div className="p-4">Receta no encontrada</div>;
+    return (
+      <>
+        <Wallpaper
+          imageLight="/branding/EDITAR_RECETA_MODO_CLARO.jpg"
+          imageDark="/branding/EDITAR_RECETA_MODO_OSCURO.jpg"
+        />
+        <div className="p-4">Receta no encontrada</div>
+      </>
+    );
   }
 
-  return <RecipeForm recipe={recipe} />;
+  return (
+    <>
+      <Wallpaper
+        imageLight="/branding/EDITAR_RECETA_MODO_CLARO.jpg"
+        imageDark="/branding/EDITAR_RECETA_MODO_OSCURO.jpg"
+      />
+      <RecipeForm recipe={recipe} />
+    </>
+  );
 }

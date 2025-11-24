@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Wallpaper from "@/components/layout/Wallpaper";
 import BarcodeScanner from "@/components/scanner/BarcodeScanner";
 import ProductCard from "@/components/scanner/ProductCard";
 import type { NormalizedProduct } from "@/lib/scan/types";
@@ -40,25 +41,30 @@ export default function ScannerPage() {
   }
 
   return (
-    <div className="min-h-screen w-full bg-[radial-gradient(circle_at_top,_#f97316_0,_#1e293b_45%,_#020617_100%)] text-white">
-      <div className="max-w-md mx-auto px-4 py-6">
-        <h1 className="text-3xl font-extrabold mb-2 drop-shadow-lg">
-          Cocorico Scan
-        </h1>
-        <p className="text-sm text-white/80 mb-4">
-          Escanea el código de barras de un producto para ver su puntuación Cocorico.
-        </p>
+    <>
+      <Wallpaper
+        imageLight="/branding/SCAN_MODO_CLARO.jpg"
+        imageDark="/branding/SCAN_MODO_OSCURO.jpg"
+      />
+      <div className="min-h-screen w-full bg-[radial-gradient(circle_at_top,_#f97316_0,_#1e293b_45%,_#020617_100%)] text-white">
+        <div className="max-w-md mx-auto px-4 py-6">
+          <h1 className="text-3xl font-extrabold mb-2 drop-shadow-lg">
+            Cocorico Scan
+          </h1>
+          <p className="text-sm text-white/80 mb-4">
+            Escanea el código de barras de un producto para ver su puntuación Cocorico.
+          </p>
 
-        <BarcodeScanner onScan={handleScan} />
+          <BarcodeScanner onScan={handleScan} />
 
-        {loading && (
-          <div className="mt-4 text-sm text-white/80">
-            Analizando producto…
-          </div>
-        )}
+          {loading && (
+            <div className="mt-4 text-sm text-white/80">
+              Analizando producto…
+            </div>
+          )}
 
-        {error && (
-          <div className="mt-4 text-sm text-red-200">
+          {error && (
+            <div className="mt-4 text-sm text-red-200">
             {error}
           </div>
         )}

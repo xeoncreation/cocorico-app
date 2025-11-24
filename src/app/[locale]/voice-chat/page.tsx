@@ -12,6 +12,8 @@ export const metadata: Metadata = {
   description: "Habla con Cocorico usando IA de voz avanzada. Conversación natural con reconocimiento de voz y respuestas en tiempo real.",
 };
 
+import Wallpaper from "@/components/layout/Wallpaper";
+
 export default function VoiceChatPage({
   params: { locale },
 }: {
@@ -19,6 +21,10 @@ export default function VoiceChatPage({
 }) {
   return (
     <>
+      <Wallpaper
+        imageLight="/branding/HOME_MODO_CLARO.jpg"
+        imageDark="/branding/HOME_MODO_OSCURO.jpg"
+      />
       <VoiceChatOnboarding />
       <VoiceChatClient locale={locale} />
     </>

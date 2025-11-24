@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Wallpaper from "@/components/layout/Wallpaper";
 import { useRouter } from 'next/navigation';
 import { createClientComponentClient } from '@/lib/supabase/client';
 import { Recipe } from '@/types/recipes';
@@ -35,30 +36,51 @@ export default function RecipePage({ params }: { params: { id: string } }) {
   }, [params.id]);
 
   if (loading) {
-    return <div className="p-4">Cargando...</div>;
+    return (
+      <>
+        <Wallpaper
+          imageLight="/branding/RECETA_PUBLICA_MODO_CLARO.jpg"
+          imageDark="/branding/RECETA_PUBLICA_MODO_OSCURO.jpg"
+        />
+        <div className="p-4">Cargando...</div>
+      </>
+    );
   }
 
   if (!recipe) {
-    return <div className="p-4">Receta no encontrada</div>;
+    return (
+      <>
+        <Wallpaper
+          imageLight="/branding/RECETA_PUBLICA_MODO_CLARO.jpg"
+          imageDark="/branding/RECETA_PUBLICA_MODO_OSCURO.jpg"
+        />
+        <div className="p-4">Receta no encontrada</div>
+      </>
+    );
   }
 
   const recipeData = JSON.parse(recipe.content);
 
   return (
-    <div className="max-w-4xl mx-auto p-4">
-      <div className="mb-6">
-        <button
-          onClick={() => router.back()}
-          className="text-blue-500 hover:text-blue-600"
-        >
-          ← Volver
-        </button>
-      </div>
+    <>
+      <Wallpaper
+        imageLight="/branding/RECETA_PUBLICA_MODO_CLARO.jpg"
+        imageDark="/branding/RECETA_PUBLICA_MODO_OSCURO.jpg"
+      />
+      <div className="max-w-4xl mx-auto p-4">
+        <div className="mb-6">
+          <button
+            onClick={() => router.back()}
+            className="text-blue-500 hover:text-blue-600"
+          >
+            ← Volver
+          </button>
+        </div>
 
-      <article className="space-y-6">
-        <header>
-          <div className="flex items-start justify-between mb-4">
-            <div className="flex-1">
+        <article className="space-y-6">
+          <header>
+            <div className="flex items-start justify-between mb-4">
+              <div className="flex-1">
               <h1 className="text-3xl font-bold mb-2">{recipe.title}</h1>
               <p className="text-gray-600">{recipeData.description}</p>
             </div>

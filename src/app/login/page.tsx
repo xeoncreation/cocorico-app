@@ -8,6 +8,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { supabase } from "@/app/lib/supabase-client";
 import Link from "next/link";
 import LegacyPageWrapper from "@/components/layout/LegacyPageWrapper";
+import Wallpaper from "@/components/layout/Wallpaper";
 
 const schema = z.object({
   email: z.string().email("Correo inválido"),
@@ -37,32 +38,17 @@ export default function LoginPage() {
         setError("Autenticación no disponible: configura las variables NEXT_PUBLIC_SUPABASE_*.");
         return;
       }
-            <input
-              type="email"
-              className="w-full rounded-md border coco-glass px-3 py-2 focus:outline-none focus:ring-2 focus:ring-cocorico-red"
-              placeholder="tucorreo@ejemplo.com"
-              {...register("email")}
-            />
-        });
-        if (error) throw error;
-        setMessage("Inicio de sesión correcto. Redirigiendo…");
-        // Give a brief moment to ensure session is set
-        setTimeout(() => router.push("/"), 600);
-            <input
-              type="password"
-              className="w-full rounded-md border coco-glass px-3 py-2 focus:outline-none focus:ring-2 focus:ring-cocorico-red"
-              placeholder="••••••••"
-              {...register("password")}
-            />
-        const { error } = await supabase.auth.signInWithOtp({ 
-          email: data.email, 
-          options: { 
-            emailRedirectTo: redirectTo
-          } 
-        });
-        if (error) throw error;
-        setMessage("Te enviamos un enlace mágico a tu correo. Revisa tu bandeja.");
-      }
+      // Lógica de autenticación
+      const redirectTo = typeof window !== "undefined" ? window.location.origin : undefined;
+      const { error } = await supabase.auth.signInWithOtp({
+        email: data.email,
+        options: {
+          emailRedirectTo: redirectTo
+        }
+      });
+      if (error) throw error;
+      setMessage("Inicio de sesión correcto. Redirigiendo…");
+      setTimeout(() => router.push("/"), 600);
     } catch (e: any) {
       setError(e?.message ?? "Error al iniciar sesión");
     } finally {
@@ -71,9 +57,14 @@ export default function LoginPage() {
   };
 
   return (
-    <LegacyPageWrapper>
-      <div className="mx-auto max-w-md px-6 py-10 coco-glass rounded-2xl">
-        <div className="mb-6 flex justify-center">
+    <>
+      <Wallpaper
+        imageLight="/branding/LOGIN_MODO_CLARO.jpg"
+        imageDark="/branding/LOGIN_MODO_OSCURO.jpg"
+      />
+      <LegacyPageWrapper>
+        <div className="mx-auto max-w-md px-6 py-10 coco-glass rounded-2xl">
+          <div className="mb-6 flex justify-center">
           <img
             src="/branding/cocorico-mascot-anim-optimized.gif"
             alt="Cocorico animado"

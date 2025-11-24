@@ -9,6 +9,7 @@ import Link from 'next/link'
 import { AppBackground } from '@/components/layout/AppBackground'
 import XpHud from "@/components/dashboard/XpHud";
 import LegacyPageWrapper from "@/components/layout/LegacyPageWrapper";
+import Wallpaper from "@/components/layout/Wallpaper";
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -22,27 +23,34 @@ export default function DashboardPage() {
 
   useEffect(() => {
     async function load() {
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
-      if (!user) {
-        window.location.href = "/";
-        return;
-      }
-      setUser(user);
-      const { data, error } = await supabase
-        .from("recipes")
-        .select("id, title, visibility, slug, created_at")
-        .eq("user_id", user.id)
-        .order("created_at", { ascending: false });
-      if (!error) setRecipes(data || []);
-      setLoading(false);
-    }
-    load();
-  }, []);
+      return (
+        <>
+          <Wallpaper
+            imageLight="/branding/MIS_RECETAS_MODO_CLARO.jpg"
+            imageDark="/branding/MIS_RECETAS_MODO_OSCURO.jpg"
+          />
+          <LegacyPageWrapper>
+            <main className="max-w-4xl mx-auto p-6 space-y-6">
+              <h1 className="text-2xl font-bold text-amber-800 glass-text-strong">
+                🐓 Mis recetas ({recipes.length})
+              </h1>
 
-  if (loading) return <p className="p-6">Cargando tus recetas...</p>;
+              {/* XP HUD */}
+              <XpHud />
 
+              <div className="flex justify-between">
+                <Link
+                  href="/dashboard/stats"
+                  className="px-3 py-2 border rounded text-sm text-amber-700 hover:bg-amber-50"
+                >
+                  Ver estadísticas 📊
+                </Link>
+                {/* ...resto del contenido... */}
+              </div>
+            </main>
+          </LegacyPageWrapper>
+        </>
+      );
   return (
     <LegacyPageWrapper>
       <main className="max-w-4xl mx-auto p-6 space-y-6">
