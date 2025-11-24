@@ -36,19 +36,6 @@ export default function StatsPage() {
     </>
   );
 }
-        <div className="bg-white rounded-xl shadow p-4 text-center">
-          <h3 className="text-3xl font-bold text-amber-700">{users}</h3>
-          <p className="text-sm text-neutral-600">Usuarios registrados</p>
-        </div>
-
-        <div className="bg-white rounded-xl shadow p-4 text-center">
-          <h3 className="text-3xl font-bold text-green-700">
-            {publicRecipes}
-          </h3>
-          <p className="text-sm text-neutral-600">Recetas públicas</p>
-        </div>
-
-        <div className="bg-white rounded-xl shadow p-4 text-center">
           <h3 className="text-3xl font-bold text-neutral-700">
             {privateRecipes}
           </h3>

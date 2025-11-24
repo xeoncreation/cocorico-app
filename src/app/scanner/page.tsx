@@ -50,29 +50,5 @@ export default function ScannerPage() {
         <div className="max-w-md mx-auto px-4 py-6">
           <h1 className="text-3xl font-extrabold mb-2 drop-shadow-lg">
             Cocorico Scan
+
           </h1>
-          <p className="text-sm text-white/80 mb-4">
-            Escanea el código de barras de un producto para ver su puntuación Cocorico.
-          </p>
-
-          <BarcodeScanner onScan={handleScan} />
-
-          {loading && (
-            <div className="mt-4 text-sm text-white/80">
-              Analizando producto…
-            </div>
-          )}
-
-          {error && (
-            <div className="mt-4 text-sm text-red-200">
-            {error}
-          </div>
-        )}
-
-        {product && !loading && (
-          <ProductCard product={product} />
-        )}
-      </div>
-    </div>
-  );
-}

@@ -8,6 +8,7 @@ export const metadata: Metadata = {
     "Filtra recetas por ingredientes, tiempo, dificultad y estilo culinario.",
 };
 
+export default function RecipesSearchPage() {
   return (
     <>
       <Wallpaper

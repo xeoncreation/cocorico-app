@@ -7,6 +7,18 @@ import LegacyPageWrapper from "@/components/layout/LegacyPageWrapper";
 
 type Recipe = {
   id: number;
+  // ...other fields
+};
+
+export default function SearchPage() {
+  // Add necessary state and logic here
+  const [q, setQ] = useState("");
+  const [filters, setFilters] = useState<SearchFilterState>({});
+  const [plan, setPlan] = useState<string>("");
+  const [loading, setLoading] = useState(false);
+  const [results, setResults] = useState<Recipe[]>([]);
+  const [total, setTotal] = useState(0);
+
   return (
     <>
       <Wallpaper
