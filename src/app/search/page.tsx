@@ -19,7 +19,7 @@ export default function SearchPage() {
     diets: [],
     ingredients: [],
   });
-  const [plan, setPlan] = useState<string>("");
+  const [plan, setPlan] = useState<"free" | "premium">("free");
   const [loading, setLoading] = useState(false);
   const [results, setResults] = useState<Recipe[]>([]);
   const [total, setTotal] = useState(0);
