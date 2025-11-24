@@ -84,21 +84,4 @@ export default function SearchPage() {
       </LegacyPageWrapper>
     </>
   );
-                  </button>
-                  <span className="text-sm">{page}/{pages}</span>
-                  <button
-                    disabled={page === pages}
-                    onClick={() => setPage(p => Math.min(pages, p + 1))}
-                    className="px-3 py-1 rounded border disabled:opacity-50"
-                  >
-                    Siguiente →
-                  </button>
-                </div>
-              )}
-            </>
-          )}
-        </div>
-      </main>
-    </LegacyPageWrapper>
-  );
 }
