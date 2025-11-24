@@ -1,0 +1,41 @@
+{
+  "nav": {
+    "home": "Startseite",
+    "search": "Suche",
+    "learn": "Lernen",
+    "dashboard": "Dashboard",
+    "favorites": "Favoriten",
+    "versions": "Versionen",
+    "import": "Importieren",
+    "chat": "Chat",
+    "voiceChat": "Sprachchat",
+    "scanner": "Scanner",
+    "recipes": "Rezepte",
+    "community": "Community",
+    "challenges": "Herausforderungen",
+    "pricing": "Premium",
+    "achievements": "Erfolge",
+    "feedback": "Feedback",
+    "settings": "Einstellungen",
+    "login": "Anmelden",
+    "logout": "Abmelden",
+    "account": "Mein Konto",
+    "lang": {
+      "_": "Sprache",
+      "en": "EN",
+      "es": "ES",
+      "de": "DE"
+    },
+    "stats": "Statistiken"
+  },
+  "footer": {
+    "privacy": "Datenschutz",
+    "terms": "Bedingungen"
+  },
+  "home": {
+    "title": "Hallo! Ich bin Cocorico 🐓",
+    "description": "Ihr KI-Kochassistent. Finden Sie Rezepte, speichern Sie Favoriten und lernen Sie, ohne Verschwendung zu kochen.",
+    "chatButton": "Mit Cocorico chatten",
+    "recipesButton": "Meine Rezepte ansehen"
+  }
+}

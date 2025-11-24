@@ -45,12 +45,7 @@ export default function DevTestPage() {
     setTestResult("🔄 Probando TTS...");
     try {
       const testPhonemes: VisemeItem[] = [];
-      await ttsSpeak("Hola, soy Cocorico. Esta es una prueba de texto a voz.", {
-        onPhonemes: (p) => {
-          testPhonemes.push(...p);
-          setPhonemes([...testPhonemes]);
-        },
-      });
+      await ttsSpeak("Hola, soy Cocorico. Esta es una prueba de texto a voz.");
       setTestResult(`✅ TTS exitoso (${testPhonemes.length} fonemas generados)`);
     } catch (err: any) {
       setTestResult(`❌ Error TTS: ${err.message}`);

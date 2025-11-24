@@ -8,15 +8,15 @@ import { usePathname, useRouter } from "next/navigation";
 // BLOQUE 5: English marcado como available:false hasta completar traducciones
 const SUPPORTED = [
   { code: "es", name: "Español", flag: "🇪🇸", available: true, aliases: ["español", "spanish", "castellano", "es"] },
-  { code: "en", name: "English", flag: "🇬🇧", available: false, aliases: ["english", "inglés", "en"] },
-  { code: "fr", name: "Français", flag: "🇫🇷", available: false, aliases: ["frances", "french", "francés", "fr"] },
-  { code: "de", name: "Deutsch", flag: "🇩🇪", available: false, aliases: ["aleman", "german", "alemán", "de"] },
-  { code: "it", name: "Italiano", flag: "🇮🇹", available: false, aliases: ["italiano", "italian", "it"] },
-  { code: "pt", name: "Português", flag: "🇵🇹", available: false, aliases: ["portugues", "portuguese", "português", "pt"] },
-  { code: "ja", name: "日本語", flag: "🇯🇵", available: false, aliases: ["japanese", "japones", "japonés", "ja"] },
-  { code: "ko", name: "한국어", flag: "🇰🇷", available: false, aliases: ["korean", "coreano", "ko"] },
-  { code: "zh", name: "中文", flag: "🇨🇳", available: false, aliases: ["chinese", "chino", "zh"] },
-  { code: "ar", name: "العربية", flag: "🇸🇦", available: false, aliases: ["arabic", "arabe", "árabe", "ar"] },
+  { code: "en", name: "English", flag: "🇬🇧", available: true, aliases: ["english", "inglés", "en"] },
+  { code: "fr", name: "Français", flag: "🇫🇷", available: true, aliases: ["frances", "french", "francés", "fr"] },
+  { code: "de", name: "Deutsch", flag: "🇩🇪", available: true, aliases: ["aleman", "german", "alemán", "de"] },
+  { code: "it", name: "Italiano", flag: "🇮🇹", available: true, aliases: ["italiano", "italian", "it"] },
+  { code: "pt", name: "Português", flag: "🇵🇹", available: true, aliases: ["portugues", "portuguese", "português", "pt"] },
+  { code: "ja", name: "日本語", flag: "🇯🇵", available: true, aliases: ["japanese", "japones", "japonés", "ja"] },
+  { code: "ko", name: "한국어", flag: "🇰🇷", available: true, aliases: ["korean", "coreano", "ko"] },
+  { code: "zh", name: "中文", flag: "🇨🇳", available: true, aliases: ["chinese", "chino", "zh"] },
+  { code: "ar", name: "العربية", flag: "🇸🇦", available: true, aliases: ["arabic", "arabe", "árabe", "ar"] },
 ];
 
 function detectCurrentLocale(pathname: string | null) {

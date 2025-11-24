@@ -8,8 +8,13 @@ import { useLocale, useTranslations } from "next-intl";
 import XpHud from "@/components/dashboard/XpHud";
 import { AppBackground } from "@/components/layout/AppBackground";
 import { Button } from "@/components/ui/button";
-import { Plus, BarChart2, FlaskConical, Edit, Trash2, Eye } from "lucide-react";
+import { Plus, BarChart2, FlaskConical, Edit, Trash2, Eye, Camera, MessageSquare, Sparkles } from "lucide-react";
 import GlassCard from "@/components/ui/GlassCard";
+import dynamic from "next/dynamic";
+
+const ProgressWidget = dynamic(() => import("@/components/dashboard/ProgressWidget"), {
+  ssr: false,
+});
 
 export default function DashboardClient() {
   const [recipes, setRecipes] = useState<any[]>([]);
@@ -61,38 +66,65 @@ export default function DashboardClient() {
   return (
     <div className="max-w-5xl mx-auto p-4 sm:p-6 space-y-8">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-        <h1 className="text-3xl font-bold text-cocorico-brown dark:text-amber-100">
+        <h1 className="text-4xl lg:text-5xl font-bold text-cocorico-brown dark:text-amber-100">
           🐓 {t("nav.dashboard")}
         </h1>
-        <div className="flex gap-2">
-          <Button variant="outline" asChild>
-            <Link href={`/${locale}/dashboard/stats`}>
-              <BarChart2 className="w-4 h-4 mr-2" />
-              Estadísticas
-            </Link>
-          </Button>
-          <Button variant="outline" asChild>
-            <Link href={`/${locale}/dashboard/lab`}>
-              <FlaskConical className="w-4 h-4 mr-2" />
-              Lab IA
-            </Link>
-          </Button>
-          <Button className="bg-cocorico-red hover:bg-cocorico-red/90 text-white" asChild>
-            <Link href={`/${locale}/recipes/new`}>
-              <Plus className="w-4 h-4 mr-2" />
-              Nueva Receta
-            </Link>
-          </Button>
-        </div>
       </div>
 
-      {/* XP HUD */}
-      <XpHud />
+      {/* Stats Widgets */}
+      <ProgressWidget />
+
+      {/* Quick Actions */}
+      <div className="grid grid-cols-3 gap-3">
+        <Button 
+          variant="outline" 
+          asChild 
+          className="h-auto py-4 flex-col gap-2 hover:scale-105 transition-transform bg-gradient-to-br from-cocorico-mango/10 to-cocorico-datil/10 border-cocorico-mango/30"
+        >
+          <Link href={`/${locale}/scanner`}>
+            <Camera className="w-6 h-6 text-cocorico-mango" />
+            <span className="text-xs font-semibold">Escanear</span>
+          </Link>
+        </Button>
+        <Button 
+          variant="outline" 
+          asChild 
+          className="h-auto py-4 flex-col gap-2 hover:scale-105 transition-transform bg-gradient-to-br from-cocorico-red/10 to-cocorico-mango/10 border-cocorico-red/30"
+        >
+          <Link href={`/${locale}/chat`}>
+            <MessageSquare className="w-6 h-6 text-cocorico-red" />
+            <span className="text-xs font-semibold">Chat IA</span>
+          </Link>
+        </Button>
+        <Button 
+          variant="outline" 
+          asChild 
+          className="h-auto py-4 flex-col gap-2 hover:scale-105 transition-transform bg-gradient-to-br from-cocorico-avocado/10 to-cocorico-turquoise/10 border-cocorico-avocado/30"
+        >
+          <Link href={`/${locale}/recipes/new`}>
+            <Plus className="w-6 h-6 text-cocorico-avocado" />
+            <span className="text-xs font-semibold">Nueva Receta</span>
+          </Link>
+        </Button>
+      </div>
+
+      {/* Progress Stats */}
+      <ProgressWidget />
 
       <div className="space-y-4">
-        <h2 className="text-xl font-semibold text-cocorico-brown dark:text-amber-100">
-          Mis Recetas ({recipes.length})
-        </h2>
+        <div className="flex items-center justify-between">
+          <h2 className="text-2xl lg:text-3xl font-semibold text-cocorico-brown dark:text-amber-100">
+            Mis Recetas ({recipes.length})
+          </h2>
+          <div className="flex gap-2">
+            <Button variant="outline" size="sm" asChild>
+              <Link href={`/${locale}/dashboard/stats`}>
+                <BarChart2 className="w-4 h-4 mr-2" />
+                Stats
+              </Link>
+            </Button>
+          </div>
+        </div>
 
         {recipes.length === 0 ? (
           <GlassCard className="p-8 text-center">

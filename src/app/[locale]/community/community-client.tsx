@@ -6,6 +6,11 @@ import { useTranslations } from "next-intl";
 import GlassCard from "@/components/ui/GlassCard";
 import { Button } from "@/components/ui/button";
 import { Users, TrendingUp, MessageCircle, Heart } from "lucide-react";
+import dynamic from "next/dynamic";
+
+const CommunityFilters = dynamic(() => import("@/components/community/CommunityFilters"), {
+  ssr: false,
+});
 
 interface Post {
   id: string;
@@ -31,7 +36,9 @@ const fetcher = (url: string) => fetch(url).then((r) => {
 export default function CommunityClient({ locale }: { locale: string }) {
   const t = useTranslations("Community");
   const [filter, setFilter] = useState<"all" | "text" | "recipe" | "photo">("all");
+  const [sortBy, setSortBy] = useState<"recent" | "popular" | "following" | "favorites">("recent");
   const [page, setPage] = useState(1);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const queryParams = new URLSearchParams();
   if (filter !== "all") queryParams.set("type", filter);
@@ -49,6 +56,13 @@ export default function CommunityClient({ locale }: { locale: string }) {
 
   const posts = data?.posts || [];
 
+  // Filter posts by search query
+  const filteredPosts = posts.filter(post => 
+    searchQuery === "" || 
+    post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    post.body.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   // Show placeholder if API fails or returns empty
   if (error || (!isLoading && posts.length === 0)) {
     return (
@@ -64,6 +78,34 @@ export default function CommunityClient({ locale }: { locale: string }) {
           <p className="text-lg text-neutral-600 dark:text-neutral-300 max-w-2xl mx-auto">
             Comparte tus recetas, progreso y consejos con miles de usuarios que buscan una vida más saludable
           </p>
+
+          {/* Tabs de filtros */}
+          <div className="flex justify-center gap-2 pt-4">
+            <Button
+              variant={sortBy === "recent" ? "default" : "outline"}
+              onClick={() => setSortBy("recent")}
+              className="gap-2"
+            >
+              <TrendingUp className="w-4 h-4" />
+              Recientes
+            </Button>
+            <Button
+              variant={sortBy === "popular" ? "default" : "outline"}
+              onClick={() => setSortBy("popular")}
+              className="gap-2"
+            >
+              <Heart className="w-4 h-4" />
+              Populares
+            </Button>
+            <Button
+              variant={sortBy === "favorites" ? "default" : "outline"}
+              onClick={() => setSortBy("favorites")}
+              className="gap-2"
+            >
+              <MessageCircle className="w-4 h-4" />
+              Mis favoritos
+            </Button>
+          </div>
         </div>
 
         {/* Coming Soon Card */}

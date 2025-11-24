@@ -7,10 +7,12 @@ import Image from 'next/image';
 import { useLocale } from 'next-intl';
 import { createClientComponentClient } from '@/lib/supabase/client';
 import { Recipe, Visibility } from '@/types/recipes';
-import { Clock, Users, ChefHat } from 'lucide-react';
+import { Clock, Users, ChefHat, Search, Filter } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import GlassCard from '@/components/ui/GlassCard';
 import { RippleButton } from '@/components/ui/ripple-button';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
 
 const DEMO_RECIPES = [
   {
@@ -179,6 +181,8 @@ export default function RecipesClient() {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [loading, setLoading] = useState(true);
   const [showDemo, setShowDemo] = useState(true);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [timeFilter, setTimeFilter] = useState<"all" | "quick" | "medium" | "slow">("all");
   const router = useRouter();
   const supabase = createClientComponentClient();
   const locale = useLocale();
@@ -235,6 +239,27 @@ export default function RecipesClient() {
   }
 
   // Rendering branches below use `showDemo ? DEMO_RECIPES : recipes` directly
+  
+  // Filter recipes based on search and time
+  const displayRecipes = showDemo ? DEMO_RECIPES : recipes;
+  const filteredRecipes = displayRecipes.filter(recipe => {
+    const title = 'title' in recipe ? recipe.title : '';
+    const description = typeof recipe.description === 'string' ? recipe.description : '';
+    const matchesSearch = title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+               description.toLowerCase().includes(searchQuery.toLowerCase());
+    
+    if (!matchesSearch) return false;
+    
+    // For demo recipes, check prepTime + cookTime
+    if (showDemo && 'prepTime' in recipe && 'cookTime' in recipe) {
+      const totalMin = parseInt(recipe.prepTime) + parseInt(recipe.cookTime);
+      if (timeFilter === "quick" && totalMin > 30) return false;
+      if (timeFilter === "medium" && (totalMin <= 30 || totalMin > 60)) return false;
+      if (timeFilter === "slow" && totalMin <= 60) return false;
+    }
+    
+    return true;
+  });
 
   return (
     <div className="min-h-screen py-8 bg-transparent">
@@ -256,14 +281,63 @@ export default function RecipesClient() {
             </p>
           </div>
           <RippleButton
-            onClick={() => router.push(`/${locale}/recipes/new`)}
-            className={cn(
-              "mt-4 sm:mt-0 px-6 py-3 rounded-xl font-semibold transition-all bg-orange-500 hover:bg-orange-600 text-white shadow-lg hover:shadow-xl"
-            )}
+            asChild
+            className={plan === "premium" ? "coco-btn-premium" : "coco-btn-primary"}
           >
-            <ChefHat className="inline w-5 h-5 mr-2" />
-            Nueva Receta
+            <Link href={`/${locale}/recipes/new`}>
+              + Nueva Receta
+            </Link>
           </RippleButton>
+        </GlassCard>
+
+        {/* Search and Filters */}
+        <GlassCard className="p-4 mb-6" variant={plan === 'premium' ? 'premium' : 'base'}>
+          <div className="flex flex-col lg:flex-row gap-4">
+            {/* Search bar */}
+            <div className="flex-1 relative">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-neutral-400" />
+              <Input
+                type="text"
+                placeholder="Buscar recetas por nombre o ingredientes..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="pl-10 bg-white/50 dark:bg-neutral-900/50"
+              />
+            </div>
+
+            {/* Time filters */}
+            <div className="flex gap-2">
+              <Button
+                variant={timeFilter === "all" ? "default" : "outline"}
+                size="sm"
+                onClick={() => setTimeFilter("all")}
+              >
+                Todas
+              </Button>
+              <Button
+                variant={timeFilter === "quick" ? "default" : "outline"}
+                size="sm"
+                onClick={() => setTimeFilter("quick")}
+              >
+                <Clock className="w-4 h-4 mr-1" />
+                Rápidas (&lt;30min)
+              </Button>
+              <Button
+                variant={timeFilter === "medium" ? "default" : "outline"}
+                size="sm"
+                onClick={() => setTimeFilter("medium")}
+              >
+                Medias (30-60min)
+              </Button>
+              <Button
+                variant={timeFilter === "slow" ? "default" : "outline"}
+                size="sm"
+                onClick={() => setTimeFilter("slow")}
+              >
+                Largas (&gt;60min)
+              </Button>
+            </div>
+          </div>
         </GlassCard>
 
         {/* Toggle Demo/Real */}
@@ -296,9 +370,17 @@ export default function RecipesClient() {
 
         {/* Recipe Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {showDemo ? (
-            // Demo recipes
-            DEMO_RECIPES.map((recipe, idx) => (
+          {filteredRecipes.length === 0 ? (
+            <div className="col-span-full text-center py-12">
+              <GlassCard className="p-8" variant={plan === 'premium' ? 'premium' : 'base'}>
+                <p className="text-lg text-neutral-600 dark:text-neutral-400">
+                  No se encontraron recetas con los filtros aplicados
+                </p>
+              </GlassCard>
+            </div>
+          ) : showDemo ? (
+            // Demo recipes filtered
+            filteredRecipes.map((recipe, idx) => (
               <GlassCard
                 key={idx}
                 className={cn(
@@ -309,8 +391,8 @@ export default function RecipesClient() {
               >
                 <div className="relative h-48 overflow-hidden">
                   <Image
-                    src={recipe.image}
-                    alt={recipe.title}
+                    src={'image' in recipe ? recipe.image : '/branding/cocorico/default.png'}
+                    alt={'title' in recipe ? recipe.title : ''}
                     fill
                     className="object-cover group-hover:scale-110 transition-transform duration-300"
                   />
@@ -320,32 +402,32 @@ export default function RecipesClient() {
                     "text-lg font-bold mb-2",
                     plan === "premium" ? "glass-text-premium" : "text-orange-900 dark:text-orange-300"
                   )}>
-                    {recipe.title}
+                    {'title' in recipe ? recipe.title : ''}
                   </h3>
                   <p className={cn(
                     "text-sm mb-4 line-clamp-2",
                     plan === "premium" ? "text-white/70" : "text-neutral-600 dark:text-neutral-400"
                   )}>
-                    {recipe.description}
+                    {'description' in recipe ? recipe.description : ''}
                   </p>
                   <div className="flex items-center gap-4 text-xs">
                     <div className="flex items-center gap-1">
                       <Clock className="w-4 h-4" />
-                      <span>{recipe.prepTime}</span>
+                      <span>{'prepTime' in recipe ? recipe.prepTime : ''}</span>
                     </div>
                     <div className="flex items-center gap-1">
                       <Users className="w-4 h-4" />
-                      <span>{recipe.servings}</span>
+                      <span>{'servings' in recipe ? recipe.servings : ''}</span>
                     </div>
                   </div>
                 </div>
               </GlassCard>
             ))
           ) : (
-            // Real recipes from DB
-            recipes.map((recipe) => (
+            // Real recipes from DB filtered
+            filteredRecipes.map((recipe, idx) => (
               <GlassCard
-                key={recipe.id}
+                key={('id' in recipe && recipe.id) ? recipe.id : `demo-${idx}`}
                 className={cn(
                   "overflow-hidden transition-all hover:scale-105",
                 )}
@@ -369,11 +451,15 @@ export default function RecipesClient() {
                       "text-xs px-2 py-1 rounded-lg",
                       plan === "premium" ? "glass-droplet" : "bg-orange-100 text-orange-800"
                     )}>
-                      {recipe.visibility === Visibility.PUBLIC ? 'Pública' : 'Privada'}
+                      {'visibility' in recipe ? (recipe.visibility === Visibility.PUBLIC ? 'Pública' : 'Privada') : 'Demo'}
                     </span>
                     <div className="flex gap-2">
                       <button
-                        onClick={() => router.push(`/${locale}/recipes/${recipe.id}`)}
+                        onClick={() => {
+                          if ('id' in recipe) {
+                            router.push(`/${locale}/recipes/${recipe.id}`);
+                          }
+                        }}
                         className={cn(
                           "text-sm px-3 py-1 rounded-lg",
                           plan === "premium" ? "glass-droplet" : "text-cocorico-turquoise hover:bg-cocorico-datil/10"
@@ -382,7 +468,11 @@ export default function RecipesClient() {
                         Ver
                       </button>
                       <button
-                        onClick={() => router.push(`/${locale}/recipes/${recipe.id}/edit`)}
+                        onClick={() => {
+                          if ('id' in recipe) {
+                            router.push(`/${locale}/recipes/${recipe.id}/edit`);
+                          }
+                        }}
                         className={cn(
                           "text-sm px-3 py-1 rounded-lg",
                           plan === "premium" ? "glass-droplet" : "text-green-600 hover:bg-green-50"
@@ -392,8 +482,10 @@ export default function RecipesClient() {
                       </button>
                       <button
                         onClick={() => {
-                          if (confirm('¿Estás seguro de eliminar esta receta?')) {
-                            deleteRecipe(recipe.id);
+                          if ('id' in recipe) {
+                            if (confirm('¿Estás seguro de eliminar esta receta?')) {
+                              deleteRecipe(recipe.id);
+                            }
                           }
                         }}
                         className={cn(

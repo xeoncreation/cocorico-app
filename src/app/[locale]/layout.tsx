@@ -34,7 +34,7 @@ export default async function LocaleLayout({
         </main>
 
         {/* BLOQUE 3: Footer único consolidado con enlaces legales */}
-        <footer className="bg-white dark:bg-neutral-950 border-t-4 border-neutral-400 dark:border-neutral-600 mt-auto shadow-[0_-12px_24px_-4px_rgba(0,0,0,0.4)]">
+        <footer className="coco-glass border-t-4 border-neutral-400 dark:border-neutral-600 mt-auto shadow-[0_-12px_24px_-4px_rgba(0,0,0,0.4)]">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
             <div className="flex flex-col md:flex-row items-center justify-between gap-4">
               {/* Logo y descripción */}
@@ -45,26 +45,29 @@ export default async function LocaleLayout({
                 </span>
               </div>
               
-              {/* Enlaces legales */}
-              <div className="flex items-center gap-5 text-base font-black text-black dark:text-white">
-                <span className="font-black">© {new Date().getFullYear()}</span>
+              {/* Enlaces legales - mayor visibilidad */}
+              <div className="flex flex-wrap items-center justify-center gap-4 text-lg font-black">
+                <span className="font-black text-black dark:text-white drop-shadow-md">© {new Date().getFullYear()}</span>
+                <span className="text-neutral-400 dark:text-neutral-600">•</span>
                 <Link 
-                  className="hover:text-cocorico-red dark:hover:text-amber-400 transition underline-offset-4 hover:underline font-black" 
+                  className="text-black dark:text-white hover:text-cocorico-red dark:hover:text-amber-400 transition underline-offset-4 hover:underline font-black drop-shadow-md px-3 py-1 rounded-lg hover:bg-white/20 dark:hover:bg-neutral-800/30" 
                   href={`/${locale}/legal/privacy`}
                 >
-                  Privacidad
+                  📄 Privacidad
                 </Link>
+                <span className="text-neutral-400 dark:text-neutral-600">•</span>
                 <Link 
-                  className="hover:text-cocorico-red dark:hover:text-amber-400 transition underline-offset-4 hover:underline font-black" 
+                  className="text-black dark:text-white hover:text-cocorico-red dark:hover:text-amber-400 transition underline-offset-4 hover:underline font-black drop-shadow-md px-3 py-1 rounded-lg hover:bg-white/20 dark:hover:bg-neutral-800/30" 
                   href={`/${locale}/legal/terms`}
                 >
-                  Términos
+                  📋 Términos
                 </Link>
+                <span className="text-neutral-400 dark:text-neutral-600">•</span>
                 <Link 
-                  className="hover:text-cocorico-red dark:hover:text-amber-400 transition underline-offset-4 hover:underline font-black" 
+                  className="text-black dark:text-white hover:text-cocorico-red dark:hover:text-amber-400 transition underline-offset-4 hover:underline font-black drop-shadow-md px-3 py-1 rounded-lg hover:bg-white/20 dark:hover:bg-neutral-800/30" 
                   href={`/${locale}/legal/cookies`}
                 >
-                  Cookies
+                  🍪 Cookies
                 </Link>
               </div>
             </div>

@@ -1,44 +1,18 @@
--- ============================================
--- BLOQUE 37: Panel de administración
--- ============================================
 
--- Tabla de roles de usuario
-CREATE TABLE IF NOT EXISTS public.user_roles (
-  user_id uuid PRIMARY KEY REFERENCES auth.users(id) ON DELETE CASCADE,
-  role text DEFAULT 'user' CHECK (role IN ('user', 'admin')),
-  created_at timestamptz DEFAULT now()
+CREATE TABLE user_roles (
+  user_id UNIQUEIDENTIFIER PRIMARY KEY,
+  role NVARCHAR(20) DEFAULT 'user',
+  created_at DATETIME2 DEFAULT GETDATE()
 );
 
--- Habilitar RLS
-ALTER TABLE public.user_roles ENABLE ROW LEVEL SECURITY;
+-- (No equivalente en SQL Server)
 
--- Política: usuarios pueden ver su propio rol
-CREATE POLICY "users can see own role"
-ON public.user_roles FOR SELECT
-USING (auth.uid() = user_id);
+-- (No equivalente en SQL Server)
 
--- Política: solo admins pueden gestionar roles
-CREATE POLICY "admins can update roles"
-ON public.user_roles FOR ALL
-USING (EXISTS (
-  SELECT 1 FROM user_roles 
-  WHERE user_id = auth.uid() AND role = 'admin'
-));
+-- (No equivalente en SQL Server)
 
--- ============================================
--- Trigger: Asignar rol 'user' por defecto al registrarse
--- ============================================
 
-CREATE OR REPLACE FUNCTION public.handle_new_user_role()
-RETURNS trigger
-LANGUAGE plpgsql
-AS $$
-BEGIN
-  INSERT INTO public.user_roles (user_id, role)
-  VALUES (new.id, 'user')
-  ON CONFLICT (user_id) DO NOTHING;
-  RETURN new;
-END;
+-- (No equivalente en SQL Server)
 $$;
 
 DROP TRIGGER IF EXISTS on_auth_user_created_role ON auth.users;

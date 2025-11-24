@@ -1,0 +1,41 @@
+{
+  "nav": {
+    "home": "홈",
+    "search": "검색",
+    "learn": "학습",
+    "dashboard": "대시보드",
+    "favorites": "즐겨찾기",
+    "versions": "버전",
+    "import": "가져오기",
+    "chat": "채팅",
+    "voiceChat": "음성 채팅",
+    "scanner": "스캐너",
+    "recipes": "레시피",
+    "community": "커뮤니티",
+    "challenges": "챌린지",
+    "pricing": "프리미엄",
+    "achievements": "업적",
+    "feedback": "피드백",
+    "settings": "설정",
+    "login": "로그인",
+    "logout": "로그아웃",
+    "account": "내 계정",
+    "lang": {
+      "_": "언어",
+      "en": "EN",
+      "es": "ES",
+      "ko": "KO"
+    },
+    "stats": "통계"
+  },
+  "footer": {
+    "privacy": "개인정보",
+    "terms": "약관"
+  },
+  "home": {
+    "title": "안녕하세요! 저는 Cocorico 🐓입니다",
+    "description": "당신의 AI 요리 도우미입니다. 레시피를 찾고, 즐겨찾기를 저장하고, 낭비 없이 요리를 배워보세요.",
+    "chatButton": "Cocorico와 채팅하기",
+    "recipesButton": "내 레시피 보기"
+  }
+}

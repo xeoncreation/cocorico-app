@@ -37,23 +37,23 @@ export default function LoginPage() {
         setError("Autenticación no disponible: configura las variables NEXT_PUBLIC_SUPABASE_*.");
         return;
       }
-
-      // If password provided, try password login; otherwise send magic link
-      if (data.password && data.password.length >= 6) {
-        const { error } = await supabase.auth.signInWithPassword({
-          email: data.email,
-          password: data.password,
+            <input
+              type="email"
+              className="w-full rounded-md border coco-glass px-3 py-2 focus:outline-none focus:ring-2 focus:ring-cocorico-red"
+              placeholder="tucorreo@ejemplo.com"
+              {...register("email")}
+            />
         });
         if (error) throw error;
         setMessage("Inicio de sesión correcto. Redirigiendo…");
         // Give a brief moment to ensure session is set
         setTimeout(() => router.push("/"), 600);
-      } else {
-        // Magic link - usar URL absoluta para iOS Safari
-        const redirectTo = typeof window !== 'undefined' 
-          ? `${window.location.protocol}//${window.location.host}`
-          : undefined;
-        
+            <input
+              type="password"
+              className="w-full rounded-md border coco-glass px-3 py-2 focus:outline-none focus:ring-2 focus:ring-cocorico-red"
+              placeholder="••••••••"
+              {...register("password")}
+            />
         const { error } = await supabase.auth.signInWithOtp({ 
           email: data.email, 
           options: { 
@@ -72,7 +72,14 @@ export default function LoginPage() {
 
   return (
     <LegacyPageWrapper>
-      <div className="mx-auto max-w-md px-6 py-10">
+      <div className="mx-auto max-w-md px-6 py-10 coco-glass rounded-2xl">
+        <div className="mb-6 flex justify-center">
+          <img
+            src="/branding/cocorico-mascot-anim-optimized.gif"
+            alt="Cocorico animado"
+            style={{ width: 120, height: 120, borderRadius: '1rem', objectFit: 'cover', boxShadow: '0 4px 24px rgba(0,0,0,0.12)' }}
+          />
+        </div>
         <h1 className="text-3xl font-bold mb-2">Iniciar sesión</h1>
         <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-6">
           Usa tu correo y contraseña, o deja la contraseña vacía para recibir un enlace mágico.
@@ -83,7 +90,7 @@ export default function LoginPage() {
             <label className="block text-sm font-medium mb-1">Correo electrónico</label>
             <input
               type="email"
-              className="w-full rounded-md border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-cocorico-red"
+              className="w-full rounded-md border coco-glass px-3 py-2 focus:outline-none focus:ring-2 focus:ring-cocorico-red"
               placeholder="tucorreo@ejemplo.com"
               {...register("email")}
             />
@@ -94,7 +101,7 @@ export default function LoginPage() {
             <label className="block text-sm font-medium mb-1">Contraseña (opcional)</label>
             <input
               type="password"
-              className="w-full rounded-md border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-cocorico-red"
+              className="w-full rounded-md border coco-glass px-3 py-2 focus:outline-none focus:ring-2 focus:ring-cocorico-red"
               placeholder="••••••••"
               {...register("password")}
             />
@@ -105,14 +112,14 @@ export default function LoginPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full rounded-md bg-cocorico-red text-white font-semibold py-2 hover:opacity-95 disabled:opacity-60"
+            className="w-full rounded-md coco-glass font-semibold py-2 hover:opacity-95 disabled:opacity-60"
           >
             {loading ? "Procesando…" : "Entrar / Enlace mágico"}
           </button>
         </form>
 
-        {message && <div className="mt-4 rounded-md bg-green-50 text-green-800 px-3 py-2 text-sm">{message}</div>}
-        {error && <div className="mt-4 rounded-md bg-red-50 text-red-800 px-3 py-2 text-sm">{error}</div>}
+        {message && <div className="mt-4 rounded-md coco-glass text-green-800 px-3 py-2 text-sm">{message}</div>}
+        {error && <div className="mt-4 rounded-md coco-glass text-red-800 px-3 py-2 text-sm">{error}</div>}
 
         <div className="mt-8 text-sm text-neutral-600 dark:text-neutral-400">
           ¿No tienes cuenta?{" "}

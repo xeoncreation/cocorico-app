@@ -17,17 +17,12 @@ export default function CocoButton({
   className = "",
   disabled = false
 }: CocoButtonProps) {
-  const base = "px-4 py-2 rounded-lg font-semibold transition disabled:opacity-50 disabled:cursor-not-allowed";
-  const styles =
-    variant === "solid"
-      ? "bg-cocorico-yellow text-cocorico-red hover:bg-cocorico-orange"
-      : "border border-cocorico-red text-cocorico-red hover:bg-cocorico-red hover:text-white";
-
+  const base = "px-4 py-2 rounded-lg font-semibold transition disabled:opacity-50 disabled:cursor-not-allowed coco-glass";
   return (
     <button 
       type={type}
       onClick={onClick} 
-      className={`${base} ${styles} ${className}`}
+      className={`${base} ${className}`}
       disabled={disabled}
     >
       {children}

@@ -18,9 +18,7 @@ export function GlassCard({ className, variant = "base", ...props }: GlassCardPr
   return (
     <div
       className={cn(
-        "relative overflow-hidden rounded-[32px]",
-        "backdrop-blur-[22px] saturate-[140%] border border-[rgba(255,255,255,0.35)]",
-        "shadow-[inset_0_1px_3px_rgba(255,255,255,0.25),0_4px_20px_rgba(0,0,0,0.25)]",
+        "coco-glass",
         variantMap[variant],
         className
       )}

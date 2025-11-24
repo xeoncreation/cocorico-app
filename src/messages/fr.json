@@ -1,0 +1,41 @@
+{
+  "nav": {
+    "home": "Accueil",
+    "search": "Rechercher",
+    "learn": "Apprendre",
+    "dashboard": "Tableau de bord",
+    "favorites": "Favoris",
+    "versions": "Versions",
+    "import": "Importer",
+    "chat": "Chat",
+    "voiceChat": "Chat vocal",
+    "scanner": "Scanner",
+    "recipes": "Recettes",
+    "community": "Communauté",
+    "challenges": "Défis",
+    "pricing": "Premium",
+    "achievements": "Succès",
+    "feedback": "Feedback",
+    "settings": "Paramètres",
+    "login": "Connexion",
+    "logout": "Déconnexion",
+    "account": "Mon compte",
+    "lang": {
+      "_": "Langue",
+      "en": "EN",
+      "es": "ES",
+      "fr": "FR"
+    },
+    "stats": "Statistiques"
+  },
+  "footer": {
+    "privacy": "Confidentialité",
+    "terms": "Conditions"
+  },
+  "home": {
+    "title": "Bonjour ! Je suis Cocorico 🐓",
+    "description": "Votre assistant de cuisine IA. Trouvez des recettes, enregistrez vos favoris et apprenez à cuisiner sans gaspillage.",
+    "chatButton": "Discuter avec Cocorico",
+    "recipesButton": "Voir mes recettes"
+  }
+}

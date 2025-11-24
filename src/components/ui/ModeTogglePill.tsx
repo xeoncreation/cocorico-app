@@ -32,7 +32,7 @@ export function ModeTogglePill({
       type="button"
       onClick={onClick}
       className={`
-        coco-glass-pill coco-ripple
+        coco-glass coco-ripple
         px-4 py-2.5
         flex items-center gap-2.5
         transition-all duration-300

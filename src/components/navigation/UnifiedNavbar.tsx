@@ -37,19 +37,21 @@ interface NavLink {
 }
 
 const mainNavLinks: NavLink[] = [
+  { href: "/", labelKey: "nav.home", icon: "🏠" },
   { href: "/chat", labelKey: "nav.chat", icon: "💬" },
   { href: "/scanner", labelKey: "nav.scanner", icon: "📷" },
   { href: "/recipes", labelKey: "nav.recipes", icon: "📖" },
-  { href: "/learn", labelKey: "nav.learn", icon: "🎓" },
   { href: "/community", labelKey: "nav.community", icon: "👥" },
-  { href: "/dashboard/challenges", labelKey: "nav.challenges", icon: "🏆" },
-  { href: "/pricing", labelKey: "nav.pricing", icon: "⭐" },
 ];
 
 const userMenuLinks: NavLink[] = [
   { href: "/dashboard", labelKey: "nav.dashboard", icon: "📊" },
-  { href: "/dashboard/achievements", labelKey: "nav.achievements", icon: "🏆" },
+  { href: "/voice-chat", labelKey: "nav.voiceChat", icon: "🎙️" },
+  { href: "/learn", labelKey: "nav.learn", icon: "🎓" },
+  { href: "/dashboard/challenges", labelKey: "nav.challenges", icon: "🏆" },
+  { href: "/dashboard/achievements", labelKey: "nav.achievements", icon: "🏅" },
   { href: "/dashboard/favorites", labelKey: "nav.favorites", icon: "⭐" },
+  { href: "/pricing", labelKey: "nav.pricing", icon: "💎" },
   { href: "/dashboard/feedback", labelKey: "nav.feedback", icon: "📝" },
   { href: "/settings", labelKey: "nav.settings", icon: "⚙️" },
 ];
@@ -105,26 +107,27 @@ export default function UnifiedNavbar() {
     return pathname?.startsWith(fullPath);
   };
 
-  // Helper: nav link classes
+  // Helper: nav link classes - estilo liquid glass individual
   const navLinkClass = (href: string) => {
     const active = isActive(href);
     return `
-      flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-bold
-      transition-all duration-200 drop-shadow-sm
+      flex items-center gap-2 px-4 py-2.5 rounded-2xl text-sm font-bold
+      transition-all duration-200 drop-shadow-lg backdrop-blur-md
+      border shadow-md hover:shadow-xl hover:scale-105
       ${
         active
-          ? "bg-cocorico-red/10 dark:bg-amber-400/10 text-cocorico-red dark:text-amber-400 font-black border-b-3 border-cocorico-red dark:border-amber-400"
-          : "text-neutral-900 dark:text-white hover:bg-cocorico-yellow/20 dark:hover:bg-neutral-700 hover:text-cocorico-red dark:hover:text-amber-400"
+          ? "bg-cocorico-red/30 dark:bg-amber-500/30 text-cocorico-red dark:text-amber-400 font-black border-cocorico-red/50 dark:border-amber-400/50"
+          : "bg-white/40 dark:bg-neutral-900/40 text-neutral-900 dark:text-white border-white/60 dark:border-neutral-700/60 hover:bg-cocorico-yellow/40 dark:hover:bg-neutral-800/50 hover:text-cocorico-red dark:hover:text-amber-400"
       }
     `.trim();
   };
 
   return (
-    <nav className="flex items-center justify-between px-4 sm:px-6 py-3 bg-white dark:bg-neutral-900 backdrop-blur-md border-b-2 border-neutral-300 dark:border-neutral-700 sticky top-0 z-50 shadow-md">
-      {/* Logo */}
+    <nav className="flex items-center justify-between px-4 sm:px-6 py-3 bg-transparent backdrop-blur-xl sticky top-0 z-50">
+      {/* Logo - botón liquid glass */}
       <Link
         href={withLocale("/")}
-        className="font-display text-2xl font-black text-cocorico-red dark:text-amber-400 hover:scale-105 transition-transform drop-shadow-md"
+        className="font-display text-2xl font-black text-cocorico-red dark:text-amber-400 hover:scale-105 transition-transform drop-shadow-2xl px-4 py-2 rounded-2xl bg-white/40 dark:bg-neutral-900/40 backdrop-blur-md border border-white/60 dark:border-neutral-700/60 shadow-lg hover:shadow-2xl"
         aria-label={t("nav.home")}
       >
         🐓 Cocorico
@@ -160,7 +163,7 @@ export default function UnifiedNavbar() {
           <div className="relative">
             <button
               onClick={() => setMenuOpen(!menuOpen)}
-              className="flex items-center gap-2 rounded-full bg-cocorico-yellow/20 dark:bg-amber-700/30 px-3 py-1.5 text-sm font-medium hover:bg-cocorico-yellow/30 transition-colors"
+              className="flex items-center gap-2 rounded-2xl coco-glass px-4 py-2.5 text-sm font-bold hover:scale-105"
               aria-label="User menu"
               aria-expanded={menuOpen}
               aria-haspopup="true"
@@ -183,7 +186,7 @@ export default function UnifiedNavbar() {
                   aria-hidden="true"
                 />
                 <div 
-                  className="absolute right-0 mt-2 w-56 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-md shadow-lg py-1 z-50"
+                  className="absolute right-0 mt-2 w-56 coco-glass rounded-md shadow-lg py-1 z-50"
                   role="menu"
                 >
                   {userMenuLinks.map((link) => (
@@ -214,7 +217,7 @@ export default function UnifiedNavbar() {
         ) : (
           <Link
             href={withLocale("/login")}
-            className="text-sm font-bold text-neutral-900 dark:text-white hover:text-cocorico-red dark:hover:text-amber-400 transition-colors px-3 py-2 rounded-lg hover:bg-cocorico-yellow/10 drop-shadow-sm"
+            className="text-sm font-bold px-4 py-2.5 rounded-2xl coco-glass hover:text-cocorico-red dark:hover:text-amber-400 transition-all hover:scale-105 drop-shadow-lg"
           >
             {t("nav.login")}
           </Link>
@@ -242,11 +245,7 @@ export default function UnifiedNavbar() {
                     <Link
                       key={link.href}
                       href={withLocale(link.href)}
-                      className={`flex items-center gap-2 rounded-lg px-3 py-2.5 text-sm font-bold ${
-                        isActive(link.href)
-                          ? "bg-cocorico-red/10 text-cocorico-red dark:bg-amber-400/10 dark:text-amber-400 font-black"
-                          : "text-neutral-900 dark:text-white hover:bg-neutral-100 dark:hover:bg-neutral-800"
-                      }`}
+                      className={`flex items-center gap-2 rounded-lg px-3 py-2.5 text-sm font-bold coco-glass ${isActive(link.href) ? "ring-2 ring-cocorico-red/40 dark:ring-amber-400/40 font-black" : "hover:ring-2 hover:ring-cocorico-yellow/40 dark:hover:ring-neutral-800/40"}`}
                       onClick={() => setMobileSheetOpen(false)}
                       aria-current={isActive(link.href) ? "page" : undefined}
                     >
@@ -286,7 +285,7 @@ export default function UnifiedNavbar() {
                 ) : (
                   <Link
                     href={withLocale("/login")}
-                    className="flex items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-sm font-semibold bg-cocorico-red text-white hover:bg-cocorico-red/90 transition-colors"
+                    className="flex items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-sm font-semibold coco-glass"
                     onClick={() => setMobileSheetOpen(false)}
                   >
                     {t("nav.login")}

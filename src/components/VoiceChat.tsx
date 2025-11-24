@@ -60,8 +60,7 @@ export default function VoiceChat() {
 
       setMood("happy", 1000);
       await ttsSpeak(answer, {
-        provider: "elevenlabs",
-        onPhonemes: (tl) => setPhonemes(tl),
+        provider: "elevenlabs"
       });
       setMood("default");
     } catch (e) {

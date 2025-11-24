@@ -1,0 +1,41 @@
+{
+  "nav": {
+    "home": "首页",
+    "search": "搜索",
+    "learn": "学习",
+    "dashboard": "仪表盘",
+    "favorites": "收藏夹",
+    "versions": "版本",
+    "import": "导入",
+    "chat": "聊天",
+    "voiceChat": "语音聊天",
+    "scanner": "扫描仪",
+    "recipes": "食谱",
+    "community": "社区",
+    "challenges": "挑战",
+    "pricing": "高级",
+    "achievements": "成就",
+    "feedback": "反馈",
+    "settings": "设置",
+    "login": "登录",
+    "logout": "登出",
+    "account": "我的账户",
+    "lang": {
+      "_": "语言",
+      "en": "EN",
+      "es": "ES",
+      "zh": "ZH"
+    },
+    "stats": "统计"
+  },
+  "footer": {
+    "privacy": "隐私",
+    "terms": "条款"
+  },
+  "home": {
+    "title": "你好！我是Cocorico 🐓",
+    "description": "您的AI烹饪助手。查找食谱，保存收藏，学习无浪费烹饪。",
+    "chatButton": "与Cocorico聊天",
+    "recipesButton": "查看我的食谱"
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "nav": {
+    "home": "ホーム",
+    "search": "検索",
+    "learn": "学ぶ",
+    "dashboard": "ダッシュボード",
+    "favorites": "お気に入り",
+    "versions": "バージョン",
+    "import": "インポート",
+    "chat": "チャット",
+    "voiceChat": "音声チャット",
+    "scanner": "スキャナー",
+    "recipes": "レシピ",
+    "community": "コミュニティ",
+    "challenges": "チャレンジ",
+    "pricing": "プレミアム",
+    "achievements": "実績",
+    "feedback": "フィードバック",
+    "settings": "設定",
+    "login": "ログイン",
+    "logout": "ログアウト",
+    "account": "マイアカウント",
+    "lang": {
+      "_": "言語",
+      "en": "EN",
+      "es": "ES",
+      "ja": "JA"
+    },
+    "stats": "統計"
+  },
+  "footer": {
+    "privacy": "プライバシー",
+    "terms": "利用規約"
+  },
+  "home": {
+    "title": "こんにちは！私はCocoricoです 🐓",
+    "description": "あなたのAI料理アシスタント。レシピを見つけて、お気に入りを保存し、無駄なく料理を学びましょう。",
+    "chatButton": "Cocoricoとチャットする",
+    "recipesButton": "私のレシピを見る"
+  }
+}

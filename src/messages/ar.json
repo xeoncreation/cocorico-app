@@ -1,0 +1,41 @@
+{
+  "nav": {
+    "home": "الرئيسية",
+    "search": "بحث",
+    "learn": "تعلم",
+    "dashboard": "لوحة التحكم",
+    "favorites": "المفضلة",
+    "versions": "الإصدارات",
+    "import": "استيراد",
+    "chat": "دردشة",
+    "voiceChat": "دردشة صوتية",
+    "scanner": "الماسح الضوئي",
+    "recipes": "وصفات",
+    "community": "المجتمع",
+    "challenges": "تحديات",
+    "pricing": "بريميوم",
+    "achievements": "الإنجازات",
+    "feedback": "ملاحظات",
+    "settings": "الإعدادات",
+    "login": "تسجيل الدخول",
+    "logout": "تسجيل الخروج",
+    "account": "حسابي",
+    "lang": {
+      "_": "اللغة",
+      "en": "EN",
+      "es": "ES",
+      "ar": "AR"
+    },
+    "stats": "إحصائيات"
+  },
+  "footer": {
+    "privacy": "الخصوصية",
+    "terms": "الشروط"
+  },
+  "home": {
+    "title": "مرحبًا! أنا Cocorico 🐓",
+    "description": "مساعدك الذكي في الطهي. ابحث عن وصفات، احفظ المفضلة وتعلم الطهي بدون هدر.",
+    "chatButton": "الدردشة مع Cocorico",
+    "recipesButton": "عرض وصفاتي"
+  }
+}
