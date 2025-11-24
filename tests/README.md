@@ -137,7 +137,7 @@ Incluye:
 
 ## 🛠️ Configuración
 
-### Jest
+### Jest (Unit Testing)
 
 Configuración en `jest.config.js`:
 - Entorno: `jsdom` para tests de React
@@ -145,7 +145,7 @@ Configuración en `jest.config.js`:
 - Mapeo de módulos: `@/` → `src/`
 - Transform: `ts-jest` para TypeScript
 
-### Playwright
+### Playwright (E2E)
 
 Configuración en `playwright.config.ts`:
 - Base URL: `http://localhost:3000`

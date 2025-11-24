@@ -8,11 +8,11 @@ BEGIN
   CREATE TABLE dbo.user_profiles (
     user_id UNIQUEIDENTIFIER PRIMARY KEY,
     email NVARCHAR(255),
-    plan NVARCHAR(20) NOT NULL DEFAULT 'free',
-    role NVARCHAR(20) NOT NULL DEFAULT 'user',
-    metadata NVARCHAR(MAX) DEFAULT '{}',
-    created_at DATETIME2 DEFAULT GETDATE(),
-    updated_at DATETIME2 DEFAULT GETDATE()
+    plan NVARCHAR(20) NOT NULL,
+    role NVARCHAR(20) NOT NULL,
+    metadata NVARCHAR(MAX) NULL,
+    created_at DATETIME2 NOT NULL DEFAULT GETDATE(),
+    updated_at DATETIME2 NOT NULL DEFAULT GETDATE()
   );
 END
 

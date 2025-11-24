@@ -9,7 +9,7 @@
 
 **STATUS:** COMPLETADO (parcial - necesita migración de páginas legacy)
 
-### Cambios Implementados:
+### Cambios Implementados (Bloque 1):
 
 1. **`src/app/community/layout.tsx`**
    - ❌ Eliminado: Navbar duplicado
@@ -78,7 +78,7 @@ src/app/admin/page.tsx
 
 **STATUS:** COMPLETADO
 
-### Cambios Implementados:
+### Cambios Implementados (Bloque 2):
 
 1. **`src/app/[locale]/layout.tsx`**
    ```tsx
@@ -154,7 +154,7 @@ src/app/admin/page.tsx
 - ✅ `/login` - LegacyPageWrapper con Navbar + Footer
 - ✅ Páginas bajo `[locale]/` - UnifiedNavbar automático
 
-### Pendiente:
+### Pendiente (Bloque 1):
 
 - [ ] `/signup` - Aplicar LegacyPageWrapper
 - [ ] Páginas de error (error.tsx, not-found.tsx)
@@ -278,7 +278,7 @@ export const viewport: Viewport = {
 - Mobile (<lg): Hamburger menu → Sheet lateral
 - ✅ Implementado con shadcn/ui Sheet
 
-### Pendiente:
+### Pendiente (Bloque 2):
 
 - [ ] Audit breakpoints: sm (640px), md (768px), lg (1024px), xl (1280px)
 - [ ] Fix overflow-x en todas las páginas

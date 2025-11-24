@@ -42,6 +42,10 @@ const mainNavLinks: NavLink[] = [
   { href: "/scanner", labelKey: "nav.scanner", icon: "📷" },
   { href: "/recipes", labelKey: "nav.recipes", icon: "📖" },
   { href: "/community", labelKey: "nav.community", icon: "👥" },
+  { href: "/community/feed", labelKey: "nav.feed", icon: "📰" },
+  { href: "/community/challenges", labelKey: "nav.challenges", icon: "🏆" },
+  { href: "/community/chat", labelKey: "nav.communityChat", icon: "🗨️" },
+  { href: "/premium", labelKey: "nav.premium", icon: "⭐" },
 ];
 
 const userMenuLinks: NavLink[] = [
@@ -54,6 +58,10 @@ const userMenuLinks: NavLink[] = [
   { href: "/pricing", labelKey: "nav.pricing", icon: "💎" },
   { href: "/dashboard/feedback", labelKey: "nav.feedback", icon: "📝" },
   { href: "/settings", labelKey: "nav.settings", icon: "⚙️" },
+  { href: "/community/feed", labelKey: "nav.feed", icon: "📰" },
+  { href: "/community/challenges", labelKey: "nav.challenges", icon: "🏆" },
+  { href: "/community/chat", labelKey: "nav.communityChat", icon: "🗨️" },
+  { href: "/premium", labelKey: "nav.premium", icon: "⭐" },
 ];
 
 export default function UnifiedNavbar() {

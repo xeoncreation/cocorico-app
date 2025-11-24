@@ -22,7 +22,7 @@
 
 "use client";
 
-import Navbar from "@/components/Navbar";
+import UnifiedNavbar from "@/components/navigation/UnifiedNavbar";
 import Footer from "@/components/Footer";
 import { ReactNode } from "react";
 
@@ -47,7 +47,7 @@ export default function LegacyPageWrapper({
 }: LegacyPageWrapperProps) {
   return (
     <div className="min-h-screen flex flex-col">
-      <Navbar />
+      <UnifiedNavbar />
       <main className={`flex-1 ${addTopPadding ? "pt-[60px]" : ""}`}>
         {children}
       </main>

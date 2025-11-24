@@ -1,5 +1,5 @@
 import React from "react";
-import { useTheme } from "next-themes";
+import { useTheme } from "@/components/ThemeProvider";
 
 interface WallpaperProps {
   imageLight: string;
@@ -7,7 +7,8 @@ interface WallpaperProps {
 }
 
 export default function Wallpaper({ imageLight, imageDark }: WallpaperProps) {
-  const { theme } = useTheme();
+  const themeCtx = useTheme();
+  const theme = themeCtx.theme;
   const bg = theme === "dark" ? imageDark : imageLight;
 
   return (

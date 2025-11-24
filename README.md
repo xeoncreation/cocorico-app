@@ -6,15 +6,7 @@
 ---
 ## 🚀 Stack Tecnológico
 
-- **Next.js 14** (App Router)
-- **Supabase** (DB + Auth + Storage)
-- **OpenAI API** (chat y generación de recetas)
-- **TailwindCSS** (estilos)
-- **TypeScript** (type safety)
-- **next-intl** (i18n ES/EN)
-- **shadcn/ui** (componentes UI)
 
----
 ## ⚙️ Instalación
 
 ```bash
@@ -28,7 +20,6 @@ npm run dev
 
 Abre http://localhost:3000 en tu navegador.
 
----
 ## 🔧 Variables de Entorno (`.env.local`)
 
 ```env
@@ -42,23 +33,9 @@ STRIPE_WEBHOOK_SECRET=whsec_xxx
 NEXT_PUBLIC_STRIPE_PRICE_ID_MONTHLY=price_xxx
 ```
 
----
 ## 🧩 Características Principales
 
-- Autenticación completa (login, registro, recuperación)
-- Chat con IA para sugerencias culinarias
-- Recetas públicas compartibles `/r/[user]/[slug]`
-- Sistema de favoritos 💛
-- Variaciones IA 🤖 de recetas
-- Panel de estadísticas 📊
-- Internacionalización ES/EN
-- Importación desde URL o foto (escáner)
-- Diseño responsive + shadcn/ui
-- Analytics con Umami
-- Onboarding interactivo
-- CSP y headers de seguridad
 
----
 ## 📂 Estructura
 
 ```text
@@ -74,7 +51,6 @@ cocorico/
 └── i18n.ts                  # Configuración next-intl
 ```
 
----
 ## 📈 Scripts
 
 ```bash
@@ -88,23 +64,18 @@ npm test           # Unit tests (Jest)
 npm run test:e2e   # E2E (Playwright)
 ```
 
----
 ## 🗄️ Base de Datos (Supabase)
 
 Tablas: `recipes`, `favorites`, `recipe_versions`, `stats`, `messages`.
 Ejecuta migraciones en `supabase/migrations/` y luego scripts extra:
 `supabase/sql/ai_and_limits.sql`, `supabase/sql/stripe.sql` (RLS + RPC de cuota).
 
----
 ## 🌐 Internacionalización
 
 Mensajes:
-- `src/messages/es.json`
-- `src/messages/en.json`
 
 Selector buscable por nombre de idioma.
 
----
 ## 📊 Analytics & Onboarding
 
 Umami: script en `layout.tsx`, ID configurable vía `NEXT_PUBLIC_UMAMI_WEBSITE_ID`.
@@ -112,7 +83,6 @@ Modal de onboarding (`OnboardingModal.tsx`) con 4 pasos y flag en `localStorage`
 
 CSP en `middleware.ts` (estricto producción, relajado dev).
 
----
 ## 💳 Stripe (Plan Premium)
 
 1. Configura claves en `.env.local`.
@@ -122,7 +92,6 @@ CSP en `middleware.ts` (estricto producción, relajado dev).
 Endpoints: `/api/stripe/checkout`, `/api/stripe/portal`, `/api/stripe/webhook`.
 Estado en `user_subscriptions`.
 
----
 ## 🚢 Despliegue
 
 Vercel recomendado:
@@ -133,7 +102,6 @@ vercel deploy
 
 Configura variables en el dashboard.
 
----
 ## 🩺 Salud (Windows)
 
 Healthcheck: `http://localhost:3000/health`
@@ -147,17 +115,14 @@ Limpiar caché:
 npm run clean; npm run dev
 ```
 
----
 ## 📝 Licencia
 
 MIT
 
----
 ## 🤝 Contribuir
 
 Pull requests bienvenidos. Para cambios mayores abre un issue primero.
 
----
 ## 📧 Contacto
 
 Equipo Cocorico 🐓
