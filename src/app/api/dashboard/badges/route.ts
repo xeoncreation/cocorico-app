@@ -1,8 +1,9 @@
+import { createServerComponentClient } from "@/lib/supabase/server";
 import { cookies } from "next/headers";
 import { createRouteHandlerClient } from "@/lib/supabase/client";
 
 export async function GET() {
-  const supabase = await createRouteHandlerClient();
+  const supabase = await createServerComponentClient();
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) return new Response(JSON.stringify({ error: "Not authenticated" }), { status: 401 });
   const { data, error } = await supabase

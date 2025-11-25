@@ -1,7 +1,8 @@
+import { createServerComponentClient } from "@/lib/supabase/server";
 import { createRouteHandlerClient } from "@/lib/supabase/client";
 
 export async function GET() {
-  const supabase = await createRouteHandlerClient();
+  const supabase = await createServerComponentClient();
   const { data: { user } } = await supabase.auth.getUser();
   const { data: posts, error } = await supabase
     .from("community_posts")
