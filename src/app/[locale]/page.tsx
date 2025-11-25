@@ -38,8 +38,8 @@ export default async function LocaleHomePage({
   return (
     <>
       <Wallpaper
-        imageLight="/branding/HOME-INICIO,  Fondo Campo de Trigo, modo claro.png"
-        imageDark="/branding/HOME - INICIO — Campo de trigo nocturno cálido (dark mode).png"
+        imageLight="/branding/HOME_MODO_CLARO.jpg"
+        imageDark="/branding/HOME_MODO_OSCURO.jpg"
       />
       <AppBackground variantOverride="home-free">
       <main className="flex flex-col items-center justify-center min-h-[90vh] text-center px-4 sm:px-6 py-12 relative overflow-hidden">

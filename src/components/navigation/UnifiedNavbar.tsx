@@ -38,15 +38,26 @@ interface NavLink {
 
 const mainNavLinks: NavLink[] = [
   { href: "/", labelKey: "nav.home", icon: "🏠" },
-  { href: "/chat", labelKey: "nav.chat", icon: "💬" },
-  { href: "/scanner", labelKey: "nav.scanner", icon: "📷" },
   { href: "/recipes", labelKey: "nav.recipes", icon: "📖" },
-  { href: "/community", labelKey: "nav.community", icon: "👥" },
-  { href: "/community/feed", labelKey: "nav.feed", icon: "📰" },
-  { href: "/community/challenges", labelKey: "nav.challenges", icon: "🏆" },
-  { href: "/community/chat", labelKey: "nav.communityChat", icon: "🗨️" },
-  { href: "/premium", labelKey: "nav.premium", icon: "⭐" },
 ];
+
+const scannerMenu = {
+  label: "Scanner",
+  items: [
+    { href: "/scanner", label: "Escanear", icon: "📷" },
+    { href: "/scanner/history", label: "Historial", icon: "📋" },
+  ],
+};
+
+const communityMenu = {
+  label: "Comunidad",
+  items: [
+    { href: "/community", label: "Inicio", icon: "🏠" },
+    { href: "/community/feed", label: "Feed", icon: "📰" },
+    { href: "/community/challenges", label: "Retos", icon: "🏆" },
+    { href: "/community/chat", label: "Chat", icon: "💬" },
+  ],
+};
 
 const userMenuLinks: NavLink[] = [
   { href: "/dashboard", labelKey: "nav.dashboard", icon: "📊" },
@@ -143,6 +154,7 @@ export default function UnifiedNavbar() {
 
       {/* Desktop Navigation */}
       <div className="hidden lg:flex items-center gap-1">
+        {/* Main links */}
         {mainNavLinks.map((link) => (
           <Link
             key={link.href}
@@ -154,6 +166,42 @@ export default function UnifiedNavbar() {
             <span>{t(link.labelKey as any)}</span>
           </Link>
         ))}
+        {/* Scanner dropdown */}
+        <div className="relative group">
+          <button className="flex items-center gap-2 px-4 py-2.5 rounded-2xl text-sm font-bold glass-clear border shadow-md hover:shadow-xl hover:scale-105">
+            <span aria-hidden="true">📷</span>
+            <span>Scanner</span>
+            <span aria-hidden="true">▼</span>
+          </button>
+          <div className="absolute left-0 mt-2 w-40 bg-white/80 dark:bg-neutral-900/80 rounded-xl shadow-lg z-50 hidden group-hover:block">
+            {scannerMenu.items.map(item => (
+              <Link key={item.href} href={withLocale(item.href)} className="flex items-center gap-2 px-4 py-2 text-sm hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors rounded-xl">
+                <span aria-hidden="true">{item.icon}</span>
+                <span>{item.label}</span>
+              </Link>
+            ))}
+          </div>
+        </div>
+        {/* Comunidad dropdown */}
+        <div className="relative group">
+          <button className="flex items-center gap-2 px-4 py-2.5 rounded-2xl text-sm font-bold glass-clear border shadow-md hover:shadow-xl hover:scale-105">
+            <span aria-hidden="true">👥</span>
+            <span>Comunidad</span>
+            <span aria-hidden="true">▼</span>
+          </button>
+          <div className="absolute left-0 mt-2 w-48 bg-white/80 dark:bg-neutral-900/80 rounded-xl shadow-lg z-50 hidden group-hover:block">
+            {communityMenu.items.map(item => (
+              <Link key={item.href} href={withLocale(item.href)} className="flex items-center gap-2 px-4 py-2 text-sm hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors rounded-xl">
+                <span aria-hidden="true">{item.icon}</span>
+                <span>{item.label}</span>
+              </Link>
+            ))}
+          </div>
+        </div>
+        {/* Premium button */}
+        <Link href={withLocale("/premium")} className="glass-pill px-4 py-2 bg-gradient-to-r from-amber-400 to-orange-500 text-white font-bold ml-2">
+          ⭐ Premium
+        </Link>
       </div>
 
       {/* Right side controls */}

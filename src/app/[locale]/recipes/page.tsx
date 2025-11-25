@@ -8,8 +8,8 @@ export default function RecipesPage() {
   return (
     <>
       <Wallpaper
-        imageLight="/branding/SEARCH - BÚSQUEDA — Especias y hierbas, modo claro.png"
-        imageDark="/branding/SEARCH - BÚSQUEDA — Especias en mesa, modo oscuro.png"
+        imageLight="/branding/MIS_RECETAS_MODO_CLARO.jpg"
+        imageDark="/branding/MIS_RECETAS_MODO_OSCURO.jpg"
       />
       <AppBackground variantOverride="recipes-neutral">
         <RecipesClient />

@@ -6,8 +6,8 @@ export default function RecipePage() {
   return (
     <>
       <Wallpaper
-        imageLight="/branding/RECETA PÚBLICA — Plating gourmet, modo claro.png"
-        imageDark="/branding/RECETA PÚBLICA — Plating gourmet, modo oscuro.png"
+        imageLight="/branding/RECETA_PUBLICA_MODO_CLARO.jpg"
+        imageDark="/branding/RECETA_PUBLICA_MODO_OSCURO.jpg"
       />
       <div className="max-w-4xl mx-auto p-4">
         <div className="mb-6">

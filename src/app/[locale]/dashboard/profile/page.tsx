@@ -13,8 +13,8 @@ export default function ProfilePage() {
   return (
     <>
       <Wallpaper
-        imageLight="/branding/PERFIL — Comida saludable, modo claro.png"
-        imageDark="/branding/PERFIL — Estética healthy, modo oscuro.png"
+        imageLight="/branding/PERFIL_MODO_CLARO.jpg"
+        imageDark="/branding/PERFIL_MODO_OSCURO.jpg"
       />
       <AppBackground variantOverride="profile">
         <main className="max-w-4xl mx-auto px-4 py-10">

@@ -12,8 +12,8 @@ export default function LearnPage({ params: { locale } }: { params: { locale: st
 	return (
 		<>
 			<Wallpaper
-				imageLight="/branding/LEARN - APRENDER — Fondo libro de cocina, modo claro.png"
-				imageDark="/branding/LEARN - APRENDER — Libro de cocina, modo oscuro.png"
+				imageLight="/branding/LEARN_MODO_CLARO.jpg"
+				imageDark="/branding/LEARN_MODO_OSCURO.jpg"
 			/>
 			<AppBackground variantOverride="learn">
 				<main className="max-w-6xl mx-auto px-4 py-10">

@@ -12,8 +12,8 @@ export default function CommunityLayout({
   return (
     <>
       <Wallpaper
-        imageLight="/branding/HOME-INICIO,  Fondo Campo de Trigo, modo claro.png"
-        imageDark="/branding/HOME - INICIO — Campo de trigo nocturno cálido (dark mode).png"
+        imageLight="/branding/COMUNIDAD_MODO_CLARO.jpg"
+        imageDark="/branding/COMUNIDAD_MODO_OSCURO.jpg"
       />
       
       <div className="min-h-screen">
