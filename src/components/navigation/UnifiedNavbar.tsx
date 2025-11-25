@@ -131,7 +131,7 @@ export default function UnifiedNavbar() {
   };
 
   return (
-    <nav className="flex items-center justify-between px-4 sm:px-6 py-3 bg-transparent backdrop-blur-xl sticky top-0 z-50">
+    <nav className="flex items-center justify-between px-4 sm:px-6 py-3 glass-clear sticky top-0 z-50 shadow-lg">
       {/* Logo - botón liquid glass */}
       <Link
         href={withLocale("/")}

@@ -43,8 +43,8 @@ export default function ScannerPage() {
   return (
     <>
       <Wallpaper
-        imageLight="/branding/SCAN_MODO_CLARO.jpg"
-        imageDark="/branding/SCAN_MODO_OSCURO.jpg"
+        imageLight="/branding/COCORICO SCAN — Fondo tech + alimentos, modo claro.png"
+        imageDark="/branding/COCORICO SCAN — Fondo futurista, modo oscuro.png"
       />
       <div className="min-h-screen w-full bg-[radial-gradient(circle_at_top,_#f97316_0,_#1e293b_45%,_#020617_100%)] text-white">
         <div className="max-w-md mx-auto px-4 py-6">

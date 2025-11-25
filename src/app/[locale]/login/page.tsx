@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { AppBackground } from "@/components/layout/AppBackground";
+import Wallpaper from "@/components/layout/Wallpaper";
 import { Button } from "@/components/ui/button";
 import GlassCard from "@/components/ui/GlassCard";
 import { Mail, Lock, Chrome, Apple } from "lucide-react";
@@ -11,7 +12,12 @@ export default function LoginPage({ params: { locale } }: { params: { locale: st
   const t = useTranslations();
 
   return (
-    <AppBackground variantOverride="home-free">
+    <>
+      <Wallpaper
+        imageLight="/branding/LOGIN - REGISTER — Fondo cálido crema, modo claro.png"
+        imageDark="/branding/LOGIN - REGISTER — Fondo crema, modo oscuro.png"
+      />
+      <AppBackground variantOverride="home-free">
       <div className="min-h-screen flex items-center justify-center px-4 py-12">
         <GlassCard className="w-full max-w-md p-8 space-y-6">
           {/* Logo y título */}
@@ -115,6 +121,7 @@ export default function LoginPage({ params: { locale } }: { params: { locale: st
           </div>
         </GlassCard>
       </div>
-    </AppBackground>
+      </AppBackground>
+    </>
   );
 }

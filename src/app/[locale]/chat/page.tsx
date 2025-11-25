@@ -33,16 +33,16 @@ export default function ChatPage() {
   }, [setMood]);
 
   return (
-    <section className="fixed inset-0 overflow-hidden bg-gradient-to-br from-pink-50/80 via-purple-50/60 to-rose-50/80 dark:from-purple-950/40 dark:via-pink-900/30 dark:to-rose-950/40">
+    <section className="min-h-screen overflow-hidden bg-gradient-to-br from-pink-50/80 via-purple-50/60 to-rose-50/80 dark:from-purple-950/40 dark:via-pink-900/30 dark:to-rose-950/40">
       {/* Mascota flotante a la derecha - Solo visible en pantallas grandes */}
-      <div className="hidden xl:block absolute top-24 right-12 z-10 pointer-events-none">
+      <div className="hidden xl:block absolute top-4 right-12 z-10 pointer-events-none">
         <div className="glass-card-premium p-4 rounded-3xl">
           <CocoricoMascot mood={mood} size="lg" animated className="animate-float" />
         </div>
       </div>
 
       {/* Contenedor principal con liquid glass */}
-      <div className={`flex flex-col h-full ${plan === "premium" ? "glass-panel-premium" : ""}`}>
+      <div className={`flex flex-col min-h-screen ${plan === "premium" ? "glass-panel-premium" : ""}`}>
         <div className="flex-1 flex flex-col max-w-5xl mx-auto w-full px-4 py-6 lg:py-8">
           {/* Header */}
           <div className="text-center mb-6 space-y-2">

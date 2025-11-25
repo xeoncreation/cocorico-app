@@ -99,7 +99,7 @@ export default function LanguageSelector({ compact = false }: { compact?: boolea
         </svg>
       </button>
       {open && (
-        <div className="absolute right-0 mt-2 w-72 rounded-xl border border-neutral-200 dark:border-neutral-700 bg-white/95 dark:bg-neutral-800/95 backdrop-blur-sm shadow-xl z-50 p-4 space-y-3">
+        <div className="absolute right-0 mt-2 w-72 rounded-xl border border-neutral-200 dark:border-neutral-700 bg-white/95 dark:bg-neutral-800/95 backdrop-blur-sm shadow-xl z-[100] p-4 space-y-3">
           <input
             autoFocus
             value={query}
