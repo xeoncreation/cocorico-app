@@ -8,7 +8,7 @@ class MockReq {
 
 // Mock Supabase client behaviour for textSearch and ilike
 jest.mock("@/lib/supabase/server", () => ({
-  createRouteHandlerClient: () => ({
+  createServerComponentClient: () => ({
     from: () => ({
       select: () => ({
         eq: () => ({

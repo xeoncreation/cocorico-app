@@ -1,6 +1,6 @@
 import { GET as postsGET } from "@/app/api/community/posts/route";
 jest.mock("@/lib/supabase/server", () => ({
-	createRouteHandlerClient: () => ({
+	createServerComponentClient: () => ({
 		auth: { getUser: async () => ({ data: { user: { id: "u1" } } }) },
 		from: (table: string) => {
 			// Provide chainable mocks used in route
