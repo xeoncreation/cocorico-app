@@ -14,8 +14,8 @@ export default function LoginPage({ params: { locale } }: { params: { locale: st
   return (
     <>
       <Wallpaper
-        imageLight="/branding/LOGIN_MODO_CLARO.jpg"
-        imageDark="/branding/LOGIN_MODO_OSCURO.jpg"
+        imageLight="/branding/LOGIN - REGISTER — Fondo cálido crema, modo claro.png"
+        imageDark="/branding/LOGIN - REGISTER — Fondo crema, modo oscuro.png"
       />
       <AppBackground variantOverride="home-free">
       <div className="min-h-screen flex items-center justify-center px-4 py-12">

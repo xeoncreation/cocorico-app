@@ -20,8 +20,8 @@ export default async function PremiumPage() {
   return (
     <>
       <Wallpaper
-        imageLight="/branding/PREMIUM_MODO_CLARO.jpg"
-        imageDark="/branding/PREMIUM_MODO_OSCURO.jpg"
+        imageLight="/branding/HOME-INICIO,  Fondo Campo de Trigo, modo claro.png"
+        imageDark="/branding/HOME - INICIO — Campo de trigo nocturno cálido (dark mode).png"
       />
       <LegacyPageWrapper>
         <PlanThemeProvider theme={theme}>

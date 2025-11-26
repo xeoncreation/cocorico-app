@@ -284,7 +284,7 @@ export default function RecipesClient() {
             asChild
             className={plan === "premium" ? "coco-btn-premium" : "coco-btn-primary"}
           >
-            <Link href={`/${locale}/recipes/new`}>
+            <Link href={`/${locale}/recipes/create`}>
               + Nueva Receta
             </Link>
           </RippleButton>
@@ -387,7 +387,7 @@ export default function RecipesClient() {
                   "group overflow-hidden transition-all hover:scale-105 cursor-pointer",
                 )}
                 variant={plan === 'premium' ? 'premium' : 'accent'}
-                onClick={() => router.push(`/${locale}/recipes/new`)}
+                onClick={() => router.push(`/${locale}/recipes/create`)}
               >
                 <div className="relative h-48 overflow-hidden">
                   <Image
@@ -516,7 +516,7 @@ export default function RecipesClient() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
-                href={`/${locale}/recipes/new`}
+                href={`/${locale}/recipes/create`}
                 className={cn(
                   "px-6 py-3 rounded-xl font-semibold transition-all bg-orange-500 hover:bg-orange-600 text-white shadow-lg"
                 )}

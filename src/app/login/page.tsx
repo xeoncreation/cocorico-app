@@ -8,8 +8,8 @@ export default function LoginPage() {
   return (
     <>
       <Wallpaper
-        imageLight="/branding/LOGIN_MODO_CLARO.jpg"
-        imageDark="/branding/LOGIN_MODO_OSCURO.jpg"
+        imageLight="/branding/LOGIN - REGISTER — Fondo cálido crema, modo claro.png"
+        imageDark="/branding/LOGIN - REGISTER — Fondo crema, modo oscuro.png"
       />
       <LegacyPageWrapper>
         <div className="mx-auto max-w-md px-6 py-10 coco-glass rounded-2xl">

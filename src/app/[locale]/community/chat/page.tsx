@@ -5,8 +5,8 @@ export default function CommunityChatPage() {
   return (
     <>
       <Wallpaper
-        imageLight="/branding/COMUNIDAD_MODO_CLARO.jpg"
-        imageDark="/branding/COMUNIDAD_MODO_OSCURO.jpg"
+        imageLight="/branding/HOME-INICIO,  Fondo Campo de Trigo, modo claro.png"
+        imageDark="/branding/HOME - INICIO — Campo de trigo nocturno cálido (dark mode).png"
       />
       <div className="min-h-screen flex items-center justify-center">
         <GlassCard className="max-w-2xl w-full p-8 rounded-3xl shadow-lg">

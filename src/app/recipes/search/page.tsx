@@ -12,8 +12,8 @@ export default function RecipesSearchPage() {
   return (
     <>
       <Wallpaper
-        imageLight="/branding/SEARCH_MODO_CLARO.jpg"
-        imageDark="/branding/SEARCH_MODO_OSCURO.jpg"
+        imageLight="/branding/SEARCH - BÚSQUEDA — Especias y hierbas, modo claro.png"
+        imageDark="/branding/SEARCH - BÚSQUEDA — Especias en mesa, modo oscuro.png"
       />
       <main className="max-w-7xl mx-auto w-full px-4 py-8 space-y-6">
         <header className="space-y-1">

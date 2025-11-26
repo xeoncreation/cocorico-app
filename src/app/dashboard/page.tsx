@@ -14,8 +14,8 @@ export default function DashboardPage() {
   return (
     <>
       <Wallpaper
-        imageLight="/branding/MIS_RECETAS_MODO_CLARO.jpg"
-        imageDark="/branding/MIS_RECETAS_MODO_OSCURO.jpg"
+        imageLight="/branding/MIS RECETAS- DASHBOARD — Cocina cenital difusa, modo claro.png"
+        imageDark="/branding/MIS RECETAS - DASHBOARD — Encimera oscura gourmet, modo oscuro.png"
       />
       <LegacyPageWrapper>
         <main className="max-w-4xl mx-auto p-6 space-y-6">

@@ -36,8 +36,8 @@ export default function EditRecipePage({ params }: { params: { id: string } }) {
     return (
       <>
         <Wallpaper
-          imageLight="/branding/EDITAR_RECETA_MODO_CLARO.jpg"
-          imageDark="/branding/EDITAR_RECETA_MODO_OSCURO.jpg"
+          imageLight="/branding/EDITAR RECETA — Encimera profesional, modo claro.png"
+          imageDark="/branding/EDITAR RECETA — Cocina profesional, modo oscuro.png"
         />
         <div className="p-4">Cargando...</div>
       </>
@@ -48,8 +48,8 @@ export default function EditRecipePage({ params }: { params: { id: string } }) {
     return (
       <>
         <Wallpaper
-          imageLight="/branding/EDITAR_RECETA_MODO_CLARO.jpg"
-          imageDark="/branding/EDITAR_RECETA_MODO_OSCURO.jpg"
+          imageLight="/branding/EDITAR RECETA — Encimera profesional, modo claro.png"
+          imageDark="/branding/EDITAR RECETA — Cocina profesional, modo oscuro.png"
         />
         <div className="p-4">Receta no encontrada</div>
       </>
@@ -59,8 +59,8 @@ export default function EditRecipePage({ params }: { params: { id: string } }) {
   return (
     <>
       <Wallpaper
-        imageLight="/branding/EDITAR_RECETA_MODO_CLARO.jpg"
-        imageDark="/branding/EDITAR_RECETA_MODO_OSCURO.jpg"
+        imageLight="/branding/EDITAR RECETA — Encimera profesional, modo claro.png"
+        imageDark="/branding/EDITAR RECETA — Cocina profesional, modo oscuro.png"
       />
       <RecipeForm recipe={recipe} />
     </>

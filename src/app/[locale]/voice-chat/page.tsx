@@ -22,8 +22,8 @@ export default function VoiceChatPage({
   return (
     <>
       <Wallpaper
-        imageLight="/branding/HOME_MODO_CLARO.jpg"
-        imageDark="/branding/HOME_MODO_OSCURO.jpg"
+        imageLight="/branding/HOME-INICIO,  Fondo Campo de Trigo, modo claro.png"
+        imageDark="/branding/HOME - INICIO — Campo de trigo nocturno cálido (dark mode).png"
       />
       <VoiceChatOnboarding />
       <VoiceChatClient locale={locale} />

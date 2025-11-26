@@ -41,8 +41,8 @@ export default async function FavoritesPage({ params: { locale } }: { params: { 
   return (
     <>
       <Wallpaper
-        imageLight="/branding/FAVORITOS_MODO_CLARO.jpg"
-        imageDark="/branding/FAVORITOS_MODO_OSCURO.jpg"
+        imageLight="/branding/FAVORITOS — Ingredientes premium gourmet, modo claro.png"
+        imageDark="/branding/FAVORITOS — Ingredientes premium, modo oscuro.png"
       />
       <AppBackground variantOverride="dashboard">
         <div className="max-w-4xl mx-auto py-8 px-4">

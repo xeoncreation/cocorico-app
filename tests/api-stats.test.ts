@@ -1,4 +1,4 @@
-import { GET as statsGET } from "@/app/api/dashboard/stats/route";
+import { GET as statsGET } from "../src/app/api/dashboard/stats/route";
 
 // Build a chaining mock that supports .eq() calls and head/count options
 const createChainableMock = () => {

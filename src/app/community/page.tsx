@@ -20,8 +20,8 @@ export default function CommunityPage() {
   return (
     <>
       <Wallpaper
-        imageLight="/branding/COMUNIDAD_MODO_CLARO.jpg"
-        imageDark="/branding/COMUNIDAD_MODO_OSCURO.jpg"
+        imageLight="/branding/SEARCH - BÚSQUEDA — Especias y hierbas, modo claro.png"
+        imageDark="/branding/SEARCH - BÚSQUEDA — Especias en mesa, modo oscuro.png"
       />
       <div className="max-w-5xl mx-auto px-4 py-8 space-y-8">
         <h1 className="text-4xl font-bold mb-8 text-center">Comunidad Cocorico 🐓</h1>

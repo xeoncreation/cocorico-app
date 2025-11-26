@@ -7,8 +7,8 @@ export default function LearnPage() {
   return (
     <>
       <Wallpaper
-        imageLight="/branding/LEARN_MODO_CLARO.jpg"
-        imageDark="/branding/LEARN_MODO_OSCURO.jpg"
+        imageLight="/branding/LEARN - APRENDER — Fondo libro de cocina, modo claro.png"
+        imageDark="/branding/LEARN - APRENDER — Libro de cocina, modo oscuro.png"
       />
       <LegacyPageWrapper>
         <main className="max-w-4xl mx-auto p-6 space-y-6">

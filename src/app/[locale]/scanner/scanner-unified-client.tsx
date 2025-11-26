@@ -114,12 +114,20 @@ export default function ScannerUnifiedClient({ locale }: { locale: string }) {
         </div>
 
         {/* Info adicional */}
-        <div className="mt-12 text-center">
+        <div className="mt-12 text-center space-y-6">
           <GlassCard className="inline-block p-4 bg-blue-50 dark:bg-blue-950/20">
             <p className="text-sm text-neutral-600 dark:text-neutral-300">
               <strong>💡 Consejo:</strong> Para mejores resultados, asegúrate de que el código de barras esté bien iluminado y enfocado
             </p>
           </GlassCard>
+
+          <div className="flex justify-center">
+            <Button variant="ghost" className="text-neutral-600 dark:text-neutral-400 hover:text-cocorico-brown dark:hover:text-amber-100" asChild>
+              <a href={`/${locale}/scanner/history`}>
+                Ver historial completo de escaneos →
+              </a>
+            </Button>
+          </div>
         </div>
       </div>
     );

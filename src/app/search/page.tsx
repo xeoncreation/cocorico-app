@@ -54,8 +54,8 @@ export default function SearchPage() {
   return (
     <>
       <Wallpaper
-        imageLight="/branding/SEARCH_MODO_CLARO.jpg"
-        imageDark="/branding/SEARCH_MODO_OSCURO.jpg"
+        imageLight="/branding/SEARCH - BÚSQUEDA — Especias y hierbas, modo claro.png"
+        imageDark="/branding/SEARCH - BÚSQUEDA — Especias en mesa, modo oscuro.png"
       />
       <LegacyPageWrapper>
         <main className="max-w-6xl mx-auto p-6">

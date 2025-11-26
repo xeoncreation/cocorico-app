@@ -55,8 +55,8 @@ export default async function ChallengesPage({ params: { locale } }: { params: {
   return (
     <>
       <Wallpaper
-        imageLight="/branding/CHALLENGES_MODO_CLARO.jpg"
-        imageDark="/branding/CHALLENGES_MODO_OSCURO.jpg"
+        imageLight="/branding/MIS RECETAS- DASHBOARD — Cocina cenital difusa, modo claro.png"
+        imageDark="/branding/MIS RECETAS - DASHBOARD — Encimera oscura gourmet, modo oscuro.png"
       />
       <AppBackground variantOverride="dashboard">
         <div className="max-w-6xl mx-auto px-4 py-8 space-y-8">

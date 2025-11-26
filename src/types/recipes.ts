@@ -12,6 +12,10 @@ export type Recipe = {
   slug: string;
   difficulty?: 'fácil' | 'media' | 'difícil';
   time?: number;
+  prep_time?: string;
+  cook_time?: string;
+  servings?: number;
+  image?: string;
   visibility: Visibility;
   created_at: string;
   updated_at: string;

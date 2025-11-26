@@ -12,8 +12,8 @@ export default function FoodScannerPage({ params: { locale } }: { params: { loca
   return (
     <>
       <Wallpaper
-        imageLight="/branding/SCAN_MODO_CLARO.jpg"
-        imageDark="/branding/SCAN_MODO_OSCURO.jpg"
+        imageLight="/branding/COCORICO SCAN — Fondo tech + alimentos, modo claro.png"
+        imageDark="/branding/COCORICO SCAN — Fondo futurista, modo oscuro.png"
       />
       <AppBackground variantOverride="home-free">
         <ScannerUnifiedClient locale={locale} />

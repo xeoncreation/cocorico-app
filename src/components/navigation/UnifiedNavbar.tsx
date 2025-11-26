@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import { createBrowserClient } from "@supabase/ssr";
 import { useTranslations, useLocale } from "next-intl";
@@ -28,6 +28,7 @@ import type { User } from "@supabase/supabase-js";
  * - ✅ Indicador visual de ruta activa
  * - ✅ Menú desplegable de usuario
  * - ✅ Theme toggle y language selector integrados
+ * - ✅ Dropdowns controlados por estado (click) para mejor UX
  */
 
 interface NavLink {
@@ -78,11 +79,18 @@ const userMenuLinks: NavLink[] = [
 export default function UnifiedNavbar() {
   const [user, setUser] = useState<User | null>(null);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [scannerOpen, setScannerOpen] = useState(false);
+  const [communityOpen, setCommunityOpen] = useState(false);
   const [mobileSheetOpen, setMobileSheetOpen] = useState(false);
   const pathname = usePathname();
   const locale = useLocale();
   const t = useTranslations();
   
+  // Refs for click outside handling
+  const scannerRef = useRef<HTMLDivElement>(null);
+  const communityRef = useRef<HTMLDivElement>(null);
+  const userMenuRef = useRef<HTMLDivElement>(null);
+
   const supabase = createBrowserClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
@@ -105,6 +113,26 @@ export default function UnifiedNavbar() {
     return () => subscription.unsubscribe();
   }, [supabase.auth]);
 
+  // Click outside handler
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (scannerRef.current && !scannerRef.current.contains(event.target as Node)) {
+        setScannerOpen(false);
+      }
+      if (communityRef.current && !communityRef.current.contains(event.target as Node)) {
+        setCommunityOpen(false);
+      }
+      if (userMenuRef.current && !userMenuRef.current.contains(event.target as Node)) {
+        setMenuOpen(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   const handleLogout = async () => {
     await supabase.auth.signOut();
     setUser(null);
@@ -126,27 +154,43 @@ export default function UnifiedNavbar() {
     return pathname?.startsWith(fullPath);
   };
 
-  // Helper: nav link classes - estilo liquid glass individual
+  // Helper: nav link classes - estilo liquid glass "water drop" con halo luminoso
   const navLinkClass = (href: string) => {
     const active = isActive(href);
     return `
       flex items-center gap-2 px-4 py-2.5 rounded-2xl text-sm font-bold
-      transition-all duration-200 drop-shadow-lg backdrop-blur-md
-      border shadow-md hover:shadow-xl hover:scale-105
+      transition-all duration-300 backdrop-blur-xl border
       ${
         active
-          ? "bg-cocorico-red/30 dark:bg-amber-500/30 text-cocorico-red dark:text-amber-400 font-black border-cocorico-red/50 dark:border-amber-400/50"
-          : "bg-white/40 dark:bg-neutral-900/40 text-neutral-900 dark:text-white border-white/60 dark:border-neutral-700/60 hover:bg-cocorico-yellow/40 dark:hover:bg-neutral-800/50 hover:text-cocorico-red dark:hover:text-amber-400"
+          ? "bg-white/20 dark:bg-white/10 text-cocorico-red dark:text-amber-400 border-white/30 shadow-[0_0_15px_rgba(229,57,53,0.3)] dark:shadow-[0_0_15px_rgba(251,191,36,0.3)]"
+          : "bg-white/5 dark:bg-black/5 text-neutral-800 dark:text-neutral-200 border-white/10 hover:bg-white/10 dark:hover:bg-white/5 hover:border-white/30 hover:shadow-[0_0_20px_rgba(255,255,255,0.4)] hover:scale-105"
       }
     `.trim();
   };
 
+  // Helper: Dropdown button classes
+  const dropdownBtnClass = (isOpen: boolean) => `
+    flex items-center gap-2 px-3 py-2.5 rounded-l-2xl text-sm font-bold
+    transition-all duration-300 backdrop-blur-xl border-y border-l border-r-0
+    bg-white/5 dark:bg-black/5 text-neutral-800 dark:text-neutral-200 border-white/10
+    hover:bg-white/10 dark:hover:bg-white/5 hover:border-white/30 hover:shadow-[0_0_20px_rgba(255,255,255,0.4)]
+    ${isOpen ? "bg-white/10 dark:bg-white/10 shadow-[0_0_15px_rgba(255,255,255,0.2)]" : ""}
+  `.trim();
+
+  const dropdownArrowClass = (isOpen: boolean) => `
+    flex items-center px-2 py-2.5 rounded-r-2xl text-sm font-bold
+    transition-all duration-300 backdrop-blur-xl border
+    bg-white/5 dark:bg-black/5 text-neutral-800 dark:text-neutral-200 border-white/10
+    hover:bg-white/10 dark:hover:bg-white/5 hover:border-white/30 hover:shadow-[0_0_20px_rgba(255,255,255,0.4)]
+    ${isOpen ? "bg-white/10 dark:bg-white/10" : ""}
+  `.trim();
+
   return (
-    <nav className="flex items-center justify-between px-4 sm:px-6 py-3 glass-clear sticky top-0 z-50 shadow-lg">
+    <nav className="flex items-center justify-between px-4 sm:px-6 py-3 sticky top-0 z-50 bg-white/5 dark:bg-black/5 backdrop-blur-2xl border-b border-white/10 shadow-sm transition-all duration-300">
       {/* Logo - botón liquid glass */}
       <Link
         href={withLocale("/")}
-        className="font-display text-2xl font-black text-cocorico-red dark:text-amber-400 hover:scale-105 transition-transform drop-shadow-2xl px-4 py-2 rounded-2xl bg-white/40 dark:bg-neutral-900/40 backdrop-blur-md border border-white/60 dark:border-neutral-700/60 shadow-lg hover:shadow-2xl"
+        className="font-display text-2xl font-black text-cocorico-red dark:text-amber-400 hover:scale-105 transition-all duration-300 drop-shadow-2xl px-4 py-2 rounded-2xl bg-white/10 dark:bg-white/5 backdrop-blur-xl border border-white/20 hover:shadow-[0_0_25px_rgba(229,57,53,0.4)] dark:hover:shadow-[0_0_25px_rgba(251,191,36,0.4)]"
         aria-label={t("nav.home")}
       >
         🐓 Cocorico
@@ -166,40 +210,87 @@ export default function UnifiedNavbar() {
             <span>{t(link.labelKey as any)}</span>
           </Link>
         ))}
-        {/* Scanner dropdown */}
-        <div className="relative group">
-          <button className="flex items-center gap-2 px-4 py-2.5 rounded-2xl text-sm font-bold glass-clear border shadow-md hover:shadow-xl hover:scale-105">
+        
+        {/* Scanner split-button */}
+        <div className="relative flex items-center" ref={scannerRef}>
+          <Link 
+            href={withLocale("/scanner")}
+            className={dropdownBtnClass(scannerOpen)}
+          >
             <span aria-hidden="true">📷</span>
             <span>Scanner</span>
-            <span aria-hidden="true">▼</span>
+          </Link>
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              setScannerOpen(!scannerOpen);
+              setCommunityOpen(false); // Close others
+            }}
+            className={dropdownArrowClass(scannerOpen)}
+            aria-label="Toggle Scanner menu"
+            aria-expanded={scannerOpen}
+          >
+            <span aria-hidden="true" className="text-xs">{scannerOpen ? '▲' : '▼'}</span>
           </button>
-          <div className="absolute left-0 mt-2 w-40 bg-white/80 dark:bg-neutral-900/80 rounded-xl shadow-lg z-50 hidden group-hover:block">
-            {scannerMenu.items.map(item => (
-              <Link key={item.href} href={withLocale(item.href)} className="flex items-center gap-2 px-4 py-2 text-sm hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors rounded-xl">
-                <span aria-hidden="true">{item.icon}</span>
-                <span>{item.label}</span>
-              </Link>
-            ))}
-          </div>
+
+          {scannerOpen && (
+            <div className="absolute top-full left-0 mt-2 w-56 bg-white/90 dark:bg-black/90 backdrop-blur-3xl rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.3)] border border-white/20 dark:border-white/10 z-[100] overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+              {scannerMenu.items.map(item => (
+                <Link 
+                  key={item.href} 
+                  href={withLocale(item.href)} 
+                  onClick={() => setScannerOpen(false)}
+                  className="flex items-center gap-3 px-5 py-3.5 text-sm font-bold text-neutral-800 dark:text-neutral-200 hover:bg-cocorico-red/10 dark:hover:bg-amber-400/10 hover:text-cocorico-red dark:hover:text-amber-400 transition-all hover:pl-7"
+                >
+                  <span aria-hidden="true" className="text-lg">{item.icon}</span>
+                  <span>{item.label}</span>
+                </Link>
+              ))}
+            </div>
+          )}
         </div>
-        {/* Comunidad dropdown */}
-        <div className="relative group">
-          <button className="flex items-center gap-2 px-4 py-2.5 rounded-2xl text-sm font-bold glass-clear border shadow-md hover:shadow-xl hover:scale-105">
+
+        {/* Comunidad split-button */}
+        <div className="relative flex items-center ml-1" ref={communityRef}>
+          <Link 
+            href={withLocale("/community")}
+            className={dropdownBtnClass(communityOpen)}
+          >
             <span aria-hidden="true">👥</span>
             <span>Comunidad</span>
-            <span aria-hidden="true">▼</span>
+          </Link>
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              setCommunityOpen(!communityOpen);
+              setScannerOpen(false); // Close others
+            }}
+            className={dropdownArrowClass(communityOpen)}
+            aria-label="Toggle Comunidad menu"
+            aria-expanded={communityOpen}
+          >
+            <span aria-hidden="true" className="text-xs">{communityOpen ? '▲' : '▼'}</span>
           </button>
-          <div className="absolute left-0 mt-2 w-48 bg-white/80 dark:bg-neutral-900/80 rounded-xl shadow-lg z-50 hidden group-hover:block">
-            {communityMenu.items.map(item => (
-              <Link key={item.href} href={withLocale(item.href)} className="flex items-center gap-2 px-4 py-2 text-sm hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors rounded-xl">
-                <span aria-hidden="true">{item.icon}</span>
-                <span>{item.label}</span>
-              </Link>
-            ))}
-          </div>
+
+          {communityOpen && (
+            <div className="absolute top-full left-0 mt-2 w-60 bg-white/90 dark:bg-black/90 backdrop-blur-3xl rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.3)] border border-white/20 dark:border-white/10 z-[100] overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+              {communityMenu.items.map(item => (
+                <Link 
+                  key={item.href} 
+                  href={withLocale(item.href)} 
+                  onClick={() => setCommunityOpen(false)}
+                  className="flex items-center gap-3 px-5 py-3.5 text-sm font-bold text-neutral-800 dark:text-neutral-200 hover:bg-cocorico-red/10 dark:hover:bg-amber-400/10 hover:text-cocorico-red dark:hover:text-amber-400 transition-all hover:pl-7"
+                >
+                  <span aria-hidden="true" className="text-lg">{item.icon}</span>
+                  <span>{item.label}</span>
+                </Link>
+              ))}
+            </div>
+          )}
         </div>
+        
         {/* Premium button */}
-        <Link href={withLocale("/premium")} className="glass-pill px-4 py-2 bg-gradient-to-r from-amber-400 to-orange-500 text-white font-bold ml-2">
+        <Link href={withLocale("/premium")} className="glass-pill px-4 py-2 bg-gradient-to-r from-amber-400 to-orange-500 text-white font-bold ml-2 hover:shadow-lg hover:scale-105 transition-all">
           ⭐ Premium
         </Link>
       </div>
@@ -216,7 +307,7 @@ export default function UnifiedNavbar() {
 
         {/* User menu or Login */}
         {user ? (
-          <div className="relative">
+          <div className="relative" ref={userMenuRef}>
             <button
               onClick={() => setMenuOpen(!menuOpen)}
               className="flex items-center gap-2 rounded-2xl coco-glass px-4 py-2.5 text-sm font-bold hover:scale-105"
@@ -234,40 +325,32 @@ export default function UnifiedNavbar() {
 
             {/* Dropdown menu */}
             {menuOpen && (
-              <>
-                {/* Backdrop to close menu */}
-                <div
-                  className="fixed inset-0 z-40"
-                  onClick={() => setMenuOpen(false)}
-                  aria-hidden="true"
-                />
-                <div 
-                  className="absolute right-0 mt-2 w-56 coco-glass rounded-md shadow-lg py-1 z-50"
-                  role="menu"
-                >
-                  {userMenuLinks.map((link) => (
-                    <Link
-                      key={link.href}
-                      href={withLocale(link.href)}
-                      className="flex items-center gap-2 px-4 py-2 text-sm hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors"
-                      onClick={() => setMenuOpen(false)}
-                      role="menuitem"
-                    >
-                      <span aria-hidden="true">{link.icon}</span>
-                      <span>{t(link.labelKey as any)}</span>
-                    </Link>
-                  ))}
-                  <Separator className="my-1" />
-                  <button
-                    onClick={handleLogout}
-                    className="w-full flex items-center gap-2 text-left px-4 py-2 text-sm hover:bg-neutral-100 dark:hover:bg-neutral-700 text-red-600 dark:text-red-400 transition-colors"
+              <div 
+                className="absolute right-0 mt-2 w-56 bg-white/90 dark:bg-black/90 backdrop-blur-3xl rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.3)] border border-white/20 dark:border-white/10 z-[100] py-1 overflow-hidden animate-in fade-in zoom-in-95 duration-200"
+                role="menu"
+              >
+                {userMenuLinks.map((link) => (
+                  <Link
+                    key={link.href}
+                    href={withLocale(link.href)}
+                    className="flex items-center gap-2 px-4 py-2 text-sm font-medium hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors"
+                    onClick={() => setMenuOpen(false)}
                     role="menuitem"
                   >
-                    <span aria-hidden="true">🚪</span>
-                    <span>{t("nav.logout")}</span>
-                  </button>
-                </div>
-              </>
+                    <span aria-hidden="true">{link.icon}</span>
+                    <span>{t(link.labelKey as any)}</span>
+                  </Link>
+                ))}
+                <Separator className="my-1" />
+                <button
+                  onClick={handleLogout}
+                  className="w-full flex items-center gap-2 text-left px-4 py-2 text-sm font-medium hover:bg-red-50 dark:hover:bg-red-900/20 text-red-600 dark:text-red-400 transition-colors"
+                  role="menuitem"
+                >
+                  <span aria-hidden="true">🚪</span>
+                  <span>{t("nav.logout")}</span>
+                </button>
+              </div>
             )}
           </div>
         ) : (
@@ -287,7 +370,7 @@ export default function UnifiedNavbar() {
                 <Menu className="h-5 w-5" />
               </Button>
             </SheetTrigger>
-            <SheetContent side="right" className="w-72">
+            <SheetContent side="right" className="w-72 overflow-y-auto">
               <div className="py-4 flex flex-col gap-4">
                 {/* Logo in mobile menu */}
                 <div className="px-1 pb-2 font-display text-xl font-black text-cocorico-red dark:text-amber-400">
@@ -309,6 +392,38 @@ export default function UnifiedNavbar() {
                       <span>{t(link.labelKey as any)}</span>
                     </Link>
                   ))}
+                  
+                  {/* Scanner Mobile Links */}
+                  <div className="flex flex-col gap-1 mt-2">
+                    <div className="px-3 text-xs font-semibold text-neutral-500 uppercase">Scanner</div>
+                    {scannerMenu.items.map(item => (
+                      <Link
+                        key={item.href}
+                        href={withLocale(item.href)}
+                        className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium hover:bg-neutral-100 dark:hover:bg-neutral-800 ml-2"
+                        onClick={() => setMobileSheetOpen(false)}
+                      >
+                        <span aria-hidden="true">{item.icon}</span>
+                        <span>{item.label}</span>
+                      </Link>
+                    ))}
+                  </div>
+
+                  {/* Community Mobile Links */}
+                  <div className="flex flex-col gap-1 mt-2">
+                    <div className="px-3 text-xs font-semibold text-neutral-500 uppercase">Comunidad</div>
+                    {communityMenu.items.map(item => (
+                      <Link
+                        key={item.href}
+                        href={withLocale(item.href)}
+                        className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium hover:bg-neutral-100 dark:hover:bg-neutral-800 ml-2"
+                        onClick={() => setMobileSheetOpen(false)}
+                      >
+                        <span aria-hidden="true">{item.icon}</span>
+                        <span>{item.label}</span>
+                      </Link>
+                    ))}
+                  </div>
                 </nav>
 
                 <Separator />

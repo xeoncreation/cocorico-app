@@ -32,7 +32,7 @@ export default function Wallpaper({ imageLight, imageDark }: WallpaperProps) {
 
   return (
     <div
-      className="fixed inset-0 -z-10 bg-cover bg-center bg-no-repeat opacity-100 filter blur-[3px]"
+      className="fixed inset-0 -z-10 bg-cover bg-center bg-no-repeat opacity-100"
       style={{ backgroundImage: `url(${bg})` }}
     />
   );

@@ -99,8 +99,8 @@ export function AppBackground({
   };
 
   return (
-    <div className={cn("app-root-bg-inner min-h-screen", className)}>
-      <div className={cn("coco-page-background", variantClass[variant])} />
+    <div className={cn("app-root-bg-inner min-h-screen bg-transparent", className)}>
+      {/* Background layer removed to allow Wallpaper component to be visible */}
       {children}
     </div>
   );

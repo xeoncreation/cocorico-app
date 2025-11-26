@@ -11,8 +11,8 @@ export default function FavoritesPage() {
   return (
     <>
       <Wallpaper
-        imageLight="/branding/FAVORITOS_MODO_CLARO.jpg"
-        imageDark="/branding/FAVORITOS_MODO_OSCURO.jpg"
+        imageLight="/branding/FAVORITOS — Ingredientes premium gourmet, modo claro.png"
+        imageDark="/branding/FAVORITOS — Ingredientes premium, modo oscuro.png"
       />
       <main className="min-h-screen bg-gradient-to-br from-orange-50 to-yellow-50 dark:from-neutral-900 dark:to-neutral-800 py-8 px-4">
         <div className="max-w-4xl mx-auto">
