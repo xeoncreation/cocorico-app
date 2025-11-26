@@ -1,1 +1,1 @@
-export {default} from "@/app/recipes/new/page";
+export {default} from "@/app/recipes/create/page";

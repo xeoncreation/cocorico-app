@@ -2,6 +2,7 @@ import { createServerComponentClient } from "@/lib/supabase/client";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import GlassCard from "@/components/ui/GlassCard";
+import Wallpaper from "@/components/layout/Wallpaper";
 import { ArrowRight } from "lucide-react";
 
 export default async function CommunityPage({ params }: { params: { locale: string } }) {
@@ -19,7 +20,12 @@ export default async function CommunityPage({ params }: { params: { locale: stri
     .limit(3);
 
   return (
-    <div className="space-y-8">
+    <>
+      <Wallpaper
+        imageLight="/branding/COMUNIDAD_MODO_CLARO.png"
+        imageDark="/branding/COMUNIDAD_MODO_OSCURO.png"
+      />
+      <div className="space-y-8">
       {/* Welcome Section */}
       <GlassCard className="p-8 text-center">
         <h1 className="text-4xl md:text-5xl font-bold mb-4 glass-text-strong">
@@ -125,6 +131,7 @@ export default async function CommunityPage({ params }: { params: { locale: stri
           </Link>
         </GlassCard>
       </section>
-    </div>
+      </div>
+    </>
   );
 }

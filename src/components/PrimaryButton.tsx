@@ -8,7 +8,7 @@ export function PrimaryButton({ children, onClick, className = '' }: { children:
       whileTap={{ scale: 0.96 }}
       transition={{ duration: 0.18, ease: 'easeOut' }}
       onClick={onClick}
-      className={`h-12 px-6 rounded-2xl bg-primary text-white font-semibold shadow-md ${className}`}
+      className={`h-12 px-6 rounded-2xl bg-primary text-white font-semibold shadow-md coco-btn-primary neon-hover ${className}`}
     >
       {children}
     </motion.button>

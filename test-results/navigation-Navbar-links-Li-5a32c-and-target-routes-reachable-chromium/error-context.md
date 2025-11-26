@@ -1,0 +1,105 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - generic [ref=e3]:
+      - navigation [ref=e4]:
+        - link "Inicio" [ref=e5] [cursor=pointer]:
+          - /url: /es
+          - text: 🐓 Cocorico
+        - generic [ref=e6]:
+          - link "Inicio" [ref=e7] [cursor=pointer]:
+            - /url: /es
+            - generic [ref=e8]: 🏠
+            - generic [ref=e9]: Inicio
+          - link "Recetas" [ref=e10] [cursor=pointer]:
+            - /url: /es/recipes
+            - generic [ref=e11]: 📖
+            - generic [ref=e12]: Recetas
+          - generic [ref=e13]:
+            - link "Scanner" [ref=e14] [cursor=pointer]:
+              - /url: /es/scanner
+              - generic [ref=e15]: 📷
+              - generic [ref=e16]: Scanner
+            - button "Toggle Scanner menu" [ref=e17] [cursor=pointer]:
+              - generic [ref=e18]: ▼
+          - generic [ref=e19]:
+            - link "Comunidad" [ref=e20] [cursor=pointer]:
+              - /url: /es/community
+              - generic [ref=e21]: 👥
+              - generic [ref=e22]: Comunidad
+            - button "Toggle Comunidad menu" [ref=e23] [cursor=pointer]:
+              - generic [ref=e24]: ▼
+          - link "⭐ Premium" [ref=e25] [cursor=pointer]:
+            - /url: /es/premium
+        - generic [ref=e26]:
+          - button "Cambiar a modo oscuro" [ref=e27] [cursor=pointer]:
+            - img [ref=e28]
+            - generic [ref=e34]: Claro
+          - button "🇪🇸 ES" [ref=e37] [cursor=pointer]:
+            - generic [ref=e38]: 🇪🇸
+            - text: ES
+            - img [ref=e39]
+          - link "Iniciar sesión" [ref=e41] [cursor=pointer]:
+            - /url: /es/login
+      - main [ref=e42]:
+        - main [ref=e43]:
+          - main [ref=e46]:
+            - generic [ref=e48]:
+              - generic [ref=e49]:
+                - button "Cerrar" [ref=e50] [cursor=pointer]:
+                  - img [ref=e51]
+                - generic [ref=e54]:
+                  - img [ref=e56]
+                  - heading "¡Bienvenido a Cocorico! 🎉" [level=2] [ref=e58]
+                  - paragraph [ref=e59]: Tu asistente de cocina con inteligencia artificial está listo para ayudarte.
+              - generic [ref=e60]:
+                - button "Comenzar" [ref=e67] [cursor=pointer]
+                - button "Saltar tutorial" [ref=e68] [cursor=pointer]
+            - button "Acciones rápidas" [ref=e70] [cursor=pointer]:
+              - img [ref=e71]
+            - img "Cocorico animado" [ref=e74]
+            - heading "¡Hola! Soy Cocorico 🐓" [level=1] [ref=e76]
+            - paragraph [ref=e78]: Tu ayudante de cocina con inteligencia artificial. Encuentra recetas, guarda tus favoritas y aprende a cocinar sin desperdiciar.
+            - generic [ref=e80]:
+              - link "🔍 Escáner IA Identifica ingredientes al instante" [ref=e81] [cursor=pointer]:
+                - /url: /es/scanner
+                - generic [ref=e82]: 🔍
+                - heading "Escáner IA" [level=3] [ref=e83]
+                - paragraph [ref=e84]: Identifica ingredientes al instante
+              - link "👥 Comunidad Comparte tus creaciones" [ref=e85] [cursor=pointer]:
+                - /url: /es/community
+                - generic [ref=e86]: 👥
+                - heading "Comunidad" [level=3] [ref=e87]
+                - paragraph [ref=e88]: Comparte tus creaciones
+              - link "🎯 Retos Desafíate y mejora" [ref=e89] [cursor=pointer]:
+                - /url: /es/dashboard/challenges
+                - generic [ref=e90]: 🎯
+                - heading "Retos" [level=3] [ref=e91]
+                - paragraph [ref=e92]: Desafíate y mejora
+      - contentinfo [ref=e97]:
+        - generic [ref=e98]:
+          - generic [ref=e99]:
+            - generic [ref=e100]:
+              - generic [ref=e101]: 🐓 Cocorico
+              - generic [ref=e102]: — hecho con ❤️ y un toque de IA
+            - generic [ref=e103]:
+              - generic [ref=e104]: © 2025
+              - generic [ref=e105]: •
+              - link "📄 Privacidad" [ref=e106] [cursor=pointer]:
+                - /url: /es/legal/privacy
+              - generic [ref=e107]: •
+              - link "📄 Términos" [ref=e108] [cursor=pointer]:
+                - /url: /es/legal/terms
+              - generic [ref=e109]: •
+              - link "🍪 Cookies" [ref=e110] [cursor=pointer]:
+                - /url: /es/legal/cookies
+          - generic [ref=e112]:
+            - generic [ref=e113]: Cocorico v0.1.0
+            - generic [ref=e114]: "Voice: ON"
+            - generic [ref=e115]: "Vision: ON"
+            - generic [ref=e116]: "Food-IQ: ON"
+    - region "Notifications alt+T"
+  - alert [ref=e117]
+```

@@ -6,8 +6,8 @@ export default function CommunityChallengesPage() {
   return (
     <>
       <Wallpaper
-        imageLight="/branding/RETOS_MODO_CLARO.jpg"
-        imageDark="/branding/RETOS_MODO_OSCURO.jpg"
+        imageLight="/branding/RETOS_MODO_CLARO.png"
+        imageDark="/branding/RETOS_MODO_OSCURO.png"
       />
       <div className="max-w-5xl mx-auto px-4 py-6 space-y-4">
         <h1 className="text-3xl font-bold mb-6">Retos Cocorico</h1>

@@ -35,7 +35,7 @@ A) ARQUITECTURA GENERAL DEL PROYECTO (RUTAS QUE DEBEN EXISTIR)
 
 - `/scanner` → Cocorico Scan (scanner + resumen historial)
 - `/scanner/history` → Historial de Scanner
-- `/favorites` → Favoritos
+- `/dashboard/favorites` → Favoritos
 - `/community` → Comunidad (hub social)
 - `/community/feed` → Feed de recetas compartidas
 - `/community/challenges` → Retos / Challenges

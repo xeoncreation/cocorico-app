@@ -391,7 +391,7 @@ export default function RecipesClient() {
               >
                 <div className="relative h-48 overflow-hidden">
                   <Image
-                    src={'image' in recipe ? recipe.image : '/branding/cocorico/default.png'}
+                    src={(('image' in recipe ? recipe.image : '/branding/cocorico/default.png') as string)}
                     alt={'title' in recipe ? recipe.title : ''}
                     fill
                     className="object-cover group-hover:scale-110 transition-transform duration-300"

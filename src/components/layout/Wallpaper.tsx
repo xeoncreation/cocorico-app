@@ -31,9 +31,19 @@ export default function Wallpaper({ imageLight, imageDark }: WallpaperProps) {
   const bg = theme === "dark" ? imageDark : imageLight;
 
   return (
-    <div
-      className="fixed inset-0 -z-10 bg-cover bg-center bg-no-repeat opacity-100"
-      style={{ backgroundImage: `url(${bg})` }}
-    />
+    <>
+      <div
+        aria-hidden
+        className="fixed inset-0 -z-10 bg-cover bg-center bg-no-repeat opacity-90 filter blur-[6px] transition-all duration-700"
+        style={{ backgroundImage: `url("${bg}")` }}
+      />
+      {/* subtle theme-aware overlay to improve contrast for foreground content */}
+      <div
+        aria-hidden
+        className={`fixed inset-0 -z-9 pointer-events-none transition-colors duration-700 ${
+          theme === "dark" ? "bg-black/30" : "bg-white/10"
+        }`}
+      />
+    </>
   );
 }

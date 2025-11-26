@@ -9,7 +9,7 @@ import { ThemeProvider } from "@/components/ThemeProvider";
 import Analytics from "@/components/Analytics";
 import type { Viewport } from "next";
 import { cookies } from "next/headers";
-import { Poppins, Pacifico } from "next/font/google";
+import { Poppins, Pacifico, Sora } from "next/font/google";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -23,6 +23,14 @@ const pacifico = Pacifico({
   subsets: ["latin"],
   weight: "400",
   variable: "--font-pacifico",
+  display: "swap",
+  preload: true,
+});
+
+const sora = Sora({
+  subsets: ["latin"],
+  weight: ["400", "600", "700"],
+  variable: "--font-sora",
   display: "swap",
   preload: true,
 });
@@ -118,7 +126,7 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const theme = cookies().get("theme")?.value ?? "free";
   return (
-    <html lang="es" suppressHydrationWarning data-theme={theme} className={`${poppins.variable} ${pacifico.variable}`}>
+    <html lang="es" suppressHydrationWarning data-theme={theme} className={`${poppins.variable} ${pacifico.variable} ${sora.variable}`}>
       <head>
         {/* iOS Safari specific meta tags - BLOQUE 9: PWA */}
         <meta name="apple-mobile-web-app-capable" content="yes" />

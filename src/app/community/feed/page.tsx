@@ -6,8 +6,8 @@ export default function CommunityFeedPage() {
   return (
     <>
       <Wallpaper
-        imageLight="/branding/FEED_MODO_CLARO.jpg"
-        imageDark="/branding/FEED_MODO_OSCURO.jpg"
+        imageLight="/branding/FEED_MODO_CLARO.png"
+        imageDark="/branding/FEED_MODO_OSCURO.png"
       />
       <div className="max-w-5xl mx-auto px-4 py-6 space-y-4">
         <h1 className="text-3xl font-bold mb-6">Feed de Recetas Compartidas</h1>

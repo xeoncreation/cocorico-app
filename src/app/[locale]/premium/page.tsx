@@ -5,8 +5,8 @@ export default async function PremiumPage({ params }: { params: { locale: string
   return (
     <>
       <Wallpaper
-        imageLight="/branding/MIS RECETAS- DASHBOARD — Cocina cenital difusa, modo claro.png"
-        imageDark="/branding/MIS RECETAS - DASHBOARD — Encimera oscura gourmet, modo oscuro.png"
+        imageLight="/branding/PREMIUM_MODO_CLARO.png"
+        imageDark="/branding/PREMIUM_MODO_OSCURO.png"
       />
       <div className="min-h-screen max-w-5xl mx-auto px-4 py-12">
         <GlassCard className="p-8 md:p-12 text-center">

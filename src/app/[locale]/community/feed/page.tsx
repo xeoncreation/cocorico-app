@@ -56,8 +56,8 @@ export default async function FeedPage({ params }: { params: { locale: string } 
   return (
     <>
       <Wallpaper
-        imageLight="/branding/SEARCH - BÚSQUEDA — Especias y hierbas, modo claro.png"
-        imageDark="/branding/SEARCH - BÚSQUEDA — Especias en mesa, modo oscuro.png"
+        imageLight="/branding/FEED_MODO_CLARO.png"
+        imageDark="/branding/FEED_MODO_OSCURO.png"
       />
       <div className="max-w-4xl mx-auto p-4 space-y-6">
         <header className="mb-8">
