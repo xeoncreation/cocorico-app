@@ -46,3 +46,9 @@ next-env.d.ts
 
 .next*
 
+# Ignore generated test artifacts
+test-results/
+
+# Temporary env fixer output
+.env.local.fixed
+
