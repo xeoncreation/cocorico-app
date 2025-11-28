@@ -10,7 +10,14 @@ interface AvatarUploaderProps {
 }
 
 export default function AvatarUploader({ currentUrl, onUploadComplete }: AvatarUploaderProps) {
-  const t = useTranslations("Profile");
+  // Make translations safe in case this component renders outside the /[locale]
+  // provider (useTranslations will throw when the provider is missing).
+  let t: (k: string) => string = (s) => s;
+  try {
+    t = useTranslations("Profile");
+  } catch {
+    t = (s) => s;
+  }
   const supabase = createClientComponentClient();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [uploading, setUploading] = useState(false);

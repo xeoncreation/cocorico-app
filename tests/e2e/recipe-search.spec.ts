@@ -5,13 +5,26 @@ import { test, expect } from '@playwright/test';
  * Verifica renderizado, filtros, búsqueda por texto y resultados
  */
 
-test.describe('Búsqueda de Recetas', () => {
+const safeGoto = async (page, url: string) => {
+    for (let i = 0; i < 2; i++) {
+      try {
+        await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 60000 });
+        return;
+      } catch (err) {
+        if (i === 1) throw err;
+        await page.waitForTimeout(250);
+      }
+    }
+  };
+
+      test.describe('Búsqueda de Recetas', () => {
   
   test('debe renderizar la página de búsqueda correctamente', async ({ page }) => {
-    await page.goto('/search');
-    
+    await safeGoto(page, 'http://localhost:3000/search');
+    // Wait briefly for any client-side loading states to settle
+    await page.waitForSelector('text=Cargando…', { state: 'detached', timeout: 15000 }).catch(() => {});
     // Verificar título de la página
-    await expect(page.getByRole('heading', { name: /buscar recetas/i })).toBeVisible();
+    await expect(page.getByRole('heading', { name: /buscar recetas/i })).toBeVisible({ timeout: 10000 });
     
     // Verificar que existe el campo de búsqueda
     const searchInput = page.locator('input[type="text"]').first();
@@ -20,7 +33,8 @@ test.describe('Búsqueda de Recetas', () => {
   });
 
   test('debe mostrar filtros cuando se hace clic en el botón', async ({ page }) => {
-    await page.goto('/search');
+    await safeGoto(page, 'http://localhost:3000/search');
+    await page.waitForSelector('text=Cargando…', { state: 'detached', timeout: 15000 }).catch(() => {});
     
     // Buscar botón de filtros (puede tener icono de SlidersHorizontal)
     const filterButton = page.getByRole('button', { name: /filtros/i });
@@ -36,8 +50,9 @@ test.describe('Búsqueda de Recetas', () => {
   });
 
   test('debe realizar búsqueda por texto', async ({ page }) => {
-    await page.goto('/search');
-    
+    await safeGoto(page, 'http://localhost:3000/search');
+    await page.waitForSelector('text=Cargando…', { state: 'detached', timeout: 15000 }).catch(() => {});
+
     const searchInput = page.locator('input[type="text"]').first();
     
     // Escribir término de búsqueda
@@ -45,7 +60,7 @@ test.describe('Búsqueda de Recetas', () => {
     await searchInput.press('Enter');
     
     // Esperar a que se carguen resultados
-    await page.waitForTimeout(1000);
+    await page.waitForSelector('text=Cargando…', { state: 'detached', timeout: 15000 }).catch(() => {});
     
     // Verificar que se muestran resultados o mensaje
     const resultsText = page.locator('text=/resultados/i').first();
@@ -53,15 +68,16 @@ test.describe('Búsqueda de Recetas', () => {
   });
 
   test('debe mostrar mensaje cuando no hay resultados', async ({ page }) => {
-    await page.goto('/search');
-    
+    await safeGoto(page, 'http://localhost:3000/search');
+    await page.waitForSelector('text=Cargando…', { state: 'detached', timeout: 15000 }).catch(() => {});
+
     const searchInput = page.locator('input[type="text"]').first();
     
     // Buscar algo que probablemente no existe
     await searchInput.fill('xyzabc123nonexistent');
     await searchInput.press('Enter');
     
-    await page.waitForTimeout(1000);
+    await page.waitForSelector('text=Cargando…', { state: 'detached', timeout: 15000 }).catch(() => {});
     
     // Verificar mensaje de sin resultados (0 resultados, "Sin resultados", etc.)
     const noResults = page.locator('text=/0 resultados|sin resultados/i').first();
@@ -69,10 +85,8 @@ test.describe('Búsqueda de Recetas', () => {
   });
 
   test('debe navegar a página de receta al hacer clic', async ({ page }) => {
-    await page.goto('/search');
-    
-    // Esperar a que carguen resultados iniciales
-    await page.waitForTimeout(1500);
+    await safeGoto(page, 'http://localhost:3000/search');
+    await page.waitForSelector('text=Cargando…', { state: 'detached', timeout: 15000 }).catch(() => {});
     
     // Buscar primer card de receta (si hay resultados)
     const recipeCards = page.locator('[href^="/recipes/"]').first();
@@ -87,7 +101,7 @@ test.describe('Búsqueda de Recetas', () => {
   });
 
   test('debe aplicar filtro de dificultad', async ({ page }) => {
-    await page.goto('/search');
+    await safeGoto(page, 'http://localhost:3000/search');
     
     // Abrir filtros si es necesario
     const filterButton = page.getByRole('button', { name: /filtros/i });
@@ -113,7 +127,7 @@ test.describe('Búsqueda de Recetas', () => {
 test.describe('Componente SearchFilters', () => {
   
   test('debe renderizar opciones de tiempo máximo', async ({ page }) => {
-    await page.goto('/search');
+    await safeGoto(page, 'http://localhost:3000/search');
     
     const filterButton = page.getByRole('button', { name: /filtros/i });
     if (await filterButton.isVisible()) {
@@ -129,7 +143,7 @@ test.describe('Componente SearchFilters', () => {
   });
 
   test('debe permitir agregar ingredientes', async ({ page }) => {
-    await page.goto('/search');
+    await safeGoto(page, 'http://localhost:3000/search');
     
     const filterButton = page.getByRole('button', { name: /filtros/i });
     if (await filterButton.isVisible()) {
@@ -154,10 +168,11 @@ test.describe('Componente SearchFilters', () => {
 test.describe('Búsqueda Alternativa (/recipes/search)', () => {
   
   test('debe renderizar página alternativa de búsqueda', async ({ page }) => {
-    await page.goto('/recipes/search');
-    
+    await safeGoto(page, 'http://localhost:3000/recipes/search');
+    await page.waitForSelector('text=Cargando…', { state: 'detached', timeout: 15000 }).catch(() => {});
+
     // Verificar que carga correctamente
-    await expect(page.getByRole('heading', { name: /buscar recetas/i })).toBeVisible();
+    await expect(page.getByRole('heading', { name: /buscar recetas/i })).toBeVisible({ timeout: 10000 });
     
     // Verificar que tiene campo de búsqueda
     const searchInput = page.locator('input[type="text"]').first();

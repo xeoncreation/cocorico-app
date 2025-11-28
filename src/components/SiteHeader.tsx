@@ -22,9 +22,17 @@ const navLinks = [
 
 export default function SiteHeader() {
   const pathname = usePathname();
-  const t = useTranslations();
-  const locale = useLocale();
-  const withLocale = (href: string) => `/${locale}${href === "/" ? "" : href}`;
+  // Make next-intl hooks safe for pages outside the /[locale] provider
+  let t: (k: string) => string = (s) => s;
+  let locale: string | undefined;
+  try {
+    t = useTranslations();
+    locale = useLocale();
+  } catch {
+    t = (s) => s;
+    locale = undefined;
+  }
+  const withLocale = (href: string) => (locale ? `/${locale}${href === "/" ? "" : href}` : href);
   const isActive = (href: string) => {
     const target = withLocale(href);
     return pathname === target || pathname.endsWith(href);

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useLayoutEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, ChefHat, Camera, Trophy } from 'lucide-react';
 import { trackEvent } from '@/components/UmamiAnalytics';
@@ -13,7 +13,8 @@ export default function OnboardingModal({ onComplete = () => {} }: OnboardingMod
   const [step, setStep] = useState(0);
   const [show, setShow] = useState(false);
 
-  useEffect(() => {
+  // Use useLayoutEffect so the modal show state is updated as early as possible
+  useLayoutEffect(() => {
     // Verificar si el usuario ya completó el onboarding
     const completed = localStorage.getItem('onboarding_completed');
     if (!completed) {
@@ -83,7 +84,12 @@ export default function OnboardingModal({ onComplete = () => {} }: OnboardingMod
 
   return (
     <AnimatePresence>
-      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+      <div
+        data-testid="onboarding-modal"
+        role="dialog"
+        aria-modal="true"
+        className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4"
+      >
         <motion.div
           initial={{ opacity: 0, scale: 0.9, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}

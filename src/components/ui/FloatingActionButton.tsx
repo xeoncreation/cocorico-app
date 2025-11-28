@@ -15,25 +15,28 @@ type FABAction = {
 
 export default function FloatingActionButton() {
   const [isOpen, setIsOpen] = useState(false);
-  const locale = useLocale();
+  let locale: string | undefined;
+  try { locale = useLocale(); } catch { locale = undefined; }
+
+  const linkWithLocale = (href: string) => (locale ? `/${locale}${href}` : href);
 
   const actions: FABAction[] = [
     {
       icon: <Camera className="w-5 h-5" />,
       label: "Escanear",
-      href: `/${locale}/scanner`,
+      href: linkWithLocale('/scanner'),
       color: "from-cocorico-mango to-cocorico-datil",
     },
     {
       icon: <Mic className="w-5 h-5" />,
       label: "Chat de Voz",
-      href: `/${locale}/voice-chat`,
+      href: linkWithLocale('/voice-chat'),
       color: "from-cocorico-turquoise to-cocorico-avocado",
     },
     {
       icon: <Sparkles className="w-5 h-5" />,
       label: "Chat IA",
-      href: `/${locale}/chat`,
+      href: linkWithLocale('/chat'),
       color: "from-cocorico-red to-cocorico-mango",
     },
   ];

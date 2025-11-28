@@ -185,7 +185,17 @@ export default function RecipesClient() {
   const [timeFilter, setTimeFilter] = useState<"all" | "quick" | "medium" | "slow">("all");
   const router = useRouter();
   const supabase = createClientComponentClient();
-  const locale = useLocale();
+  // Some pages render outside the /[locale] layout and therefore do not have
+  // the next-intl provider. useLocale will throw if no provider is present, so
+  // wrap it in try/catch and fall back to undefined.
+  let locale: string | undefined;
+  try {
+    locale = useLocale();
+  } catch (e) {
+    locale = undefined;
+  }
+
+  const linkWithLocale = (href: string) => (locale ? `/${locale}${href}` : href);
 
   const plan =
     typeof document !== "undefined"
@@ -284,7 +294,7 @@ export default function RecipesClient() {
             asChild
             className={plan === "premium" ? "coco-btn-premium" : "coco-btn-primary"}
           >
-            <Link href={`/${locale}/recipes/create`}>
+            <Link href={linkWithLocale('/recipes/create')}>
               + Nueva Receta
             </Link>
           </RippleButton>
@@ -387,7 +397,7 @@ export default function RecipesClient() {
                   "group overflow-hidden transition-all hover:scale-105 cursor-pointer",
                 )}
                 variant={plan === 'premium' ? 'premium' : 'accent'}
-                onClick={() => router.push(`/${locale}/recipes/create`)}
+                onClick={() => router.push(linkWithLocale('/recipes/create'))}
               >
                 <div className="relative h-48 overflow-hidden">
                   <Image

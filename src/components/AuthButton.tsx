@@ -6,7 +6,12 @@ import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 
 export default function AuthButton() {
-  const t = useTranslations();
+  let t: (k: string) => string = (s) => s;
+  try {
+    t = useTranslations();
+  } catch {
+    t = (s) => s;
+  }
   const router = useRouter();
   const [session, setSession] = useState<Session | null>(null);
 

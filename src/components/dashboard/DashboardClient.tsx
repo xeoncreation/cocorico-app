@@ -21,8 +21,17 @@ export default function DashboardClient() {
   const [user, setUser] = useState<any>(null);
   const supabase = createClientComponentClient();
   const router = useRouter();
-  const locale = useLocale();
-  const t = useTranslations();
+  let locale: string | undefined;
+  let t: (k: string) => string = (s) => s;
+  try {
+    locale = useLocale();
+    t = useTranslations();
+  } catch {
+    locale = undefined;
+    t = (s) => s;
+  }
+
+  const linkWithLocale = (href: string) => (locale ? `/${locale}${href}` : href);
 
   useEffect(() => {
     async function load() {
@@ -77,7 +86,7 @@ export default function DashboardClient() {
         </div>
         <div className="flex gap-2">
           <Button asChild className="bg-cocorico-red hover:bg-red-700 text-white rounded-full">
-            <Link href={`/${locale}/recipes/create`}>
+            <Link href={linkWithLocale('/recipes/create')}>
               <Plus className="w-4 h-4 mr-2" />
               Nueva Receta
             </Link>
@@ -94,7 +103,7 @@ export default function DashboardClient() {
           
           {/* Quick Actions Grid */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-            <Link href={`/${locale}/scanner`} className="group">
+                <Link href={linkWithLocale('/scanner')} className="group">
               <GlassCard className="p-4 flex flex-col items-center justify-center gap-3 h-full hover:scale-105 transition-transform bg-gradient-to-br from-cocorico-mango/10 to-cocorico-datil/10 border-cocorico-mango/30">
                 <div className="w-10 h-10 rounded-full bg-cocorico-mango/20 flex items-center justify-center text-cocorico-mango group-hover:bg-cocorico-mango group-hover:text-white transition-colors">
                   <Camera className="w-5 h-5" />
@@ -103,7 +112,7 @@ export default function DashboardClient() {
               </GlassCard>
             </Link>
             
-            <Link href={`/${locale}/chat`} className="group">
+            <Link href={linkWithLocale('/chat')} className="group">
               <GlassCard className="p-4 flex flex-col items-center justify-center gap-3 h-full hover:scale-105 transition-transform bg-gradient-to-br from-cocorico-red/10 to-cocorico-mango/10 border-cocorico-red/30">
                 <div className="w-10 h-10 rounded-full bg-cocorico-red/20 flex items-center justify-center text-cocorico-red group-hover:bg-cocorico-red group-hover:text-white transition-colors">
                   <MessageSquare className="w-5 h-5" />
@@ -112,7 +121,7 @@ export default function DashboardClient() {
               </GlassCard>
             </Link>
 
-            <Link href={`/${locale}/recipes/search`} className="group">
+            <Link href={linkWithLocale('/recipes/search')} className="group">
               <GlassCard className="p-4 flex flex-col items-center justify-center gap-3 h-full hover:scale-105 transition-transform bg-gradient-to-br from-cocorico-avocado/10 to-cocorico-turquoise/10 border-cocorico-avocado/30">
                 <div className="w-10 h-10 rounded-full bg-cocorico-avocado/20 flex items-center justify-center text-cocorico-avocado group-hover:bg-cocorico-avocado group-hover:text-white transition-colors">
                   <Search className="w-5 h-5" />
@@ -121,7 +130,7 @@ export default function DashboardClient() {
               </GlassCard>
             </Link>
 
-            <Link href={`/${locale}/dashboard/favorites`} className="group">
+            <Link href={linkWithLocale('/dashboard/favorites')} className="group">
               <GlassCard className="p-4 flex flex-col items-center justify-center gap-3 h-full hover:scale-105 transition-transform bg-gradient-to-br from-cocorico-yellow/10 to-cocorico-orange/10 border-cocorico-yellow/30">
                 <div className="w-10 h-10 rounded-full bg-cocorico-yellow/20 flex items-center justify-center text-cocorico-orange group-hover:bg-cocorico-yellow group-hover:text-white transition-colors">
                   <Heart className="w-5 h-5" />
