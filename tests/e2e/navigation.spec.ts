@@ -2,13 +2,13 @@ import { test, expect } from '@playwright/test';
 
 test.describe('Navbar links', () => {
   test('Links visible and target routes reachable', async ({ page }) => {
-    await page.goto('http://localhost:3000/', { waitUntil: 'domcontentloaded', timeout: 30000 });
+    await page.goto('/', { waitUntil: 'load', timeout: 30000 });
 
     // Helper to retry navigation once if a transient aborted error happens
     const safeGoto = async (url: string) => {
       for (let i = 0; i < 2; i++) {
         try {
-          await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 60000 });
+          await page.goto(url, { waitUntil: 'load', timeout: 60000 });
           return;
         } catch (err) {
           if (i === 1) throw err;
@@ -27,10 +27,10 @@ test.describe('Navbar links', () => {
     // Routes reachable
     // Use header anchor clicks for client navigation to avoid aborted fetch races
       // Sanity-check that login & signup routes are reachable
-      await safeGoto('http://localhost:3000/login');
+      await safeGoto('/login');
       await expect(page.locator('a[href="/signup"]')).toBeVisible({ timeout: 10000 });
 
-      await safeGoto('http://localhost:3000/signup');
+      await safeGoto('/signup');
       await expect(page.locator('header a[href="/login"]')).toBeVisible({ timeout: 10000 });
   });
 });

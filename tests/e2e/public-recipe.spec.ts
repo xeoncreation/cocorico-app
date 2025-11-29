@@ -10,7 +10,7 @@ test.describe('Recetas Públicas - Acceso sin Login', () => {
   const safeGoto = async (page, url: string) => {
     for (let i = 0; i < 2; i++) {
       try {
-        await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 60000 });
+        await page.goto(url, { waitUntil: 'load', timeout: 60000 });
         return;
       } catch (err) {
         if (i === 1) throw err;
@@ -24,7 +24,7 @@ test.describe('Recetas Públicas - Acceso sin Login', () => {
     // Nota: esto asume que existe al menos una receta pública con slug conocido
     // En producción, deberías crear una receta de prueba primero o usar una existente
     
-    await safeGoto(page, 'http://localhost:3000/r/public/pasta-con-verduras');
+    await safeGoto(page, '/r/public/pasta-con-verduras');
     
     // Si la receta no existe, puede redirigir a 404
     // Verificar que no redirige a login
@@ -37,7 +37,7 @@ test.describe('Recetas Públicas - Acceso sin Login', () => {
 
   test('debe renderizar página de receta pública con contenido', async ({ page }) => {
     // Primero ir al feed público para obtener una receta
-    await safeGoto(page, 'http://localhost:3000/recipes');
+    await safeGoto(page, '/recipes');
     
     await page.waitForTimeout(1500);
     
@@ -61,7 +61,7 @@ test.describe('Recetas Públicas - Acceso sin Login', () => {
   });
 
   test('debe mostrar información de dificultad y tiempo', async ({ page }) => {
-    await safeGoto(page, 'http://localhost:3000/recipes');
+    await safeGoto(page, '/recipes');
     await page.waitForTimeout(1500);
     
     const recipeLink = page.locator('[href^="/recipes/"], [href^="/r/"]').first();
@@ -85,7 +85,7 @@ test.describe('Recetas Públicas - Acceso sin Login', () => {
   });
 
   test('debe mostrar lista de ingredientes', async ({ page }) => {
-    await safeGoto(page, 'http://localhost:3000/recipes');
+    await safeGoto(page, '/recipes');
     await page.waitForTimeout(1500);
     
     const recipeLink = page.locator('[href^="/recipes/"], [href^="/r/"]').first();
@@ -110,7 +110,7 @@ test.describe('Recetas Públicas - Acceso sin Login', () => {
   });
 
   test('debe mostrar pasos de preparación', async ({ page }) => {
-    await safeGoto(page, 'http://localhost:3000/recipes');
+    await safeGoto(page, '/recipes');
     await page.waitForTimeout(1500);
     
     const recipeLink = page.locator('[href^="/recipes/"], [href^="/r/"]').first();

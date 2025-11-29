@@ -107,10 +107,21 @@ export default function UnifiedNavbar() {
   const communityRef = useRef<HTMLDivElement>(null);
   const userMenuRef = useRef<HTMLDivElement>(null);
 
-  const supabase = createBrowserClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-  );
+  // Create a tolerant browser client or a minimal no-op fallback when keys are missing
+  const supabase =
+    process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+      ? createBrowserClient(
+          process.env.NEXT_PUBLIC_SUPABASE_URL,
+          process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+        )
+      : {
+          auth: {
+            // getSession should resolve to a shape that won't break consumers
+            getSession: async () => ({ data: { session: null } }),
+            onAuthStateChange: () => ({ data: { subscription: { unsubscribe: () => {} } } }),
+            signOut: async () => ({ error: null }),
+          },
+        } as any;
 
   // Auth state management
   useEffect(() => {

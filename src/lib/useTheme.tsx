@@ -1,11 +1,27 @@
 import { useEffect } from 'react';
 import { createClient } from '@supabase/supabase-js';
 
-// Single browser Supabase client (anon key only)
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-);
+// Create a tolerant Supabase-like client so the app doesn't crash if public keys are missing
+// (tests and local dev may run without real secrets).
+let supabase: any;
+if (process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+  supabase = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+  );
+} else {
+  // Minimal no-op client that mirrors the subset of methods used by useTheme
+  supabase = {
+    from: () => ({
+      select: () => ({
+        eq: () => ({
+          // maybeSingle should return a promise resolving to a safe shape
+          maybeSingle: async () => ({ data: null, error: null }),
+        }),
+      }),
+    }),
+  };
+}
 
 /**
  * useTheme

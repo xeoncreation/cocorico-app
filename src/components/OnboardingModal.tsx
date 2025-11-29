@@ -18,8 +18,12 @@ export default function OnboardingModal({ onComplete = () => {} }: OnboardingMod
     // Verificar si el usuario ya completó el onboarding
     const completed = localStorage.getItem('onboarding_completed');
     if (!completed) {
-      setShow(true);
-      trackEvent.onboardingStarted();
+      // Small tick to avoid race between page navigation/hydration and modal mount
+      const id = setTimeout(() => {
+        setShow(true);
+        trackEvent.onboardingStarted();
+      }, 50);
+      return () => clearTimeout(id);
     }
   }, []);
 
@@ -85,10 +89,10 @@ export default function OnboardingModal({ onComplete = () => {} }: OnboardingMod
   return (
     <AnimatePresence>
       <div
-        data-testid="onboarding-modal"
         role="dialog"
         aria-modal="true"
         className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4"
+        data-testid="onboarding-modal"
       >
         <motion.div
           initial={{ opacity: 0, scale: 0.9, y: 20 }}

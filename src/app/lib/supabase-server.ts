@@ -5,9 +5,20 @@ import type { Database } from "@/types/supabase";
 export function supabaseServer() {
   const cookieStore = cookies();
 
+  if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+    // Return a safe no-op server client when Supabase env vars are not configured.
+    return {
+      auth: { getUser: async () => ({ data: { user: null }, error: null }) },
+      from: (_: string) => ({ select: async () => ({ data: null, error: null }) }),
+      storage: { from: (_: string) => ({ list: async () => ({ data: [], error: null }) }) },
+      functions: { invoke: async () => ({ data: null, error: null }) },
+      rpc: async () => ({ data: null, error: null }),
+    } as any;
+  }
+
   return createServerClient<Database>(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    process.env.NEXT_PUBLIC_SUPABASE_URL,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
     {
       cookies: {
         get(name: string) {

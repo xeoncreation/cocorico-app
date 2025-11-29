@@ -8,7 +8,7 @@ import { test, expect } from '@playwright/test';
 const safeGoto = async (page, url: string) => {
     for (let i = 0; i < 2; i++) {
       try {
-        await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 60000 });
+        await page.goto(url, { waitUntil: 'load', timeout: 60000 });
         return;
       } catch (err) {
         if (i === 1) throw err;
@@ -20,7 +20,7 @@ const safeGoto = async (page, url: string) => {
       test.describe('Búsqueda de Recetas', () => {
   
   test('debe renderizar la página de búsqueda correctamente', async ({ page }) => {
-    await safeGoto(page, 'http://localhost:3000/search');
+    await safeGoto(page, '/search');
     // Wait briefly for any client-side loading states to settle
     await page.waitForSelector('text=Cargando…', { state: 'detached', timeout: 15000 }).catch(() => {});
     // Verificar título de la página
@@ -33,7 +33,7 @@ const safeGoto = async (page, url: string) => {
   });
 
   test('debe mostrar filtros cuando se hace clic en el botón', async ({ page }) => {
-    await safeGoto(page, 'http://localhost:3000/search');
+    await safeGoto(page, '/search');
     await page.waitForSelector('text=Cargando…', { state: 'detached', timeout: 15000 }).catch(() => {});
     
     // Buscar botón de filtros (puede tener icono de SlidersHorizontal)
@@ -50,7 +50,7 @@ const safeGoto = async (page, url: string) => {
   });
 
   test('debe realizar búsqueda por texto', async ({ page }) => {
-    await safeGoto(page, 'http://localhost:3000/search');
+    await safeGoto(page, '/search');
     await page.waitForSelector('text=Cargando…', { state: 'detached', timeout: 15000 }).catch(() => {});
 
     const searchInput = page.locator('input[type="text"]').first();
@@ -68,7 +68,7 @@ const safeGoto = async (page, url: string) => {
   });
 
   test('debe mostrar mensaje cuando no hay resultados', async ({ page }) => {
-    await safeGoto(page, 'http://localhost:3000/search');
+    await safeGoto(page, '/search');
     await page.waitForSelector('text=Cargando…', { state: 'detached', timeout: 15000 }).catch(() => {});
 
     const searchInput = page.locator('input[type="text"]').first();
@@ -85,7 +85,7 @@ const safeGoto = async (page, url: string) => {
   });
 
   test('debe navegar a página de receta al hacer clic', async ({ page }) => {
-    await safeGoto(page, 'http://localhost:3000/search');
+    await safeGoto(page, '/search');
     await page.waitForSelector('text=Cargando…', { state: 'detached', timeout: 15000 }).catch(() => {});
     
     // Buscar primer card de receta (si hay resultados)
@@ -101,7 +101,7 @@ const safeGoto = async (page, url: string) => {
   });
 
   test('debe aplicar filtro de dificultad', async ({ page }) => {
-    await safeGoto(page, 'http://localhost:3000/search');
+    await safeGoto(page, '/search');
     
     // Abrir filtros si es necesario
     const filterButton = page.getByRole('button', { name: /filtros/i });
@@ -127,7 +127,7 @@ const safeGoto = async (page, url: string) => {
 test.describe('Componente SearchFilters', () => {
   
   test('debe renderizar opciones de tiempo máximo', async ({ page }) => {
-    await safeGoto(page, 'http://localhost:3000/search');
+    await safeGoto(page, '/search');
     
     const filterButton = page.getByRole('button', { name: /filtros/i });
     if (await filterButton.isVisible()) {
@@ -143,7 +143,7 @@ test.describe('Componente SearchFilters', () => {
   });
 
   test('debe permitir agregar ingredientes', async ({ page }) => {
-    await safeGoto(page, 'http://localhost:3000/search');
+    await safeGoto(page, '/search');
     
     const filterButton = page.getByRole('button', { name: /filtros/i });
     if (await filterButton.isVisible()) {
@@ -168,7 +168,7 @@ test.describe('Componente SearchFilters', () => {
 test.describe('Búsqueda Alternativa (/recipes/search)', () => {
   
   test('debe renderizar página alternativa de búsqueda', async ({ page }) => {
-    await safeGoto(page, 'http://localhost:3000/recipes/search');
+    await safeGoto(page, '/recipes/search');
     await page.waitForSelector('text=Cargando…', { state: 'detached', timeout: 15000 }).catch(() => {});
 
     // Verificar que carga correctamente
