@@ -15,7 +15,7 @@ export default async function VersionsPage() {
     .eq("user_id", user.id)
     .order("created_at", { ascending: false });
 
-  const baseIds = Array.from(new Set((versions || []).map((v) => v.base_recipe_id)));
+  const baseIds = Array.from(new Set((versions || []).map((v: any) => v.base_recipe_id)));
   let baseRecipes: Record<number, any> = {};
   if (baseIds.length) {
     const { data } = await supabase

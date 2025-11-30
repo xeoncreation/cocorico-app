@@ -133,12 +133,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
         <meta name="apple-mobile-web-app-title" content="Cocorico" />
         <meta name="format-detection" content="telephone=no" />
-        {/* Umami Analytics */}
-        <script
-          defer
-          src="https://cloud.umami.is/script.js"
-          data-website-id="0ff906b7-1420-4f27-ae6f-324727d42846"
-        />
+        {/* Umami Analytics — disabled when NEXT_PUBLIC_DISABLE_ANALYTICS is truthy (test runs) */}
+        {!process.env.NEXT_PUBLIC_DISABLE_ANALYTICS && process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID && (
+          <script
+            defer
+            src="https://cloud.umami.is/script.js"
+            data-website-id={process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID}
+          />
+        )}
       </head>
       <body className="app-root-bg min-h-screen font-sans antialiased">
         <div className="app-root-bg-inner">

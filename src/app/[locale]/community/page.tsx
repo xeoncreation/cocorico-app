@@ -50,7 +50,7 @@ export default async function CommunityPage({ params }: { params: { locale: stri
         
         <div className="grid gap-4 md:grid-cols-3">
           {recentRecipes && recentRecipes.length > 0 ? (
-            recentRecipes.map((recipe) => (
+            recentRecipes.map((recipe: any) => (
               <GlassCard key={recipe.id} className="p-6 hover:scale-105 transition-transform">
                 <h3 className="font-bold text-lg mb-2 glass-text-strong">{recipe.title}</h3>
                 <p className="text-sm glass-text-soft mb-4">

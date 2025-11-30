@@ -4,7 +4,8 @@ import Script from "next/script";
 export default function Analytics() {
   const gaId = process.env.NEXT_PUBLIC_GA_ID;
   
-  if (!gaId) {
+  // If analytics disabled (tests/CI) or GA ID not set, don't load the script
+  if (process.env.NEXT_PUBLIC_DISABLE_ANALYTICS || !gaId) {
     // En desarrollo, no cargar analytics
     return null;
   }

@@ -20,7 +20,20 @@ export function UmamiAnalytics() {
 }
 
 // Helper functions para trackear eventos comunes
-export const trackEvent = {
+const DISABLE_ANALYTICS = !!process.env.NEXT_PUBLIC_DISABLE_ANALYTICS;
+
+export const trackEvent = DISABLE_ANALYTICS
+  ? new Proxy(
+      {},
+      {
+        get() {
+          return () => {
+            // no-op in tests / analytics-disabled environments
+          };
+        },
+      }
+    )
+  : {
   // Recetas
   recipeCreated: (recipeId: string) => {
     window.umami?.track('recipe_created', { recipe_id: recipeId });
@@ -99,4 +112,4 @@ export const trackEvent = {
   errorEncountered: (errorType: string, errorMessage: string) => {
     window.umami?.track('error_encountered', { type: errorType, message: errorMessage });
   },
-};
+  };

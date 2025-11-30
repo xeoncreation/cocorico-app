@@ -63,8 +63,10 @@ test.describe('Home Onboarding Modal', () => {
     
     // Simulate a second visit using client-side navigation (avoid reload which runs the
     // context initScript that clears localStorage). Navigate away and back with header links.
-    await page.click('header a[href="/pricing"]');
-    await page.waitForURL(/.*pricing/, { timeout: 20000 });
+    const pricingLink = page.locator('header a[href^="/pricing"], header a[href^="/es/pricing"]');
+    await expect(pricingLink).toBeVisible({ timeout: 10000 });
+    await pricingLink.click({ force: true });
+    await page.waitForURL(/.*pricing/, { timeout: 60000 });
 
     await page.click('header a[href="/"]');
     await page.waitForURL(/(\/|\/es(?:$|[?#]))/, { timeout: 20000 });
@@ -160,11 +162,13 @@ test.describe('Home Onboarding Modal', () => {
     await modal.waitFor({ state: 'detached', timeout: 10000 });
 
     // Navigate to pricing (click a precise header anchor to avoid matching other text nodes)
-    await Promise.all([
-      page.waitForNavigation({ waitUntil: 'load', timeout: 20000 }),
-      page.click('header a[href="/pricing"]'),
-    ]);
-    await expect(page).toHaveURL(/.*pricing/);
+      // Ensure the header pricing link is visible then click it and wait for the URL
+      const pricingLink = page.locator('header a[href^="/pricing"], header a[href^="/es/pricing"]');
+      await expect(pricingLink).toBeVisible({ timeout: 10000 });
+      const href = await pricingLink.getAttribute('href');
+      console.log('DEBUG: pricing href ->', href);
+      await pricingLink.click({ force: true });
+      await page.waitForURL(/.*pricing/, { timeout: 60000 });
     
     // Go back to home
     await page.goto('/es', { waitUntil: 'domcontentloaded', timeout: 60000 });

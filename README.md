@@ -56,6 +56,8 @@ cocorico/
 ```bash
 npm run dev        # Desarrollo
 npm run dev:3001   # Desarrollo en 3001
+npm run dev:127:detach # Inicia dev server en background (Windows-friendly)
+npm run dev:restart # Kill port 3000 (if needed) and start dev server detached
 npm run build      # Build producción
 npm run start      # Servir build
 npm run clean      # Limpiar caché Next.js
@@ -80,6 +82,13 @@ Selector buscable por nombre de idioma.
 
 Umami: script en `layout.tsx`, ID configurable vía `NEXT_PUBLIC_UMAMI_WEBSITE_ID`.
 Modal de onboarding (`OnboardingModal.tsx`) con 4 pasos y flag en `localStorage`.
+
+Tests: Playwright tests run with analytics disabled by default to avoid loading external trackers in CI/tests. Use `npm run test:e2e` to run the full E2E suite.
+
+CI note: the repo includes a lightweight prepare+test flow you can use in CI:
+
+ - `npm run ci:prepare` (seeds demo data with `seed-e2e` if Supabase envs are configured; no-op otherwise)
+ - `npm run test:e2e:ci` (runs the prepare step then Playwright with analytics disabled)
 
 CSP en `middleware.ts` (estricto producción, relajado dev).
 

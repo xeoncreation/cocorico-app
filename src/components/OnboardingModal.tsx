@@ -1,63 +1,77 @@
-'use client';
+"use client";
 
-import { useState, useLayoutEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { X, ChefHat, Camera, Trophy } from 'lucide-react';
-import { trackEvent } from '@/components/UmamiAnalytics';
+import { useState, useLayoutEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { X, ChefHat, Camera, Trophy } from "lucide-react";
+import { trackEvent } from "@/components/UmamiAnalytics";
 
 interface OnboardingModalProps {
   onComplete?: () => void;
 }
 
-export default function OnboardingModal({ onComplete = () => {} }: OnboardingModalProps) {
+export default function OnboardingModal({
+  onComplete = () => {},
+}: OnboardingModalProps) {
   const [step, setStep] = useState(0);
   const [show, setShow] = useState(false);
 
   // Use useLayoutEffect so the modal show state is updated as early as possible
   useLayoutEffect(() => {
+    console.log("[OnboardingModal] useLayoutEffect called");
     // Verificar si el usuario ya completó el onboarding
-    const completed = localStorage.getItem('onboarding_completed');
+    const completed = localStorage.getItem("onboarding_completed");
+    console.log("[OnboardingModal] onboarding_completed =", completed);
     if (!completed) {
       // Small tick to avoid race between page navigation/hydration and modal mount
+      // Increased delay from 50ms to 300ms to reduce race conditions
       const id = setTimeout(() => {
+        console.log("[OnboardingModal] Setting show=true after delay");
         setShow(true);
         trackEvent.onboardingStarted();
-      }, 50);
+      }, 300);
       return () => clearTimeout(id);
+    } else {
+      console.log(
+        "[OnboardingModal] Onboarding already completed, not showing modal"
+      );
     }
   }, []);
 
   const steps = [
     {
       icon: ChefHat,
-      title: '¡Bienvenido a Cocorico! 🎉',
-      description: 'Tu asistente de cocina con inteligencia artificial está listo para ayudarte.',
-      action: 'Comenzar',
-      color: 'from-orange-500 to-red-500',
+      title: "¡Bienvenido a Cocorico! 🎉",
+      description:
+        "Tu asistente de cocina con inteligencia artificial está listo para ayudarte.",
+      action: "Comenzar",
+      color: "from-orange-500 to-red-500",
     },
     {
       icon: ChefHat,
-      title: '1. Crea tu primera receta',
-      description: 'Escribe ingredientes que tienes en casa y la IA te sugerirá recetas deliciosas.',
-      action: 'Ir a crear receta',
-      link: '/recipes/new',
-      color: 'from-cocorico-red to-cocorico-mango',
+      title: "1. Crea tu primera receta",
+      description:
+        "Escribe ingredientes que tienes en casa y la IA te sugerirá recetas deliciosas.",
+      action: "Ir a crear receta",
+      link: "/recipes/new",
+      color: "from-cocorico-red to-cocorico-mango",
     },
     {
       icon: Camera,
-      title: '2. Prueba el escáner de ingredientes',
-      description: 'Toma una foto de tus ingredientes y descubre qué puedes cocinar con ellos.',
-      action: 'Probar escáner',
-      link: '/dashboard/lab',
-      color: 'from-green-500 to-teal-500',
+      title: "2. Prueba el escáner de ingredientes",
+      description:
+        "Toma una foto de tus ingredientes y descubre qué puedes cocinar con ellos.",
+      action: "Probar escáner",
+      link: "/dashboard/lab",
+      color: "from-green-500 to-teal-500",
     },
     {
       icon: Trophy,
-      title: '3. Completa un reto diario',
-      description: 'Cada día hay un nuevo reto de cocina. ¡Complétalo y gana XP y badges!',
-      action: 'Ver retos',
-      link: '/dashboard/challenges',
-      color: 'from-yellow-500 to-orange-500',
+      title: "3. Completa un reto diario",
+      description:
+        "Cada día hay un nuevo reto de cocina. ¡Complétalo y gana XP y badges!",
+      action: "Ver retos",
+      link: "/dashboard/challenges",
+      color: "from-yellow-500 to-orange-500",
     },
   ];
 
@@ -71,7 +85,7 @@ export default function OnboardingModal({ onComplete = () => {} }: OnboardingMod
   };
 
   const handleComplete = () => {
-    localStorage.setItem('onboarding_completed', 'true');
+    localStorage.setItem("onboarding_completed", "true");
     trackEvent.onboardingCompleted();
     setShow(false);
     onComplete();
@@ -101,7 +115,9 @@ export default function OnboardingModal({ onComplete = () => {} }: OnboardingMod
           className="bg-white dark:bg-gray-900 rounded-2xl shadow-2xl max-w-lg w-full overflow-hidden"
         >
           {/* Header con gradiente */}
-          <div className={`bg-gradient-to-r ${currentStep.color} p-8 text-white relative`}>
+          <div
+            className={`bg-gradient-to-r ${currentStep.color} p-8 text-white relative`}
+          >
             <button
               onClick={handleSkip}
               className="absolute top-4 right-4 p-2 hover:bg-white/20 rounded-full transition-colors"
@@ -128,10 +144,10 @@ export default function OnboardingModal({ onComplete = () => {} }: OnboardingMod
                   key={i}
                   className={`h-2 rounded-full transition-all ${
                     i === step
-                      ? 'w-8 bg-[#e43f30]'
+                      ? "w-8 bg-[#e43f30]"
                       : i < step
-                      ? 'w-2 bg-[#e43f30]/50'
-                      : 'w-2 bg-gray-300 dark:bg-gray-700'
+                      ? "w-2 bg-[#e43f30]/50"
+                      : "w-2 bg-gray-300 dark:bg-gray-700"
                   }`}
                 />
               ))}
@@ -151,7 +167,7 @@ export default function OnboardingModal({ onComplete = () => {} }: OnboardingMod
                 onClick={handleNext}
                 className="flex-1 px-6 py-3 bg-[#e43f30] hover:bg-[#c43525] text-white rounded-lg transition-colors font-medium"
               >
-                {step === steps.length - 1 ? '¡Empezar!' : currentStep.action}
+                {step === steps.length - 1 ? "¡Empezar!" : currentStep.action}
               </button>
             </div>
 
