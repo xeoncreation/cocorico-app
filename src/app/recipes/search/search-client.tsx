@@ -87,7 +87,6 @@ export default function SearchClient() {
 
   useEffect(() => {
     fetchResults();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filters, page, sort]);
 
   const onSubmit = (e: any) => {

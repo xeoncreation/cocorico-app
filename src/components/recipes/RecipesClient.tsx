@@ -204,7 +204,6 @@ export default function RecipesClient() {
 
   useEffect(() => {
     loadRecipes();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const loadRecipes = async () => {

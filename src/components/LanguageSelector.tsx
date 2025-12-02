@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-/* eslint-disable jsx-a11y/aria-proptypes */
 import { usePathname, useRouter } from "next/navigation";
 
 // Idiomas soportados y futuros. 'available' indica si existe archivo de traducción.

@@ -16,7 +16,6 @@ export default function RecipesClient() {
 
   useEffect(() => {
     loadRecipes();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Inserta recetas demo si la tabla está vacía
@@ -24,7 +23,6 @@ export default function RecipesClient() {
     if (!loading && recipes.length === 0) {
       insertDemoRecipes();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loading]);
 
   const insertDemoRecipes = async () => {
