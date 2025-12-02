@@ -122,6 +122,51 @@ export default async function LocaleHomePage({
         </div>
       </Reveal>
 
+      {/* Why Cocorico Section */}
+      <Reveal delay={0.9}>
+        <div className="max-w-5xl mb-12">
+          <h2 className="text-3xl font-bold text-center mb-8 glass-text-strong">✨ ¿Por qué Cocorico?</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="coco-glass p-6 rounded-2xl">
+              <div className="flex items-start gap-4">
+                <div className="text-3xl">🤖</div>
+                <div>
+                  <h3 className="font-bold text-lg mb-2 glass-text-strong">IA Personalizada</h3>
+                  <p className="text-sm glass-text-medium">Recetas adaptadas a tus gustos, restricciones dietéticas y nivel de habilidad</p>
+                </div>
+              </div>
+            </div>
+            <div className="coco-glass p-6 rounded-2xl">
+              <div className="flex items-start gap-4">
+                <div className="text-3xl">📊</div>
+                <div>
+                  <h3 className="font-bold text-lg mb-2 glass-text-strong">Análisis Nutricional</h3>
+                  <p className="text-sm glass-text-medium">Información completa sobre calorías, macronutrientes y puntuación Cocorico</p>
+                </div>
+              </div>
+            </div>
+            <div className="coco-glass p-6 rounded-2xl">
+              <div className="flex items-start gap-4">
+                <div className="text-3xl">📸</div>
+                <div>
+                  <h3 className="font-bold text-lg mb-2 glass-text-strong">Escáner Inteligente</h3>
+                  <p className="text-sm glass-text-medium">Escanea códigos de barras o fotografías para identificar ingredientes al instante</p>
+                </div>
+              </div>
+            </div>
+            <div className="coco-glass p-6 rounded-2xl">
+              <div className="flex items-start gap-4">
+                <div className="text-3xl">🌍</div>
+                <div>
+                  <h3 className="font-bold text-lg mb-2 glass-text-strong">Comunidad Global</h3>
+                  <p className="text-sm glass-text-medium">Comparte recetas, participa en retos y aprende de miles de cocineros</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </Reveal>
+
       <Reveal delay={1.0}>
         <div className="relative mt-8 opacity-95">
           <div className="glass-card glass-card-mango glass-frosted-border p-2 rounded-[2rem] inline-block">

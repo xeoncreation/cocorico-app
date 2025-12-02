@@ -36,6 +36,26 @@ export default async function CommunityPage({ params }: { params: { locale: stri
         </p>
       </GlassCard>
 
+      {/* Quick Stats */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <GlassCard className="p-6 text-center">
+          <div className="text-3xl font-bold text-cocorico-red dark:text-cocorico-mango mb-2">2.4K+</div>
+          <div className="text-sm glass-text-medium">👥 Miembros Activos</div>
+        </GlassCard>
+        <GlassCard className="p-6 text-center">
+          <div className="text-3xl font-bold text-cocorico-orange dark:text-cocorico-yellow mb-2">8.7K+</div>
+          <div className="text-sm glass-text-medium">🍲 Recetas Compartidas</div>
+        </GlassCard>
+        <GlassCard className="p-6 text-center">
+          <div className="text-3xl font-bold text-cocorico-avocado dark:text-cocorico-turquoise mb-2">145+</div>
+          <div className="text-sm glass-text-medium">🏆 Retos Completados</div>
+        </GlassCard>
+        <GlassCard className="p-6 text-center">
+          <div className="text-3xl font-bold text-cocorico-datil dark:text-cocorico-mango mb-2">34K+</div>
+          <div className="text-sm glass-text-medium">💬 Mensajes de Chat</div>
+        </GlassCard>
+      </div>
+
       {/* Feed Preview */}
       <section>
         <div className="flex items-center justify-between mb-4">
@@ -109,6 +129,54 @@ export default async function CommunityPage({ params }: { params: { locale: stri
                   <div className="bg-green-500 h-2 rounded-full" style={{ width: "33%" }}></div>
                 </div>
                 <p className="text-xs glass-text-soft mt-2">1 de 3 completados</p>
+              </div>
+            </div>
+          </GlassCard>
+        </div>
+      </section>
+
+      {/* Leaderboard Preview */}
+      <section>
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-2xl font-bold glass-text-strong">📊 Ranking Semanal</h2>
+          <Link
+            href={`/${params.locale}/community/leaderboard`}
+            className="flex items-center gap-2 text-amber-600 dark:text-amber-400 hover:underline font-semibold"
+          >
+            Ver completo <ArrowRight className="w-4 h-4" />
+          </Link>
+        </div>
+        
+        <div className="grid gap-3 md:grid-cols-3">
+          <GlassCard className="p-5 bg-gradient-to-br from-yellow-400/20 to-amber-500/20 border-amber-400/40">
+            <div className="flex items-center gap-4">
+              <div className="text-5xl">🥇</div>
+              <div className="flex-1">
+                <div className="text-sm glass-text-soft mb-1">1º Lugar</div>
+                <h4 className="font-bold text-lg glass-text-strong">ChefMaster👩‍🍳</h4>
+                <p className="text-sm text-amber-600 dark:text-amber-400 font-semibold">2,840 XP</p>
+              </div>
+            </div>
+          </GlassCard>
+          
+          <GlassCard className="p-5 bg-gradient-to-br from-gray-400/20 to-gray-500/20 border-gray-400/40">
+            <div className="flex items-center gap-4">
+              <div className="text-5xl">🥈</div>
+              <div className="flex-1">
+                <div className="text-sm glass-text-soft mb-1">2º Lugar</div>
+                <h4 className="font-bold text-lg glass-text-strong">CocinaFeliz🎉</h4>
+                <p className="text-sm text-gray-600 dark:text-gray-400 font-semibold">2,105 XP</p>
+              </div>
+            </div>
+          </GlassCard>
+          
+          <GlassCard className="p-5 bg-gradient-to-br from-orange-600/20 to-amber-700/20 border-orange-500/40">
+            <div className="flex items-center gap-4">
+              <div className="text-5xl">🥉</div>
+              <div className="flex-1">
+                <div className="text-sm glass-text-soft mb-1">3º Lugar</div>
+                <h4 className="font-bold text-lg glass-text-strong">RecetasAbuela👵</h4>
+                <p className="text-sm text-orange-600 dark:text-orange-400 font-semibold">1,920 XP</p>
               </div>
             </div>
           </GlassCard>
