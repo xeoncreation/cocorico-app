@@ -84,6 +84,8 @@
     "/'[^']*'/g",
     "/\"[^\"]*\"/g"
   ],
+  "github-actions.workflows.pinned.workflows": [],
+  "github-actions.workflows.pinned.refresh.enabled": false,
   "cSpell.words": [
     "Cocorico",
     "Precios",
