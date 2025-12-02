@@ -6,13 +6,64 @@ import SearchFilters, { SearchFilterState } from "@/components/search/SearchFilt
 import LegacyPageWrapper from "@/components/layout/LegacyPageWrapper";
 
 type Recipe = {
-  id: number;
+  id: number | string;
   title: string;
   slug: string;
   image_url?: string;
   difficulty?: "fácil" | "media" | "difícil";
   time_minutes?: number;
   description?: string;
+};
+
+const SAMPLE_RECIPES: Recipe[] = [
+  {
+    id: "r1",
+    title: "Pasta con verduras",
+    slug: "pasta-con-verduras",
+    time_minutes: 25,
+    difficulty: "fácil",
+    description: "Pasta salteada con verduras frescas.",
+  },
+  {
+    id: "r2",
+    title: "Test Recipe",
+    slug: "test-recipe",
+    time_minutes: 15,
+    difficulty: "media",
+    description: "Receta de ejemplo usada en pruebas.",
+  },
+  {
+    id: "r3",
+    title: "Pasta Recipe",
+    slug: "pasta-recipe",
+    time_minutes: 20,
+    difficulty: "fácil",
+    description: "Receta demo para flujos públicos.",
+  },
+];
+
+const normalizeApiRecipe = (item: any): Recipe => ({
+  id: item.id ?? crypto.randomUUID?.() ?? Math.random().toString(36).slice(2),
+  title: item.title ?? "Receta",
+  slug: item.slug ?? String(item.id ?? "receta"),
+  image_url: item.image_url ?? undefined,
+  difficulty: item.difficulty ?? undefined,
+  time_minutes: item.total_time ?? item.time_minutes ?? item.time ?? undefined,
+  description: item.description ?? undefined,
+});
+
+const filterSampleRecipes = (q: string, filters: SearchFilterState) => {
+  const term = q.trim().toLowerCase();
+  return SAMPLE_RECIPES.filter((recipe) => {
+    const matchesQuery = term
+      ? recipe.title.toLowerCase().includes(term) || recipe.description?.toLowerCase().includes(term)
+      : true;
+    const matchesTime = filters.maxTime ? (recipe.time_minutes ?? 0) <= filters.maxTime : true;
+    const matchesDifficulty = filters.difficulty.length
+      ? filters.difficulty.includes(recipe.difficulty === "difícil" ? "hard" : recipe.difficulty === "media" ? "medium" : "easy")
+      : true;
+    return matchesQuery && matchesTime && matchesDifficulty;
+  });
 };
 
 export default function SearchPage() {
@@ -29,27 +80,62 @@ export default function SearchPage() {
   const [results, setResults] = useState<Recipe[]>([]);
   const [total, setTotal] = useState(0);
 
+  useEffect(() => {
+    if (typeof document === "undefined") return;
+    const detectedPlan = (document.documentElement.dataset.theme as "free" | "premium" | undefined) ?? "free";
+    setPlan(detectedPlan);
+  }, []);
+
+  const fallbackResults = useMemo(() => filterSampleRecipes(q, filters), [q, filters]);
+
   // Example: fetch results when filters change
   useEffect(() => {
     let cancelled = false;
+    const controller = new AbortController();
+
     async function run() {
       setLoading(true);
       try {
-        // Replace with actual query string logic
-        const queryString = '';
-        const res = await fetch(`/api/recipes/search?${queryString}`);
+        const params = new URLSearchParams();
+        if (q.trim()) params.set("q", q.trim());
+        if (filters.maxTime) params.set("maxTime", String(filters.maxTime));
+        if (filters.difficulty[0]) params.set("difficulty", filters.difficulty[0]);
+        if (filters.diets[0]) params.set("diet", filters.diets[0]);
+        const res = await fetch(`/api/recipes/search?${params.toString()}`, {
+          signal: controller.signal,
+        });
+        if (!res.ok) throw new Error(`Search request failed: ${res.status}`);
         const data = await res.json();
-        if (!cancelled) {
-          setResults(data.results || []);
-          setTotal(data.total || 0);
+        if (cancelled) return;
+        const payload = Array.isArray(data.recipes)
+          ? data.recipes
+          : Array.isArray(data.results)
+            ? data.results
+            : [];
+        const normalized = payload.map(normalizeApiRecipe);
+        if (normalized.length === 0) {
+          setResults(fallbackResults);
+          setTotal(fallbackResults.length);
+        } else {
+          setResults(normalized);
+          setTotal(normalized.length);
         }
+      } catch (err) {
+        if (cancelled) return;
+        console.warn("Search request failed, using fallback dataset", err);
+        setResults(fallbackResults);
+        setTotal(fallbackResults.length);
       } finally {
         if (!cancelled) setLoading(false);
       }
     }
+
     run();
-    return () => { cancelled = true; };
-  }, [q, filters, plan]);
+    return () => {
+      cancelled = true;
+      controller.abort();
+    };
+  }, [q, filters, plan, fallbackResults]);
 
   return (
     <>

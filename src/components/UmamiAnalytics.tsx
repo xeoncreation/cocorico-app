@@ -22,7 +22,12 @@ export function UmamiAnalytics() {
 // Helper functions para trackear eventos comunes
 const DISABLE_ANALYTICS = !!process.env.NEXT_PUBLIC_DISABLE_ANALYTICS;
 
-export const trackEvent = DISABLE_ANALYTICS
+// Expose a relaxed shape for trackEvent so callers can safely call any
+// named event helper (eg. onboardingStarted) and the TS compiler knows it's
+// callable even in no-op / test environments.
+export type TrackEvent = Record<string, (...args: any[]) => void>;
+
+export const trackEvent: TrackEvent = DISABLE_ANALYTICS
   ? new Proxy(
       {},
       {
@@ -112,4 +117,4 @@ export const trackEvent = DISABLE_ANALYTICS
   errorEncountered: (errorType: string, errorMessage: string) => {
     window.umami?.track('error_encountered', { type: errorType, message: errorMessage });
   },
-  };
+  } as TrackEvent;

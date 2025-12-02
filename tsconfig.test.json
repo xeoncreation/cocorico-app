@@ -11,5 +11,19 @@
   "include": [
     "tests/**/*.ts",
     "tests/**/*.tsx"
+  ],
+  "exclude": [
+    "node_modules",
+    "cocorico-mobile",
+    "supabase/functions",
+    "public",
+    "out",
+    "build",
+    "dist",
+    "test-results",
+    "repo-cleanup",
+    ".next",
+    ".next-*",
+    "playwright-report"
   ]
 }

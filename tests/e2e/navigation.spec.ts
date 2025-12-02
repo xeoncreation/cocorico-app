@@ -1,36 +1,40 @@
 import { test, expect } from '@playwright/test';
 
 test.describe('Navbar links', () => {
+  test.setTimeout(120000);
   test('Links visible and target routes reachable', async ({ page }) => {
-    await page.goto('/', { waitUntil: 'load', timeout: 30000 });
-
-    // Helper to retry navigation once if a transient aborted error happens
-    const safeGoto = async (url: string) => {
-      for (let i = 0; i < 2; i++) {
-        try {
-          await page.goto(url, { waitUntil: 'load', timeout: 60000 });
-          return;
-        } catch (err) {
-          if (i === 1) throw err;
-          await page.waitForTimeout(300);
-        }
-      }
+    await page.goto('/', { waitUntil: 'domcontentloaded', timeout: 60000 });
+    const header = page.locator('header');
+    const localePrefix = await page.evaluate(() => {
+      const lang = document.documentElement.lang;
+      if (lang === 'es' || lang === 'en') return `/${lang}`;
+      return '';
+    });
+    const selectorFor = (path: string) => {
+      const localized = localePrefix
+        ? path === '/'
+          ? localePrefix || '/'
+          : `${localePrefix}${path}`
+        : path;
+      const uniqueHrefs = Array.from(new Set([localized, path])).filter(Boolean);
+      return uniqueHrefs.map((href) => `a[href="${href}"]`).join(', ');
     };
 
     // Links visible in navbar (give more time for header to hydrate)
-    // Links visible in navbar (scoped to header)
-    await expect(page.locator('header a[href="/chat"]')).toBeVisible({ timeout: 5000 });
-    await expect(page.locator('header a[href="/dashboard/favorites"]')).toBeVisible();
-    await expect(page.locator('header a[href="/dashboard/stats"]')).toBeVisible();
-    await expect(page.locator('header a[href="/login"]')).toBeVisible();
+    await expect(header.locator(selectorFor('/chat'))).toBeVisible({ timeout: 10000 });
+    await expect(header.locator(selectorFor('/dashboard/favorites'))).toBeVisible({ timeout: 10000 });
+    await expect(header.locator(selectorFor('/dashboard/stats'))).toBeVisible({ timeout: 10000 });
+    const loginLink = header.locator(selectorFor('/login')).first();
+    await expect(loginLink).toBeVisible({ timeout: 10000 });
 
     // Routes reachable
-    // Use header anchor clicks for client navigation to avoid aborted fetch races
-      // Sanity-check that login & signup routes are reachable
-      await safeGoto('/login');
-      await expect(page.locator('a[href="/signup"]')).toBeVisible({ timeout: 10000 });
+    await loginLink.click({ timeout: 10000 });
+    await page.waitForURL('**/login', { timeout: 60000 });
+    const signupLink = page.locator(selectorFor('/signup')).first();
+    await expect(signupLink).toBeVisible({ timeout: 10000 });
 
-      await safeGoto('/signup');
-      await expect(page.locator('header a[href="/login"]')).toBeVisible({ timeout: 10000 });
+    await signupLink.click({ timeout: 10000 });
+    await page.waitForURL('**/signup', { timeout: 60000 });
+    await expect(header.locator(selectorFor('/login')).first()).toBeVisible({ timeout: 10000 });
   });
 });

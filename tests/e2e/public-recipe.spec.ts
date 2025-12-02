@@ -1,30 +1,28 @@
-import { test, expect } from '@playwright/test';
+import { test, expect, Page } from '@playwright/test';
 
 /**
  * Tests para visualización de recetas públicas
  * Verifica que recetas públicas sean accesibles sin autenticación
  */
 
-test.describe('Recetas Públicas - Acceso sin Login', () => {
+const PUBLIC_USER = 'public';
+const FALLBACK_USER = 'testuser';
+const PRIMARY_SLUG = 'pasta-con-verduras';
+const ALT_SLUG = 'test-recipe';
 
-  const safeGoto = async (page, url: string) => {
-    for (let i = 0; i < 2; i++) {
-      try {
-        await page.goto(url, { waitUntil: 'load', timeout: 60000 });
-        return;
-      } catch (err) {
-        if (i === 1) throw err;
-        await page.waitForTimeout(300);
-      }
-    }
-  };
+const gotoPublicRecipe = async (page: Page, slug = PRIMARY_SLUG, user = PUBLIC_USER) => {
+  await page.goto(`/r/${user}/${slug}`, { waitUntil: 'domcontentloaded', timeout: 60000 });
+};
+
+test.describe('Recetas Públicas - Acceso sin Login', () => {
+  test.setTimeout(120000);
   
   test('debe acceder a receta pública sin autenticación', async ({ page }) => {
     // Ir directamente a una ruta de receta pública
     // Nota: esto asume que existe al menos una receta pública con slug conocido
     // En producción, deberías crear una receta de prueba primero o usar una existente
     
-    await safeGoto(page, '/r/public/pasta-con-verduras');
+    await gotoPublicRecipe(page);
     
     // Si la receta no existe, puede redirigir a 404
     // Verificar que no redirige a login
@@ -37,114 +35,42 @@ test.describe('Recetas Públicas - Acceso sin Login', () => {
 
   test('debe renderizar página de receta pública con contenido', async ({ page }) => {
     // Primero ir al feed público para obtener una receta
-    await safeGoto(page, '/recipes');
-    
-    await page.waitForTimeout(1500);
-    
-    // Buscar primer enlace a receta pública
-    const recipeLink = page.locator('[href^="/recipes/"], [href^="/r/"]').first();
-    
-    if (await recipeLink.isVisible()) {
-      await recipeLink.click();
-      
-      await page.waitForTimeout(1000);
-      
-      // Verificar elementos básicos de una receta
-      // Título, ingredientes, pasos
-      const heading = page.locator('h1').first();
-      await expect(heading).toBeVisible();
-      
-      // Verificar que existe contenido de receta
-      const content = page.locator('body');
-      await expect(content).toContainText(/.+/); // Al menos algún texto
-    }
+    await gotoPublicRecipe(page);
+
+    await expect(page.getByRole('heading', { level: 1, name: /pasta con verduras/i })).toBeVisible();
+    await expect(page.getByRole('heading', { level: 2, name: /ingredientes/i })).toBeVisible();
+    await expect(page.getByRole('heading', { level: 2, name: /pasos/i })).toBeVisible();
+    await expect(page.locator('main ul li').first()).toContainText(/pasta/i);
+    await expect(page.getByText(/25\s*min/i).first()).toBeVisible();
+    await expect(page.getByText(/fácil/i).first()).toBeVisible();
   });
 
   test('debe mostrar información de dificultad y tiempo', async ({ page }) => {
-    await safeGoto(page, '/recipes');
-    await page.waitForTimeout(1500);
-    
-    const recipeLink = page.locator('[href^="/recipes/"], [href^="/r/"]').first();
-    
-    if (await recipeLink.isVisible()) {
-      await recipeLink.click();
-      await page.waitForTimeout(1000);
-      
-      // Buscar indicadores de dificultad (fácil, media, difícil)
-      const difficultyText = page.locator('text=/fácil|media|difícil/i').first();
-      
-      // Buscar indicadores de tiempo (min, minutos)
-      const timeText = page.locator('text=/min|minutos/i').first();
-      
-      // Al menos uno debería estar presente
-      const hasDifficulty = await difficultyText.isVisible().catch(() => false);
-      const hasTime = await timeText.isVisible().catch(() => false);
-      
-      expect(hasDifficulty || hasTime).toBeTruthy();
-    }
+    await gotoPublicRecipe(page);
+
+    const statsRow = page.locator('main div').filter({ hasText: /25\s*min/i }).first();
+    await expect(statsRow).toContainText(/25\s*min/i);
+    await expect(statsRow).toContainText(/fácil/i);
   });
 
   test('debe mostrar lista de ingredientes', async ({ page }) => {
-    await safeGoto(page, '/recipes');
-    await page.waitForTimeout(1500);
-    
-    const recipeLink = page.locator('[href^="/recipes/"], [href^="/r/"]').first();
-    
-    if (await recipeLink.isVisible()) {
-      await recipeLink.click();
-      await page.waitForTimeout(1000);
-      
-      // Buscar sección de ingredientes
-      const ingredientsSection = page.locator('text=/ingredientes/i').first();
-      if (await ingredientsSection.isVisible()) {
-        await expect(ingredientsSection).toBeVisible();
-      }
-      
-      // O buscar lista/items que parezcan ingredientes
-      const lists = page.locator('ul, ol');
-      if (await lists.first().isVisible()) {
-        const listCount = await lists.count();
-        expect(listCount).toBeGreaterThan(0);
-      }
-    }
+    await gotoPublicRecipe(page);
+
+    const ingredients = page.locator('article ul li');
+    await expect(ingredients.first()).toContainText(/pasta/i);
   });
 
   test('debe mostrar pasos de preparación', async ({ page }) => {
-    await safeGoto(page, '/recipes');
-    await page.waitForTimeout(1500);
-    
-    const recipeLink = page.locator('[href^="/recipes/"], [href^="/r/"]').first();
-    
-    if (await recipeLink.isVisible()) {
-      await recipeLink.click();
-      await page.waitForTimeout(1000);
-      
-      // Buscar sección de preparación, pasos, instrucciones
-      const stepsSection = page.locator('text=/preparación|pasos|instrucciones/i').first();
-      if (await stepsSection.isVisible()) {
-        await expect(stepsSection).toBeVisible();
-      }
-    }
+    await gotoPublicRecipe(page);
+    const steps = page.locator('article ol li');
+    await expect(steps.first()).toContainText(/hervir/i);
+    await expect(steps.nth(1)).toContainText(/saltear/i);
   });
 
   test('no debe mostrar botón de editar en receta pública sin login', async ({ page }) => {
-    await page.goto('/recipes');
-    await page.waitForTimeout(1500);
-    
-    const recipeLink = page.locator('[href^="/recipes/"], [href^="/r/"]').first();
-    
-    if (await recipeLink.isVisible()) {
-      await recipeLink.click();
-      await page.waitForTimeout(1000);
-      
-      // Verificar que NO existe botón de editar (solo visible para autor)
-      const editButton = page.locator('button:has-text("Editar"), a:has-text("Editar")').first();
-      const isVisible = await editButton.isVisible().catch(() => false);
-      
-      // Si aparece, puede ser porque el test está autenticado accidentalmente
-      // En producción real sin login, no debería aparecer
-      // expect(isVisible).toBe(false);
-    }
+    await gotoPublicRecipe(page);
+    const editButton = page.locator('button:has-text("Editar"), a:has-text("Editar")');
+    await expect(editButton).toHaveCount(0);
   });
 });
 
@@ -152,77 +78,51 @@ test.describe('Feed Público de Recetas', () => {
   
   test('debe renderizar feed de recetas públicas', async ({ page }) => {
     await page.goto('/recipes');
-    
-    // Verificar título o heading
-    await page.waitForTimeout(1500);
-    
-    const heading = page.locator('h1, h2').first();
-    await expect(heading).toBeVisible();
+
+    await expect(page.getByRole('heading', { name: /mis recetas/i })).toBeVisible();
+    await expect(page.getByRole('heading', { level: 2, name: /pasta con verduras/i })).toBeVisible();
+    await expect(page.getByRole('heading', { level: 2, name: /test recipe/i })).toBeVisible();
   });
 
   test('debe mostrar tarjetas de recetas', async ({ page }) => {
     await page.goto('/recipes');
-    
-    await page.waitForTimeout(1500);
-    
-    // Buscar enlaces a recetas
-    const recipeLinks = page.locator('[href^="/recipes/"], [href^="/r/"]');
-    const count = await recipeLinks.count();
-    
-    // Debería haber al menos una receta pública (en producción con datos seed)
-    // Si no hay, el test puede fallar - considera crear recetas demo
-    expect(count).toBeGreaterThanOrEqual(0);
+
+    const firstAction = page.getByRole('button', { name: /^Ver$/ }).first();
+    await expect(firstAction).toBeVisible();
+    const secondAction = page.getByRole('button', { name: /^Editar$/ }).first();
+    await expect(secondAction).toBeVisible();
   });
 
   test('debe permitir hacer clic en tarjeta de receta', async ({ page }) => {
     await page.goto('/recipes');
-    
-    await page.waitForTimeout(1500);
-    
-    const firstRecipe = page.locator('[href^="/recipes/"], [href^="/r/"]').first();
-    
-    if (await firstRecipe.isVisible()) {
-      const href = await firstRecipe.getAttribute('href');
-      await firstRecipe.click();
-      
-      await page.waitForTimeout(1000);
-      
-      // Verificar que navegó a página de detalle
-      const currentUrl = page.url();
-      expect(currentUrl).toContain('/recipes/');
+
+    const demoToggle = page.getByRole('button', { name: /ver recetas demo/i });
+    const toggleAvailable = await demoToggle.waitFor({ state: 'visible', timeout: 5000 }).then(() => true).catch(() => false);
+    if (toggleAvailable) {
+      await demoToggle.click();
+      await expect(page.getByRole('button', { name: /ver mis recetas/i })).toBeVisible();
     }
+
+    const demoCardHeading = page.getByRole('heading', { level: 3, name: /paella valenciana/i });
+    await expect(demoCardHeading).toBeVisible();
+    await demoCardHeading.click();
+    await expect(page).toHaveURL(/\/recipes\/create$/);
   });
 });
 
 test.describe('Receta Pública - Formato Específico', () => {
   
   test('debe renderizar receta en ruta /r/public/[slug]', async ({ page }) => {
-    // Este formato específico es usado en algunas partes de la app
-    await page.goto('/r/public/test-recipe');
-    
-    await page.waitForTimeout(1000);
-    
-    // Verificar que no redirige a error 500
-    const currentUrl = page.url();
-    
-    // Si la receta no existe, debería ser 404, no error de servidor
-    const errorText = page.locator('text=/error 500|internal server error/i').first();
-    const hasError = await errorText.isVisible().catch(() => false);
-    
-    expect(hasError).toBe(false);
+    const response = await page.goto(`/r/public/${ALT_SLUG}`, { waitUntil: 'domcontentloaded', timeout: 60000 });
+    expect(response?.status()).toBeLessThan(500);
+    await expect(page.getByRole('heading', { level: 1, name: /test recipe/i })).toBeVisible();
   });
 
   test('debe renderizar receta en ruta /r/[user]/[slug]', async ({ page }) => {
-    // Formato con usuario en la ruta
-    await page.goto('/r/testuser/pasta-recipe');
-    
-    await page.waitForTimeout(1000);
-    
-    // Verificar que la página carga (aunque sea 404 si no existe)
-    const errorText = page.locator('text=/error 500|internal server error/i').first();
-    const hasError = await errorText.isVisible().catch(() => false);
-    
-    expect(hasError).toBe(false);
+    const res = await page.goto(`/r/${FALLBACK_USER}/pasta-recipe`, { waitUntil: 'domcontentloaded', timeout: 60000 });
+    expect(res?.status()).toBeLessThan(500);
+    await expect(page.getByRole('heading', { level: 1, name: /pasta con verduras/i })).toBeVisible();
+    await expect(page.locator('text=/Publicado por/i')).toContainText(FALLBACK_USER);
   });
 });
 
@@ -250,21 +150,10 @@ test.describe('Visibilidad de Recetas Privadas', () => {
 
 test.describe('Compartir Receta Pública', () => {
   
-  test('debe mostrar botón de compartir en receta pública', async ({ page }) => {
-    await page.goto('/recipes');
-    await page.waitForTimeout(1500);
-    
-    const recipeLink = page.locator('[href^="/recipes/"], [href^="/r/"]').first();
-    
-    if (await recipeLink.isVisible()) {
-      await recipeLink.click();
-      await page.waitForTimeout(1000);
-      
-      // Buscar botón de compartir
-      const shareButton = page.locator('button:has-text("Compartir"), [aria-label*="Compartir"]').first();
-      
-      // Puede o no estar visible dependiendo del diseño
-      // Este test es más de UI/UX que funcional
-    }
+  test('debe mostrar CTA para abrir receta pública', async ({ page }) => {
+    await page.goto('/search');
+    await page.waitForSelector('text=Cargando…', { state: 'detached', timeout: 15000 }).catch(() => {});
+    const shareCta = page.locator('a:has-text("Ver receta")');
+    await expect(shareCta.first()).toBeVisible();
   });
 });

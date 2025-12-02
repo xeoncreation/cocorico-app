@@ -10,10 +10,16 @@ export default defineConfig({
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
   workers: process.env.CI ? 1 : undefined,
+  // Use a pre-generated storageState containing a site-access cookie so the
+  // middleware doesn't redirect tests to the /access gate when SITE_PASSWORD
+  // is configured in .env.local. The globalSetup script creates this file.
+  globalSetup: require.resolve('./tests/e2e/global-setup.js'),
+
   use: {
     // Prefer 127.0.0.1 to avoid localhost resolving to IPv6 (::1) on some environments
     baseURL: 'http://127.0.0.1:3000',
     trace: 'on-first-retry',
+    storageState: 'tests/e2e/storageState.json',
     headless: true,
   },
 

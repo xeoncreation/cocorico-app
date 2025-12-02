@@ -140,6 +140,7 @@ export function createClientComponentClient() {
 
         if (state.filters.slug) result = result.filter(r => r.slug === state.filters.slug);
         if (state.filters.visibility) result = result.filter(r => r.visibility === state.filters.visibility);
+        if (state.filters.difficulty) result = result.filter(r => r.difficulty === state.filters.difficulty);
         if (state.filters.ilike) {
           const pattern = (state.filters.ilike as string).replace(/%/g, '').toLowerCase();
           result = result.filter(r => (r.title || '').toLowerCase().includes(pattern) || (r.slug || '').toLowerCase().includes(pattern));
@@ -243,6 +244,7 @@ export async function createServerComponentClient() {
           let result = sampleRecipes.slice();
           if (state.filters.slug) result = result.filter(r => r.slug === state.filters.slug);
           if (state.filters.visibility) result = result.filter(r => r.visibility === state.filters.visibility);
+          if (state.filters.difficulty) result = result.filter(r => r.difficulty === state.filters.difficulty);
           if (state.filters.ilike) {
             const pattern = (state.filters.ilike as string).replace(/%/g, '').toLowerCase();
             result = result.filter(r => (r.title || '').toLowerCase().includes(pattern) || (r.slug || '').toLowerCase().includes(pattern));
@@ -357,6 +359,7 @@ export async function createRouteHandlerClient() {
           let result = sampleRecipes.slice();
           if (state.filters.slug) result = result.filter(r => r.slug === state.filters.slug);
           if (state.filters.visibility) result = result.filter(r => r.visibility === state.filters.visibility);
+          if (state.filters.difficulty) result = result.filter(r => r.difficulty === state.filters.difficulty);
           if (state.filters.ilike) {
             const pattern = (state.filters.ilike as string).replace(/%/g, '').toLowerCase();
             result = result.filter(r => (r.title || '').toLowerCase().includes(pattern) || (r.slug || '').toLowerCase().includes(pattern));

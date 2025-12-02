@@ -1,0 +1,15 @@
+{
+  "cookies": [
+    {
+      "name": "site-access",
+      "value": "granted",
+      "domain": "127.0.0.1",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    }
+  ],
+  "origins": []
+}

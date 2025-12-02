@@ -3,6 +3,7 @@
 import { useTranslations } from "next-intl";
 import ChatBox from "@/components/ChatBox";
 import CocoricoMascot, { useMascotMood } from "@/components/CocoricoMascot";
+import Wallpaper from "@/components/layout/Wallpaper";
 import { useEffect } from "react";
 
 export default function ChatPage() {
@@ -33,7 +34,12 @@ export default function ChatPage() {
   }, [setMood]);
 
   return (
-    <section className="min-h-screen overflow-hidden bg-gradient-to-br from-pink-50/80 via-purple-50/60 to-rose-50/80 dark:from-purple-950/40 dark:via-pink-900/30 dark:to-rose-950/40">
+    <>
+      <Wallpaper
+        imageLight="/branding/CHAT_MODO_CLARO.png"
+        imageDark="/branding/CHAT_MODO_OSCURO.png"
+      />
+      <section className="min-h-screen overflow-hidden">
       {/* Mascota flotante a la derecha - Solo visible en pantallas grandes */}
       <div className="hidden xl:block absolute top-4 right-12 z-10 pointer-events-none">
         <div className="glass-card-premium p-4 rounded-3xl">
@@ -61,5 +67,6 @@ export default function ChatPage() {
         </div>
       </div>
     </section>
+    </>
   );
 }

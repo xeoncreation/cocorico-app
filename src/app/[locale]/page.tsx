@@ -6,11 +6,8 @@ import Reveal from "@/components/ui/Reveal";
 import dynamic from "next/dynamic";
 import { RippleButton } from "@/components/ui/ripple-button";
 import { AppBackground } from "@/components/layout/AppBackground";
-// Cargar OnboardingModal sólo en cliente con manejo de errores
-const OnboardingModal = dynamic(() => import("@/components/OnboardingModal"), { 
-  ssr: false,
-  loading: () => null // No mostrar nada mientras carga
-});
+import OnboardingModal from "@/components/OnboardingModal";
+
 const ProgressWidget = dynamic(() => import("@/components/dashboard/ProgressWidget"), {
   ssr: false,
   loading: () => null

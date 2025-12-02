@@ -15,26 +15,62 @@ export default function OnboardingModal({
   const [step, setStep] = useState(0);
   const [show, setShow] = useState(false);
 
+  const safeTrack = (eventName: string, ...args: any[]) => {
+    try {
+      const fn = trackEvent[eventName];
+      if (typeof fn === "function") {
+        fn(...args);
+      }
+    } catch (err) {
+      if (process.env.NODE_ENV !== "production") {
+        console.warn(`[OnboardingModal] trackEvent ${eventName} failed`, err);
+      }
+    }
+  };
+
+  const markCompletedLocally = () => {
+    try {
+      localStorage.setItem("onboarding_completed", "true");
+    } catch (err) {
+      if (process.env.NODE_ENV !== "production") {
+        console.warn("[OnboardingModal] Unable to persist completion flag", err);
+      }
+    }
+  };
+
   // Use useLayoutEffect so the modal show state is updated as early as possible
   useLayoutEffect(() => {
-    console.log("[OnboardingModal] useLayoutEffect called");
-    // Verificar si el usuario ya completó el onboarding
-    const completed = localStorage.getItem("onboarding_completed");
-    console.log("[OnboardingModal] onboarding_completed =", completed);
-    if (!completed) {
-      // Small tick to avoid race between page navigation/hydration and modal mount
-      // Increased delay from 50ms to 300ms to reduce race conditions
-      const id = setTimeout(() => {
-        console.log("[OnboardingModal] Setting show=true after delay");
-        setShow(true);
-        trackEvent.onboardingStarted();
-      }, 300);
-      return () => clearTimeout(id);
-    } else {
-      console.log(
-        "[OnboardingModal] Onboarding already completed, not showing modal"
-      );
+    let hasCancelled = false;
+    let completed = "true";
+    try {
+      completed = localStorage.getItem("onboarding_completed") ?? "";
+    } catch (err) {
+      if (process.env.NODE_ENV !== "production") {
+        console.warn("[OnboardingModal] Unable to read completion flag", err);
+      }
     }
+
+    if (completed) {
+      return;
+    }
+
+    const reveal = () => {
+      if (hasCancelled) return;
+      setShow(true);
+      safeTrack("onboardingStarted");
+    };
+
+    const delay = process.env.NODE_ENV === "test" ? 0 : 300;
+    if (delay === 0) {
+      reveal();
+      return;
+    }
+
+    const timer = window.setTimeout(reveal, delay);
+    return () => {
+      hasCancelled = true;
+      clearTimeout(timer);
+    };
   }, []);
 
   const steps = [
@@ -78,15 +114,15 @@ export default function OnboardingModal({
   const handleNext = () => {
     if (step < steps.length - 1) {
       setStep(step + 1);
-      trackEvent.onboardingStepCompleted(step + 1);
+      safeTrack("onboardingStepCompleted", step + 1);
     } else {
       handleComplete();
     }
   };
 
   const handleComplete = () => {
-    localStorage.setItem("onboarding_completed", "true");
-    trackEvent.onboardingCompleted();
+    markCompletedLocally();
+    safeTrack("onboardingCompleted");
     setShow(false);
     onComplete();
   };
@@ -122,6 +158,7 @@ export default function OnboardingModal({
               onClick={handleSkip}
               className="absolute top-4 right-4 p-2 hover:bg-white/20 rounded-full transition-colors"
               aria-label="Cerrar"
+              data-testid="onboarding-close-btn"
             >
               <X size={20} />
             </button>
@@ -159,6 +196,7 @@ export default function OnboardingModal({
                 <button
                   onClick={() => setStep(step - 1)}
                   className="flex-1 px-6 py-3 border border-gray-300 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors font-medium"
+                  data-testid="onboarding-back-btn"
                 >
                   Atrás
                 </button>
@@ -166,6 +204,7 @@ export default function OnboardingModal({
               <button
                 onClick={handleNext}
                 className="flex-1 px-6 py-3 bg-[#e43f30] hover:bg-[#c43525] text-white rounded-lg transition-colors font-medium"
+                data-testid="onboarding-action-btn"
               >
                 {step === steps.length - 1 ? "¡Empezar!" : currentStep.action}
               </button>
@@ -175,6 +214,7 @@ export default function OnboardingModal({
               <button
                 onClick={handleSkip}
                 className="w-full mt-3 text-sm text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 transition-colors"
+                data-testid="onboarding-skip-btn"
               >
                 Saltar tutorial
               </button>

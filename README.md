@@ -66,6 +66,12 @@ npm test           # Unit tests (Jest)
 npm run test:e2e   # E2E (Playwright)
 ```
 
+## 🧪 QA & Tests
+
+- **Type checking**: `npx tsc --noEmit` valida la app y `npx tsc --noEmit -p tsconfig.test.json` revisa los tests sin depender de la build.
+- **Playwright**: usa `tests/e2e/global-setup.js` para precargar la cookie `site-access` y fuerza `NEXT_PUBLIC_DISABLE_ANALYTICS=1`, evitando redirecciones y scripts externos durante las pruebas.
+- **Fixtures locales**: cuando Supabase no está configurado, rutas como `/api/recipes/search` y `/r/[user]/[slug]` sirven datos deterministas para que los flujos públicos y las specs de búsqueda funcionen igual en CI o dev.
+
 ## 🗄️ Base de Datos (Supabase)
 
 Tablas: `recipes`, `favorites`, `recipe_versions`, `stats`, `messages`.
@@ -87,8 +93,8 @@ Tests: Playwright tests run with analytics disabled by default to avoid loading 
 
 CI note: the repo includes a lightweight prepare+test flow you can use in CI:
 
- - `npm run ci:prepare` (seeds demo data with `seed-e2e` if Supabase envs are configured; no-op otherwise)
- - `npm run test:e2e:ci` (runs the prepare step then Playwright with analytics disabled)
+- `npm run ci:prepare` (seeds demo data with `seed-e2e` if Supabase envs are configured; no-op otherwise)
+- `npm run test:e2e:ci` (runs the prepare step then Playwright with analytics disabled)
 
 CSP en `middleware.ts` (estricto producción, relajado dev).
 
