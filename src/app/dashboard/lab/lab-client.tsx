@@ -52,7 +52,7 @@ export default function LabClient() {
         <div className="max-w-6xl mx-auto px-6 py-10">
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
             <div>
-              <h1 className="text-3xl md:text-4xl font-extrabold text-cocorico-brown dark:text-amber-300 tracking-tight">
+              <h1 className="heading-display text-cocorico-brown dark:text-amber-300">
                 🧪 Laboratorio IA de Cocorico
               </h1>
               <p className="mt-2 text-neutral-600 dark:text-neutral-400 max-w-2xl">

@@ -29,7 +29,7 @@ export default function StatsPage() {
             <div className="flex justify-center mb-4">
               <BarChart2 className="w-16 h-16 text-cocorico-mango" />
             </div>
-            <h1 className="text-4xl font-bold glass-text-strong">📊 Estadísticas de Cocorico</h1>
+            <h1 className="heading-display glass-text-strong">📊 Estadísticas de Cocorico</h1>
             <p className="glass-text-medium max-w-2xl mx-auto">
               Analiza el rendimiento y crecimiento de la plataforma en tiempo real
             </p>

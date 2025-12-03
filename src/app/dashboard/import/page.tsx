@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
+import Wallpaper from "@/components/layout/Wallpaper";
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -67,10 +68,15 @@ export default function ImportRecipePage() {
   }
 
   return (
-    <main className="max-w-3xl mx-auto p-6 space-y-6">
-      <h1 className="text-2xl font-bold text-amber-800">
-        📥 Importar receta
-      </h1>
+    <>
+      <Wallpaper
+        imageLight="/branding/MIS RECETAS- DASHBOARD — Cocina cenital difusa, modo claro.png"
+        imageDark="/branding/MIS RECETAS - DASHBOARD — Encimera oscura gourmet, modo oscuro.png"
+      />
+      <main className="max-w-3xl mx-auto p-6 space-y-6">
+        <h1 className="heading-2 text-amber-800">
+          📥 Importar receta
+        </h1>
       <form onSubmit={handleImport} className="space-y-4">
         <Input
           type="url"
@@ -106,5 +112,6 @@ export default function ImportRecipePage() {
         </section>
       )}
     </main>
+    </>
   );
 }

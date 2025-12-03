@@ -1,6 +1,7 @@
 import { supabaseServer } from "@/lib/supabase-client";
 import { getUserPlan } from "@/utils/usageLimits";
 import { redirect } from "next/navigation";
+import Wallpaper from "@/components/layout/Wallpaper";
 
 export default async function BillingPage() {
   if (!supabaseServer) {
@@ -18,11 +19,16 @@ export default async function BillingPage() {
   const isPremium = plan === "premium" || plan === "admin";
 
   return (
-    <div className="max-w-3xl mx-auto py-12 px-6">
-      <div className="text-center mb-12">
-        <h1 className="text-4xl font-bold text-neutral-900 dark:text-white mb-4">
-          Mi suscripción
-        </h1>
+    <>
+      <Wallpaper
+        imageLight="/branding/MIS RECETAS- DASHBOARD — Cocina cenital difusa, modo claro.png"
+        imageDark="/branding/MIS RECETAS - DASHBOARD — Encimera oscura gourmet, modo oscuro.png"
+      />
+      <div className="max-w-3xl mx-auto py-12 px-6">
+        <div className="text-center mb-12">
+          <h1 className="heading-display text-neutral-900 dark:text-white mb-4">
+            Mi suscripción
+          </h1>
         <p className="text-neutral-600 dark:text-neutral-400">
           Gestiona tu plan y facturación
         </p>
@@ -115,5 +121,6 @@ export default async function BillingPage() {
         <p>¿Necesitas ayuda? Contacta con soporte en support@cocorico.app</p>
       </div>
     </div>
+    </>
   );
 }

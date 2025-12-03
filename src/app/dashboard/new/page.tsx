@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { createClient } from "@supabase/supabase-js";
 import { useRouter } from "next/navigation";
+import Wallpaper from "@/components/layout/Wallpaper";
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -66,8 +67,13 @@ export default function NewRecipePage() {
   }
 
   return (
-    <main className="max-w-2xl mx-auto p-6 space-y-4">
-      <h1 className="text-2xl font-bold text-amber-800">Nueva receta 🥕</h1>
+    <>
+      <Wallpaper
+        imageLight="/branding/MIS RECETAS- DASHBOARD — Cocina cenital difusa, modo claro.png"
+        imageDark="/branding/MIS RECETAS - DASHBOARD — Encimera oscura gourmet, modo oscuro.png"
+      />
+      <main className="max-w-2xl mx-auto p-6 space-y-4">
+        <h1 className="heading-2 text-amber-800">Nueva receta 🥕</h1>
       <form onSubmit={handleSubmit} className="space-y-3">
         <input
           className="border rounded px-3 py-2 w-full"
@@ -130,5 +136,6 @@ export default function NewRecipePage() {
         </button>
       </form>
     </main>
+    </>
   );
 }
