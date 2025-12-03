@@ -150,12 +150,12 @@ export default function OnboardingModal({
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4"
           data-testid="onboarding-modal"
         >
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9, y: 20 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.9, y: 20 }}
-          className="bg-white dark:bg-gray-900 rounded-2xl shadow-2xl max-w-lg w-full overflow-hidden"
-        >
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.9, y: 20 }}
+            className="bg-white dark:bg-gray-900 rounded-2xl shadow-2xl max-w-lg w-full overflow-hidden"
+          >
           {/* Header con gradiente */}
           <div
             className={`bg-gradient-to-r ${currentStep.color} p-8 text-white relative`}
@@ -226,9 +226,9 @@ export default function OnboardingModal({
               </button>
             )}
           </div>
-        </motion.div>
+          </motion.div>
+        </div>
       )}
-      </div>
     </AnimatePresence>
   );
 }
