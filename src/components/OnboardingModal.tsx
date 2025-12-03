@@ -23,7 +23,14 @@ export default function OnboardingModal({
   onComplete = () => {},
 }: OnboardingModalProps) {
   const [step, setStep] = useState(0);
-  const [show, setShow] = useState(false);
+  // Initialize show based on completion status
+  const [show, setShow] = useState(() => {
+    // Check immediately on mount - never show if already completed
+    if (typeof window !== "undefined") {
+      return !isOnboardingCompleted();
+    }
+    return false;
+  });
   const [hasChecked, setHasChecked] = useState(false);
 
   const safeTrack = (eventName: string, ...args: any[]) => {
@@ -53,15 +60,23 @@ export default function OnboardingModal({
   useLayoutEffect(() => {
     // Skip if already completed
     if (isOnboardingCompleted()) {
+      setShow(false);
       setHasChecked(true);
+      return;
+    }
+
+    // If not completed and currently not showing, schedule reveal
+    if (!show) {
       return;
     }
 
     let hasCancelled = false;
 
     const reveal = () => {
-      if (hasCancelled || isOnboardingCompleted()) return;
-      setShow(true);
+      if (hasCancelled || isOnboardingCompleted()) {
+        setShow(false);
+        return;
+      }
       setHasChecked(true);
       safeTrack("onboardingStarted");
     };
