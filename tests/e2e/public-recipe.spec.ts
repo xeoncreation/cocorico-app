@@ -121,7 +121,9 @@ test.describe('Receta Pública - Formato Específico', () => {
   test('debe renderizar receta en ruta /r/[user]/[slug]', async ({ page }) => {
     const res = await page.goto(`/r/${FALLBACK_USER}/pasta-recipe`, { waitUntil: 'domcontentloaded', timeout: 60000 });
     expect(res?.status()).toBeLessThan(500);
-    await expect(page.getByRole('heading', { level: 1, name: /pasta con verduras/i })).toBeVisible();
+    // Wait for Reveal animation to complete - h1 is wrapped in Reveal component
+    await page.waitForTimeout(1000);
+    await expect(page.getByRole('heading', { level: 1, name: /pasta con verduras/i })).toBeVisible({ timeout: 10000 });
     await expect(page.locator('text=/Publicado por/i')).toContainText(FALLBACK_USER);
   });
 });

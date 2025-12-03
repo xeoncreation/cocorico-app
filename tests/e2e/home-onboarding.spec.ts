@@ -162,6 +162,10 @@ test.describe('Home Onboarding Modal', () => {
     await modal.waitFor({ state: 'detached', timeout: 10000 });
 
     // Navigate to pricing (click a precise header anchor to avoid matching other text nodes)
+      // Wait for localStorage to be set and persist the storage state
+      await page.waitForTimeout(500);
+      await page.context().storageState({ path: 'tests/e2e/storageState.json' });
+      
       // Ensure the header pricing link is visible then click it and wait for the URL
       const pricingLink = page.locator('header a[href^="/pricing"], header a[href^="/es/pricing"]');
       await expect(pricingLink).toBeVisible({ timeout: 10000 });
@@ -173,7 +177,7 @@ test.describe('Home Onboarding Modal', () => {
     // Go back to home
     await page.goto('/es', { waitUntil: 'domcontentloaded', timeout: 60000 });
     
-    // Modal should not appear again
+    // Modal should not appear again because localStorage was persisted
     await page.waitForTimeout(1000);
     await expect(page.locator('[data-testid="onboarding-modal"]')).not.toBeVisible();
   });
