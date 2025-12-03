@@ -9,11 +9,22 @@ interface OnboardingModalProps {
   onComplete?: () => void;
 }
 
+// Check completion status before component renders
+const isOnboardingCompleted = () => {
+  if (typeof window === "undefined") return true;
+  try {
+    return localStorage.getItem("onboarding_completed") === "true";
+  } catch {
+    return false;
+  }
+};
+
 export default function OnboardingModal({
   onComplete = () => {},
 }: OnboardingModalProps) {
   const [step, setStep] = useState(0);
   const [show, setShow] = useState(false);
+  const [hasChecked, setHasChecked] = useState(false);
 
   const safeTrack = (eventName: string, ...args: any[]) => {
     try {
@@ -40,23 +51,18 @@ export default function OnboardingModal({
 
   // Use useLayoutEffect so the modal show state is updated as early as possible
   useLayoutEffect(() => {
-    let hasCancelled = false;
-    let completed = "true";
-    try {
-      completed = localStorage.getItem("onboarding_completed") ?? "";
-    } catch (err) {
-      if (process.env.NODE_ENV !== "production") {
-        console.warn("[OnboardingModal] Unable to read completion flag", err);
-      }
-    }
-
-    if (completed) {
+    // Skip if already completed
+    if (isOnboardingCompleted()) {
+      setHasChecked(true);
       return;
     }
 
+    let hasCancelled = false;
+
     const reveal = () => {
-      if (hasCancelled) return;
+      if (hasCancelled || isOnboardingCompleted()) return;
       setShow(true);
+      setHasChecked(true);
       safeTrack("onboardingStarted");
     };
 
@@ -124,6 +130,7 @@ export default function OnboardingModal({
     markCompletedLocally();
     safeTrack("onboardingCompleted");
     setShow(false);
+    setHasChecked(true);
     onComplete();
   };
 
@@ -134,16 +141,15 @@ export default function OnboardingModal({
   const currentStep = steps[step];
   const Icon = currentStep.icon;
 
-  if (!show) return null;
-
   return (
     <AnimatePresence>
-      <div
-        role="dialog"
-        aria-modal="true"
-        className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4"
-        data-testid="onboarding-modal"
-      >
+      {show && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4"
+          data-testid="onboarding-modal"
+        >
         <motion.div
           initial={{ opacity: 0, scale: 0.9, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -221,6 +227,7 @@ export default function OnboardingModal({
             )}
           </div>
         </motion.div>
+      )}
       </div>
     </AnimatePresence>
   );
