@@ -1,5 +1,11 @@
+import { Metadata } from "next";
 import Wallpaper from "@/components/layout/Wallpaper";
-import GlassCard from "@/components/ui/GlassCard";
+import CommunityChatClient from "./community-chat-client";
+
+export const metadata: Metadata = {
+  title: "Chat de la Comunidad | Cocorico",
+  description: "Conecta con otros cocineros, comparte tips y recetas en tiempo real.",
+};
 
 export default function CommunityChatPage() {
   return (
@@ -8,12 +14,7 @@ export default function CommunityChatPage() {
         imageLight="/branding/CHAT_MODO_CLARO.png"
         imageDark="/branding/CHAT_MODO_OSCURO.png"
       />
-      <div className="min-h-screen flex items-center justify-center">
-        <GlassCard className="max-w-2xl w-full p-8 rounded-3xl shadow-lg">
-          <h1 className="text-2xl font-bold mb-4 text-center">Chat de la Comunidad</h1>
-          {/* Chat panel aquí */}
-        </GlassCard>
-      </div>
+      <CommunityChatClient />
     </>
   );
 }
