@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { Trophy, Flame, Star, Clock } from "lucide-react";
+import Wallpaper from "@/components/layout/Wallpaper";
 
 interface Challenge {
   id: number;
@@ -205,15 +206,20 @@ export default function ChallengesPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-orange-50 via-red-50 to-pink-50 dark:from-orange-950/30 dark:via-red-900/20 dark:to-pink-900/30 py-12 px-4">
-      <div className="max-w-7xl mx-auto">
-        {/* Header */}
-        <div className={cn(
-          "text-center mb-12 p-8 rounded-3xl",
-          plan === "premium" ? "glass-card-premium" : "bg-white/80 dark:bg-neutral-900/80 border border-orange-200 dark:border-orange-800"
-        )}>
-          <h1 className={cn(
-            "text-5xl font-bold mb-4",
+    <>
+      <Wallpaper
+        imageLight="/branding/MIS RECETAS- DASHBOARD — Cocina cenital difusa, modo claro.png"
+        imageDark="/branding/MIS RECETAS - DASHBOARD — Encimera oscura gourmet, modo oscuro.png"
+      />
+      <div className="min-h-screen bg-gradient-to-br from-orange-50 via-red-50 to-pink-50 dark:from-orange-950/30 dark:via-red-900/20 dark:to-pink-900/30 py-12 px-4">
+        <div className="max-w-7xl mx-auto">
+          {/* Header */}
+          <div className={cn(
+            "text-center mb-12 p-8 rounded-3xl",
+            plan === "premium" ? "glass-card-premium" : "bg-white/80 dark:bg-neutral-900/80 border border-orange-200 dark:border-orange-800"
+          )}>
+            <h1 className={cn(
+              "heading-display mb-4",
             plan === "premium" ? "glass-text-premium" : "text-transparent bg-clip-text bg-gradient-to-r from-orange-600 to-red-600"
           )}>
             Retos del Día 🔥
@@ -413,5 +419,6 @@ export default function ChallengesPage() {
         </div>
       </div>
     </div>
+    </>
   );
 }

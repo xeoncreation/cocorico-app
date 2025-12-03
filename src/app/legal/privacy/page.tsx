@@ -26,7 +26,7 @@ export default function PrivacyPage() {
           </section>
 
           <section className="mb-8">
-            <h2 className="text-2xl font-semibold mb-4">2. Datos que recopilamos</h2>
+            <h2 className="heading-3 mb-4">2. Datos que recopilamos</h2>
             <ul className="list-disc pl-6 space-y-2">
               <li><strong>Datos de cuenta:</strong> Email, nombre de usuario, contraseña cifrada</li>
               <li><strong>Datos de uso:</strong> Recetas guardadas, chats con IA, retos completados, logros</li>
@@ -37,7 +37,7 @@ export default function PrivacyPage() {
           </section>
 
           <section className="mb-8">
-            <h2 className="text-2xl font-semibold mb-4">3. Finalidad del tratamiento</h2>
+            <h2 className="heading-3 mb-4">3. Finalidad del tratamiento</h2>
             <ul className="list-disc pl-6 space-y-2">
               <li>Proporcionar el servicio de asistente de cocina con IA</li>
               <li>Gestionar suscripciones y facturación</li>
@@ -49,7 +49,7 @@ export default function PrivacyPage() {
           </section>
 
           <section className="mb-8">
-            <h2 className="text-2xl font-semibold mb-4">4. Base legal</h2>
+            <h2 className="heading-3 mb-4">4. Base legal</h2>
             <ul className="list-disc pl-6 space-y-2">
               <li><strong>Ejecución de contrato:</strong> Datos necesarios para el servicio</li>
               <li><strong>Consentimiento:</strong> Cookies analíticas, notificaciones push</li>
@@ -58,7 +58,7 @@ export default function PrivacyPage() {
           </section>
 
           <section className="mb-8">
-            <h2 className="text-2xl font-semibold mb-4">5. Destinatarios de los datos</h2>
+            <h2 className="heading-3 mb-4">5. Destinatarios de los datos</h2>
             <p>Compartimos datos únicamente con:</p>
             <ul className="list-disc pl-6 space-y-2">
               <li><strong>Supabase:</strong> Hosting de base de datos (UE)</li>
@@ -70,7 +70,7 @@ export default function PrivacyPage() {
           </section>
 
           <section className="mb-8">
-            <h2 className="text-2xl font-semibold mb-4">6. Conservación de datos</h2>
+            <h2 className="heading-3 mb-4">6. Conservación de datos</h2>
             <ul className="list-disc pl-6 space-y-2">
               <li><strong>Cuenta activa:</strong> Mientras uses el servicio</li>
               <li><strong>Cuenta eliminada:</strong> 30 días para recuperación, luego borrado permanente</li>
@@ -80,7 +80,7 @@ export default function PrivacyPage() {
           </section>
 
           <section className="mb-8">
-            <h2 className="text-2xl font-semibold mb-4">7. Tus derechos (GDPR)</h2>
+            <h2 className="heading-3 mb-4">7. Tus derechos (GDPR)</h2>
             <p>Puedes ejercer los siguientes derechos contactando a <a href="mailto:privacy@cocorico.app" className="text-[#e43f30] hover:underline">privacy@cocorico.app</a>:</p>
             <ul className="list-disc pl-6 space-y-2">
               <li><strong>Acceso:</strong> Solicitar copia de tus datos</li>
@@ -96,7 +96,7 @@ export default function PrivacyPage() {
           </section>
 
           <section className="mb-8">
-            <h2 className="text-2xl font-semibold mb-4">8. Seguridad</h2>
+            <h2 className="heading-3 mb-4">8. Seguridad</h2>
             <p>
               Implementamos medidas técnicas y organizativas para proteger tus datos:
             </p>
@@ -110,21 +110,21 @@ export default function PrivacyPage() {
           </section>
 
           <section className="mb-8">
-            <h2 className="text-2xl font-semibold mb-4">9. Menores de edad</h2>
+            <h2 className="heading-3 mb-4">9. Menores de edad</h2>
             <p>
               Cocorico no está dirigido a menores de 16 años. Si eres padre/tutor y descubres que tu hijo ha proporcionado datos, contacta con nosotros para eliminarlos.
             </p>
           </section>
 
           <section className="mb-8">
-            <h2 className="text-2xl font-semibold mb-4">10. Cambios en esta política</h2>
+            <h2 className="heading-3 mb-4">10. Cambios en esta política</h2>
             <p>
               Podemos actualizar esta política. Te notificaremos cambios significativos por email o mediante aviso en la aplicación.
             </p>
           </section>
 
           <section className="mb-8">
-            <h2 className="text-2xl font-semibold mb-4">11. Contacto</h2>
+            <h2 className="heading-3 mb-4">11. Contacto</h2>
             <p>
               Para cualquier consulta sobre privacidad:<br />
               <a href="mailto:privacy@cocorico.app" className="text-[#e43f30] hover:underline font-medium">privacy@cocorico.app</a>

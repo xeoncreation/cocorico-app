@@ -27,7 +27,7 @@ export default function FavoritesPage() {
               unoptimized
             />
             <div>
-              <h1 className="text-3xl font-bold text-amber-900 dark:text-amber-100">
+              <h1 className="heading-2 text-amber-900 dark:text-amber-100">
                 💛 <IntlText k="favorites.title" fallback="Mis Favoritos" />
               </h1>
               <p className="text-neutral-600 dark:text-neutral-400 mt-1">

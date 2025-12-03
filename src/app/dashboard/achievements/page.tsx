@@ -1,5 +1,6 @@
 import { supabaseServer } from "@/lib/supabase-client";
 import { redirect } from "next/navigation";
+import Wallpaper from "@/components/layout/Wallpaper";
 
 export default async function AchievementsPage() {
   if (!supabaseServer) {
@@ -19,8 +20,13 @@ export default async function AchievementsPage() {
     .order("earned_at", { ascending: false });
 
   return (
-    <div className="max-w-3xl mx-auto py-10 px-6 text-center">
-      <h1 className="text-3xl font-bold mb-6 text-neutral-900 dark:text-white">
+    <>
+      <Wallpaper
+        imageLight="/branding/MIS RECETAS- DASHBOARD — Cocina cenital difusa, modo claro.png"
+        imageDark="/branding/MIS RECETAS - DASHBOARD — Encimera oscura gourmet, modo oscuro.png"
+      />
+      <div className="max-w-3xl mx-auto py-10 px-6 text-center">
+        <h1 className="heading-2 mb-6 text-neutral-900 dark:text-white">
         Tus logros 🥇
       </h1>
       {data?.length ? (
@@ -63,5 +69,6 @@ export default async function AchievementsPage() {
         </div>
       )}
     </div>
+    </>
   );
 }

@@ -26,7 +26,7 @@ export default function TermsPage() {
           </section>
 
           <section className="mb-8">
-            <h2 className="text-2xl font-semibold mb-4">2. Descripción del servicio</h2>
+            <h2 className="heading-3 mb-4">2. Descripción del servicio</h2>
             <p>
               Cocorico es un asistente de cocina potenciado por inteligencia artificial que te ayuda a:
             </p>
@@ -41,7 +41,7 @@ export default function TermsPage() {
           </section>
 
           <section className="mb-8">
-            <h2 className="text-2xl font-semibold mb-4">3. Registro y cuenta</h2>
+            <h2 className="heading-3 mb-4">3. Registro y cuenta</h2>
             <ul className="list-disc pl-6 space-y-2">
               <li>Debes tener al menos 16 años para usar Cocorico</li>
               <li>Debes proporcionar información veraz y actualizada</li>
@@ -52,7 +52,7 @@ export default function TermsPage() {
           </section>
 
           <section className="mb-8">
-            <h2 className="text-2xl font-semibold mb-4">4. Planes y suscripciones</h2>
+            <h2 className="heading-3 mb-4">4. Planes y suscripciones</h2>
             
             <h3 className="text-xl font-semibold mt-6 mb-3">4.1 Plan Gratuito</h3>
             <ul className="list-disc pl-6 space-y-2">
@@ -82,7 +82,7 @@ export default function TermsPage() {
           </section>
 
           <section className="mb-8">
-            <h2 className="text-2xl font-semibold mb-4">5. Uso aceptable</h2>
+            <h2 className="heading-3 mb-4">5. Uso aceptable</h2>
             <p className="font-semibold mb-2">Está prohibido:</p>
             <ul className="list-disc pl-6 space-y-2">
               <li>Usar el servicio para fines ilegales</li>
@@ -96,7 +96,7 @@ export default function TermsPage() {
           </section>
 
           <section className="mb-8">
-            <h2 className="text-2xl font-semibold mb-4">6. Contenido generado por IA</h2>
+            <h2 className="heading-3 mb-4">6. Contenido generado por IA</h2>
             <p>
               Las recetas y respuestas generadas por IA son sugerencias. Cocorico no garantiza:
             </p>
@@ -111,7 +111,7 @@ export default function TermsPage() {
           </section>
 
           <section className="mb-8">
-            <h2 className="text-2xl font-semibold mb-4">7. Propiedad intelectual</h2>
+            <h2 className="heading-3 mb-4">7. Propiedad intelectual</h2>
             <ul className="list-disc pl-6 space-y-2">
               <li><strong>Tu contenido:</strong> Recetas que crees manualmente son tuyas. Puedes exportarlas.</li>
               <li><strong>Recetas IA:</strong> Las recetas generadas por IA pueden ser similares a otras. No reclamamos propiedad exclusiva.</li>
@@ -121,7 +121,7 @@ export default function TermsPage() {
           </section>
 
           <section className="mb-8">
-            <h2 className="text-2xl font-semibold mb-4">8. Limitación de responsabilidad</h2>
+            <h2 className="heading-3 mb-4">8. Limitación de responsabilidad</h2>
             <p>
               Cocorico se proporciona "tal cual". No nos hacemos responsables de:
             </p>
@@ -138,7 +138,7 @@ export default function TermsPage() {
           </section>
 
           <section className="mb-8">
-            <h2 className="text-2xl font-semibold mb-4">9. Modificaciones del servicio</h2>
+            <h2 className="heading-3 mb-4">9. Modificaciones del servicio</h2>
             <p>
               Podemos:
             </p>
@@ -151,7 +151,7 @@ export default function TermsPage() {
           </section>
 
           <section className="mb-8">
-            <h2 className="text-2xl font-semibold mb-4">10. Terminación</h2>
+            <h2 className="heading-3 mb-4">10. Terminación</h2>
             <ul className="list-disc pl-6 space-y-2">
               <li><strong>Por tu parte:</strong> Puedes eliminar tu cuenta en "Configuración"</li>
               <li><strong>Por nuestra parte:</strong> Podemos suspender cuentas que violen los términos</li>
@@ -160,14 +160,14 @@ export default function TermsPage() {
           </section>
 
           <section className="mb-8">
-            <h2 className="text-2xl font-semibold mb-4">11. Ley aplicable y jurisdicción</h2>
+            <h2 className="heading-3 mb-4">11. Ley aplicable y jurisdicción</h2>
             <p>
               Estos términos se rigen por la legislación española. Cualquier disputa se resolverá en los juzgados de [Tu Ciudad].
             </p>
           </section>
 
           <section className="mb-8">
-            <h2 className="text-2xl font-semibold mb-4">12. Contacto</h2>
+            <h2 className="heading-3 mb-4">12. Contacto</h2>
             <p>
               Para consultas sobre estos términos:<br />
               <a href="mailto:legal@cocorico.app" className="text-[#e43f30] hover:underline font-medium">legal@cocorico.app</a>
