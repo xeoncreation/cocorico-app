@@ -184,50 +184,50 @@ export default function UnifiedNavbar() {
     return pathname?.startsWith(fullPath);
   };
 
-  // Helper: nav link classes - estilo liquid glass "water drop" con halo luminoso
+  // Helper: nav link classes - iOS Clear style transparente
   const navLinkClass = (href: string) => {
     const active = isActive(href);
     return `
-      flex items-center gap-2 px-4 py-2.5 rounded-2xl text-sm font-bold
-      transition-all duration-300 backdrop-blur-xl border
+      ios-clear-button flex items-center gap-2 px-4 py-2.5 rounded-2xl text-sm font-bold
+      transition-all duration-300
       ${
         active
-          ? "bg-white/20 dark:bg-white/10 text-cocorico-red dark:text-amber-400 border-white/30 shadow-[0_0_15px_rgba(229,57,53,0.3)] dark:shadow-[0_0_15px_rgba(251,191,36,0.3)]"
-          : "bg-white/5 dark:bg-black/5 text-neutral-800 dark:text-neutral-200 border-white/10 hover:bg-white/10 dark:hover:bg-white/5 hover:border-white/30 hover:shadow-[0_0_20px_rgba(255,255,255,0.4)] hover:scale-105"
+          ? "text-cocorico-red dark:text-amber-400 shadow-[0_0_15px_rgba(229,57,53,0.3)] dark:shadow-[0_0_15px_rgba(251,191,36,0.3)] scale-105"
+          : "text-neutral-800 dark:text-neutral-200 hover:shadow-[0_0_20px_rgba(255,255,255,0.4)] hover:scale-105"
       }
     `.trim();
   };
 
-  // Helper: Dropdown button classes
+  // Helper: Dropdown button classes - iOS Clear style
   const dropdownBtnClass = (isOpen: boolean) => `
-    flex items-center gap-2 px-3 py-2.5 rounded-l-2xl text-sm font-bold
-    transition-all duration-300 backdrop-blur-xl border-y border-l border-r-0
-    bg-white/5 dark:bg-black/5 text-neutral-800 dark:text-neutral-200 border-white/10
-    hover:bg-white/10 dark:hover:bg-white/5 hover:border-white/30 hover:shadow-[0_0_20px_rgba(255,255,255,0.4)]
-    ${isOpen ? "bg-white/10 dark:bg-white/10 shadow-[0_0_15px_rgba(255,255,255,0.2)]" : ""}
+    ios-clear-button flex items-center gap-2 px-3 py-2.5 rounded-l-2xl text-sm font-bold
+    transition-all duration-300 border-y border-l border-r-0
+    text-neutral-800 dark:text-neutral-200
+    hover:shadow-[0_0_20px_rgba(255,255,255,0.4)]
+    ${isOpen ? "shadow-[0_0_15px_rgba(255,255,255,0.2)]" : ""}
   `.trim();
 
   const dropdownArrowClass = (isOpen: boolean) => `
-    flex items-center px-2 py-2.5 rounded-r-2xl text-sm font-bold
-    transition-all duration-300 backdrop-blur-xl border
-    bg-white/5 dark:bg-black/5 text-neutral-800 dark:text-neutral-200 border-white/10
-    hover:bg-white/10 dark:hover:bg-white/5 hover:border-white/30 hover:shadow-[0_0_20px_rgba(255,255,255,0.4)]
-    ${isOpen ? "bg-white/10 dark:bg-white/10" : ""}
+    ios-clear-button flex items-center px-2 py-2.5 rounded-r-2xl text-sm font-bold
+    transition-all duration-300
+    text-neutral-800 dark:text-neutral-200
+    hover:shadow-[0_0_20px_rgba(255,255,255,0.4)]
+    ${isOpen ? "shadow-[0_0_15px_rgba(255,255,255,0.2)]" : ""}
   `.trim();
 
   return (
-    <header className="flex items-center justify-between px-4 sm:px-6 py-3 sticky top-0 z-50 bg-white/5 dark:bg-black/5 backdrop-blur-2xl border-b border-white/10 shadow-sm transition-all duration-300">
+    <header className="navbar-liquid flex items-center justify-between px-4 sm:px-6 py-3 sticky top-0 z-50 border-b border-white/30 shadow-lg transition-all duration-300">
       {/* Logo - botón liquid glass */}
       <Link
         href={withLocale("/")}
-        className="font-display text-2xl font-black text-cocorico-red dark:text-amber-400 hover:scale-105 transition-all duration-300 drop-shadow-2xl px-4 py-2 rounded-2xl bg-white/10 dark:bg-white/5 backdrop-blur-xl border border-white/20 hover:shadow-[0_0_25px_rgba(229,57,53,0.4)] dark:hover:shadow-[0_0_25px_rgba(251,191,36,0.4)]"
+        className="font-display text-2xl font-black text-cocorico-red dark:text-amber-400 hover:scale-105 transition-all duration-300 drop-shadow-2xl px-4 py-2 rounded-2xl ios-clear-button hover:shadow-[0_0_25px_rgba(229,57,53,0.4)] dark:hover:shadow-[0_0_25px_rgba(251,191,36,0.4)]"
         aria-label={t("nav.home")}
       >
         🐓 Cocorico
       </Link>
 
       {/* Desktop Navigation */}
-      <div className="hidden lg:flex items-center gap-1">
+      <div className="hidden lg:flex items-center gap-2">
         {/* Main links */}
         {mainNavLinks.map((link) => {
           // For some routes we also keep top-level plain hrefs so tests that expect
@@ -270,7 +270,7 @@ export default function UnifiedNavbar() {
           </button>
 
           {scannerOpen && (
-            <div className="absolute top-full left-0 mt-2 w-56 bg-white/90 dark:bg-black/90 backdrop-blur-3xl rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.3)] border border-white/20 dark:border-white/10 z-[100] overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+            <div className="absolute top-full left-0 mt-2 w-56 ios-clear-button rounded-2xl shadow-lg border border-white/30 dark:border-white/20 z-[100] overflow-hidden animate-in fade-in zoom-in-95 duration-200">
               {scannerMenu.items.map(item => (
                 <Link 
                   key={item.href} 
@@ -309,7 +309,7 @@ export default function UnifiedNavbar() {
           </button>
 
           {communityOpen && (
-            <div className="absolute top-full left-0 mt-2 w-60 bg-white/90 dark:bg-black/90 backdrop-blur-3xl rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.3)] border border-white/20 dark:border-white/10 z-[100] overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+            <div className="absolute top-full left-0 mt-2 w-60 ios-clear-button rounded-2xl shadow-lg border border-white/30 dark:border-white/20 z-[100] overflow-hidden animate-in fade-in zoom-in-95 duration-200">
               {communityMenu.items.map(item => (
                 <Link 
                   key={item.href} 
@@ -326,13 +326,13 @@ export default function UnifiedNavbar() {
         </div>
         
         {/* Premium button */}
-        <Link href="/pricing" className="glass-pill px-4 py-2 bg-gradient-to-r from-amber-400 to-orange-500 text-white font-bold ml-2 hover:shadow-lg hover:scale-105 transition-all neon-hover">
+        <Link href="/pricing" className="ios-clear-button px-6 py-2.5 rounded-2xl text-sm font-bold text-amber-500 dark:text-amber-400 ml-2 hover:shadow-[0_0_25px_rgba(251,191,36,0.5)] hover:scale-105 transition-all">
           ⭐ Premium
         </Link>
       </div>
 
       {/* Right side controls */}
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-4">
         {/* Theme Toggle */}
         <ThemeToggle />
 
@@ -346,7 +346,7 @@ export default function UnifiedNavbar() {
           <div className="relative" ref={userMenuRef}>
             <button
               onClick={() => setMenuOpen(!menuOpen)}
-              className="flex items-center gap-2 rounded-2xl coco-glass px-4 py-2.5 text-sm font-bold hover:scale-105"
+              className="ios-clear-button flex items-center gap-2 rounded-2xl px-4 py-2.5 text-sm font-bold hover:scale-105"
               aria-label="User menu"
               aria-expanded={menuOpen}
               aria-haspopup="true"
@@ -362,7 +362,7 @@ export default function UnifiedNavbar() {
             {/* Dropdown menu */}
             {menuOpen && (
               <div 
-                className="absolute right-0 mt-2 w-56 bg-white/90 dark:bg-black/90 backdrop-blur-3xl rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.3)] border border-white/20 dark:border-white/10 z-[100] py-1 overflow-hidden animate-in fade-in zoom-in-95 duration-200"
+                className="absolute right-0 mt-2 w-56 ios-clear-button rounded-2xl shadow-lg py-1 z-[100] overflow-hidden animate-in fade-in zoom-in-95 duration-200"
                 role="menu"
               >
                 {userMenuLinks.map((link) => (
@@ -392,7 +392,7 @@ export default function UnifiedNavbar() {
         ) : (
           <Link
             href="/login"
-            className="text-sm font-bold px-4 py-2.5 rounded-2xl coco-glass hover:text-cocorico-red dark:hover:text-amber-400 transition-all hover:scale-105 drop-shadow-lg neon-hover"
+            className="ios-clear-button text-sm font-bold px-4 py-2.5 rounded-2xl hover:text-cocorico-red dark:hover:text-amber-400 transition-all hover:scale-105"
           >
             {t("nav.login")}
           </Link>

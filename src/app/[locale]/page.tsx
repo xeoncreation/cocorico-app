@@ -63,13 +63,13 @@ export default async function LocaleHomePage({
       </Reveal>
 
       <Reveal delay={0.2}>
-        <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cocorico-red via-cocorico-mango to-cocorico-datil dark:from-cocorico-mango dark:via-cocorico-datil dark:to-cocorico-turquoise mb-4 tracking-tight">
+        <h1 className="heading-display text-5xl sm:text-6xl lg:text-7xl text-transparent bg-clip-text bg-gradient-to-r from-cocorico-red via-cocorico-mango to-cocorico-datil dark:from-cocorico-mango dark:via-cocorico-datil dark:to-cocorico-turquoise mb-4">
           {t("home.title")}
         </h1>
       </Reveal>
 
       <Reveal delay={0.4}>
-        <p className="max-w-2xl text-lg sm:text-xl glass-text-medium mb-8 leading-relaxed">
+        <p className="body-large max-w-2xl text-lg sm:text-xl glass-text-medium mb-8">
           {t("home.description")}
         </p>
       </Reveal>
@@ -78,7 +78,7 @@ export default async function LocaleHomePage({
         <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
           <RippleButton
             asChild
-            className="coco-glass px-8 py-4 text-lg"
+            className="coco-glass px-8 py-4 text-lg label-strong"
           >
             <Link href={`/${locale}/chat`}>
               🐓 {t("home.chatButton")}
@@ -86,7 +86,7 @@ export default async function LocaleHomePage({
           </RippleButton>
           <RippleButton
             asChild
-            className="coco-glass px-8 py-4 text-lg"
+            className="coco-glass px-8 py-4 text-lg label-strong"
           >
             <Link href={`/${locale}/dashboard/favorites`}>
               📖 {t("home.recipesButton")}
@@ -106,18 +106,18 @@ export default async function LocaleHomePage({
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-4xl mb-12">
           <Link href={`/${locale}/scanner`} className="coco-glass p-6 rounded-3xl text-center transform hover:scale-105 transition-transform cursor-pointer">
             <div className="text-4xl mb-3">🔍</div>
-            <h3 className="font-bold text-lg mb-2 glass-text-strong relative z-10">Escáner IA</h3>
-            <p className="text-sm glass-text-medium relative z-10">Identifica ingredientes al instante</p>
+            <h3 className="heading-3 text-lg mb-2 glass-text-strong relative z-10">Escáner IA</h3>
+            <p className="body-small glass-text-medium relative z-10">Identifica ingredientes al instante</p>
           </Link>
           <Link href={`/${locale}/community`} className="coco-glass p-6 rounded-3xl text-center transform hover:scale-105 transition-transform cursor-pointer">
             <div className="text-4xl mb-3">👥</div>
-            <h3 className="font-bold text-lg mb-2 glass-text-strong relative z-10">Comunidad</h3>
-            <p className="text-sm glass-text-medium relative z-10">Comparte tus creaciones</p>
+            <h3 className="heading-3 text-lg mb-2 glass-text-strong relative z-10">Comunidad</h3>
+            <p className="body-small glass-text-medium relative z-10">Comparte tus creaciones</p>
           </Link>
           <Link href={`/${locale}/dashboard/challenges`} className="coco-glass p-6 rounded-3xl text-center transform hover:scale-105 transition-transform cursor-pointer">
             <div className="text-4xl mb-3">🎯</div>
-            <h3 className="font-bold text-lg mb-2 glass-text-strong relative z-10">Retos</h3>
-            <p className="text-sm glass-text-medium relative z-10">Desafíate y mejora</p>
+            <h3 className="heading-3 text-lg mb-2 glass-text-strong relative z-10">Retos</h3>
+            <p className="body-small glass-text-medium relative z-10">Desafíate y mejora</p>
           </Link>
         </div>
       </Reveal>
@@ -125,7 +125,7 @@ export default async function LocaleHomePage({
       {/* Why Cocorico Section */}
       <Reveal delay={0.9}>
         <div className="max-w-5xl mb-12">
-          <h2 className="text-3xl font-bold text-center mb-8 glass-text-strong">✨ ¿Por qué Cocorico?</h2>
+          <h2 className="heading-1 text-3xl text-center mb-8 glass-text-strong">✨ ¿Por qué Cocorico?</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="coco-glass p-6 rounded-2xl">
               <div className="flex items-start gap-4">
@@ -158,8 +158,8 @@ export default async function LocaleHomePage({
               <div className="flex items-start gap-4">
                 <div className="text-3xl">🌍</div>
                 <div>
-                  <h3 className="font-bold text-lg mb-2 glass-text-strong">Comunidad Global</h3>
-                  <p className="text-sm glass-text-medium">Comparte recetas, participa en retos y aprende de miles de cocineros</p>
+                  <h3 className="heading-3 text-lg mb-2 glass-text-strong">Comunidad Global</h3>
+                  <p className="body-small glass-text-medium">Comparte recetas, participa en retos y aprende de miles de cocineros</p>
                 </div>
               </div>
             </div>

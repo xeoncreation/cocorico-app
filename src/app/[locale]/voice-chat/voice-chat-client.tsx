@@ -247,7 +247,7 @@ export default function VoiceChatClient({ locale }: VoiceChatClientProps) {
         <div className="flex-1 flex flex-col lg:flex-row gap-6 px-4 pb-6 max-w-7xl mx-auto w-full">
           {/* Mascota - Visible en desktop */}
           <div className="hidden lg:flex lg:w-1/3 items-center justify-center">
-            <GlassCard className="p-8 bg-white/60 dark:bg-neutral-900/60 backdrop-blur-xl border-2 border-white/80 dark:border-neutral-700/80 shadow-2xl">
+            <GlassCard className="p-8 bg-white/15 dark:bg-neutral-900/15 backdrop-blur-md border-2 border-white/40 dark:border-neutral-700/40 shadow-lg">
               <CocoricoMascot 
                 mood={mood} 
                 size="xl" 
@@ -268,7 +268,7 @@ export default function VoiceChatClient({ locale }: VoiceChatClientProps) {
           {/* Área de chat */}
           <div className="flex-1 flex flex-col">
             {/* Historial de mensajes */}
-            <GlassCard className="flex-1 mb-4 p-4 bg-white/80 dark:bg-neutral-900/80 backdrop-blur-xl border-2 border-white/90 dark:border-neutral-700/90 shadow-2xl overflow-y-auto max-h-[50vh] lg:max-h-[60vh]">
+            <GlassCard className="flex-1 mb-4 p-4 bg-white/15 dark:bg-neutral-900/15 backdrop-blur-md border-2 border-white/40 dark:border-neutral-700/40 shadow-lg overflow-y-auto max-h-[50vh] lg:max-h-[60vh]">
               {messages.length === 0 ? (
                 <div className="flex flex-col items-center justify-center h-full text-center p-8">
                   <div className="text-6xl mb-4">🐓💬</div>
@@ -319,7 +319,7 @@ export default function VoiceChatClient({ locale }: VoiceChatClientProps) {
             </GlassCard>
 
             {/* Controles de voz */}
-            <GlassCard className="p-6 bg-white/90 dark:bg-neutral-900/90 backdrop-blur-xl border-2 border-white/90 dark:border-neutral-700/90 shadow-2xl">
+            <GlassCard className="p-6 bg-white/15 dark:bg-neutral-900/15 backdrop-blur-md border-2 border-white/40 dark:border-neutral-700/40 shadow-lg">
               <div className="flex flex-col items-center gap-4">
                 {/* Visualizador de audio */}
                 {renderAudioWave()}

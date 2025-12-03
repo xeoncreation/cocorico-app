@@ -27,7 +27,7 @@ export default function CommunityTabs({ locale }: CommunityTabsProps) {
   };
 
   return (
-    <nav className="sticky top-16 z-40 backdrop-blur-xl bg-white/10 dark:bg-slate-900/40 border-b border-white/20 dark:border-slate-700/60">
+    <nav className="navbar-liquid sticky top-16 z-40 border-b border-white/30 dark:border-slate-700/60">
       <div className="max-w-5xl mx-auto px-4">
         <div className="flex gap-1 overflow-x-auto scrollbar-hide py-2">
           {tabs.map((tab) => (

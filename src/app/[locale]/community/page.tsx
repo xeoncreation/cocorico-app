@@ -28,10 +28,10 @@ export default async function CommunityPage({ params }: { params: { locale: stri
       <div className="space-y-8">
       {/* Welcome Section */}
       <GlassCard className="p-8 text-center">
-        <h1 className="text-4xl md:text-5xl font-bold mb-4 glass-text-strong">
+        <h1 className="heading-display text-4xl md:text-5xl mb-4 glass-text-strong">
           🌟 Bienvenido a la Comunidad Cocorico
         </h1>
-        <p className="text-lg glass-text-medium max-w-2xl mx-auto">
+        <p className="body-large text-lg glass-text-medium max-w-2xl mx-auto">
           Comparte recetas, participa en retos y conecta con otros amantes de la cocina
         </p>
       </GlassCard>
@@ -39,16 +39,16 @@ export default async function CommunityPage({ params }: { params: { locale: stri
       {/* Quick Stats */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <GlassCard className="p-6 text-center">
-          <div className="text-3xl font-bold text-cocorico-red dark:text-cocorico-mango mb-2">2.4K+</div>
-          <div className="text-sm glass-text-medium">👥 Miembros Activos</div>
+          <div className="heading-1 text-3xl text-cocorico-red dark:text-cocorico-mango mb-2">2.4K+</div>
+          <div className="body-small glass-text-medium">👥 Miembros Activos</div>
         </GlassCard>
         <GlassCard className="p-6 text-center">
-          <div className="text-3xl font-bold text-cocorico-orange dark:text-cocorico-yellow mb-2">8.7K+</div>
-          <div className="text-sm glass-text-medium">🍲 Recetas Compartidas</div>
+          <div className="heading-1 text-3xl text-cocorico-orange dark:text-cocorico-yellow mb-2">8.7K+</div>
+          <div className="body-small glass-text-medium">🍲 Recetas Compartidas</div>
         </GlassCard>
         <GlassCard className="p-6 text-center">
-          <div className="text-3xl font-bold text-cocorico-avocado dark:text-cocorico-turquoise mb-2">145+</div>
-          <div className="text-sm glass-text-medium">🏆 Retos Completados</div>
+          <div className="heading-1 text-3xl text-cocorico-avocado dark:text-cocorico-turquoise mb-2">145+</div>
+          <div className="body-small glass-text-medium">🏆 Retos Completados</div>
         </GlassCard>
         <GlassCard className="p-6 text-center">
           <div className="text-3xl font-bold text-cocorico-datil dark:text-cocorico-mango mb-2">34K+</div>

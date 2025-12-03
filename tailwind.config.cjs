@@ -45,8 +45,8 @@ module.exports = {
 			}
 		},
 		fontFamily: { 
-			sans: ['Inter', 'system-ui', 'sans-serif'],
-			display: ['Poppins', 'system-ui', 'sans-serif']
+			sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'SF Pro Text', 'system-ui', 'sans-serif'],
+			display: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'SF Pro Display', 'system-ui', 'sans-serif']
 		},
 		transitionTimingFunction: { smooth: 'var(--motion)' },
 		borderRadius: {

@@ -36,7 +36,12 @@ export function RippleButton({
   return (
     <Button
       {...props}
-      className={cn("ripple-container relative overflow-hidden", className)}
+      className={cn(
+        "ripple-container relative overflow-hidden",
+        "ios-clear-button", // iOS Clear style
+        "font-semibold transition-all duration-300",
+        className
+      )}
       onClick={(e) => {
         createRipple(e);
         props.onClick?.(e);

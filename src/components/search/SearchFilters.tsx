@@ -48,7 +48,7 @@ export default function SearchFilters({
         onClick={() => setOpen((s) => !s)}
         className={cn(
           "rounded-xl",
-          plan === "premium" && "bg-white/10 backdrop-blur-xl border-white/20"
+          plan === "premium" && "bg-white/15 backdrop-blur-md border-white/30"
         )}
       >
         <SlidersHorizontal className="w-4 h-4 mr-2" />
@@ -60,7 +60,7 @@ export default function SearchFilters({
           className={cn(
             "w-full p-4 space-y-4 border rounded-2xl",
             plan === "premium" &&
-              "bg-white/10 backdrop-blur-xl border-white/20 shadow-xl"
+              "ios-clear-button shadow-lg"
           )}
         >
           {/* Tiempo */}

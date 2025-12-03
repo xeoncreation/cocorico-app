@@ -103,7 +103,7 @@ export default function SearchClient() {
           className={cn(
             "flex flex-col md:flex-row gap-3 p-3 rounded-2xl border shadow",
             plan === "premium" &&
-              "bg-white/10 backdrop-blur-xl border-white/20 shadow-lg"
+              "ios-clear-button shadow-lg"
           )}
         >
           <div className="flex items-center gap-3 flex-1 bg-surface rounded-xl px-3 py-2 border border-border">

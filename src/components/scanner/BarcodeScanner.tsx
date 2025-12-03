@@ -57,7 +57,7 @@ export default function BarcodeScanner({ onScan }: Props) {
 
   return (
     <div className="flex flex-col gap-2">
-      <div className="rounded-3xl overflow-hidden border border-white/30 bg-white/10 backdrop-blur-xl">
+      <div className="rounded-3xl overflow-hidden border border-white/30 bg-white/15 backdrop-blur-md">
         <video
           ref={videoRef}
           className="w-full h-[60vh] object-cover"

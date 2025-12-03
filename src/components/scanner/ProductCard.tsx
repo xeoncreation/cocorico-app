@@ -29,7 +29,7 @@ export default function ProductCard({ product }: Props) {
 
   return (
     <div
-      className={`p-6 mt-4 rounded-3xl backdrop-blur-2xl border border-white/20 ${bgColor}`}
+      className={`p-6 mt-4 rounded-3xl backdrop-blur-md border border-white/30 ${bgColor}`}
     >
       <div className="flex gap-4">
         {product.image && (

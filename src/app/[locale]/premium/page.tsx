@@ -26,17 +26,17 @@ export default async function PremiumPage({ params }: { params: { locale: string
           <div className="inline-block p-3 rounded-2xl bg-gradient-to-r from-amber-500/20 to-orange-500/20 mb-4">
             <Crown className="w-12 h-12 text-amber-500" />
           </div>
-          <h1 className="text-4xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-amber-500 to-orange-500 bg-clip-text text-transparent">
+          <h1 className="heading-display text-4xl md:text-6xl mb-4 bg-gradient-to-r from-amber-500 to-orange-500 bg-clip-text text-transparent">
             Cocorico Premium
           </h1>
-          <p className="text-lg md:text-xl text-neutral-600 dark:text-neutral-300 max-w-2xl mx-auto">
+          <p className="body-large text-lg md:text-xl glass-text-medium max-w-2xl mx-auto">
             Eleva tu experiencia culinaria con IA avanzada, interfaz premium y funciones exclusivas
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center pt-6">
-            <RippleButton className="coco-btn-primary text-lg px-8 py-4">
+            <RippleButton className="coco-btn-primary text-lg px-8 py-4 label-strong">
               <Link href={`/${params.locale}/checkout`}>Comenzar ahora</Link>
             </RippleButton>
-            <RippleButton className="coco-btn-secondary text-lg px-8 py-4">
+            <RippleButton className="coco-btn-secondary text-lg px-8 py-4 label-strong">
               <Link href="#features">Ver características</Link>
             </RippleButton>
           </div>
@@ -44,7 +44,7 @@ export default async function PremiumPage({ params }: { params: { locale: string
 
         {/* Features Grid */}
         <section id="features" className="space-y-6">
-          <h2 className="text-3xl md:text-4xl font-bold text-center">Características Premium</h2>
+          <h2 className="heading-1 text-3xl md:text-4xl text-center">Características Premium</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {features.map((feature, idx) => {
               const Icon = feature.icon;
@@ -53,8 +53,8 @@ export default async function PremiumPage({ params }: { params: { locale: string
                   <div className="inline-block p-3 rounded-xl bg-gradient-to-br from-amber-500/20 to-orange-500/20 mb-4">
                     <Icon className="w-8 h-8 text-amber-500" />
                   </div>
-                  <h3 className="text-xl font-bold mb-2">{feature.title}</h3>
-                  <p className="text-sm text-neutral-600 dark:text-neutral-400">{feature.desc}</p>
+                  <h3 className="heading-3 text-xl mb-2">{feature.title}</h3>
+                  <p className="body-small glass-text-medium">{feature.desc}</p>
                 </GlassCard>
               );
             })}

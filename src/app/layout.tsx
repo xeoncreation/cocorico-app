@@ -29,7 +29,7 @@ const pacifico = Pacifico({
 
 const sora = Sora({
   subsets: ["latin"],
-  weight: ["400", "600", "700"],
+  weight: ["400", "500", "600", "700"],
   variable: "--font-sora",
   display: "swap",
   preload: true,

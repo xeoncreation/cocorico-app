@@ -112,7 +112,7 @@ export default function FeedClient() {
           >
             <CardHeader className="pb-4">
               <CardTitle className="flex items-center gap-4 text-base font-medium">
-                <div className="w-12 h-12 rounded-2xl bg-white/10 backdrop-blur border border-white/20 overflow-hidden flex items-center justify-center">
+                <div className="w-12 h-12 rounded-2xl bg-white/15 backdrop-blur-md border border-white/30 overflow-hidden flex items-center justify-center">
                   {p.user?.avatar_url ? (
                     <img src={p.user.avatar_url} alt={p.user.display_name || "Usuario"} className="w-full h-full object-cover" />
                   ) : (
