@@ -3,6 +3,7 @@ import { cookies } from "next/headers";
 import { createServerComponentClient } from "@/lib/supabase/client";
 import Link from "next/link";
 import IntlText from "@/components/IntlText";
+import Wallpaper from "@/components/layout/Wallpaper";
 
 export default async function VersionsPage() {
   const supabase = await createServerComponentClient();
@@ -26,8 +27,13 @@ export default async function VersionsPage() {
   }
 
   return (
-    <main className="max-w-3xl mx-auto p-6">
-      <h1 className="text-2xl font-bold text-amber-800">💾 <IntlText k="versions.title" fallback="Mis versiones IA" /></h1>
+    <>
+      <Wallpaper
+        imageLight="/branding/MIS RECETAS- DASHBOARD — Cocina cenital difusa, modo claro.png"
+        imageDark="/branding/MIS RECETAS - DASHBOARD — Encimera oscura gourmet, modo oscuro.png"
+      />
+      <main className="max-w-3xl mx-auto p-6">
+        <h1 className="heading-2 text-amber-800">💾 <IntlText k="versions.title" fallback="Mis versiones IA" /></h1>
       {!versions || versions.length === 0 ? (
         <p className="text-neutral-500 mt-3"><IntlText k="versions.empty" fallback="Aún no has guardado versiones." /></p>
       ) : (
@@ -59,5 +65,6 @@ export default async function VersionsPage() {
         </ul>
       )}
     </main>
+    </>
   );
 }

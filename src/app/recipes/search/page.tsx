@@ -17,7 +17,7 @@ export default function RecipesSearchPage() {
       />
       <main className="max-w-7xl mx-auto w-full px-4 py-8 space-y-6">
         <header className="space-y-1">
-          <h1 className="text-3xl font-bold">Buscar recetas</h1>
+          <h1 className="heading-2">Buscar recetas</h1>
           <p className="text-muted-foreground text-sm">
             Encuentra recetas por ingredientes, estilo, tiempo de cocina y más.
           </p>
