@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Wallpaper from "@/components/layout/Wallpaper";
 
 export default function CheckoutPage() {
   const [loading, setLoading] = useState(false);
@@ -39,9 +40,14 @@ export default function CheckoutPage() {
   }
 
   return (
-    <div className="max-w-md mx-auto p-6">
-      <div className="bg-white dark:bg-neutral-900 rounded-xl shadow-lg p-8">
-        <h1 className="text-2xl font-bold mb-2 text-center">
+    <>
+      <Wallpaper
+        imageLight="/branding/HOME-INICIO,  Fondo Campo de Trigo, modo claro.png"
+        imageDark="/branding/HOME - INICIO — Campo de trigo nocturno cálido (dark mode).png"
+      />
+      <div className="max-w-md mx-auto p-6">
+        <div className="bg-white dark:bg-neutral-900 rounded-xl shadow-lg p-8">
+          <h1 className="heading-2 mb-2 text-center">
           Completa tu suscripción 🐓
         </h1>
         <p className="text-neutral-600 dark:text-neutral-400 text-center mb-6">
@@ -81,6 +87,7 @@ export default function CheckoutPage() {
           Puedes cancelar en cualquier momento
         </p>
       </div>
-    </div>
+      </div>
+    </>
   );
 }

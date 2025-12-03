@@ -19,7 +19,7 @@ export default function DashboardPage() {
       />
       <LegacyPageWrapper>
         <main className="max-w-4xl mx-auto p-6 space-y-6">
-          <h1 className="text-2xl font-bold text-amber-800 glass-text-strong">
+          <h1 className="heading-2 text-amber-800 glass-text-strong">
             🐓 Mis recetas ({recipes.length})
           </h1>
           {/* XP HUD */}

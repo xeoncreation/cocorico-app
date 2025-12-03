@@ -1,10 +1,16 @@
 import LegacyPageWrapper from "@/components/layout/LegacyPageWrapper";
+import Wallpaper from "@/components/layout/Wallpaper";
 
 export default function TermsPage() {
   return (
-    <LegacyPageWrapper>
+    <>
+      <Wallpaper
+        imageLight="/branding/HOME-INICIO,  Fondo Campo de Trigo, modo claro.png"
+        imageDark="/branding/HOME - INICIO — Campo de trigo nocturno cálido (dark mode).png"
+      />
+      <LegacyPageWrapper>
       <div className="container mx-auto px-4 py-12 max-w-4xl">
-        <h1 className="text-4xl font-bold mb-8">Términos de Servicio</h1>
+        <h1 className="heading-display mb-8">Términos de Servicio</h1>
         
         <div className="prose prose-lg dark:prose-invert max-w-none">
           <p className="text-gray-600 dark:text-gray-400 mb-8">
@@ -12,7 +18,7 @@ export default function TermsPage() {
           </p>
 
           <section className="mb-8">
-            <h2 className="text-2xl font-semibold mb-4">1. Aceptación de términos</h2>
+            <h2 className="heading-2 mb-4">1. Aceptación de términos</h2>
             <p>
               Al acceder y usar Cocorico, aceptas estos Términos de Servicio y nuestra Política de Privacidad. 
               Si no estás de acuerdo, no uses el servicio.
@@ -177,5 +183,6 @@ export default function TermsPage() {
         </div>
       </div>
     </LegacyPageWrapper>
+    </>
   );
 }

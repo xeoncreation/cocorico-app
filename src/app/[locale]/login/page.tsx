@@ -29,10 +29,10 @@ export default function LoginPage({ params: { locale } }: { params: { locale: st
                 style={{ width: 120, height: 120, borderRadius: '1rem', objectFit: 'cover', boxShadow: '0 4px 24px rgba(0,0,0,0.12)' }}
               />
             </div>
-            <h1 className="text-3xl font-bold text-cocorico-brown dark:text-amber-100">
+            <h1 className="heading-2 text-cocorico-brown dark:text-amber-100">
               {t("login.welcome", { default: "Bienvenido a Cocorico" })}
             </h1>
-            <p className="text-neutral-600 dark:text-neutral-400">
+            <p className="body-regular text-neutral-600 dark:text-neutral-400">
               {t("login.subtitle", { default: "Inicia sesión para acceder a todas las funciones" })}
             </p>
           </div>

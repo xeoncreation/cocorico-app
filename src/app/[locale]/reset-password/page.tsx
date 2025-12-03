@@ -4,6 +4,7 @@ import GlassCard from "@/components/ui/GlassCard";
 import { Button } from "@/components/ui/button";
 import { AppBackground } from "@/components/layout/AppBackground";
 import { Mail, ArrowLeft, Send } from "lucide-react";
+import Wallpaper from "@/components/layout/Wallpaper";
 
 export const metadata: Metadata = {
   title: "Recuperar Contraseña | Cocorico",
@@ -12,7 +13,12 @@ export const metadata: Metadata = {
 
 export default function ResetPasswordPage() {
   return (
-    <AppBackground variantOverride="home-free">
+    <>
+      <Wallpaper
+        imageLight="/branding/LOGIN - REGISTER — Fondo cálido crema, modo claro.png"
+        imageDark="/branding/LOGIN - REGISTER — Fondo crema, modo oscuro.png"
+      />
+      <AppBackground variantOverride="home-free">
       <div className="min-h-screen flex items-center justify-center px-4 py-12">
         <div className="w-full max-w-md space-y-8">
           {/* Header */}
@@ -20,7 +26,7 @@ export default function ResetPasswordPage() {
             <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-blue-400 to-purple-500 text-white text-4xl shadow-2xl mb-4">
               🔐
             </div>
-            <h1 className="text-4xl font-extrabold text-cocorico-brown dark:text-amber-100">
+            <h1 className="heading-display text-cocorico-brown dark:text-amber-100">
               Recuperar Contraseña
             </h1>
             <p className="text-neutral-600 dark:text-neutral-300 text-lg">
@@ -123,5 +129,6 @@ export default function ResetPasswordPage() {
         </div>
       </div>
     </AppBackground>
+    </>
   );
 }

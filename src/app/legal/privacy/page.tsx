@@ -1,10 +1,16 @@
 import LegacyPageWrapper from "@/components/layout/LegacyPageWrapper";
+import Wallpaper from "@/components/layout/Wallpaper";
 
 export default function PrivacyPage() {
   return (
-    <LegacyPageWrapper>
+    <>
+      <Wallpaper
+        imageLight="/branding/HOME-INICIO,  Fondo Campo de Trigo, modo claro.png"
+        imageDark="/branding/HOME - INICIO — Campo de trigo nocturno cálido (dark mode).png"
+      />
+      <LegacyPageWrapper>
       <div className="container mx-auto px-4 py-12 max-w-4xl">
-        <h1 className="text-4xl font-bold mb-8">Política de Privacidad</h1>
+        <h1 className="heading-display mb-8">Política de Privacidad</h1>
         
         <div className="prose prose-lg dark:prose-invert max-w-none">
           <p className="text-gray-600 dark:text-gray-400 mb-8">
@@ -12,7 +18,7 @@ export default function PrivacyPage() {
           </p>
 
           <section className="mb-8">
-            <h2 className="text-2xl font-semibold mb-4">1. Responsable del tratamiento</h2>
+            <h2 className="heading-2 mb-4">1. Responsable del tratamiento</h2>
             <p>
               <strong>Cocorico</strong> es un servicio operado por [Tu Nombre/Empresa] con domicilio en [Dirección].<br />
               Email de contacto: <a href="mailto:privacy@cocorico.app" className="text-[#e43f30] hover:underline">privacy@cocorico.app</a>
@@ -127,5 +133,6 @@ export default function PrivacyPage() {
         </div>
       </div>
     </LegacyPageWrapper>
+    </>
   );
 }

@@ -2,6 +2,7 @@ import { getTranslations } from "next-intl/server";
 import { Metadata } from "next";
 import SubscribeButton from "@/components/SubscribeButton";
 import { AppBackground } from "@/components/layout/AppBackground";
+import Wallpaper from "@/components/layout/Wallpaper";
 
 export const metadata: Metadata = {
   title: "Precios | Cocorico",
@@ -16,14 +17,19 @@ export default async function PricingPage({
   const t = await getTranslations({ locale });
 
   return (
-    <AppBackground variantOverride="home-premium">
+    <>
+      <Wallpaper
+        imageLight="/branding/HOME-INICIO,  Fondo Campo de Trigo, modo claro.png"
+        imageDark="/branding/HOME - INICIO — Campo de trigo nocturno cálido (dark mode).png"
+      />
+      <AppBackground variantOverride="home-premium">
       <main className="min-h-screen py-20 px-4">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
-            <h1 className="text-5xl sm:text-6xl font-bold mb-4 glass-text-strong">
+            <h1 className="heading-display mb-4 glass-text-strong">
               Elige tu plan 🐓
             </h1>
-            <p className="text-xl glass-text-medium max-w-2xl mx-auto">
+            <p className="body-large glass-text-medium max-w-2xl mx-auto">
               Aprovecha todo el poder de Cocorico Premium
             </p>
           </div>
@@ -32,7 +38,7 @@ export default async function PricingPage({
             {/* Plan FREE */}
             <div className="glass-card p-8 rounded-3xl relative z-10">
               <div className="text-center mb-6 relative z-10">
-                <h2 className="text-3xl font-bold glass-text-strong mb-2">
+                <h2 className="heading-2 glass-text-strong mb-2">
                   Free
                 </h2>
                 <p className="glass-text-soft">
@@ -86,8 +92,8 @@ export default async function PricingPage({
               </div>
 
               <div className="text-center mb-6 relative z-10">
-                <h2 className="text-3xl font-bold glass-text-strong mb-2">Premium</h2>
-                <p className="glass-text-medium">Para foodies y creadores 🧑‍🍳</p>
+                <h2 className="heading-2 glass-text-strong mb-2">Premium</h2>
+                <p className="body-regular glass-text-medium">Para foodies y creadores 🧑‍🍳</p>
               </div>
 
               <div className="mb-8 relative z-10">
@@ -137,5 +143,6 @@ export default async function PricingPage({
         </div>
       </main>
     </AppBackground>
+    </>
   );
 }

@@ -24,14 +24,14 @@ export default function PlansClient() {
   return (
     <div className="p-6 space-y-12">
       <div className="text-center space-y-2">
-        <h1 className="text-4xl font-bold text-primary">Planes Cocorico</h1>
-        <p className="opacity-70">Explora todo lo que puedes hacer</p>
+        <h1 className="heading-display text-primary">Planes Cocorico</h1>
+        <p className="body-regular opacity-70">Explora todo lo que puedes hacer</p>
       </div>
 
       <div className="grid md:grid-cols-2 gap-8">
         {/* FREE */}
         <div className="glass-card glass-card-orange glass-frosted-border p-6">
-          <h2 className="text-2xl font-bold">Free</h2>
+          <h2 className="heading-2">Free</h2>
           <p className="opacity-70 mb-6">Perfecto para empezar</p>
 
           <ul className="space-y-3">
@@ -49,8 +49,8 @@ export default function PlansClient() {
 
         {/* PREMIUM */}
         <div className="glass-card glass-card-purple glass-frosted-border p-6">
-          <h2 className="text-2xl font-bold">Premium</h2>
-          <p className="opacity-70 mb-6">Experiencia completa</p>
+          <h2 className="heading-2">Premium</h2>
+          <p className="body-regular opacity-70 mb-6">Experiencia completa</p>
 
           <ul className="space-y-3">
             {featuresPremium.map((f) => (
