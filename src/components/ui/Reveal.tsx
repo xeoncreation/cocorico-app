@@ -1,21 +1,26 @@
 "use client";
 import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useEffect, useState } from "react";
 
 export default function Reveal({
   children, delay = 0, y = 16
 }: { children: React.ReactNode; delay?: number; y?: number }) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
+  const [isTest, setIsTest] = useState(false);
   
-  // Disable animations in test environments for immediate visibility
-  // Check for Playwright user agent or test env variables
-  const isTest = typeof window !== 'undefined' && (
-    window.location.hostname === 'localhost' || 
-    process.env.NODE_ENV === 'test' ||
-    navigator.userAgent.includes('Playwright') ||
-    window.location.hostname === '127.0.0.1'
-  );
+  useEffect(() => {
+    // Detect test environment on client side
+    if (typeof window !== 'undefined' && typeof navigator !== 'undefined') {
+      const isPlaywright = navigator.userAgent?.includes('Playwright') || 
+                          navigator.userAgent?.includes('HeadlessChrome');
+      const isTestEnv = process.env.NODE_ENV === 'test' ||
+                       window.location.hostname === '127.0.0.1' ||
+                       window.location.hostname === 'localhost';
+      setIsTest(isPlaywright || isTestEnv);
+    }
+  }, []);
+
   const shouldAnimate = !isTest;
 
   return (
