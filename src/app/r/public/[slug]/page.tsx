@@ -50,12 +50,12 @@ export default async function PublicRecipePage({ params }: { params: { slug: str
       <main className="max-w-3xl mx-auto p-6 space-y-4 bg-white rounded shadow my-8">
         {/* Analytics ping for public recipe view */}
         <AnalyticsPing slug={params.slug} />
-        <h1 className="text-3xl font-bold text-amber-800">{data.title}</h1>
+        <h1 className="heading-display text-amber-800">{data.title}</h1>
         {data.description && (
-          <p className="text-neutral-600 italic">{data.description}</p>
+          <p className="body-regular text-neutral-600 italic">{data.description}</p>
         )}
         
-        <div className="flex gap-3 text-sm text-neutral-500">
+        <div className="flex gap-3 body-small text-neutral-500">
           <span>⏱️ {data.time || "?"} {t("public.minutes")}</span>
           <span>🥣 {data.difficulty || t("public.unknown")}</span>
         </div>

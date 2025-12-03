@@ -197,13 +197,13 @@ export default async function RecipePublicPage({ params }: { params: { user: str
     <LegacyPageWrapper>
       <main className="max-w-3xl mx-auto p-6">
         <Reveal>
-          <h1 className="text-4xl font-display text-cocorico-red mb-3">
+          <h1 className="heading-display text-cocorico-red mb-3">
             {recipe.title}
           </h1>
         </Reveal>
 
         <Reveal delay={0.1}>
-          <p className="text-sm text-neutral-500 mb-4">
+          <p className="body-small text-neutral-500 mb-4">
             Publicado por <span className="font-semibold">{author}</span>
           </p>
         </Reveal>
@@ -222,7 +222,7 @@ export default async function RecipePublicPage({ params }: { params: { user: str
         </Reveal>
 
         <Reveal delay={0.2}>
-          <div className="flex flex-wrap gap-4 text-sm text-neutral-600 dark:text-neutral-300 mb-8">
+          <div className="flex flex-wrap gap-4 body-small text-neutral-600 dark:text-neutral-300 mb-8">
             {recipe.totalTime && <span>⏱ {recipe.totalTime} min</span>}
             {recipe.difficulty && <span>🔥 {recipe.difficulty}</span>}
             {recipe.servings && <span>👥 {recipe.servings} porciones</span>}
@@ -242,8 +242,8 @@ export default async function RecipePublicPage({ params }: { params: { user: str
         <article className="mt-8 space-y-10">
           <section>
             <Reveal delay={0.3}>
-              <h2 className="text-2xl font-semibold mb-4">Ingredientes</h2>
-              <ul className="list-disc list-inside space-y-2 text-neutral-800 dark:text-neutral-100">
+              <h2 className="heading-2 mb-4">Ingredientes</h2>
+              <ul className="list-disc list-inside space-y-2 body-regular text-neutral-800 dark:text-neutral-100">
                 {recipe.ingredients.map((item, idx) => (
                   <li key={`ingredient-${idx}`}>{item}</li>
                 ))}
@@ -253,8 +253,8 @@ export default async function RecipePublicPage({ params }: { params: { user: str
 
           <section>
             <Reveal delay={0.35}>
-              <h2 className="text-2xl font-semibold mb-4">Pasos</h2>
-              <ol className="list-decimal list-inside space-y-3 text-neutral-800 dark:text-neutral-100">
+              <h2 className="heading-2 mb-4">Pasos</h2>
+              <ol className="list-decimal list-inside space-y-3 body-regular text-neutral-800 dark:text-neutral-100">
                 {recipe.steps.map((step, idx) => (
                   <li key={`step-${idx}`}>{step}</li>
                 ))}
