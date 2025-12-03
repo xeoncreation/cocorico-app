@@ -59,7 +59,7 @@ const FALLBACK_RECIPES: Record<string, PublicRecipe> = {
   },
   "pasta-recipe": {
     slug: "pasta-recipe",
-    title: "Pasta con Verduras",
+    title: "Pasta con verduras",
     description: "Receta demo para flujos públicos.",
     difficulty: "fácil",
     totalTime: 20,

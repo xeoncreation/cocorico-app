@@ -23,14 +23,8 @@ export default function OnboardingModal({
   onComplete = () => {},
 }: OnboardingModalProps) {
   const [step, setStep] = useState(0);
-  // Initialize show based on completion status
-  const [show, setShow] = useState(() => {
-    // Check immediately on mount - never show if already completed
-    if (typeof window !== "undefined") {
-      return !isOnboardingCompleted();
-    }
-    return false;
-  });
+  // ALWAYS start hidden, reveal only if not completed
+  const [show, setShow] = useState(false);
   const [hasChecked, setHasChecked] = useState(false);
 
   const safeTrack = (eventName: string, ...args: any[]) => {
@@ -58,25 +52,22 @@ export default function OnboardingModal({
 
   // Use useLayoutEffect so the modal show state is updated as early as possible
   useLayoutEffect(() => {
-    // Skip if already completed
+    // CRITICAL: Double-check completion before doing anything
     if (isOnboardingCompleted()) {
-      setShow(false);
       setHasChecked(true);
-      return;
-    }
-
-    // If not completed and currently not showing, schedule reveal
-    if (!show) {
+      // Ensure show is false
+      setShow(false);
       return;
     }
 
     let hasCancelled = false;
 
     const reveal = () => {
+      // Triple check before revealing
       if (hasCancelled || isOnboardingCompleted()) {
-        setShow(false);
         return;
       }
+      setShow(true);
       setHasChecked(true);
       safeTrack("onboardingStarted");
     };
@@ -155,6 +146,12 @@ export default function OnboardingModal({
 
   const currentStep = steps[step];
   const Icon = currentStep.icon;
+
+  // CRITICAL: Don't render anything if completed
+  // This check happens on EVERY render, including re-mounts
+  if (isOnboardingCompleted()) {
+    return null;
+  }
 
   return (
     <AnimatePresence>
