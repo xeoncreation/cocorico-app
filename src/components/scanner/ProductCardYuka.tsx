@@ -3,7 +3,8 @@
 import type { NormalizedProduct } from "@/lib/scan/types";
 import { useState } from "react";
 import { ChevronDown, ChevronUp, AlertTriangle, CheckCircle, XCircle, Info } from "lucide-react";
-import GlassCard from "@/components/ui/GlassCard";
+import { GlassCard } from "@/components/ui/GlassCard";
+import Reveal from "@/components/ui/Reveal";
 
 type Props = {
   product: NormalizedProduct & {
@@ -65,51 +66,54 @@ export default function ProductCardYuka({ product }: Props) {
   return (
     <div className="space-y-4 mt-6">
       {/* Header Card - Puntuación principal */}
-      <GlassCard className="p-6 bg-gradient-to-br from-white/80 to-white/60 dark:from-neutral-900/80 dark:to-neutral-800/60">
-        <div className="flex items-start gap-4">
-          {product.image && (
-            <img
-              src={product.image}
-              alt={product.name}
-              className="w-28 h-28 rounded-2xl object-cover shadow-lg border-2 border-white/50"
-            />
-          )}
-          <div className="flex-1">
-            <h2 className="text-2xl font-bold text-neutral-900 dark:text-white mb-1">
-              {product.name}
-            </h2>
-            {product.brand && (
-              <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-2">
-                {product.brand}
-              </p>
+      <Reveal>
+        <GlassCard className="p-6">
+          <div className="flex items-start gap-4">
+            {product.image && (
+              <img
+                src={product.image}
+                alt={product.name}
+                className="w-28 h-28 rounded-2xl object-cover shadow-lg border-2 border-white/50"
+              />
             )}
-            <p className="text-xs text-neutral-500 dark:text-neutral-500">
-              {product.barcode}
-            </p>
-          </div>
-        </div>
-
-        {/* Puntuación Cocorico - Grande y prominente */}
-        <div className="mt-6 text-center">
-          <div className={`inline-flex items-center justify-center w-32 h-32 rounded-full ${scoreColor.bg} shadow-2xl`}>
-            <div className="text-center">
-              <div className="text-5xl font-black text-white">{score}</div>
-              <div className="text-sm font-semibold text-white/90">/100</div>
+            <div className="flex-1">
+              <h2 className="heading-2 glass-text-strong mb-1">
+                {product.name}
+              </h2>
+              {product.brand && (
+                <p className="body-small glass-text-medium mb-2">
+                  {product.brand}
+                </p>
+              )}
+              <p className="text-xs glass-text-medium">
+                {product.barcode}
+              </p>
             </div>
           </div>
-          <p className={`mt-3 text-xl font-bold ${scoreColor.text}`}>
-            {scoreColor.icon} {scoreColor.label}
-          </p>
-        </div>
-      </GlassCard>
+
+          {/* Puntuación Cocorico - Grande y prominente */}
+          <div className="mt-6 text-center">
+            <div className={`inline-flex items-center justify-center w-32 h-32 rounded-full ${scoreColor.bg} shadow-2xl`}>
+              <div className="text-center">
+                <div className="text-5xl font-black text-white">{score}</div>
+                <div className="text-sm font-semibold text-white/90">/100</div>
+              </div>
+            </div>
+            <p className={`mt-3 text-xl font-bold ${scoreColor.text}`}>
+              {scoreColor.icon} {scoreColor.label}
+            </p>
+          </div>
+        </GlassCard>
+      </Reveal>
 
       {/* Nutri-Score */}
       {currentNutriScore && (
-        <GlassCard className="p-4 bg-white/70 dark:bg-neutral-900/70">
-          <div className="flex items-center justify-between mb-2">
-            <h3 className="font-bold text-neutral-900 dark:text-white">Nutri-Score</h3>
-            <Info className="w-4 h-4 text-neutral-500" />
-          </div>
+        <Reveal delay={0.1}>
+          <GlassCard className="p-4">
+            <div className="flex items-center justify-between mb-2">
+              <h3 className="font-bold glass-text-strong">Nutri-Score</h3>
+              <Info className="w-4 h-4 glass-text-medium" />
+            </div>
           <div className="flex gap-1">
             {nutriScoreGrades.map((grade) => {
               const isActive = grade === currentNutriScore;
@@ -133,18 +137,20 @@ export default function ProductCardYuka({ product }: Props) {
             })}
           </div>
         </GlassCard>
+        </Reveal>
       )}
 
       {/* NOVA Group */}
       {currentNova && (
-        <GlassCard className="p-4 bg-white/70 dark:bg-neutral-900/70">
           <div className="flex items-center justify-between">
             <div>
-              <h3 className="font-bold text-neutral-900 dark:text-white">Nivel de procesamiento</h3>
+              <h3 className="font-bold glass-text-strong">Nivel de procesamiento</h3>
               <p className={`text-sm font-semibold ${currentNova.color}`}>
                 NOVA {product.nova_group}: {currentNova.label}
               </p>
-              <p className="text-xs text-neutral-600 dark:text-neutral-400 mt-1">
+              <p className="text-xs glass-text-medium mt-1">
+                {currentNova.desc}
+              </p>lassName="text-xs text-neutral-600 dark:text-neutral-400 mt-1">
                 {currentNova.desc}
               </p>
             </div>
