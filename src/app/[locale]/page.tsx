@@ -48,20 +48,20 @@ export default async function LocaleHomePage({
         <ContinueSection locale={locale} />
       </div>
       
-      {/* Cocorico Mascot animada */}
+      {/* Video banner principal panorámico */}
       <Reveal>
-        <div className="mb-8 relative">
-          <video
-            src="/branding/cocorico-mascot.png.mp4"
-            autoPlay
-            loop
-            muted
-            playsInline
-            width={240}
-            height={240}
-            className="drop-shadow-2xl animate-float rounded-[1.5rem] object-cover"
-            style={{ boxShadow: '0 4px 24px rgba(0,0,0,0.12)' }}
-          />
+        <div className="mb-12 relative w-full max-w-5xl">
+          <div className="glass-card glass-card-mango glass-frosted-border p-3 rounded-[2.5rem]">
+            <video
+              src="/branding/nuevobannervideo-home.mp4"
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="rounded-[2rem] w-full h-auto object-cover shadow-2xl"
+              style={{ maxHeight: '600px' }}
+            />
+          </div>
         </div>
       </Reveal>
 
