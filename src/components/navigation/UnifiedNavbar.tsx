@@ -184,35 +184,36 @@ export default function UnifiedNavbar() {
     return pathname?.startsWith(fullPath);
   };
 
-  // Helper: nav link classes - iOS Clear style transparente
+  // Helper: nav link classes - Liquid Glass Clear style
   const navLinkClass = (href: string) => {
     const active = isActive(href);
     return `
-      ios-clear-button flex items-center gap-2 px-4 py-2.5 rounded-2xl text-sm font-bold
+      coco-glass flex items-center gap-2 px-4 py-2.5 rounded-2xl text-sm font-extrabold tracking-tight
       transition-all duration-300
+      glass-text-strong
       ${
         active
-          ? "text-cocorico-red dark:text-amber-400 shadow-[0_0_15px_rgba(229,57,53,0.3)] dark:shadow-[0_0_15px_rgba(251,191,36,0.3)] scale-105"
-          : "text-neutral-800 dark:text-neutral-200 hover:shadow-[0_0_20px_rgba(255,255,255,0.4)] hover:scale-105"
+          ? "shadow-[0_0_20px_rgba(229,57,53,0.4)] dark:shadow-[0_0_20px_rgba(251,191,36,0.4)] scale-105 border-2 border-cocorico-red/50 dark:border-amber-400/50"
+          : "hover:shadow-[0_0_30px_rgba(255,255,255,0.5)] hover:scale-105"
       }
     `.trim();
   };
 
-  // Helper: Dropdown button classes - iOS Clear style
+  // Helper: Dropdown button classes - Liquid Glass Clear style
   const dropdownBtnClass = (isOpen: boolean) => `
-    ios-clear-button flex items-center gap-2 px-3 py-2.5 rounded-l-2xl text-sm font-bold
+    coco-glass flex items-center gap-2 px-4 py-2.5 rounded-l-2xl text-sm font-extrabold tracking-tight
     transition-all duration-300 border-y border-l border-r-0
-    text-neutral-800 dark:text-neutral-200
-    hover:shadow-[0_0_20px_rgba(255,255,255,0.4)]
-    ${isOpen ? "shadow-[0_0_15px_rgba(255,255,255,0.2)]" : ""}
+    glass-text-strong
+    hover:shadow-[0_0_30px_rgba(255,255,255,0.5)]
+    ${isOpen ? "shadow-[0_0_20px_rgba(255,255,255,0.3)]" : ""}
   `.trim();
 
   const dropdownArrowClass = (isOpen: boolean) => `
-    ios-clear-button flex items-center px-2 py-2.5 rounded-r-2xl text-sm font-bold
+    coco-glass flex items-center px-3 py-2.5 rounded-r-2xl text-sm font-extrabold
     transition-all duration-300
-    text-neutral-800 dark:text-neutral-200
-    hover:shadow-[0_0_20px_rgba(255,255,255,0.4)]
-    ${isOpen ? "shadow-[0_0_15px_rgba(255,255,255,0.2)]" : ""}
+    glass-text-strong
+    hover:shadow-[0_0_30px_rgba(255,255,255,0.5)]
+    ${isOpen ? "shadow-[0_0_20px_rgba(255,255,255,0.3)]" : ""}
   `.trim();
 
   return (
@@ -220,7 +221,7 @@ export default function UnifiedNavbar() {
       {/* Logo - botón liquid glass */}
       <Link
         href={withLocale("/")}
-        className="font-display text-2xl font-black text-cocorico-red dark:text-amber-400 hover:scale-105 transition-all duration-300 drop-shadow-2xl px-4 py-2 rounded-2xl ios-clear-button hover:shadow-[0_0_25px_rgba(229,57,53,0.4)] dark:hover:shadow-[0_0_25px_rgba(251,191,36,0.4)]"
+        className="font-display text-2xl font-black glass-text-strong hover:scale-105 transition-all duration-300 drop-shadow-2xl px-5 py-2.5 rounded-2xl coco-glass hover:shadow-[0_0_30px_rgba(229,57,53,0.5)] dark:hover:shadow-[0_0_30px_rgba(251,191,36,0.5)]"
         aria-label={t("nav.home")}
       >
         🐓 Cocorico
@@ -270,13 +271,13 @@ export default function UnifiedNavbar() {
           </button>
 
           {scannerOpen && (
-            <div className="absolute top-full left-0 mt-2 w-56 ios-clear-button rounded-2xl shadow-lg border border-white/30 dark:border-white/20 z-[100] overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+            <div className="absolute top-full left-0 mt-2 w-56 coco-glass rounded-2xl shadow-lg border border-white/30 dark:border-white/20 z-[100] overflow-hidden animate-in fade-in zoom-in-95 duration-200">
               {scannerMenu.items.map(item => (
                 <Link 
                   key={item.href} 
                   href={withLocale(item.href)} 
                   onClick={() => setScannerOpen(false)}
-                  className="flex items-center gap-3 px-5 py-3.5 text-sm font-bold text-neutral-800 dark:text-neutral-200 hover:bg-cocorico-red/10 dark:hover:bg-amber-400/10 hover:text-cocorico-red dark:hover:text-amber-400 transition-all hover:pl-7"
+                  className="flex items-center gap-3 px-5 py-3.5 text-sm font-extrabold tracking-tight glass-text-strong hover:bg-cocorico-red/10 dark:hover:bg-amber-400/10 hover:text-cocorico-red dark:hover:text-amber-400 transition-all hover:pl-7"
                 >
                   <span aria-hidden="true" className="text-lg">{item.icon}</span>
                   <span>{item.label}</span>
@@ -309,13 +310,13 @@ export default function UnifiedNavbar() {
           </button>
 
           {communityOpen && (
-            <div className="absolute top-full left-0 mt-2 w-60 ios-clear-button rounded-2xl shadow-lg border border-white/30 dark:border-white/20 z-[100] overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+            <div className="absolute top-full left-0 mt-2 w-60 coco-glass rounded-2xl shadow-lg border border-white/30 dark:border-white/20 z-[100] overflow-hidden animate-in fade-in zoom-in-95 duration-200">
               {communityMenu.items.map(item => (
                 <Link 
                   key={item.href} 
                   href={withLocale(item.href)} 
                   onClick={() => setCommunityOpen(false)}
-                  className="flex items-center gap-3 px-5 py-3.5 text-sm font-bold text-neutral-800 dark:text-neutral-200 hover:bg-cocorico-red/10 dark:hover:bg-amber-400/10 hover:text-cocorico-red dark:hover:text-amber-400 transition-all hover:pl-7"
+                  className="flex items-center gap-3 px-5 py-3.5 text-sm font-extrabold tracking-tight glass-text-strong hover:bg-cocorico-red/10 dark:hover:bg-amber-400/10 hover:text-cocorico-red dark:hover:text-amber-400 transition-all hover:pl-7"
                 >
                   <span aria-hidden="true" className="text-lg">{item.icon}</span>
                   <span>{item.label}</span>
@@ -392,7 +393,7 @@ export default function UnifiedNavbar() {
         ) : (
           <Link
             href="/login"
-            className="ios-clear-button text-sm font-bold px-4 py-2.5 rounded-2xl hover:text-cocorico-red dark:hover:text-amber-400 transition-all hover:scale-105"
+            className="coco-glass text-sm font-extrabold tracking-tight glass-text-strong px-4 py-2.5 rounded-2xl hover:text-cocorico-red dark:hover:text-amber-400 transition-all hover:scale-105"
           >
             {t("nav.login")}
           </Link>
@@ -420,7 +421,7 @@ export default function UnifiedNavbar() {
                     <Link
                       key={link.href}
                       href={withLocale(link.href)}
-                      className={`flex items-center gap-2 rounded-lg px-3 py-2.5 text-sm font-bold coco-glass ${isActive(link.href) ? "ring-2 ring-cocorico-red/40 dark:ring-amber-400/40 font-black" : "hover:ring-2 hover:ring-cocorico-yellow/40 dark:hover:ring-neutral-800/40"}`}
+                      className={`flex items-center gap-2 rounded-lg px-3 py-2.5 text-sm font-extrabold tracking-tight glass-text-strong coco-glass ${isActive(link.href) ? "ring-2 ring-cocorico-red/40 dark:ring-amber-400/40 font-black" : "hover:ring-2 hover:ring-cocorico-yellow/40 dark:hover:ring-neutral-800/40"}`}
                       onClick={() => setMobileSheetOpen(false)}
                       aria-current={isActive(link.href) ? "page" : undefined}
                     >
@@ -436,7 +437,7 @@ export default function UnifiedNavbar() {
                       <Link
                         key={item.href}
                         href={withLocale(item.href)}
-                        className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium hover:bg-neutral-100 dark:hover:bg-neutral-800 ml-2"
+                        className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-bold glass-text-medium coco-glass ml-2 hover:ring-2 hover:ring-cocorico-yellow/40"
                         onClick={() => setMobileSheetOpen(false)}
                       >
                         <span aria-hidden="true">{item.icon}</span>
@@ -452,7 +453,7 @@ export default function UnifiedNavbar() {
                       <Link
                         key={item.href}
                         href={withLocale(item.href)}
-                        className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium hover:bg-neutral-100 dark:hover:bg-neutral-800 ml-2"
+                        className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-bold glass-text-medium coco-glass ml-2 hover:ring-2 hover:ring-cocorico-yellow/40"
                         onClick={() => setMobileSheetOpen(false)}
                       >
                         <span aria-hidden="true">{item.icon}</span>
@@ -474,7 +475,7 @@ export default function UnifiedNavbar() {
                       <Link
                         key={link.href}
                         href={withLocale(link.href)}
-                        className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-bold text-neutral-900 dark:text-white hover:bg-neutral-100 dark:hover:bg-neutral-800"
+                        className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-extrabold tracking-tight glass-text-strong coco-glass hover:ring-2 hover:ring-cocorico-yellow/40"
                         onClick={() => setMobileSheetOpen(false)}
                       >
                         <span aria-hidden="true">{link.icon}</span>
@@ -492,7 +493,7 @@ export default function UnifiedNavbar() {
                 ) : (
                   <Link
                     href="/login"
-                    className="flex items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-sm font-semibold coco-glass"
+                    className="flex items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-sm font-extrabold tracking-tight glass-text-strong coco-glass"
                     onClick={() => setMobileSheetOpen(false)}
                   >
                     {t("nav.login")}
