@@ -51,13 +51,16 @@ export default async function LocaleHomePage({
       {/* Cocorico Mascot animada */}
       <Reveal>
         <div className="mb-8 relative">
-          <img
-            src="/branding/cocorico-mascot-anim-optimized.gif"
+          <video
+            src="/branding/cocorico-mascot.png.mp4"
+            autoPlay
+            loop
+            muted
+            playsInline
             width={240}
             height={240}
-            alt="Cocorico animado"
-            className="drop-shadow-2xl animate-float"
-            style={{ borderRadius: '1.5rem', objectFit: 'cover', boxShadow: '0 4px 24px rgba(0,0,0,0.12)' }}
+            className="drop-shadow-2xl animate-float rounded-[1.5rem] object-cover"
+            style={{ boxShadow: '0 4px 24px rgba(0,0,0,0.12)' }}
           />
         </div>
       </Reveal>
@@ -171,7 +174,7 @@ export default async function LocaleHomePage({
         <div className="relative mt-8 opacity-95">
           <div className="glass-card glass-card-mango glass-frosted-border p-2 rounded-[2rem] inline-block">
             <video
-              src="/branding/banner-home.webp.mp4"
+              src="/branding/nuevobannervideo-home.mp4"
               autoPlay
               loop
               muted
