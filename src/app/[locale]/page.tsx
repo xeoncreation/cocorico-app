@@ -48,18 +48,18 @@ export default async function LocaleHomePage({
         <ContinueSection locale={locale} />
       </div>
       
-      {/* Video banner principal panorámico */}
+      {/* Video banner principal panorámico - tamaño reducido y estático */}
       <Reveal>
-        <div className="mb-12 relative w-full max-w-5xl">
-          <div className="glass-card glass-card-mango glass-frosted-border p-3 rounded-[2.5rem]">
+        <div className="mb-12 relative w-full max-w-4xl">
+          <div className="coco-glass p-3 rounded-[2rem]">
             <video
               src="/branding/nuevobannervideo-home.mp4"
               autoPlay
               loop
               muted
               playsInline
-              className="rounded-[2rem] w-full h-auto object-cover shadow-2xl"
-              style={{ maxHeight: '600px' }}
+              className="rounded-[1.5rem] w-full h-auto object-cover shadow-2xl"
+              style={{ maxHeight: '500px', aspectRatio: '16/9' }}
             />
           </div>
         </div>
