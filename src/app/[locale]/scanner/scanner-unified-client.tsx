@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import BarcodeScanner from "@/components/scanner/BarcodeScanner";
-import ProductCard from "@/components/scanner/ProductCard";
+import ProductCardYuka from "@/components/scanner/ProductCardYuka";
 import type { NormalizedProduct } from "@/lib/scan/types";
 import GlassCard from "@/components/ui/GlassCard";
 import { Button } from "@/components/ui/button";
@@ -178,7 +178,7 @@ export default function ScannerUnifiedClient({ locale }: { locale: string }) {
           )}
 
           {product && !loading && (
-            <ProductCard product={product} />
+            <ProductCardYuka product={product} />
           )}
         </div>
       </div>
