@@ -202,7 +202,7 @@ export default function UnifiedNavbar() {
   // Helper: Dropdown button classes - Liquid Glass Clear style
   const dropdownBtnClass = (isOpen: boolean) => `
     coco-glass flex items-center gap-2 px-4 py-2.5 rounded-l-2xl text-sm font-extrabold tracking-tight
-    transition-all duration-300 border-y border-l border-r-0
+    transition-all duration-300
     glass-text-strong
     hover:shadow-[0_0_30px_rgba(255,255,255,0.5)]
     ${isOpen ? "shadow-[0_0_20px_rgba(255,255,255,0.3)]" : ""}
@@ -210,14 +210,14 @@ export default function UnifiedNavbar() {
 
   const dropdownArrowClass = (isOpen: boolean) => `
     coco-glass flex items-center px-3 py-2.5 rounded-r-2xl text-sm font-extrabold
-    transition-all duration-300
+    transition-all duration-300 -ml-0.5
     glass-text-strong
     hover:shadow-[0_0_30px_rgba(255,255,255,0.5)]
     ${isOpen ? "shadow-[0_0_20px_rgba(255,255,255,0.3)]" : ""}
   `.trim();
 
   return (
-    <header className="navbar-liquid flex items-center justify-between px-4 sm:px-6 py-3 sticky top-0 z-50 border-b border-white/30 shadow-lg transition-all duration-300">
+    <header className="navbar-liquid flex items-center justify-between px-4 sm:px-6 py-4 sticky top-0 z-50 transition-all duration-300">
       {/* Logo - botón liquid glass */}
       <Link
         href={withLocale("/")}
@@ -228,7 +228,7 @@ export default function UnifiedNavbar() {
       </Link>
 
       {/* Desktop Navigation */}
-      <div className="hidden lg:flex items-center gap-2">
+      <div className="hidden lg:flex items-center gap-3">
         {/* Main links */}
         {mainNavLinks.map((link) => {
           // For some routes we also keep top-level plain hrefs so tests that expect
@@ -249,7 +249,7 @@ export default function UnifiedNavbar() {
           })}
         
         {/* Scanner split-button */}
-        <div className="relative flex items-center" ref={scannerRef}>
+        <div className="relative flex items-center ml-1" ref={scannerRef}>
           <Link 
             href={withLocale("/scanner")}
             className={dropdownBtnClass(scannerOpen)}

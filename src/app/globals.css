@@ -249,20 +249,21 @@
     backdrop-filter: blur(20px) saturate(180%);
   }
   
-  /* Specific override for Navbar - 100% Transparent, NO BLUR */
+  /* Specific override for Navbar - 100% Transparent, NO BLUR, NO BORDER */
   .navbar-liquid {
     background: transparent !important;
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: none;
+    border: none !important;
+    box-shadow: none !important;
   }
   
   .dark .navbar-liquid {
     background: transparent !important;
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border: none !important;
+    box-shadow: none !important;
   }
   :root[data-theme="free"] {
     --bg-home-free: radial-gradient(
