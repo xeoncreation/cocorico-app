@@ -174,7 +174,7 @@ export default async function LocaleHomePage({
         <div className="relative mt-8 opacity-95">
           <div className="glass-card glass-card-mango glass-frosted-border p-2 rounded-[2rem] inline-block">
             <video
-              src="/branding/nuevobannervideo-home.mp4"
+              src="/branding/banner-bajo-home.mp4"
               autoPlay
               loop
               muted
