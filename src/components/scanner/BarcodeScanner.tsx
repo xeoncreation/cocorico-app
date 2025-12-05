@@ -125,16 +125,6 @@ export default function BarcodeScanner({ onScan }: Props) {
             className="w-full h-[60vh] object-cover"
           />
         
-        controlsRef.current = controls;
-        
-        // Esperar a que el video esté listo
-        if (videoRef.current) {
-          videoRef.current.onloadedmetadata = () => {
-            setIsCameraReady(true);
-          };
-        }
-
-        
         {/* Overlay de escaneo */}
         {isScanning && isCameraReady && !scanSuccess && (
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
@@ -199,6 +189,7 @@ export default function BarcodeScanner({ onScan }: Props) {
           </div>
         )}
       </div>
+      )}
     </div>
   );
 }
