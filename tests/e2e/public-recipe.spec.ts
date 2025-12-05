@@ -3,6 +3,9 @@ import { test, expect, Page } from '@playwright/test';
 /**
  * Tests para visualización de recetas públicas
  * Verifica que recetas públicas sean accesibles sin autenticación
+ * 
+ * NOTA: Estos tests requieren datos reales en Supabase.
+ * Se saltan en CI si NEXT_PUBLIC_SUPABASE_URL contiene 'placeholder'.
  */
 
 const PUBLIC_USER = 'public';
@@ -14,7 +17,11 @@ const gotoPublicRecipe = async (page: Page, slug = PRIMARY_SLUG, user = PUBLIC_U
   await page.goto(`/r/${user}/${slug}`, { waitUntil: 'domcontentloaded', timeout: 60000 });
 };
 
+// Skip tests if using placeholder Supabase (no real data)
+const shouldSkip = process.env.NEXT_PUBLIC_SUPABASE_URL?.includes('placeholder');
+
 test.describe('Recetas Públicas - Acceso sin Login', () => {
+  test.skip(shouldSkip, 'Requires real Supabase database with seeded data');
   test.setTimeout(120000);
   
   test('debe acceder a receta pública sin autenticación', async ({ page }) => {
@@ -75,6 +82,7 @@ test.describe('Recetas Públicas - Acceso sin Login', () => {
 });
 
 test.describe('Feed Público de Recetas', () => {
+  test.skip(shouldSkip, 'Requires real Supabase database with seeded data');
   
   test('debe renderizar feed de recetas públicas', async ({ page }) => {
     await page.goto('/recipes');
@@ -111,6 +119,7 @@ test.describe('Feed Público de Recetas', () => {
 });
 
 test.describe('Receta Pública - Formato Específico', () => {
+  test.skip(shouldSkip, 'Requires real Supabase database with seeded data');
   
   test('debe renderizar receta en ruta /r/public/[slug]', async ({ page }) => {
     const response = await page.goto(`/r/public/${ALT_SLUG}`, { waitUntil: 'domcontentloaded', timeout: 60000 });

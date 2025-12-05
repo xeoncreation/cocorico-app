@@ -68,7 +68,8 @@ test.describe('Home Onboarding Modal', () => {
     await premiumLink.click({ force: true });
     await page.waitForURL(/.*premium/, { timeout: 60000 });
 
-    await page.click('header a[href="/"]');
+    const homeLink = page.locator('header a[href="/"], header a[href^="/es"]').first();
+    await homeLink.click();
     await page.waitForURL(/(\/|\/es(?:$|[?#]))/, { timeout: 20000 });
 
     // Modal should not appear again for a completed user
@@ -173,11 +174,16 @@ test.describe('Home Onboarding Modal', () => {
       await premiumLink.click({ force: true });
       await page.waitForURL(/.*premium/, { timeout: 60000 });
     
-    // Go back to home - modal should not appear because Playwright user agent is detected
-    await page.goto('/es', { waitUntil: 'domcontentloaded', timeout: 60000 });
+    // Go back to home - modal should not appear because onboarding was completed
+    await page.goto('/es', { waitUntil: 'networkidle', timeout: 60000 });
     
-    // Modal should not appear - component detects Playwright and skips rendering
-    await page.waitForTimeout(1000);
-    await expect(page.locator('[data-testid="onboarding-modal"]')).not.toBeVisible();
+    // Verify localStorage persists across navigation
+    const completedFlag = await page.evaluate(() => localStorage.getItem('onboarding_completed'));
+    expect(completedFlag).toBe('true');
+    
+    // Modal should not appear because onboarding was completed
+    await page.waitForTimeout(3000);
+    const modalVisible = await page.locator('[data-testid="onboarding-modal"]').isVisible().catch(() => false);
+    expect(modalVisible).toBe(false);
   });
 });
