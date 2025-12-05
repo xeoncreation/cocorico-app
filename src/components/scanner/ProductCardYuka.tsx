@@ -142,6 +142,7 @@ export default function ProductCardYuka({ product }: Props) {
 
       {/* NOVA Group */}
       {currentNova && (
+        <GlassCard className="p-6">
           <div className="flex items-center justify-between">
             <div>
               <h3 className="font-bold glass-text-strong">Nivel de procesamiento</h3>
@@ -149,8 +150,6 @@ export default function ProductCardYuka({ product }: Props) {
                 NOVA {product.nova_group}: {currentNova.label}
               </p>
               <p className="text-xs glass-text-medium mt-1">
-                {currentNova.desc}
-              </p>lassName="text-xs text-neutral-600 dark:text-neutral-400 mt-1">
                 {currentNova.desc}
               </p>
             </div>
