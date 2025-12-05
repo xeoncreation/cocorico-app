@@ -414,16 +414,17 @@ export default function UnifiedNavbar() {
           </Link>
         )}
         </div>
+      </div>
 
-        {/* Mobile menu button */}
-        <div className="lg:hidden">
-          <Sheet open={mobileSheetOpen} onOpenChange={setMobileSheetOpen}>
-            <SheetTrigger asChild>
-              <Button variant="outline" size="icon" aria-label="Menu">
-                <Menu className="h-5 w-5" />
-              </Button>
-            </SheetTrigger>
-            <SheetContent side="right" className="w-72 overflow-y-auto">
+      {/* Mobile menu button */}
+      <div className="lg:hidden">
+        <Sheet open={mobileSheetOpen} onOpenChange={setMobileSheetOpen}>
+          <SheetTrigger asChild>
+            <Button variant="outline" size="icon" aria-label="Menu">
+              <Menu className="h-5 w-5" />
+            </Button>
+          </SheetTrigger>
+          <SheetContent side="right" className="w-72 overflow-y-auto">
               <div className="py-4 flex flex-col gap-4">
                 {/* Logo in mobile menu */}
                 <div className="px-1 pb-2 font-display text-xl font-black text-cocorico-red dark:text-amber-400">
@@ -526,7 +527,6 @@ export default function UnifiedNavbar() {
             </SheetContent>
           </Sheet>
         </div>
-      </div>
     </header>
   );
 }
