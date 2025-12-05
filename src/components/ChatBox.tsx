@@ -1,10 +1,12 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import SubscribeButton from "@/components/billing/SubscribeButton";
 import { ChatMessage, ChatResponse } from "@/types/api";
 import { validateMessage } from "@/utils/validation";
 import CocoricoMascot, { useMascotMood } from "@/components/CocoricoMascot";
+import { Send, Sparkles, AlertCircle } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 type Msg = Pick<ChatMessage, 'role' | 'content'>;
 
@@ -14,6 +16,13 @@ export default function ChatBox() {
   const [loading, setLoading] = useState(false);
   const [errorCode, setErrorCode] = useState<number | null>(null);
   const { mood, setMood } = useMascotMood("default");
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const [isTyping, setIsTyping] = useState(false);
+
+  // Auto-scroll al final cuando hay nuevos mensajes
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages, isTyping]);
 
   async function sendMessage(e: React.FormEvent) {
     e.preventDefault();
@@ -27,6 +36,7 @@ export default function ChatBox() {
     setMessages((m) => [...m, userMsg]);
     setInput("");
     setLoading(true);
+    setIsTyping(true);
     setMood("thinking");
 
     try {
@@ -54,6 +64,7 @@ export default function ChatBox() {
       setMood("alert", 2000);
     } finally {
       setLoading(false);
+      setIsTyping(false);
     }
   }
 

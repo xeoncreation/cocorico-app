@@ -2,7 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 import { BrowserMultiFormatReader, IScannerControls } from "@zxing/browser";
-import { Scan, CheckCircle2, AlertCircle } from "lucide-react";
+import { Scan, CheckCircle2, AlertCircle, Camera } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 type Props = {
   onScan: (code: string) => void;
@@ -14,34 +15,115 @@ export default function BarcodeScanner({ onScan }: Props) {
   const [isCameraReady, setIsCameraReady] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [scanSuccess, setScanSuccess] = useState(false);
+  const [permissionRequested, setPermissionRequested] = useState(false);
   const controlsRef = useRef<IScannerControls | null>(null);
 
+  const requestCameraPermission = async () => {
+    try {
+      setPermissionRequested(true);
+      setError(null);
+      
+      // Solicitar permiso explícitamente
+      const stream = await navigator.mediaDevices.getUserMedia({ 
+        video: { facingMode: 'environment' } 
+      });
+      
+      // Detener el stream de prueba
+      stream.getTracks().forEach(track => track.stop());
+      
+      // Si llegamos aquí, tenemos permiso - iniciar scanner
+      startScanner();
+    } catch (err: any) {
+      console.error("Permission error:", err);
+      if (err.name === 'NotAllowedError') {
+        setError("❌ Permiso denegado. Ve a Configuración > Privacidad > Cámara y activa el permiso para este navegador.");
+      } else if (err.name === 'NotFoundError') {
+        setError("❌ No se encontró ninguna cámara en tu dispositivo.");
+      } else {
+        setError(`❌ Error al acceder a la cámara: ${err.message}");
+      }
+    }
+  };
+
   useEffect(() => {
+    // No iniciar automáticamente, esperar a que el usuario lo solicite
+    return () => {
+      if (controlsRef.current) {
+        controlsRef.current.stop();
+      }
+    };
+  }, []);
+
+  async function startScanner() {
     if (!videoRef.current) return;
 
     const codeReader = new BrowserMultiFormatReader();
-    let cancelled = false;
 
-    async function startScanner() {
-      try {
-        setIsScanning(true);
-        setError(null);
+    try {
+      setIsScanning(true);
+      setError(null);
 
-        const controls = await codeReader.decodeFromVideoDevice(
-          undefined,
-          videoRef.current!,
-          (result, err) => {
-            if (cancelled) return;
-            if (result) {
-              const text = result.getText();
-              setScanSuccess(true);
-              setTimeout(() => {
-                setIsScanning(false);
-                onScan(text);
-              }, 500);
-            }
+      const controls = await codeReader.decodeFromVideoDevice(
+        undefined,
+        videoRef.current!,
+        (result, err) => {
+          if (result) {
+            const text = result.getText();
+            setScanSuccess(true);
+            setTimeout(() => {
+              setIsScanning(false);
+              onScan(text);
+            }, 500);
           }
-        );
+        }
+      );
+      
+      controlsRef.current = controls;
+      
+      // Esperar a que el video esté listo
+      if (videoRef.current) {
+        videoRef.current.onloadedmetadata = () => {
+          setIsCameraReady(true);
+        };
+      }
+    } catch (err: any) {
+      console.error("Scanner start error:", err);
+      setError("❌ Error al iniciar el escáner. Intenta recargar la página.");
+      setIsScanning(false);
+    }
+  }
+
+  return (
+    <div className="flex flex-col gap-4">
+      {!permissionRequested ? (
+        <div className="flex flex-col items-center justify-center gap-6 p-8 rounded-3xl border-2 border-white/30 bg-gradient-to-br from-cocorico-red/20 to-amber-500/20 backdrop-blur-md shadow-2xl min-h-[60vh]">
+          <div className="bg-white/90 p-6 rounded-full shadow-xl">
+            <Camera className="w-16 h-16 text-cocorico-red" />
+          </div>
+          <div className="text-center space-y-3">
+            <h3 className="text-2xl font-bold text-white">Acceso a la Cámara</h3>
+            <p className="text-white/90 text-lg max-w-md">
+              Para escanear códigos de barras, necesitamos acceder a tu cámara.
+            </p>
+            <p className="text-white/80 text-sm">
+              Tu privacidad es importante. Solo accedemos a la cámara cuando escaneas.
+            </p>
+          </div>
+          <Button
+            onClick={requestCameraPermission}
+            size="lg"
+            className="bg-white text-cocorico-red hover:bg-white/90 font-bold text-lg px-8 py-6 rounded-2xl shadow-xl"
+          >
+            <Camera className="w-6 h-6 mr-2" />
+            Permitir Acceso a la Cámara
+          </Button>
+        </div>
+      ) : (
+        <div className="relative rounded-3xl overflow-hidden border-2 border-white/30 bg-black/20 backdrop-blur-md shadow-2xl">
+          <video
+            ref={videoRef}
+            className="w-full h-[60vh] object-cover"
+          />
         
         controlsRef.current = controls;
         
@@ -51,30 +133,7 @@ export default function BarcodeScanner({ onScan }: Props) {
             setIsCameraReady(true);
           };
         }
-      } catch (err: any) {
-        console.error("Scanner error:", err);
-        setError("No se pudo acceder a la cámara. Revisa permisos de navegador.");
-        setIsScanning(false);
-      }
-    }
 
-    startScanner();
-
-    return () => {
-      cancelled = true;
-      if (controlsRef.current) {
-        controlsRef.current.stop();
-      }
-    };
-  }, [onScan]);
-
-  return (
-    <div className="flex flex-col gap-4">
-      <div className="relative rounded-3xl overflow-hidden border-2 border-white/30 bg-black/20 backdrop-blur-md shadow-2xl">
-        <video
-          ref={videoRef}
-          className="w-full h-[60vh] object-cover"
-        />
         
         {/* Overlay de escaneo */}
         {isScanning && isCameraReady && !scanSuccess && (
