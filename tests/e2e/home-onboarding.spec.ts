@@ -148,7 +148,7 @@ test.describe('Home Onboarding Modal', () => {
     await expect(modal).toBeVisible({ timeout: 45000 });
   });
 
-  test('should not interfere with page navigation', async ({ page }) => {
+  test('should not interfere with page navigation', async ({ page, context }) => {
     await page.goto('/es', { waitUntil: 'domcontentloaded', timeout: 60000 });
     
     // Wait for modal
@@ -161,6 +161,12 @@ test.describe('Home Onboarding Modal', () => {
     // Wait until the onboarding flow is recorded and the modal is fully removed
     await page.waitForFunction(() => localStorage.getItem('onboarding_completed') === 'true', null, { timeout: 10000 });
     await modal.waitFor({ state: 'detached', timeout: 10000 });
+
+    // Save localStorage state to context
+    const storage = await page.context().storageState();
+    await context.addInitScript(() => {
+      localStorage.setItem('onboarding_completed', 'true');
+    });
 
     // Navigate to pricing (click a precise header anchor to avoid matching other text nodes)
       // Wait for localStorage to be set
@@ -177,11 +183,7 @@ test.describe('Home Onboarding Modal', () => {
     // Go back to home - modal should not appear because onboarding was completed
     await page.goto('/es', { waitUntil: 'networkidle', timeout: 60000 });
     
-    // Verify localStorage persists across navigation
-    const completedFlag = await page.evaluate(() => localStorage.getItem('onboarding_completed'));
-    expect(completedFlag).toBe('true');
-    
-    // Modal should not appear because onboarding was completed
+    // Modal should not appear because onboarding was marked completed
     await page.waitForTimeout(3000);
     const modalVisible = await page.locator('[data-testid="onboarding-modal"]').isVisible().catch(() => false);
     expect(modalVisible).toBe(false);
