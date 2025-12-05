@@ -168,28 +168,28 @@ export default function BarcodeScanner({ onScan }: Props) {
           </div>
         )}
         </div>
-        
-        {/* Estado y mensajes */}
-        <div className="text-center space-y-2">
-          {isScanning && isCameraReady && !scanSuccess && (
-            <div className="flex items-center justify-center gap-2 text-white">
-              <Scan className="w-5 h-5 animate-pulse" />
-              <p className="text-lg font-medium">Apunta la cámara al código de barras</p>
-            </div>
-          )}
-          
-          {!isScanning && !error && (
-            <p className="text-white/80">Escaneo detenido. Recarga la página para volver a intentar.</p>
-          )}
-          
-          {error && (
-            <div className="flex items-center justify-center gap-2 p-4 bg-red-500/20 backdrop-blur-md border border-red-500/30 rounded-2xl">
-              <AlertCircle className="w-5 h-5 text-red-300" />
-              <p className="text-red-200 font-medium">{error}</p>
-            </div>
-          )}
-        </div>
       )}
+      
+      {/* Estado y mensajes */}
+      <div className="text-center space-y-2">
+        {isScanning && isCameraReady && !scanSuccess && (
+          <div className="flex items-center justify-center gap-2 text-white">
+            <Scan className="w-5 h-5 animate-pulse" />
+            <p className="text-lg font-medium">Apunta la cámara al código de barras</p>
+          </div>
+        )}
+        
+        {!isScanning && !error && (
+          <p className="text-white/80">Escaneo detenido. Recarga la página para volver a intentar.</p>
+        )}
+        
+        {error && (
+          <div className="flex items-center justify-center gap-2 p-4 bg-red-500/20 backdrop-blur-md border border-red-500/30 rounded-2xl">
+            <AlertCircle className="w-5 h-5 text-red-300" />
+            <p className="text-red-200 font-medium">{error}</p>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
