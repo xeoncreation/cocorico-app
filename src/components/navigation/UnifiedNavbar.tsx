@@ -184,51 +184,52 @@ export default function UnifiedNavbar() {
     return pathname?.startsWith(fullPath);
   };
 
-  // Helper: nav link classes - Liquid Glass Clear style
+  // Helper: nav link classes - Modern minimal glassmorphism
   const navLinkClass = (href: string) => {
     const active = isActive(href);
     return `
-      coco-glass flex items-center gap-2 px-4 py-2.5 rounded-2xl text-sm font-extrabold tracking-tight
-      transition-all duration-300
+      coco-glass flex items-center gap-2.5 px-4 py-2.5 rounded-xl text-sm font-bold tracking-tight
+      transition-all duration-200 ease-out
       glass-text-strong
       ${
         active
-          ? "shadow-[0_0_20px_rgba(229,57,53,0.4)] dark:shadow-[0_0_20px_rgba(251,191,36,0.4)] scale-105 border-2 border-cocorico-red/50 dark:border-amber-400/50"
-          : "hover:shadow-[0_0_30px_rgba(255,255,255,0.5)] hover:scale-105"
+          ? "ring-2 ring-cocorico-red/40 dark:ring-amber-400/40 scale-[1.02]"
+          : "hover:ring-1 hover:ring-white/30 dark:hover:ring-white/20 hover:scale-[1.02]"
       }
     `.trim();
   };
 
-  // Helper: Dropdown button classes - Liquid Glass Clear style
+  // Helper: Dropdown button classes - Unified split button design
   const dropdownBtnClass = (isOpen: boolean) => `
-    coco-glass flex items-center gap-2 px-4 py-2.5 rounded-l-2xl text-sm font-extrabold tracking-tight
-    transition-all duration-300
+    coco-glass flex items-center gap-2.5 px-4 py-2.5 rounded-l-xl text-sm font-bold tracking-tight
+    transition-all duration-200 ease-out border-r border-white/10
     glass-text-strong
-    hover:shadow-[0_0_30px_rgba(255,255,255,0.5)]
-    ${isOpen ? "shadow-[0_0_20px_rgba(255,255,255,0.3)]" : ""}
+    ${isOpen ? "ring-1 ring-white/30 dark:ring-white/20" : "hover:ring-1 hover:ring-white/20"}
   `.trim();
 
   const dropdownArrowClass = (isOpen: boolean) => `
-    coco-glass flex items-center px-3 py-2.5 rounded-r-2xl text-sm font-extrabold
-    transition-all duration-300 -ml-0.5
+    coco-glass flex items-center justify-center w-10 py-2.5 rounded-r-xl text-sm font-bold
+    transition-all duration-200 ease-out
     glass-text-strong
-    hover:shadow-[0_0_30px_rgba(255,255,255,0.5)]
-    ${isOpen ? "shadow-[0_0_20px_rgba(255,255,255,0.3)]" : ""}
+    ${isOpen ? "ring-1 ring-white/30 dark:ring-white/20" : "hover:ring-1 hover:ring-white/20"}
   `.trim();
 
   return (
-    <header className="navbar-liquid flex items-center justify-between px-4 sm:px-6 py-4 sticky top-0 z-50 transition-all duration-300">
-      {/* Logo - botón liquid glass */}
+    <header className="navbar-liquid flex items-center justify-between px-6 sm:px-8 py-4 sticky top-0 z-50 transition-all duration-300">
+      {/* Logo - Standalone, no glass effect to differentiate */}
+      {/* Logo - Standalone, no glass effect for differentiation */}
       <Link
         href={withLocale("/")}
-        className="font-display text-2xl font-black glass-text-strong hover:scale-105 transition-all duration-300 drop-shadow-2xl px-5 py-2.5 rounded-2xl coco-glass hover:shadow-[0_0_30px_rgba(229,57,53,0.5)] dark:hover:shadow-[0_0_30px_rgba(251,191,36,0.5)]"
+        className="font-display text-2xl font-black glass-text-strong hover:scale-[1.03] transition-all duration-200 drop-shadow-lg px-4"
         aria-label={t("nav.home")}
       >
         🐓 Cocorico
       </Link>
 
-      {/* Desktop Navigation */}
-      <div className="hidden lg:flex items-center gap-3">
+      {/* Desktop Navigation - Grouped with generous spacing */}
+      <div className="hidden lg:flex items-center gap-8">
+        {/* Main Navigation Group */}
+        <nav className="flex items-center gap-2">{/*close nav tag later*/}
         {/* Main links */}
         {mainNavLinks.map((link) => {
           // For some routes we also keep top-level plain hrefs so tests that expect
@@ -247,9 +248,15 @@ export default function UnifiedNavbar() {
             </Link>
             );
           })}
+        </nav>
+
+        {/* Visual separator */}
+        <div className="h-8 w-px bg-gradient-to-b from-transparent via-white/30 dark:via-white/20 to-transparent"></div>
         
-        {/* Scanner split-button */}
-        <div className="relative flex items-center ml-1" ref={scannerRef}>
+        {/* Feature Navigation Group */}
+        <nav className="flex items-center gap-2">
+          {/* Scanner split-button */}
+          <div className="relative flex items-center" ref={scannerRef}>
           <Link 
             href={withLocale("/scanner")}
             className={dropdownBtnClass(scannerOpen)}
@@ -271,13 +278,13 @@ export default function UnifiedNavbar() {
           </button>
 
           {scannerOpen && (
-            <div className="absolute top-full left-0 mt-2 w-56 coco-glass rounded-2xl shadow-lg border border-white/30 dark:border-white/20 z-[100] overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+            <div className="absolute top-full left-0 mt-2 w-56 coco-glass rounded-xl shadow-lg overflow-hidden animate-in fade-in zoom-in-95 duration-200">
               {scannerMenu.items.map(item => (
                 <Link 
                   key={item.href} 
                   href={withLocale(item.href)} 
                   onClick={() => setScannerOpen(false)}
-                  className="flex items-center gap-3 px-5 py-3.5 text-sm font-extrabold tracking-tight glass-text-strong hover:bg-cocorico-red/10 dark:hover:bg-amber-400/10 hover:text-cocorico-red dark:hover:text-amber-400 transition-all hover:pl-7"
+                  className="flex items-center gap-3 px-5 py-3 text-sm font-bold glass-text-strong hover:bg-cocorico-red/10 dark:hover:bg-amber-400/10 hover:text-cocorico-red dark:hover:text-amber-400 transition-all hover:pl-7"
                 >
                   <span aria-hidden="true" className="text-lg">{item.icon}</span>
                   <span>{item.label}</span>
@@ -310,13 +317,13 @@ export default function UnifiedNavbar() {
           </button>
 
           {communityOpen && (
-            <div className="absolute top-full left-0 mt-2 w-60 coco-glass rounded-2xl shadow-lg border border-white/30 dark:border-white/20 z-[100] overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+            <div className="absolute top-full left-0 mt-2 w-60 coco-glass rounded-xl shadow-lg overflow-hidden animate-in fade-in zoom-in-95 duration-200">
               {communityMenu.items.map(item => (
                 <Link 
                   key={item.href} 
                   href={withLocale(item.href)} 
                   onClick={() => setCommunityOpen(false)}
-                  className="flex items-center gap-3 px-5 py-3.5 text-sm font-extrabold tracking-tight glass-text-strong hover:bg-cocorico-red/10 dark:hover:bg-amber-400/10 hover:text-cocorico-red dark:hover:text-amber-400 transition-all hover:pl-7"
+                  className="flex items-center gap-3 px-5 py-3 text-sm font-bold glass-text-strong hover:bg-cocorico-red/10 dark:hover:bg-amber-400/10 hover:text-cocorico-red dark:hover:text-amber-400 transition-all hover:pl-7"
                 >
                   <span aria-hidden="true" className="text-lg">{item.icon}</span>
                   <span>{item.label}</span>
@@ -325,15 +332,13 @@ export default function UnifiedNavbar() {
             </div>
           )}
         </div>
-        
-        {/* Premium button */}
-        <Link href="/pricing" className="ios-clear-button px-6 py-2.5 rounded-2xl text-sm font-bold text-amber-500 dark:text-amber-400 ml-2 hover:shadow-[0_0_25px_rgba(251,191,36,0.5)] hover:scale-105 transition-all">
-          ⭐ Premium
-        </Link>
-      </div>
+        </nav>
 
-      {/* Right side controls */}
-      <div className="flex items-center gap-4">
+        {/* Visual separator */}
+        <div className="h-8 w-px bg-gradient-to-b from-transparent via-white/30 dark:via-white/20 to-transparent"></div>
+
+        {/* Actions Group */}
+        <div className="flex items-center gap-3">
         {/* Theme Toggle */}
         <ThemeToggle />
 
@@ -342,17 +347,27 @@ export default function UnifiedNavbar() {
           <LanguageSelector compact />
         </div>
 
+        {/* Premium - Highlighted */}
+        <Link 
+          href={withLocale("/premium")} 
+          className="coco-glass flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-bold glass-text-strong transition-all duration-200 ring-1 ring-amber-400/40 hover:ring-amber-400/60 hover:scale-[1.02]"
+        >
+          <span aria-hidden="true">⭐</span>
+          <span className="hidden xl:inline">Premium</span>
+        </Link>
+
+        {/* User menu or Login */}
         {/* User menu or Login */}
         {user ? (
           <div className="relative" ref={userMenuRef}>
             <button
               onClick={() => setMenuOpen(!menuOpen)}
-              className="ios-clear-button flex items-center gap-2 rounded-2xl px-4 py-2.5 text-sm font-bold hover:scale-105"
+              className="coco-glass flex items-center gap-2.5 rounded-xl px-4 py-2.5 text-sm font-bold glass-text-strong hover:ring-1 hover:ring-white/30 transition-all duration-200 hover:scale-[1.02]"
               aria-label="User menu"
               aria-expanded={menuOpen}
               aria-haspopup="true"
             >
-              <div className="w-6 h-6 rounded-full bg-cocorico-red text-white flex items-center justify-center text-xs font-bold" aria-hidden="true">
+              <div className="w-7 h-7 rounded-full bg-gradient-to-br from-cocorico-red to-cocorico-red/80 dark:from-amber-400 dark:to-amber-500 text-white dark:text-neutral-900 flex items-center justify-center text-xs font-black shadow-md" aria-hidden="true">
                 {user.email?.[0]?.toUpperCase() || "U"}
               </div>
               <span className="hidden md:inline max-w-[120px] truncate">
@@ -363,14 +378,14 @@ export default function UnifiedNavbar() {
             {/* Dropdown menu */}
             {menuOpen && (
               <div 
-                className="absolute right-0 mt-2 w-56 ios-clear-button rounded-2xl shadow-lg py-1 z-[100] overflow-hidden animate-in fade-in zoom-in-95 duration-200"
+                className="absolute right-0 mt-2 w-56 coco-glass rounded-xl shadow-lg py-1 z-[100] overflow-hidden animate-in fade-in zoom-in-95 duration-200"
                 role="menu"
               >
                 {userMenuLinks.map((link) => (
                   <Link
                     key={link.href}
                     href={withLocale(link.href)}
-                    className="flex items-center gap-2 px-4 py-2 text-sm font-medium hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors"
+                    className="flex items-center gap-2.5 px-4 py-2.5 text-sm font-bold glass-text-medium hover:bg-cocorico-red/10 dark:hover:bg-amber-400/10 hover:text-cocorico-red dark:hover:text-amber-400 transition-all"
                     onClick={() => setMenuOpen(false)}
                     role="menuitem"
                   >
@@ -381,7 +396,7 @@ export default function UnifiedNavbar() {
                 <Separator className="my-1" />
                 <button
                   onClick={handleLogout}
-                  className="w-full flex items-center gap-2 text-left px-4 py-2 text-sm font-medium hover:bg-red-50 dark:hover:bg-red-900/20 text-red-600 dark:text-red-400 transition-colors"
+                  className="w-full flex items-center gap-2.5 text-left px-4 py-2.5 text-sm font-bold hover:bg-red-50 dark:hover:bg-red-900/20 text-red-600 dark:text-red-400 transition-colors"
                   role="menuitem"
                 >
                   <span aria-hidden="true">🚪</span>
@@ -393,11 +408,12 @@ export default function UnifiedNavbar() {
         ) : (
           <Link
             href="/login"
-            className="coco-glass text-sm font-extrabold tracking-tight glass-text-strong px-4 py-2.5 rounded-2xl hover:text-cocorico-red dark:hover:text-amber-400 transition-all hover:scale-105"
+            className="coco-glass text-sm font-bold tracking-tight glass-text-strong px-5 py-2.5 rounded-xl hover:ring-1 hover:ring-cocorico-red/40 dark:hover:ring-amber-400/40 transition-all duration-200 hover:scale-[1.02]"
           >
             {t("nav.login")}
           </Link>
         )}
+        </div>
 
         {/* Mobile menu button */}
         <div className="lg:hidden">
