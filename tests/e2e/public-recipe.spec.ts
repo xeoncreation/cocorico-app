@@ -18,7 +18,7 @@ const gotoPublicRecipe = async (page: Page, slug = PRIMARY_SLUG, user = PUBLIC_U
 };
 
 // Skip tests if using placeholder Supabase (no real data)
-const shouldSkip = process.env.NEXT_PUBLIC_SUPABASE_URL?.includes('placeholder');
+const shouldSkip = process.env.NEXT_PUBLIC_SUPABASE_URL?.includes('placeholder') ?? true;
 
 test.describe('Recetas Públicas - Acceso sin Login', () => {
   test.skip(shouldSkip, 'Requires real Supabase database with seeded data');
