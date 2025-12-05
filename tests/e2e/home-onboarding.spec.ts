@@ -63,10 +63,10 @@ test.describe('Home Onboarding Modal', () => {
     
     // Simulate a second visit using client-side navigation (avoid reload which runs the
     // context initScript that clears localStorage). Navigate away and back with header links.
-    const pricingLink = page.locator('header a[href^="/pricing"], header a[href^="/es/pricing"]');
-    await expect(pricingLink).toBeVisible({ timeout: 10000 });
-    await pricingLink.click({ force: true });
-    await page.waitForURL(/.*pricing/, { timeout: 60000 });
+    const premiumLink = page.locator('header a[href^="/premium"], header a[href^="/es/premium"]');
+    await expect(premiumLink).toBeVisible({ timeout: 10000 });
+    await premiumLink.click({ force: true });
+    await page.waitForURL(/.*premium/, { timeout: 60000 });
 
     await page.click('header a[href="/"]');
     await page.waitForURL(/(\/|\/es(?:$|[?#]))/, { timeout: 20000 });
@@ -165,13 +165,13 @@ test.describe('Home Onboarding Modal', () => {
       // Wait for localStorage to be set
       await page.waitForTimeout(500);
       
-      // Ensure the header pricing link is visible then click it and wait for the URL
-      const pricingLink = page.locator('header a[href^="/pricing"], header a[href^="/es/pricing"]');
-      await expect(pricingLink).toBeVisible({ timeout: 10000 });
-      const href = await pricingLink.getAttribute('href');
-      console.log('DEBUG: pricing href ->', href);
-      await pricingLink.click({ force: true });
-      await page.waitForURL(/.*pricing/, { timeout: 60000 });
+      // Ensure the header premium link is visible then click it and wait for the URL
+      const premiumLink = page.locator('header a[href^="/premium"], header a[href^="/es/premium"]');
+      await expect(premiumLink).toBeVisible({ timeout: 10000 });
+      const href = await premiumLink.getAttribute('href');
+      console.log('DEBUG: premium href ->', href);
+      await premiumLink.click({ force: true });
+      await page.waitForURL(/.*premium/, { timeout: 60000 });
     
     // Go back to home - modal should not appear because Playwright user agent is detected
     await page.goto('/es', { waitUntil: 'domcontentloaded', timeout: 60000 });
