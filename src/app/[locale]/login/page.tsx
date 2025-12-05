@@ -7,6 +7,123 @@ import Wallpaper from "@/components/layout/Wallpaper";
 import { Button } from "@/components/ui/button";
 import GlassCard from "@/components/ui/GlassCard";
 import { Mail, Lock, Chrome, Apple } from "lucide-react";
+import { useState } from "react";
+import { supabase } from "@/app/lib/supabase-client";
+import { useRouter } from "next/navigation";
+
+function LoginForm({ locale, t }: { locale: string; t: any }) {
+  const router = useRouter();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setError(null);
+    setMessage(null);
+
+    try {
+      if (!email) {
+        setError("Por favor ingresa tu email");
+        return;
+      }
+
+      // Si hay contraseña, login con password
+      if (password) {
+        const { error } = await supabase.auth.signInWithPassword({
+          email,
+          password,
+        });
+        if (error) throw error;
+        setMessage("¡Inicio de sesión exitoso!");
+        setTimeout(() => router.push(`/${locale}`), 1000);
+      } else {
+        // Sin contraseña, enviar magic link
+        const redirectTo = typeof window !== 'undefined' 
+          ? `${window.location.protocol}//${window.location.host}/${locale}`
+          : undefined;
+
+        const { error } = await supabase.auth.signInWithOtp({
+          email,
+          options: {
+            emailRedirectTo: redirectTo,
+          },
+        });
+        if (error) throw error;
+        setMessage("✉️ Te enviamos un enlace mágico. Revisa tu correo.");
+      }
+    } catch (e: any) {
+      setError(e?.message ?? "Error al iniciar sesión");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <form className="space-y-4" onSubmit={handleSubmit}>
+      {/* Email */}
+      <div className="space-y-2">
+        <label htmlFor="email" className="text-sm font-medium text-neutral-700 dark:text-neutral-300">
+          {t("login.email", { default: "Correo electrónico" })}
+        </label>
+        <div className="relative">
+          <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-neutral-400" />
+          <input
+            id="email"
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder={t("login.emailPlaceholder", { default: "tu@email.com" })}
+            className="w-full pl-10 pr-4 py-3 rounded-lg border coco-glass text-neutral-900 dark:text-neutral-100 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-cocorico-red dark:focus:ring-amber-500"
+            required
+          />
+        </div>
+      </div>
+
+      {/* Password */}
+      <div className="space-y-2">
+        <label htmlFor="password" className="text-sm font-medium text-neutral-700 dark:text-neutral-300">
+          {t("login.password", { default: "Contraseña (opcional)" })}
+        </label>
+        <div className="relative">
+          <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-neutral-400" />
+          <input
+            id="password"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder={t("login.passwordPlaceholder", { default: "••••••••" })}
+            className="w-full pl-10 pr-4 py-3 rounded-lg border coco-glass text-neutral-900 dark:text-neutral-100 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-cocorico-red dark:focus:ring-amber-500"
+          />
+        </div>
+        <p className="text-xs text-neutral-500 dark:text-neutral-400">Déjalo vacío para recibir un enlace mágico</p>
+      </div>
+
+      {/* Recordar y olvidé contraseña */}
+      <div className="flex items-center justify-between text-sm">
+        <label className="flex items-center gap-2 cursor-pointer">
+          <input type="checkbox" className="rounded border-neutral-300" />
+          <span className="text-neutral-600 dark:text-neutral-400">{t("login.rememberMe", { default: "Recordarme" })}</span>
+        </label>
+        <Link href={`/${locale}/reset-password`} className="text-cocorico-red dark:text-amber-400 hover:underline">
+          {t("login.forgotPassword", { default: "¿Olvidaste tu contraseña?" })}
+        </Link>
+      </div>
+
+      {/* Submit */}
+      <Button type="submit" className="w-full coco-glass" size="lg" disabled={loading}>
+        {loading ? "Entrando..." : password ? t("login.submit", { default: "Iniciar sesión" }) : "Enviar enlace mágico"}
+      </Button>
+
+      {/* Messages */}
+      {message && <div className="rounded-lg bg-green-50 dark:bg-green-900/20 text-green-800 dark:text-green-300 px-4 py-3 text-sm">{message}</div>}
+      {error && <div className="rounded-lg bg-red-50 dark:bg-red-900/20 text-red-800 dark:text-red-300 px-4 py-3 text-sm">{error}</div>}
+    </form>
+  );
+}
 
 export default function LoginPage({ params: { locale } }: { params: { locale: string } }) {
   const t = useTranslations();
@@ -38,40 +155,7 @@ export default function LoginPage({ params: { locale } }: { params: { locale: st
           </div>
 
           {/* Formulario */}
-          <form className="space-y-4" onSubmit={(e) => { e.preventDefault(); alert("Funcionalidad en desarrollo"); }}>
-            {/* Email */}
-            <div className="space-y-2">
-              <label htmlFor="email" className="text-sm font-medium text-neutral-700 dark:text-neutral-300">
-                {t("login.email", { default: "Correo electrónico" })}
-              </label>
-              <div className="relative">
-                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-neutral-400" />
-                <input
-                  id="email"
-                  type="email"
-                  placeholder={t("login.emailPlaceholder", { default: "tu@email.com" })}
-                  className="w-full pl-10 pr-4 py-3 rounded-lg border coco-glass text-neutral-900 dark:text-neutral-100 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-cocorico-red dark:focus:ring-amber-500"
-                  required
-                />
-              </div>
-            </div>
-
-            {/* Password */}
-            <div className="space-y-2">
-              <label htmlFor="password" className="text-sm font-medium text-neutral-700 dark:text-neutral-300">
-                {t("login.password", { default: "Contraseña" })}
-              </label>
-              <div className="relative">
-                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-neutral-400" />
-                <input
-                  id="password"
-                  type="password"
-                  placeholder={t("login.passwordPlaceholder", { default: "••••••••" })}
-                  className="w-full pl-10 pr-4 py-3 rounded-lg border coco-glass text-neutral-900 dark:text-neutral-100 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-cocorico-red dark:focus:ring-amber-500"
-                  required
-                />
-              </div>
-            </div>
+          <LoginForm locale={locale} t={t} />
 
             {/* Recordar y olvidé contraseña */}
             <div className="flex items-center justify-between text-sm">

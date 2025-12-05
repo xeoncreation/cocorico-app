@@ -7,6 +7,7 @@ import MotionWrapper from "@/components/MotionWrapper";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { Toaster } from "sonner";
 import PushNotificationPrompt from "@/components/PushNotificationPrompt";
+import MediaPermissionsPrompt from "@/components/MediaPermissionsPrompt";
 import UnifiedNavbar from "@/components/navigation/UnifiedNavbar";
 
 export default async function LocaleLayout({
@@ -101,6 +102,7 @@ export default async function LocaleLayout({
         </div>
         <Toaster richColors position="top-center" />
         <PushNotificationPrompt />
+        <MediaPermissionsPrompt />
       </ThemeProvider>
     </NextIntlClientProvider>
   );
