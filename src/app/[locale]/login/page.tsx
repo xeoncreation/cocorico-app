@@ -156,53 +156,6 @@ export default function LoginPage({ params: { locale } }: { params: { locale: st
 
           {/* Formulario */}
           <LoginForm locale={locale} t={t} />
-
-            {/* Recordar y olvidé contraseña */}
-            <div className="flex items-center justify-between text-sm">
-              <label className="flex items-center gap-2 cursor-pointer">
-                <input type="checkbox" className="rounded border-neutral-300" />
-                <span className="text-neutral-600 dark:text-neutral-400">{t("login.rememberMe", { default: "Recordarme" })}</span>
-              </label>
-              <Link href={`/${locale}/reset-password`} className="text-cocorico-red dark:text-amber-400 hover:underline">
-                {t("login.forgotPassword", { default: "¿Olvidaste tu contraseña?" })}
-              </Link>
-            </div>
-
-            {/* Submit */}
-            <Button type="submit" className="w-full coco-glass" size="lg">
-              {t("login.submit", { default: "Iniciar sesión" })}
-            </Button>
-          </form>
-
-          {/* Divider */}
-          <div className="relative">
-            <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-neutral-300 dark:border-neutral-600"></div>
-            </div>
-            <div className="relative flex justify-center text-sm">
-              <span className="px-4 bg-white dark:bg-neutral-800 text-neutral-500">{t("login.orContinueWith", { default: "O continúa con" })}</span>
-            </div>
-          </div>
-
-          {/* Social Login */}
-          <div className="grid grid-cols-2 gap-4">
-            <Button className="w-full coco-glass" onClick={() => alert("Google login en desarrollo")}> 
-              <Chrome className="w-5 h-5 mr-2" />
-              Google
-            </Button>
-            <Button className="w-full coco-glass" onClick={() => alert("Apple login en desarrollo")}> 
-              <Apple className="w-5 h-5 mr-2" />
-              Apple
-            </Button>
-          </div>
-
-          {/* Sign up link */}
-          <div className="text-center text-sm text-neutral-600 dark:text-neutral-400">
-            {t("login.noAccount", { default: "¿No tienes cuenta?" })} {" "}
-            <Link href={`/${locale}/signup`} className="text-cocorico-red dark:text-amber-400 font-semibold hover:underline">
-              {t("login.signup", { default: "Regístrate gratis" })}
-            </Link>
-          </div>
         </GlassCard>
       </div>
       </AppBackground>
