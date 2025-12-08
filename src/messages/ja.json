@@ -3,7 +3,7 @@
     "home": "ホーム",
     "search": "検索",
     "learn": "学ぶ",
-    "dashboard": "ダッシュボード",
+    "dashboard": "マイダッシュボード",
     "favorites": "お気に入り",
     "versions": "バージョン",
     "import": "インポート",
@@ -20,11 +20,11 @@
     "login": "ログイン",
     "logout": "ログアウト",
     "account": "マイアカウント",
+    "shoppingList": "買い物リスト",
     "lang": {
       "_": "言語",
       "en": "EN",
-      "es": "ES",
-      "ja": "JA"
+      "es": "ES"
     },
     "stats": "統計"
   },
@@ -33,9 +33,84 @@
     "terms": "利用規約"
   },
   "home": {
-    "title": "こんにちは！私はCocoricoです 🐓",
-    "description": "あなたのAI料理アシスタント。レシピを見つけて、お気に入りを保存し、無駄なく料理を学びましょう。",
-    "chatButton": "Cocoricoとチャットする",
-    "recipesButton": "私のレシピを見る"
+    "title": "こんにちは！私はCocorico 🐓",
+    "description": "AIを搭載した料理アシスタントです。レシピを見つけ、お気に入りを保存し、無駄なく料理を学びましょう。",
+    "chatButton": "Cocoricoとチャット",
+    "recipesButton": "レシピを見る"
+  },
+  "favorites": {
+    "title": "お気に入り",
+    "empty": "まだお気に入りがありません。",
+    "private": "プライベート"
+  },
+  "versions": {
+    "title": "マイAIバージョン",
+    "empty": "まだバージョンがありません。",
+    "type": "タイプ",
+    "baseDeleted": "ベースレシピ削除済み"
+  },
+  "public": {
+    "ingredients": "材料",
+    "steps": "手順",
+    "unknown": "不明",
+    "sharedBy": "Cocorico 🐓より❤️を込めてシェア",
+    "minutes": "分",
+    "related": "おすすめレシピ 🍽️"
+  },
+  "chat": {
+    "title": "Cocoricoとチャット",
+    "subtitle": "レシピ、材料、栄養、料理に関する質問をしてください"
+  },
+  "shopping": {
+    "title": "買い物リスト",
+    "description": "材料を整理して、効率的に買い物をしましょう"
+  },
+  "nutrition": {
+    "title": "栄養情報",
+    "description": "レシピの栄養成分を分析します"
+  },
+  "community": {
+    "title": "コミュニティ動画",
+    "description": "コミュニティのレシピ動画を共有・発見"
+  },
+  "scanner": {
+    "title": "食品スキャナー",
+    "description": "製品をスキャンして栄養情報を即座に確認"
+  },
+  "stats": {
+    "title": "統計",
+    "description": "進捗状況と料理の統計を表示"
+  },
+  "auth": {
+    "login": "ログイン",
+    "logout": "ログアウト",
+    "emailPlaceholder": "メールアドレス",
+    "sendLink": "リンクを送信",
+    "magiclink": {
+      "sent": "アクセスリンクをメールで送信しました。確認してここに戻ってください 👌",
+      "error": "リンクを送信できませんでした: {message}"
+    },
+    "welcome": {
+      "title": "Cocoricoへようこそ！",
+      "body": "ご登録ありがとうございます。レシピの作成、AIとのチャット、コミュニティへの参加ができます。"
+    }
+  },
+  "emails": {
+    "welcome": {
+      "subject": "Cocoricoへようこそ！",
+      "body": "こんにちは {name}さん、\\n\\nCocorico 🐓へようこそ。始め方：\\n1) 最初のレシピを作成\\n2) コミュニティを探索\\n3) 毎日のチャレンジを完了\\n\\n料理を楽しんでください！"
+    },
+    "verify": {
+      "subject": "メールアドレスを確認",
+      "body": "こんにちは、リンクをクリックしてメールを確認し、Cocoricoにアクセスしてください。"
+    },
+    "reset": {
+      "subject": "パスワードをリセット",
+      "body": "こんにちは、リンクをクリックしてパスワードをリセットしてください。"
+    }
+  },
+  "common": {
+    "cancel": "キャンセル",
+    "sending": "送信中..."
   }
 }

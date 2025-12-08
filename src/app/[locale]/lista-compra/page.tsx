@@ -103,7 +103,7 @@ export default async function ListaCompraPage({ params }: { params: Promise<{ lo
           {demoItems.map((item) => (
             <LiquidGlassCard
               key={item.id}
-              variant="glass"
+              variant="frosted"
               blur="lg"
               className={`transition-all ${item.checked ? 'opacity-60' : ''}`}
             >
@@ -127,7 +127,7 @@ export default async function ListaCompraPage({ params }: { params: Promise<{ lo
                   <div className="text-sm text-gray-400 flex items-center gap-2">
                     <span>{item.quantity}</span>
                     <span>•</span>
-                    <LiquidGlassBadge variant="blue" size="sm">
+                    <LiquidGlassBadge variant="primary" size="sm">
                       {item.category}
                     </LiquidGlassBadge>
                   </div>

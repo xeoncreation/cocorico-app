@@ -3,7 +3,7 @@
     "home": "首页",
     "search": "搜索",
     "learn": "学习",
-    "dashboard": "仪表盘",
+    "dashboard": "我的面板",
     "favorites": "收藏夹",
     "versions": "版本",
     "import": "导入",
@@ -13,18 +13,18 @@
     "recipes": "食谱",
     "community": "社区",
     "challenges": "挑战",
-    "pricing": "高级",
+    "pricing": "高级会员",
     "achievements": "成就",
     "feedback": "反馈",
     "settings": "设置",
     "login": "登录",
-    "logout": "登出",
+    "logout": "退出",
     "account": "我的账户",
+    "shoppingList": "购物清单",
     "lang": {
       "_": "语言",
       "en": "EN",
-      "es": "ES",
-      "zh": "ZH"
+      "es": "ES"
     },
     "stats": "统计"
   },
@@ -34,8 +34,83 @@
   },
   "home": {
     "title": "你好！我是Cocorico 🐓",
-    "description": "您的AI烹饪助手。查找食谱，保存收藏，学习无浪费烹饪。",
+    "description": "您的AI厨房助手。查找食谱，保存收藏夹，学习无浪费烹饪。",
     "chatButton": "与Cocorico聊天",
     "recipesButton": "查看我的食谱"
+  },
+  "favorites": {
+    "title": "我的收藏",
+    "empty": "您还没有保存收藏夹。",
+    "private": "私密"
+  },
+  "versions": {
+    "title": "我的AI版本",
+    "empty": "您还没有保存版本。",
+    "type": "类型",
+    "baseDeleted": "基础食谱已删除"
+  },
+  "public": {
+    "ingredients": "配料",
+    "steps": "步骤",
+    "unknown": "未知",
+    "sharedBy": "由Cocorico 🐓用❤️分享",
+    "minutes": "分钟",
+    "related": "其他推荐食谱 🍽️"
+  },
+  "chat": {
+    "title": "与Cocorico聊天",
+    "subtitle": "向我询问食谱、配料、营养或任何烹饪问题"
+  },
+  "shopping": {
+    "title": "购物清单",
+    "description": "整理您的配料，更高效地购物"
+  },
+  "nutrition": {
+    "title": "营养信息",
+    "description": "分析您食谱的营养成分"
+  },
+  "community": {
+    "title": "社区视频",
+    "description": "分享和发现社区的食谱视频"
+  },
+  "scanner": {
+    "title": "食品扫描仪",
+    "description": "扫描产品，立即了解其营养信息"
+  },
+  "stats": {
+    "title": "统计",
+    "description": "可视化您的进度和烹饪统计数据"
+  },
+  "auth": {
+    "login": "登录",
+    "logout": "退出",
+    "emailPlaceholder": "您的邮箱",
+    "sendLink": "发送链接",
+    "magiclink": {
+      "sent": "我们已向您发送了包含访问链接的电子邮件。请检查并返回此处 👌",
+      "error": "无法发送链接：{message}"
+    },
+    "welcome": {
+      "title": "欢迎来到Cocorico！",
+      "body": "感谢您注册。现在您可以开始创建食谱、与AI聊天并加入社区。"
+    }
+  },
+  "emails": {
+    "welcome": {
+      "subject": "欢迎来到Cocorico！",
+      "body": "您好 {name}，\\n\\n感谢您加入Cocorico 🐓。开始使用的步骤：\\n1) 创建您的第一个食谱\\n2) 探索社区\\n3) 完成每日挑战\\n\\n享受烹饪乐趣！"
+    },
+    "verify": {
+      "subject": "验证您的电子邮件",
+      "body": "您好，请点击链接验证您的电子邮件并访问Cocorico。"
+    },
+    "reset": {
+      "subject": "重置密码",
+      "body": "您好，请点击链接重置您的密码。"
+    }
+  },
+  "common": {
+    "cancel": "取消",
+    "sending": "发送中..."
   }
 }

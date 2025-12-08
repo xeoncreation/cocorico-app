@@ -130,14 +130,14 @@ export default async function ComunidadVideoPage({ params }: { params: Promise<{
         {/* Video Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {demoVideos.map((video) => (
-            <LiquidGlassCard key={video.id} variant="glass" blur="xl" className="overflow-hidden group">
+            <LiquidGlassCard key={video.id} variant="frosted" blur="xl" className="overflow-hidden group">
               {/* Thumbnail */}
               <div className="relative aspect-video bg-gradient-to-br from-purple-900/50 to-pink-900/50 rounded-lg overflow-hidden mb-4">
                 <div className="absolute inset-0 flex items-center justify-center bg-black/30 group-hover:bg-black/50 transition-all">
                   <Play className="w-16 h-16 text-white opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all" />
                 </div>
                 <div className="absolute top-2 right-2">
-                  <LiquidGlassBadge variant="purple" size="sm">
+                  <LiquidGlassBadge variant="primary" size="sm">
                     {video.duration}
                   </LiquidGlassBadge>
                 </div>
@@ -156,7 +156,7 @@ export default async function ComunidadVideoPage({ params }: { params: Promise<{
                   <div className="flex-1">
                     <div className="font-medium text-white flex items-center gap-2">
                       {video.author}
-                      {video.isPremium && <LiquidGlassBadge variant="gold" size="sm">PRO</LiquidGlassBadge>}
+                      {video.isPremium && <LiquidGlassBadge variant="warning" size="sm">PRO</LiquidGlassBadge>}
                     </div>
                     <div className="text-xs text-gray-400">{video.views} vistas</div>
                   </div>

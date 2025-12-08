@@ -138,15 +138,15 @@ export default async function FavoritosPage({ params }: { params: Promise<{ loca
         </div>
 
         {/* Filters */}
-        <LiquidGlassCard variant="glass" blur="lg" className="mb-6">
+        <LiquidGlassCard variant="frosted" blur="lg" className="mb-6">
           <div className="flex gap-3 items-center flex-wrap">
             <LiquidGlassButton variant="default" size="sm">
               <Filter className="w-4 h-4 mr-2" />
               Filtros
             </LiquidGlassButton>
-            <LiquidGlassBadge variant="blue">Italiana</LiquidGlassBadge>
-            <LiquidGlassBadge variant="green">Mexicana</LiquidGlassBadge>
-            <LiquidGlassBadge variant="purple">Asiática</LiquidGlassBadge>
+            <LiquidGlassBadge variant="primary">Italiana</LiquidGlassBadge>
+            <LiquidGlassBadge variant="success">Mexicana</LiquidGlassBadge>
+            <LiquidGlassBadge variant="primary">Asiática</LiquidGlassBadge>
             <div className="flex-1 min-w-[200px]">
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
@@ -163,7 +163,7 @@ export default async function FavoritosPage({ params }: { params: Promise<{ loca
         {/* Favorites Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {demoFavorites.map((recipe) => (
-            <LiquidGlassCard key={recipe.id} variant="glass" blur="xl" className="overflow-hidden group">
+            <LiquidGlassCard key={recipe.id} variant="frosted" blur="xl" className="overflow-hidden group">
               {/* Image Placeholder */}
               <div className="relative aspect-video bg-gradient-to-br from-red-900/50 to-pink-900/50 rounded-lg overflow-hidden mb-4 flex items-center justify-center">
                 <div className="text-6xl">{recipe.image}</div>
@@ -196,16 +196,16 @@ export default async function FavoritosPage({ params }: { params: Promise<{ loca
                   <LiquidGlassBadge
                     variant={
                       recipe.difficulty === 'Fácil'
-                        ? 'green'
+                        ? 'success'
                         : recipe.difficulty === 'Media'
-                        ? 'blue'
-                        : 'orange'
+                        ? 'primary'
+                        : 'warning'
                     }
                     size="sm"
                   >
                     {recipe.difficulty}
                   </LiquidGlassBadge>
-                  <LiquidGlassBadge variant="purple" size="sm">
+                  <LiquidGlassBadge variant="primary" size="sm">
                     {recipe.cuisine}
                   </LiquidGlassBadge>
                 </div>

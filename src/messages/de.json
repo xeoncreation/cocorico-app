@@ -1,14 +1,14 @@
 {
   "nav": {
     "home": "Startseite",
-    "search": "Suche",
+    "search": "Suchen",
     "learn": "Lernen",
-    "dashboard": "Dashboard",
+    "dashboard": "Mein Dashboard",
     "favorites": "Favoriten",
     "versions": "Versionen",
     "import": "Importieren",
     "chat": "Chat",
-    "voiceChat": "Sprachchat",
+    "voiceChat": "Sprach-Chat",
     "scanner": "Scanner",
     "recipes": "Rezepte",
     "community": "Community",
@@ -20,11 +20,11 @@
     "login": "Anmelden",
     "logout": "Abmelden",
     "account": "Mein Konto",
+    "shoppingList": "Einkaufsliste",
     "lang": {
       "_": "Sprache",
       "en": "EN",
-      "es": "ES",
-      "de": "DE"
+      "es": "ES"
     },
     "stats": "Statistiken"
   },
@@ -34,8 +34,83 @@
   },
   "home": {
     "title": "Hallo! Ich bin Cocorico 🐓",
-    "description": "Ihr KI-Kochassistent. Finden Sie Rezepte, speichern Sie Favoriten und lernen Sie, ohne Verschwendung zu kochen.",
+    "description": "Ihr Küchenassistent mit künstlicher Intelligenz. Finden Sie Rezepte, speichern Sie Ihre Favoriten und lernen Sie kochen ohne Verschwendung.",
     "chatButton": "Mit Cocorico chatten",
     "recipesButton": "Meine Rezepte ansehen"
+  },
+  "favorites": {
+    "title": "Meine Favoriten",
+    "empty": "Sie haben noch keine Favoriten gespeichert.",
+    "private": "privat"
+  },
+  "versions": {
+    "title": "Meine KI-Versionen",
+    "empty": "Sie haben noch keine Versionen gespeichert.",
+    "type": "Typ",
+    "baseDeleted": "Basisrezept gelöscht"
+  },
+  "public": {
+    "ingredients": "Zutaten",
+    "steps": "Schritte",
+    "unknown": "Unbekannt",
+    "sharedBy": "Geteilt mit ❤️ von Cocorico 🐓",
+    "minutes": "Min",
+    "related": "Andere Rezepte, die Ihnen gefallen könnten 🍽️"
+  },
+  "chat": {
+    "title": "Chat mit Cocorico",
+    "subtitle": "Fragen Sie mich nach Rezepten, Zutaten, Ernährung oder jeder Kochfrage"
+  },
+  "shopping": {
+    "title": "Einkaufsliste",
+    "description": "Organisieren Sie Ihre Zutaten und machen Sie den Einkauf effizienter"
+  },
+  "nutrition": {
+    "title": "Nährwertinformationen",
+    "description": "Analysieren Sie den Nährwertgehalt Ihrer Rezepte"
+  },
+  "community": {
+    "title": "Community-Video",
+    "description": "Teilen und entdecken Sie Rezeptvideos der Community"
+  },
+  "scanner": {
+    "title": "Lebensmittel-Scanner",
+    "description": "Scannen Sie Produkte und erfahren Sie sofort ihre Nährwertinformationen"
+  },
+  "stats": {
+    "title": "Statistiken",
+    "description": "Visualisieren Sie Ihren Fortschritt und Kochstatistiken"
+  },
+  "auth": {
+    "login": "Anmelden",
+    "logout": "Ausloggen",
+    "emailPlaceholder": "Ihre E-Mail",
+    "sendLink": "Link senden",
+    "magiclink": {
+      "sent": "Wir haben Ihnen eine E-Mail mit dem Zugangslink gesendet. Überprüfen Sie sie und kommen Sie hierher zurück 👌",
+      "error": "Link konnte nicht gesendet werden: {message}"
+    },
+    "welcome": {
+      "title": "Willkommen bei Cocorico!",
+      "body": "Danke für Ihre Registrierung. Sie können jetzt Rezepte erstellen, mit der KI chatten und der Community beitreten."
+    }
+  },
+  "emails": {
+    "welcome": {
+      "subject": "Willkommen bei Cocorico!",
+      "body": "Hallo {name},\\n\\nVielen Dank, dass Sie Cocorico 🐓 beigetreten sind. Hier sind einige Schritte für den Einstieg:\\n1) Erstellen Sie Ihr erstes Rezept\\n2) Erkunden Sie die Community\\n3) Schließen Sie eine tägliche Herausforderung ab\\n\\nViel Spaß beim Kochen!"
+    },
+    "verify": {
+      "subject": "Bestätigen Sie Ihre E-Mail",
+      "body": "Hallo, klicken Sie auf den Link, um Ihre E-Mail zu bestätigen und auf Cocorico zuzugreifen."
+    },
+    "reset": {
+      "subject": "Passwort zurücksetzen",
+      "body": "Hallo, klicken Sie auf den Link, um Ihr Passwort zurückzusetzen."
+    }
+  },
+  "common": {
+    "cancel": "Abbrechen",
+    "sending": "Wird gesendet..."
   }
 }

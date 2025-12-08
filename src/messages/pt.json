@@ -3,12 +3,12 @@
     "home": "Início",
     "search": "Buscar",
     "learn": "Aprender",
-    "dashboard": "Painel",
+    "dashboard": "Meu painel",
     "favorites": "Favoritos",
     "versions": "Versões",
     "import": "Importar",
     "chat": "Chat",
-    "voiceChat": "Chat de Voz",
+    "voiceChat": "Chat de voz",
     "scanner": "Scanner",
     "recipes": "Receitas",
     "community": "Comunidade",
@@ -20,11 +20,11 @@
     "login": "Entrar",
     "logout": "Sair",
     "account": "Minha conta",
+    "shoppingList": "Lista de compras",
     "lang": {
       "_": "Idioma",
       "en": "EN",
-      "es": "ES",
-      "pt": "PT"
+      "es": "ES"
     },
     "stats": "Estatísticas"
   },
@@ -33,9 +33,84 @@
     "terms": "Termos"
   },
   "home": {
-    "title": "Olá! Eu sou Cocorico 🐓",
-    "description": "Seu assistente de cozinha IA. Encontre receitas, salve seus favoritos e aprenda a cozinhar sem desperdício.",
+    "title": "Olá! Sou Cocorico 🐓",
+    "description": "Seu assistente de cozinha com inteligência artificial. Encontre receitas, salve seus favoritos e aprenda a cozinhar sem desperdício.",
     "chatButton": "Conversar com Cocorico",
     "recipesButton": "Ver minhas receitas"
+  },
+  "favorites": {
+    "title": "Meus favoritos",
+    "empty": "Você ainda não salvou favoritos.",
+    "private": "privada"
+  },
+  "versions": {
+    "title": "Minhas versões IA",
+    "empty": "Você ainda não salvou versões.",
+    "type": "Tipo",
+    "baseDeleted": "Receita base excluída"
+  },
+  "public": {
+    "ingredients": "Ingredientes",
+    "steps": "Passos",
+    "unknown": "Desconhecida",
+    "sharedBy": "Compartilhado com ❤️ por Cocorico 🐓",
+    "minutes": "min",
+    "related": "Outras receitas que podem te interessar 🍽️"
+  },
+  "chat": {
+    "title": "Chat com Cocorico",
+    "subtitle": "Pergunte-me sobre receitas, ingredientes, nutrição ou qualquer dúvida culinária"
+  },
+  "shopping": {
+    "title": "Lista de compras",
+    "description": "Organize seus ingredientes e faça as compras com mais eficiência"
+  },
+  "nutrition": {
+    "title": "Informações nutricionais",
+    "description": "Analise o conteúdo nutricional das suas receitas"
+  },
+  "community": {
+    "title": "Vídeo comunidade",
+    "description": "Compartilhe e descubra vídeos de receitas da comunidade"
+  },
+  "scanner": {
+    "title": "Scanner de alimentos",
+    "description": "Escaneie produtos e conheça suas informações nutricionais instantaneamente"
+  },
+  "stats": {
+    "title": "Estatísticas",
+    "description": "Visualize seu progresso e estatísticas culinárias"
+  },
+  "auth": {
+    "login": "Entrar",
+    "logout": "Sair",
+    "emailPlaceholder": "Seu email",
+    "sendLink": "Enviar link",
+    "magiclink": {
+      "sent": "Enviamos um email com o link de acesso. Verifique e volte aqui 👌",
+      "error": "Não foi possível enviar o link: {message}"
+    },
+    "welcome": {
+      "title": "Bem-vindo ao Cocorico!",
+      "body": "Obrigado por se registrar. Agora você pode começar a criar receitas, conversar com a IA e se juntar à comunidade."
+    }
+  },
+  "emails": {
+    "welcome": {
+      "subject": "Bem-vindo ao Cocorico!",
+      "body": "Olá {name},\\n\\nObrigado por se juntar ao Cocorico 🐓. Aqui estão alguns passos para começar:\\n1) Crie sua primeira receita\\n2) Explore a comunidade\\n3) Complete um desafio diário\\n\\nBora cozinhar!"
+    },
+    "verify": {
+      "subject": "Verifique seu email",
+      "body": "Olá, clique no link para verificar seu email e acessar o Cocorico."
+    },
+    "reset": {
+      "subject": "Redefina sua senha",
+      "body": "Olá, clique no link para redefinir sua senha."
+    }
+  },
+  "common": {
+    "cancel": "Cancelar",
+    "sending": "Enviando..."
   }
 }

@@ -81,7 +81,7 @@ export default async function InformacionNutricionalPage({
               <div className="text-center z-10">
                 <div className="text-5xl font-bold text-white">1,850</div>
                 <div className="text-gray-400">kcal/día</div>
-                <LiquidGlassBadge variant="green" className="mt-2">
+                <LiquidGlassBadge variant="success" className="mt-2">
                   65% objetivo
                 </LiquidGlassBadge>
               </div>
@@ -132,7 +132,7 @@ export default async function InformacionNutricionalPage({
               <Target className="w-8 h-8 text-purple-400 mx-auto mb-2" />
               <div className="text-2xl font-bold text-white">85%</div>
               <div className="text-sm text-gray-400">Vitamina C</div>
-              <LiquidGlassBadge variant="purple" size="sm" className="mt-2">
+              <LiquidGlassBadge variant="primary" size="sm" className="mt-2">
                 Óptimo
               </LiquidGlassBadge>
             </div>
@@ -143,7 +143,7 @@ export default async function InformacionNutricionalPage({
               <TrendingUp className="w-8 h-8 text-blue-400 mx-auto mb-2" />
               <div className="text-2xl font-bold text-white">92%</div>
               <div className="text-sm text-gray-400">Hierro</div>
-              <LiquidGlassBadge variant="blue" size="sm" className="mt-2">
+              <LiquidGlassBadge variant="primary" size="sm" className="mt-2">
                 Excelente
               </LiquidGlassBadge>
             </div>
@@ -154,7 +154,7 @@ export default async function InformacionNutricionalPage({
               <Activity className="w-8 h-8 text-green-400 mx-auto mb-2" />
               <div className="text-2xl font-bold text-white">78%</div>
               <div className="text-sm text-gray-400">Calcio</div>
-              <LiquidGlassBadge variant="green" size="sm" className="mt-2">
+              <LiquidGlassBadge variant="success" size="sm" className="mt-2">
                 Bueno
               </LiquidGlassBadge>
             </div>
@@ -162,7 +162,7 @@ export default async function InformacionNutricionalPage({
         </div>
 
         {/* Detailed Info */}
-        <LiquidGlassCard variant="glass" blur="xl">
+        <LiquidGlassCard variant="frosted" blur="xl">
           <h3 className="text-lg font-semibold mb-4">Detalles Nutricionales</h3>
           <div className="grid md:grid-cols-2 gap-4 text-sm">
             <div className="flex justify-between">

@@ -176,7 +176,7 @@ export default async function EstadisticasPage({ params }: { params: Promise<{ l
         </div>
 
         {/* Achievements */}
-        <LiquidGlassCard variant="glass" blur="xl">
+        <LiquidGlassCard variant="frosted" blur="xl">
           <h2 className="text-xl font-semibold mb-6">Logros Recientes</h2>
           <div className="grid md:grid-cols-4 gap-4">
             {[
