@@ -80,7 +80,7 @@ export default function NavbarUnified() {
       {/* Desktop Navbar */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-neutral-950/80 backdrop-blur-xl border-b border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">{
+          <div className="flex items-center justify-between h-16">
             {/* Logo */}
             <Link href={`/${locale}`} className="flex items-center gap-2 group">
               <span className="text-2xl">🐓</span>
