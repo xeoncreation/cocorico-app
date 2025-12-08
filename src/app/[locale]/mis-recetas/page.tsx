@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Heart, Sparkles, ChefHat, Plus, Clock, Users } from "lucide-react";
 import { ToolSelector, Tool, ToolLayout } from "@/components/ui/tool-selector";
 import { motion } from "framer-motion";
+import Wallpaper from "@/components/layout/Wallpaper";
 
 const RECIPE_TOOLS: Tool[] = [
   {
@@ -30,7 +31,12 @@ export default function MyRecipesPage() {
   const [selectedTool, setSelectedTool] = useState("favorites");
 
   return (
-    <ToolLayout
+    <>
+      <Wallpaper
+        imageLight="/branding/MIS RECETAS- DASHBOARD — Cocina cenital difusa, modo claro.png"
+        imageDark="/branding/MIS RECETAS - DASHBOARD — Encimera oscura gourmet, modo oscuro.png"
+      />
+      <ToolLayout
         title="Mis Recetas 👨‍🍳"
         subtitle="Gestiona tus recetas favoritas, versiones creadas con IA y tus propias creaciones culinarias."
       >
@@ -51,6 +57,7 @@ export default function MyRecipesPage() {
           {selectedTool === "my-recipes" && <MyRecipesView />}
         </div>
       </ToolLayout>
+    </>
   );
 }
 
@@ -63,6 +70,15 @@ function FavoritesView() {
 
   return (
     <div className="space-y-4">
+      {/* GIF de favoritos */}
+      <div className="mb-8 rounded-xl overflow-hidden max-w-2xl mx-auto">
+        <img 
+          src="/branding/favoritos-video.gif" 
+          alt="Recetas favoritas"
+          className="w-full h-auto"
+        />
+      </div>
+      
       {demoRecipes.length === 0 ? (
         <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-12 text-center">
           <Heart className="w-16 h-16 text-white/20 mx-auto mb-4" />

@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Video, Users, TrendingUp, Play, Eye, ThumbsUp } from "lucide-react";
 import { ToolSelector, Tool, ToolLayout } from "@/components/ui/tool-selector";
 import { motion } from "framer-motion";
+import Wallpaper from "@/components/layout/Wallpaper";
 
 const COMMUNITY_TOOLS: Tool[] = [
   {
@@ -30,7 +31,12 @@ export default function CommunityPage() {
   const [selectedTool, setSelectedTool] = useState("videos");
 
   return (
-    <ToolLayout
+    <>
+      <Wallpaper
+        imageLight="/branding/COMUNIDAD_MODO_CLARO.png"
+        imageDark="/branding/COMUNIDAD_MODO_OSCURO.png"
+      />
+      <ToolLayout
         title="Comunidad Cocorico 🌟"
         subtitle="Explora videos, conecta con otros cocineros y revisa tus estadísticas culinarias."
       >
@@ -51,6 +57,7 @@ export default function CommunityPage() {
           {selectedTool === "stats" && <StatsView />}
         </div>
       </ToolLayout>
+    </>
   );
 }
 
@@ -64,6 +71,15 @@ function VideosView() {
 
   return (
     <div className="space-y-4">
+      {/* GIF de comunidad */}
+      <div className="mb-8 rounded-xl overflow-hidden max-w-2xl mx-auto">
+        <img 
+          src="/branding/comunidad-video.gif" 
+          alt="Videos de la comunidad"
+          className="w-full h-auto"
+        />
+      </div>
+      
       <div className="flex items-center justify-between mb-6">
         <h2 className="text-white text-xl font-semibold">Videos Populares</h2>
       </div>
@@ -152,6 +168,15 @@ function StatsView() {
 
   return (
     <div className="space-y-6">
+      {/* GIF de estadísticas */}
+      <div className="mb-8 rounded-xl overflow-hidden max-w-2xl mx-auto">
+        <img 
+          src="/branding/estadisticas - video.gif" 
+          alt="Estadísticas personales"
+          className="w-full h-auto"
+        />
+      </div>
+      
       {/* Stats Grid */}
       <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {stats.map((stat, idx) => (

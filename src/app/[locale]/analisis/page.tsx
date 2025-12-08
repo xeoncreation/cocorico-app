@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Scan, FileText, GitCompare, Camera, Upload } from "lucide-react";
 import { ToolSelector, Tool, ToolLayout } from "@/components/ui/tool-selector";
 import { motion } from "framer-motion";
+import Wallpaper from "@/components/layout/Wallpaper";
 
 const ANALYSIS_TOOLS: Tool[] = [
   {
@@ -30,7 +31,12 @@ export default function AnalysisPage() {
   const [selectedTool, setSelectedTool] = useState("scanner");
 
   return (
-    <ToolLayout
+    <>
+      <Wallpaper
+        imageLight="/branding/COCORICO SCAN — Fondo tech + alimentos, modo claro.png"
+        imageDark="/branding/COCORICO SCAN — Fondo futurista, modo oscuro.png"
+      />
+      <ToolLayout
         title="Análisis de Alimentos 🔬"
         subtitle="Escanea productos, analiza información nutricional y compara opciones para tomar mejores decisiones."
       >
@@ -51,6 +57,7 @@ export default function AnalysisPage() {
           {selectedTool === "compare" && <CompareView />}
         </div>
       </ToolLayout>
+    </>
   );
 }
 
@@ -59,6 +66,15 @@ function ScannerView() {
 
   return (
     <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-8 min-h-[500px]">
+      {/* GIF de scanner */}
+      <div className="mb-6 rounded-xl overflow-hidden max-w-2xl mx-auto">
+        <img 
+          src="/branding/scanner- video.gif" 
+          alt="Escáner en acción"
+          className="w-full h-auto"
+        />
+      </div>
+      
       <div className="flex flex-col items-center justify-center h-full">
         {/* Camera/Scanner Area */}
         <div className="w-full max-w-md aspect-video bg-black/30 rounded-2xl border-2 border-dashed border-white/20 flex items-center justify-center mb-6 relative overflow-hidden">
@@ -101,6 +117,15 @@ function NutritionView() {
 
   return (
     <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-6 min-h-[500px]">
+      {/* GIF de información nutricional */}
+      <div className="mb-6 rounded-xl overflow-hidden max-w-2xl mx-auto">
+        <img 
+          src="/branding/informacion nutricional - video.gif" 
+          alt="Información nutricional"
+          className="w-full h-auto"
+        />
+      </div>
+      
       <div className="mb-6">
         <label className="text-white/80 text-sm font-medium mb-2 block">
           Pega aquí la receta o lista de ingredientes

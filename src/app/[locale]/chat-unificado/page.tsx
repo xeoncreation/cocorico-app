@@ -5,6 +5,7 @@ import { MessageCircle, Mic, Search, Sparkles } from "lucide-react";
 import { ToolSelector, Tool, ToolLayout } from "@/components/ui/tool-selector";
 import { useTranslations } from "next-intl";
 import { motion, AnimatePresence } from "framer-motion";
+import Wallpaper from "@/components/layout/Wallpaper";
 
 const CHAT_TOOLS: Tool[] = [
   {
@@ -38,7 +39,12 @@ export default function ChatPage() {
   const [selectedTool, setSelectedTool] = useState("text-chat");
 
   return (
-    <ToolLayout
+    <>
+      <Wallpaper
+        imageLight="/branding/CHAT_MODO_CLARO.png"
+        imageDark="/branding/CHAT_MODO_OSCURO.png"
+      />
+      <ToolLayout
         title={`¡Hola! Soy Cocorico 🐓`}
         subtitle="Tu asistente culinario con inteligencia artificial. Pregúntame lo que quieras sobre cocina."
       >
@@ -70,6 +76,7 @@ export default function ChatPage() {
           </AnimatePresence>
         </div>
       </ToolLayout>
+    </>
   );
 }
 
@@ -141,6 +148,15 @@ function VoiceChatView() {
 
   return (
     <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-8 min-h-[500px] flex flex-col items-center justify-center">
+      {/* GIF de chat de voz */}
+      <div className="mb-8 rounded-2xl overflow-hidden max-w-md w-full">
+        <img 
+          src="/branding/chat de voz- video.gif" 
+          alt="Chat de voz animado"
+          className="w-full h-auto"
+        />
+      </div>
+      
       <motion.button
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
