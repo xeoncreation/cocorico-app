@@ -44,6 +44,14 @@ export default async function FavoritesPage({ params: { locale } }: { params: { 
         imageLight="/branding/FAVORITOS — Ingredientes premium gourmet, modo claro.png"
         imageDark="/branding/FAVORITOS — Ingredientes premium, modo oscuro.png"
       />
+      {/* Video Background */}
+      <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
+        <img
+          src="/branding/favoritos-video.gif"
+          alt="Favorites background"
+          className="w-full h-full object-cover opacity-15"
+        />
+      </div>
       <AppBackground variantOverride="dashboard">
         <div className="max-w-4xl mx-auto py-8 px-4">
           {/* Header */}

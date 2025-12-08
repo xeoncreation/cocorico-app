@@ -42,6 +42,7 @@ const mainNavLinks: NavLink[] = [
   { href: "/recipes", labelKey: "nav.recipes", icon: "📖" },
   { href: "/dashboard/favorites", labelKey: "nav.favorites", icon: "⭐" },
   { href: "/dashboard/stats", labelKey: "nav.stats", icon: "📊" },
+  { href: "/lista-compra", labelKey: "nav.shoppingList", icon: "🛒" },
   { href: "/chat", labelKey: "nav.chat", icon: "💬" },
 ];
 

@@ -25,6 +25,14 @@ export default async function CommunityPage({ params }: { params: { locale: stri
         imageLight="/branding/COMUNIDAD_MODO_CLARO.png"
         imageDark="/branding/COMUNIDAD_MODO_OSCURO.png"
       />
+      {/* Video Background */}
+      <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
+        <img
+          src="/branding/comunidad-video.gif"
+          alt="Community background"
+          className="w-full h-full object-cover opacity-15"
+        />
+      </div>
       <div className="space-y-8">
       {/* Welcome Section */}
       <GlassCard className="p-8 text-center">

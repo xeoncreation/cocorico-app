@@ -22,6 +22,14 @@ export default function StatsPage() {
         imageLight="/branding/MIS RECETAS- DASHBOARD — Cocina cenital difusa, modo claro.png"
         imageDark="/branding/MIS RECETAS - DASHBOARD — Encimera oscura gourmet, modo oscuro.png"
       />
+      {/* Video Background */}
+      <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
+        <img
+          src="/branding/estadisticas - video.gif"
+          alt="Stats background"
+          className="w-full h-full object-cover opacity-15"
+        />
+      </div>
       <AppBackground variantOverride="stats">
         <main className="max-w-6xl mx-auto p-6 space-y-8">
           {/* Header */}

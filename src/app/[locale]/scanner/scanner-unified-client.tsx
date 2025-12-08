@@ -144,17 +144,28 @@ export default function ScannerUnifiedClient({ locale }: { locale: string }) {
 
   if (mode === "barcode") {
     return (
-      <div className="max-w-2xl mx-auto px-4 py-8">
+      <div className="max-w-2xl mx-auto px-4 py-8 relative">
+        {/* Video Background cuando hay resultado */}
+        {product && !loading && (
+          <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
+            <img
+              src="/branding/informacion nutricional - video.gif"
+              alt="Nutrition background"
+              className="w-full h-full object-cover opacity-15"
+            />
+          </div>
+        )}
+        
         {/* Header con botón volver */}
         <Reveal>
-          <div className="mb-6">
+          <div className="mb-6 relative z-10">
             <Button variant="outline" onClick={() => { setMode(null); setProduct(null); setError(null); }} className="coco-glass border-white/30">
               ← Cambiar método
             </Button>
           </div>
         </Reveal>
 
-        <div className="space-y-6">
+        <div className="space-y-6 relative z-10">
           <Reveal delay={0.1}>
             <div className="text-center space-y-2">
               <h2 className="heading-2 glass-text-strong">
