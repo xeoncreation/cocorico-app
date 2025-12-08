@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import { usePathname } from "next/navigation";
+import { usePathname, useParams } from "next/navigation";
 import { supabase } from "@/app/lib/supabase-client";
 import { 
   MessageCircle, 
@@ -52,6 +52,8 @@ export default function NavbarUnified() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
+  const params = useParams();
+  const locale = (params?.locale as string) || 'es';
 
   useEffect(() => {
     if (!supabase) return;
@@ -80,7 +82,7 @@ export default function NavbarUnified() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
-            <Link href="/" className="flex items-center gap-2 group">
+            <Link href={`/${locale}`} className="flex items-center gap-2 group">
               <span className="text-2xl">🐓</span>
               <span className="text-xl font-bold text-white group-hover:text-cocorico-naranja transition-colors">
                 Cocorico
@@ -95,7 +97,7 @@ export default function NavbarUnified() {
                 return (
                   <Link
                     key={item.href}
-                    href={item.href}
+                    href={`/${locale}${item.href}`}
                     className={cn(
                       "relative flex items-center gap-2 px-4 py-2 rounded-xl transition-all",
                       active
@@ -146,7 +148,7 @@ export default function NavbarUnified() {
                         </div>
                         
                         <Link
-                          href="/mis-recetas"
+                          href={`/${locale}/mis-recetas`}
                           className="flex items-center gap-3 px-4 py-3 text-white/80 hover:bg-white/5 hover:text-white transition-colors"
                           onClick={() => setMenuOpen(false)}
                         >
@@ -155,7 +157,7 @@ export default function NavbarUnified() {
                         </Link>
                         
                         <Link
-                          href="/settings"
+                          href={`/${locale}/settings`}
                           className="flex items-center gap-3 px-4 py-3 text-white/80 hover:bg-white/5 hover:text-white transition-colors"
                           onClick={() => setMenuOpen(false)}
                         >
@@ -178,7 +180,7 @@ export default function NavbarUnified() {
                 </div>
               ) : (
                 <Link
-                  href="/login"
+                  href={`/${locale}/login`}
                   className="flex items-center gap-2 px-4 py-2 rounded-xl bg-cocorico-naranja hover:bg-cocorico-naranja/90 text-white font-medium text-sm transition-colors"
                 >
                   <User className="w-4 h-4" />
@@ -216,7 +218,7 @@ export default function NavbarUnified() {
                 return (
                   <Link
                     key={item.href}
-                    href={item.href}
+                    href={`/${locale}${item.href}`}
                     onClick={() => setMobileMenuOpen(false)}
                     className={cn(
                       "flex items-center gap-3 px-4 py-4 rounded-2xl transition-all",

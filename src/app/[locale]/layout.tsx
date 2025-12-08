@@ -8,7 +8,7 @@ import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { Toaster } from "sonner";
 import PushNotificationPrompt from "@/components/PushNotificationPrompt";
 import MediaPermissionsPrompt from "@/components/MediaPermissionsPrompt";
-import UnifiedNavbar from "@/components/navigation/UnifiedNavbar";
+import NavbarUnified from "@/components/NavbarUnified";
 
 export default async function LocaleLayout({
   children,
@@ -22,12 +22,12 @@ export default async function LocaleLayout({
   return (
     <NextIntlClientProvider messages={messages} locale={locale}>
       <ThemeProvider>
-        <div className="min-h-screen flex flex-col" data-locale={locale}>
-          {/* BLOQUE 1: Unified Navigation Bar - sticky con z-50 */}
-          <UnifiedNavbar />
-          {/* BLOQUE 2: Main content con padding-top para evitar overlap con navbar sticky 
-              UnifiedNavbar tiene sticky top-0 y altura ~60-70px, usamos pt-16 (64px) + mt-1 para separación */}
-          <main className="flex-1 pt-16 mt-1">
+        <div className="min-h-screen flex flex-col bg-neutral-950" data-locale={locale}>
+          {/* Navbar Unificado */}
+          <NavbarUnified />
+          
+          {/* Main content */}
+          <main className="flex-1">
             <ErrorBoundary>
               <MotionWrapper>{children}</MotionWrapper>
             </ErrorBoundary>
