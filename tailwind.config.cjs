@@ -32,6 +32,7 @@ module.exports = {
 			},
 			cocorico: {
 				red: '#E53526',
+				naranja: '#F97B32',
 				mango: '#F97B32',
 				datil: '#F3C751',
 				avocado: '#2E8A56',
@@ -60,12 +61,21 @@ module.exports = {
   plugins: [
     require("tailwindcss-animate"),
     require("@tailwindcss/typography"),
-    function ({ addComponents }) {
+    function ({ addComponents, addUtilities }) {
       addComponents({
         '.coco-glass-card': { '@apply glass-card': {} },
         '.coco-glass-pill': { '@apply glass-pill flex items-center gap-2': {} },
         '.coco-glass-icon': { '@apply glass-icon-circle': {} }
-      })
+      });
+      addUtilities({
+        '.scrollbar-hide': {
+          '-ms-overflow-style': 'none',
+          'scrollbar-width': 'none',
+          '&::-webkit-scrollbar': {
+            display: 'none'
+          }
+        }
+      });
     }
   ],
 }
