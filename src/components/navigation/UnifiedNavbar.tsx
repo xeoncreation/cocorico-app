@@ -64,9 +64,9 @@ const communityMenu = {
 };
 
 const userMenuLinks: NavLink[] = [
-  { href: "/dashboard", labelKey: "nav.dashboard", icon: "📊" },
-  { href: "/voice-chat", labelKey: "nav.voiceChat", icon: "🎙️" },
-  { href: "/learn", labelKey: "nav.learn", icon: "🎓" },
+  { href: "/dashboard", labelKey: "nav.dashboard", icon: "🏠" },
+  { href: "/chat", labelKey: "nav.chat", icon: "💬" },
+  { href: "/learn", labelKey: "nav.learn", icon: "📚" },
   { href: "/dashboard/challenges", labelKey: "nav.challenges", icon: "🏆" },
   { href: "/dashboard/achievements", labelKey: "nav.achievements", icon: "🏅" },
   { href: "/dashboard/favorites", labelKey: "nav.favorites", icon: "⭐" },

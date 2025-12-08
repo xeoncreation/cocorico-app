@@ -30,7 +30,7 @@ export default function FloatingActionButton() {
     {
       icon: <Mic className="w-5 h-5" />,
       label: "Chat de Voz",
-      href: linkWithLocale('/voice-chat'),
+      href: linkWithLocale('/chat'),
       color: "from-cocorico-turquoise to-cocorico-avocado",
     },
     {

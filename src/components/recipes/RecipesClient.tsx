@@ -1,18 +1,20 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useLocale } from 'next-intl';
 import { createClientComponentClient } from '@/lib/supabase/client';
 import { Recipe, Visibility } from '@/types/recipes';
-import { Clock, Users, ChefHat, Search, Filter } from 'lucide-react';
+import { Clock, Users, ChefHat, Search, Star, Heart } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import GlassCard from '@/components/ui/GlassCard';
 import { RippleButton } from '@/components/ui/ripple-button';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import RecipeFiltersComponent, { RecipeFilters } from './RecipeFilters';
 
 const DEMO_RECIPES = [
   {
@@ -21,7 +23,12 @@ const DEMO_RECIPES = [
     image: '/branding/cocorico/chef.png',
     prepTime: '30 min',
     cookTime: '45 min',
-    servings: 6
+    servings: 6,
+    difficulty: 'medium' as const,
+    category: 'lunch',
+    diet: [],
+    rating: 4.8,
+    likes: 127
   },
   {
     title: 'Gazpacho Andaluz',
@@ -29,7 +36,12 @@ const DEMO_RECIPES = [
     image: '/branding/cocorico/cocorico-cooking.png',
     prepTime: '15 min',
     cookTime: '0 min',
-    servings: 4
+    servings: 4,
+    difficulty: 'easy' as const,
+    category: 'appetizer',
+    diet: ['vegetarian', 'vegan'],
+    rating: 4.6,
+    likes: 89
   },
   {
     title: 'Tortilla de Patatas',
@@ -37,7 +49,12 @@ const DEMO_RECIPES = [
     image: '/branding/cocorico/cocorico-smiling.png',
     prepTime: '10 min',
     cookTime: '25 min',
-    servings: 4
+    servings: 4,
+    difficulty: 'medium' as const,
+    category: 'lunch',
+    diet: ['vegetarian'],
+    rating: 4.7,
+    likes: 112
   },
   {
     title: 'Ensalada César',
@@ -45,7 +62,12 @@ const DEMO_RECIPES = [
     image: '/branding/cocorico/happy.png',
     prepTime: '15 min',
     cookTime: '10 min',
-    servings: 2
+    servings: 2,
+    difficulty: 'easy' as const,
+    category: 'salad',
+    diet: [],
+    rating: 4.5,
+    likes: 78
   },
   {
     title: 'Pasta Carbonara',
@@ -53,7 +75,12 @@ const DEMO_RECIPES = [
     image: '/branding/cocorico/chef.png',
     prepTime: '10 min',
     cookTime: '15 min',
-    servings: 4
+    servings: 4,
+    difficulty: 'easy' as const,
+    category: 'dinner',
+    diet: [],
+    rating: 4.9,
+    likes: 156
   },
   {
     title: 'Tacos al Pastor',
@@ -61,7 +88,12 @@ const DEMO_RECIPES = [
     image: '/branding/cocorico/cocorico-cutting.png',
     prepTime: '20 min',
     cookTime: '30 min',
-    servings: 6
+    servings: 6,
+    difficulty: 'medium' as const,
+    category: 'dinner',
+    diet: [],
+    rating: 4.8,
+    likes: 134
   },
   {
     title: 'Sushi Rolls',
@@ -69,7 +101,12 @@ const DEMO_RECIPES = [
     image: '/branding/cocorico/thinking.png',
     prepTime: '40 min',
     cookTime: '20 min',
-    servings: 4
+    servings: 4,
+    difficulty: 'hard' as const,
+    category: 'dinner',
+    diet: ['pescatarian'],
+    rating: 4.7,
+    likes: 98
   },
   {
     title: 'Lasaña Boloñesa',
@@ -77,7 +114,12 @@ const DEMO_RECIPES = [
     image: '/branding/cocorico/default.png',
     prepTime: '30 min',
     cookTime: '60 min',
-    servings: 8
+    servings: 8,
+    difficulty: 'hard' as const,
+    category: 'lunch',
+    diet: [],
+    rating: 4.9,
+    likes: 187
   },
   {
     title: 'Pollo al Curry',
@@ -85,7 +127,12 @@ const DEMO_RECIPES = [
     image: '/branding/cocorico/chef.png',
     prepTime: '15 min',
     cookTime: '35 min',
-    servings: 4
+    servings: 4,
+    difficulty: 'medium' as const,
+    category: 'dinner',
+    diet: ['gluten-free'],
+    rating: 4.6,
+    likes: 91
   },
   {
     title: 'Brownies de Chocolate',
@@ -93,7 +140,12 @@ const DEMO_RECIPES = [
     image: '/branding/cocorico/happy.png',
     prepTime: '15 min',
     cookTime: '30 min',
-    servings: 12
+    servings: 12,
+    difficulty: 'easy' as const,
+    category: 'dessert',
+    diet: ['vegetarian'],
+    rating: 4.8,
+    likes: 142
   },
   {
     title: 'Ramen Japonés',
@@ -101,7 +153,12 @@ const DEMO_RECIPES = [
     image: '/branding/cocorico/cocorico-cooking.png',
     prepTime: '25 min',
     cookTime: '40 min',
-    servings: 4
+    servings: 4,
+    difficulty: 'hard' as const,
+    category: 'dinner',
+    diet: [],
+    rating: 4.7,
+    likes: 103
   },
   {
     title: 'Pizza Margherita',
@@ -109,7 +166,12 @@ const DEMO_RECIPES = [
     image: '/branding/cocorico/cocorico-smiling.png',
     prepTime: '20 min',
     cookTime: '15 min',
-    servings: 4
+    servings: 4,
+    difficulty: 'medium' as const,
+    category: 'dinner',
+    diet: ['vegetarian'],
+    rating: 4.8,
+    likes: 167
   },
   {
     title: 'Fajitas de Res',
@@ -117,7 +179,12 @@ const DEMO_RECIPES = [
     image: '/branding/cocorico/cocorico-cutting.png',
     prepTime: '15 min',
     cookTime: '20 min',
-    servings: 4
+    servings: 4,
+    difficulty: 'easy' as const,
+    category: 'dinner',
+    diet: ['gluten-free'],
+    rating: 4.5,
+    likes: 76
   },
   {
     title: 'Tiramisú Italiano',
@@ -125,7 +192,12 @@ const DEMO_RECIPES = [
     image: '/branding/cocorico/chef.png',
     prepTime: '30 min',
     cookTime: '0 min',
-    servings: 8
+    servings: 8,
+    difficulty: 'medium' as const,
+    category: 'dessert',
+    diet: ['vegetarian'],
+    rating: 4.9,
+    likes: 201
   },
   {
     title: 'Pad Thai',
@@ -133,7 +205,12 @@ const DEMO_RECIPES = [
     image: '/branding/cocorico/thinking.png',
     prepTime: '20 min',
     cookTime: '15 min',
-    servings: 4
+    servings: 4,
+    difficulty: 'medium' as const,
+    category: 'dinner',
+    diet: ['pescatarian', 'gluten-free'],
+    rating: 4.7,
+    likes: 118
   },
   {
     title: 'Hamburguesa Gourmet',
@@ -141,7 +218,12 @@ const DEMO_RECIPES = [
     image: '/branding/cocorico/happy.png',
     prepTime: '15 min',
     cookTime: '12 min',
-    servings: 4
+    servings: 4,
+    difficulty: 'easy' as const,
+    category: 'lunch',
+    diet: [],
+    rating: 4.6,
+    likes: 95
   },
   {
     title: 'Risotto de Hongos',
@@ -149,7 +231,12 @@ const DEMO_RECIPES = [
     image: '/branding/cocorico/cocorico-cooking.png',
     prepTime: '10 min',
     cookTime: '30 min',
-    servings: 4
+    servings: 4,
+    difficulty: 'medium' as const,
+    category: 'dinner',
+    diet: ['vegetarian', 'gluten-free'],
+    rating: 4.8,
+    likes: 129
   },
   {
     title: 'Ceviche Peruano',
@@ -157,7 +244,12 @@ const DEMO_RECIPES = [
     image: '/branding/cocorico/default.png',
     prepTime: '20 min',
     cookTime: '0 min',
-    servings: 6
+    servings: 6,
+    difficulty: 'easy' as const,
+    category: 'appetizer',
+    diet: ['pescatarian', 'gluten-free'],
+    rating: 4.7,
+    likes: 84
   },
   {
     title: 'Tarta de Queso',
@@ -165,7 +257,12 @@ const DEMO_RECIPES = [
     image: '/branding/cocorico/cocorico-smiling.png',
     prepTime: '25 min',
     cookTime: '50 min',
-    servings: 10
+    servings: 10,
+    difficulty: 'hard' as const,
+    category: 'dessert',
+    diet: ['vegetarian'],
+    rating: 4.9,
+    likes: 178
   },
   {
     title: 'Shakshuka',
@@ -173,7 +270,12 @@ const DEMO_RECIPES = [
     image: '/branding/cocorico/chef.png',
     prepTime: '10 min',
     cookTime: '25 min',
-    servings: 4
+    servings: 4,
+    difficulty: 'easy' as const,
+    category: 'breakfast',
+    diet: ['vegetarian', 'gluten-free'],
+    rating: 4.6,
+    likes: 87
   }
 ];
 
@@ -182,7 +284,9 @@ export default function RecipesClient() {
   const [loading, setLoading] = useState(true);
   const [showDemo, setShowDemo] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
-  const [timeFilter, setTimeFilter] = useState<"all" | "quick" | "medium" | "slow">("all");
+  const [filters, setFilters] = useState<RecipeFilters>({
+    sortBy: 'recent'
+  });
   const router = useRouter();
   const supabase = createClientComponentClient();
   // Some pages render outside the /[locale] layout and therefore do not have
@@ -237,6 +341,88 @@ export default function RecipesClient() {
     }
   };
 
+  // Filter and sort recipes with useMemo for performance
+  const filteredRecipes = useMemo(() => {
+    const displayRecipes = showDemo ? DEMO_RECIPES : recipes;
+    
+    let filtered = displayRecipes.filter(recipe => {
+      const title = 'title' in recipe ? recipe.title : '';
+      const description = typeof recipe.description === 'string' ? recipe.description : '';
+      
+      // Search filter
+      const matchesSearch = title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                 description.toLowerCase().includes(searchQuery.toLowerCase());
+      if (!matchesSearch) return false;
+      
+      // Time filter (only for demo recipes with prepTime/cookTime)
+      if (filters.maxTime && showDemo && 'prepTime' in recipe && 'cookTime' in recipe) {
+        const prepMin = parseInt(recipe.prepTime);
+        const cookMin = parseInt(recipe.cookTime);
+        const totalMin = prepMin + cookMin;
+        if (totalMin > filters.maxTime) return false;
+      }
+      
+      // Difficulty filter
+      if (filters.difficulty && 'difficulty' in recipe) {
+        if (recipe.difficulty !== filters.difficulty) return false;
+      }
+      
+      // Category filter
+      if (filters.category && 'category' in recipe) {
+        if (recipe.category !== filters.category) return false;
+      }
+      
+      // Diet filter (multi-select - recipe must match ALL selected diets)
+      if (filters.diet && filters.diet.length > 0 && 'diet' in recipe) {
+        const recipeDiet = recipe.diet || [];
+        const hasAllDiets = filters.diet.every(d => recipeDiet.includes(d));
+        if (!hasAllDiets) return false;
+      }
+      
+      return true;
+    });
+    
+    // Sorting
+    if (filters.sortBy) {
+      filtered = [...filtered].sort((a, b) => {
+        switch (filters.sortBy) {
+          case 'recent':
+            // For real recipes, sort by created_at; for demo, keep order
+            if ('created_at' in a && 'created_at' in b) {
+              return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
+            }
+            return 0;
+          
+          case 'popular':
+            // Sort by likes (descending)
+            const likesA = 'likes' in a ? a.likes : 0;
+            const likesB = 'likes' in b ? b.likes : 0;
+            return likesB - likesA;
+          
+          case 'rating':
+            // Sort by rating (descending)
+            const ratingA = 'rating' in a ? a.rating : 0;
+            const ratingB = 'rating' in b ? b.rating : 0;
+            return ratingB - ratingA;
+          
+          case 'time':
+            // Sort by total time (ascending)
+            if ('prepTime' in a && 'cookTime' in a && 'prepTime' in b && 'cookTime' in b) {
+              const timeA = parseInt(a.prepTime) + parseInt(a.cookTime);
+              const timeB = parseInt(b.prepTime) + parseInt(b.cookTime);
+              return timeA - timeB;
+            }
+            return 0;
+          
+          default:
+            return 0;
+        }
+      });
+    }
+    
+    return filtered;
+  }, [showDemo, recipes, searchQuery, filters]);
+
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
@@ -246,29 +432,6 @@ export default function RecipesClient() {
       </div>
     );
   }
-
-  // Rendering branches below use `showDemo ? DEMO_RECIPES : recipes` directly
-  
-  // Filter recipes based on search and time
-  const displayRecipes = showDemo ? DEMO_RECIPES : recipes;
-  const filteredRecipes = displayRecipes.filter(recipe => {
-    const title = 'title' in recipe ? recipe.title : '';
-    const description = typeof recipe.description === 'string' ? recipe.description : '';
-    const matchesSearch = title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-               description.toLowerCase().includes(searchQuery.toLowerCase());
-    
-    if (!matchesSearch) return false;
-    
-    // For demo recipes, check prepTime + cookTime
-    if (showDemo && 'prepTime' in recipe && 'cookTime' in recipe) {
-      const totalMin = parseInt(recipe.prepTime) + parseInt(recipe.cookTime);
-      if (timeFilter === "quick" && totalMin > 30) return false;
-      if (timeFilter === "medium" && (totalMin <= 30 || totalMin > 60)) return false;
-      if (timeFilter === "slow" && totalMin <= 60) return false;
-    }
-    
-    return true;
-  });
 
   return (
     <div className="min-h-screen py-8 bg-transparent">
@@ -299,55 +462,28 @@ export default function RecipesClient() {
           </RippleButton>
         </GlassCard>
 
-        {/* Search and Filters */}
-        <GlassCard className="p-4 mb-6" variant={plan === 'premium' ? 'premium' : 'base'}>
-          <div className="flex flex-col lg:flex-row gap-4">
-            {/* Search bar */}
-            <div className="flex-1 relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-neutral-400" />
-              <Input
-                type="text"
-                placeholder="Buscar recetas por nombre o ingredientes..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-10 bg-white/50 dark:bg-neutral-900/50"
-              />
-            </div>
-
-            {/* Time filters */}
-            <div className="flex gap-2">
-              <Button
-                variant={timeFilter === "all" ? "default" : "outline"}
-                size="sm"
-                onClick={() => setTimeFilter("all")}
-              >
-                Todas
-              </Button>
-              <Button
-                variant={timeFilter === "quick" ? "default" : "outline"}
-                size="sm"
-                onClick={() => setTimeFilter("quick")}
-              >
-                <Clock className="w-4 h-4 mr-1" />
-                Rápidas (&lt;30min)
-              </Button>
-              <Button
-                variant={timeFilter === "medium" ? "default" : "outline"}
-                size="sm"
-                onClick={() => setTimeFilter("medium")}
-              >
-                Medias (30-60min)
-              </Button>
-              <Button
-                variant={timeFilter === "slow" ? "default" : "outline"}
-                size="sm"
-                onClick={() => setTimeFilter("slow")}
-              >
-                Largas (&gt;60min)
-              </Button>
-            </div>
+        {/* Search Bar */}
+        <GlassCard className="p-4 mb-4" variant={plan === 'premium' ? 'premium' : 'base'}>
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-neutral-400" />
+            <Input
+              type="text"
+              placeholder="Buscar recetas por nombre o ingredientes..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="pl-10 bg-white/50 dark:bg-neutral-900/50"
+            />
           </div>
         </GlassCard>
+
+        {/* Advanced Filters */}
+        <div className="mb-6">
+          <RecipeFiltersComponent
+            filters={filters}
+            onChange={setFilters}
+            onReset={() => setFilters({ sortBy: 'recent' })}
+          />
+        </div>
 
         {/* Toggle Demo/Real */}
         {!showDemo && recipes.length > 0 && (
@@ -393,7 +529,7 @@ export default function RecipesClient() {
               <GlassCard
                 key={idx}
                 className={cn(
-                  "group overflow-hidden transition-all hover:scale-105 cursor-pointer",
+                  "group overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-xl hover:brightness-110 cursor-pointer",
                 )}
                 variant={plan === 'premium' ? 'premium' : 'accent'}
                 onClick={() => router.push(linkWithLocale('/recipes/create'))}
@@ -405,6 +541,19 @@ export default function RecipesClient() {
                     fill
                     className="object-cover group-hover:scale-110 transition-transform duration-300"
                   />
+                  {/* Difficulty Badge */}
+                  {'difficulty' in recipe && recipe.difficulty && (
+                    <Badge 
+                      className={cn(
+                        "absolute top-2 right-2 text-xs font-bold uppercase animate-in slide-in-from-right-2",
+                        recipe.difficulty === 'easy' && "bg-green-500 text-white",
+                        recipe.difficulty === 'medium' && "bg-yellow-500 text-white",
+                        recipe.difficulty === 'hard' && "bg-red-500 text-white"
+                      )}
+                    >
+                      {recipe.difficulty === 'easy' ? 'F\u00e1cil' : recipe.difficulty === 'medium' ? 'Medio' : 'Dif\u00edcil'}
+                    </Badge>
+                  )}
                 </div>
                 <div className="p-4">
                   <h3 className={cn(
@@ -414,19 +563,58 @@ export default function RecipesClient() {
                     {'title' in recipe ? recipe.title : ''}
                   </h3>
                   <p className={cn(
-                    "text-sm mb-4 line-clamp-2",
+                    "text-sm mb-3 line-clamp-2",
                     plan === "premium" ? "text-white/70" : "text-neutral-600 dark:text-neutral-400"
                   )}>
                     {'description' in recipe ? recipe.description : ''}
                   </p>
-                  <div className="flex items-center gap-4 text-xs">
-                    <div className="flex items-center gap-1">
-                      <Clock className="w-4 h-4" />
-                      <span>{'prepTime' in recipe ? recipe.prepTime : ''}</span>
+                  
+                  {/* Diet Badges */}
+                  {'diet' in recipe && recipe.diet && recipe.diet.length > 0 && (
+                    <div className="flex flex-wrap gap-1 mb-3">
+                      {recipe.diet.map((diet, dietIdx) => (
+                        <Badge 
+                          key={dietIdx} 
+                          variant="outline"
+                          className="text-[10px] animate-in slide-in-from-left-2 delay-75"
+                        >
+                          {diet === 'vegetarian' && '\ud83e\udd57 Vegetariano'}
+                          {diet === 'vegan' && '\ud83c\udf31 Vegano'}
+                          {diet === 'gluten-free' && '\ud83c\udf3e Sin gluten'}
+                          {diet === 'dairy-free' && '\ud83e\udd5b Sin l\u00e1cteos'}
+                          {diet === 'pescatarian' && '\ud83d\udc1f Pescetariano'}
+                          {diet === 'keto' && '\ud83e\udd51 Keto'}
+                        </Badge>
+                      ))}
                     </div>
-                    <div className="flex items-center gap-1">
-                      <Users className="w-4 h-4" />
-                      <span>{'servings' in recipe ? recipe.servings : ''}</span>
+                  )}
+                  
+                  <div className="flex items-center justify-between text-xs">
+                    <div className="flex items-center gap-3">
+                      <div className="flex items-center gap-1">
+                        <Clock className="w-4 h-4" />
+                        <span>{'prepTime' in recipe ? recipe.prepTime : ''}</span>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <Users className="w-4 h-4" />
+                        <span>{'servings' in recipe ? recipe.servings : ''}</span>
+                      </div>
+                    </div>
+                    
+                    {/* Rating & Likes */}
+                    <div className="flex items-center gap-2">
+                      {'rating' in recipe && recipe.rating && (
+                        <div className="flex items-center gap-0.5 text-yellow-500">
+                          <Star className="w-3.5 h-3.5 fill-current" />
+                          <span className="text-xs font-semibold">{recipe.rating}</span>
+                        </div>
+                      )}
+                      {'likes' in recipe && recipe.likes && (
+                        <div className="flex items-center gap-0.5 text-pink-500">
+                          <Heart className="w-3.5 h-3.5 fill-current" />
+                          <span className="text-xs font-semibold">{recipe.likes}</span>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>
