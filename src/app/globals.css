@@ -369,7 +369,7 @@
   html,
   body,
   #__next {
-    background: var(--color-bg);
+    background: transparent;
     color: var(--color-text);
   }
 

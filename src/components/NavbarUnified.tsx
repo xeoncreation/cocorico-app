@@ -14,7 +14,8 @@ import {
   X,
   LogOut,
   Settings,
-  Heart
+  Heart,
+  Crown
 } from "lucide-react";
 import type { User as SupabaseUser } from "@supabase/supabase-js";
 import { motion, AnimatePresence } from "framer-motion";
@@ -90,7 +91,7 @@ export default function NavbarUnified() {
             </Link>
 
             {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center gap-1">
+            <div className="hidden md:flex items-center gap-2">
               {NAV_ITEMS.map((item) => {
                 const Icon = item.icon;
                 const active = isActive(item.href);
@@ -117,6 +118,15 @@ export default function NavbarUnified() {
                   </Link>
                 );
               })}
+              
+              {/* Premium Button */}
+              <Link
+                href={`/${locale}/premium`}
+                className="ml-2 px-4 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 text-white font-semibold hover:from-amber-600 hover:to-orange-600 transition-all duration-200 flex items-center gap-2 shadow-lg shadow-amber-500/25"
+              >
+                <Crown className="w-4 h-4" />
+                <span>Premium</span>
+              </Link>
             </div>
 
             {/* User Menu / Login */}
@@ -235,6 +245,19 @@ export default function NavbarUnified() {
                   </Link>
                 );
               })}
+              
+              {/* Premium Button Mobile */}
+              <Link
+                href={`/${locale}/premium`}
+                onClick={() => setMobileMenuOpen(false)}
+                className="flex items-center gap-3 px-4 py-4 rounded-2xl bg-gradient-to-r from-amber-500 to-orange-500 text-white font-semibold shadow-lg shadow-amber-500/25"
+              >
+                <Crown className="w-5 h-5" />
+                <div className="flex-1">
+                  <div className="font-medium">Premium</div>
+                  <div className="text-xs text-white/90">Desbloquea todo</div>
+                </div>
+              </Link>
             </div>
           </motion.div>
         )}
