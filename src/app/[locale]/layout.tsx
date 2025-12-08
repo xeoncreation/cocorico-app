@@ -22,7 +22,7 @@ export default async function LocaleLayout({
   return (
     <NextIntlClientProvider messages={messages} locale={locale}>
       <ThemeProvider>
-        <div className="min-h-screen flex flex-col bg-neutral-950" data-locale={locale}>
+        <div className="min-h-screen flex flex-col bg-transparent" data-locale={locale}>
           {/* Navbar Unificado */}
           <NavbarUnified />
           
