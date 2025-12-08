@@ -38,7 +38,7 @@ export default defineConfig({
         command: 'cross-env NEXT_PUBLIC_DISABLE_ANALYTICS=1 npm run dev:127',
         url: 'http://127.0.0.1:3000',
         // allow more time for the dev server to become responsive in noisy CI/dev machines
-        timeout: 120000,
+        timeout: 180000, // 3 minutes - increased from 2 minutes due to CI slowness
         reuseExistingServer: !process.env.CI,
         stdout: 'pipe',
         stderr: 'pipe',
