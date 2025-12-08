@@ -315,7 +315,16 @@ export default function UnifiedChatInterface({
 
   return (
     <LiquidGlassContainer fullscreen>
-      <div className="max-w-6xl mx-auto h-screen flex flex-col p-4 gap-4">
+      {/* Video Background */}
+      <div className="absolute inset-0 z-0 overflow-hidden">
+        <img
+          src="/branding/chat-video.gif"
+          alt="Chat background"
+          className="w-full h-full object-cover opacity-20"
+        />
+      </div>
+
+      <div className="relative z-10 max-w-6xl mx-auto h-screen flex flex-col p-4 gap-4">
         {/* HEADER */}
         <LiquidGlassCard variant="ios" blur="xl" className="p-4">
           <div className="flex items-center justify-between">

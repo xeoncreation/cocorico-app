@@ -1,7 +1,6 @@
 import { Metadata } from "next";
 import ScannerUnifiedClient from "./scanner-unified-client";
-import { AppBackground } from "@/components/layout/AppBackground";
-import Wallpaper from "@/components/layout/Wallpaper";
+import { LiquidGlassContainer } from "@/components/ui/LiquidGlass";
 
 export const metadata: Metadata = {
   title: "Food Scanner | Cocorico",
@@ -10,14 +9,20 @@ export const metadata: Metadata = {
 
 export default function FoodScannerPage({ params: { locale } }: { params: { locale: string } }) {
   return (
-    <>
-      <Wallpaper
-        imageLight="/branding/COCORICO SCAN — Fondo tech + alimentos, modo claro.png"
-        imageDark="/branding/COCORICO SCAN — Fondo futurista, modo oscuro.png"
-      />
-      <AppBackground variantOverride="home-free">
+    <LiquidGlassContainer fullscreen>
+      {/* GIF Background */}
+      <div className="absolute inset-0 z-0 overflow-hidden">
+        <img
+          src="/branding/scanner- video.gif"
+          alt="Scanner background"
+          className="w-full h-full object-cover opacity-25"
+        />
+      </div>
+
+      {/* Scanner Client Component */}
+      <div className="relative z-10">
         <ScannerUnifiedClient locale={locale} />
-      </AppBackground>
-    </>
+      </div>
+    </LiquidGlassContainer>
   );
 }

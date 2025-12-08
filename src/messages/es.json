@@ -60,6 +60,26 @@
     "title": "Chat con Cocorico",
     "subtitle": "Pregúntame sobre recetas, ingredientes, nutrición o cualquier duda de cocina"
   },
+  "shopping": {
+    "title": "Lista de Compra",
+    "description": "Organiza tus ingredientes y haz la compra más eficiente"
+  },
+  "nutrition": {
+    "title": "Información Nutricional",
+    "description": "Analiza el contenido nutricional de tus recetas"
+  },
+  "community": {
+    "title": "Comunidad Video",
+    "description": "Comparte y descubre videos de recetas de la comunidad"
+  },
+  "scanner": {
+    "title": "Escáner de Alimentos",
+    "description": "Escanea productos y conoce su información nutricional al instante"
+  },
+  "stats": {
+    "title": "Estadísticas",
+    "description": "Visualiza tu progreso y estadísticas de cocina"
+  },
   "auth": {
     "login": "Iniciar sesión",
     "logout": "Salir",

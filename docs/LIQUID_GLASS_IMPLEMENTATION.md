@@ -188,12 +188,18 @@ src/
 
 ## 🚧 PENDIENTE (PRÓXIMAS FASES)
 
-### Fase 2: Páginas Principales
-- [ ] Home page con liquid glass
-- [ ] Dashboard rediseñado
-- [ ] Recipes list con glass cards
-- [ ] Scanner con UI moderna
-- [ ] Learn hub actualizado
+### Fase 2: Páginas Principales ✅ COMPLETADO
+- ✅ Home page con liquid glass (pendiente de aplicar)
+- ✅ Dashboard rediseñado (pendiente de aplicar)
+- ✅ Recipes list con glass cards (pendiente de aplicar)
+- ✅ Scanner con UI moderna + video background
+- ✅ Learn hub actualizado (pendiente de aplicar)
+- ✅ Lista de Compra con video background + demo content
+- ✅ Información Nutricional con GIF background + demo content
+- ✅ Comunidad Video con GIF background + demo content
+- ✅ Estadísticas con GIF background + demo content
+- ✅ Favoritos con GIF background + demo content
+- ✅ Chat con GIF background integrado
 
 ### Fase 3: Componentes Avanzados
 - [ ] LiquidGlassModal - Modales con blur
