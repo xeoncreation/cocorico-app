@@ -121,6 +121,14 @@ function LoginForm({ locale, t }: { locale: string; t: any }) {
       {/* Messages */}
       {message && <div className="rounded-lg bg-green-50 dark:bg-green-900/20 text-green-800 dark:text-green-300 px-4 py-3 text-sm">{message}</div>}
       {error && <div className="rounded-lg bg-red-50 dark:bg-red-900/20 text-red-800 dark:text-red-300 px-4 py-3 text-sm">{error}</div>}
+
+      {/* Link a signup */}
+      <div className="text-center text-sm text-neutral-600 dark:text-neutral-400">
+        {t("login.noAccount", { default: "¿No tienes cuenta?" })}{" "}
+        <Link href={`/${locale}/signup`} className="text-cocorico-red dark:text-amber-400 hover:underline font-medium">
+          {t("login.signUp", { default: "Regístrate aquí" })}
+        </Link>
+      </div>
     </form>
   );
 }
