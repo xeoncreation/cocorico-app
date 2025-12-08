@@ -23,10 +23,10 @@ export default function Footer() {
           <div>
             <h4 className="font-extrabold mb-3 text-base text-cocorico-brown dark:text-amber-300">Explorar</h4>
             <ul className="space-y-2 text-sm font-bold">
-              <li><Link href="/chat" className="text-neutral-900 dark:text-neutral-100 hover:text-cocorico-red dark:hover:text-amber-400 transition underline-offset-4 hover:underline">Chat</Link></li>
-              <li><Link href="/dashboard/lab" className="text-neutral-900 dark:text-neutral-100 hover:text-cocorico-red dark:hover:text-amber-400 transition underline-offset-4 hover:underline">Lab IA</Link></li>
-              <li><Link href="/recipes" className="text-neutral-900 dark:text-neutral-100 hover:text-cocorico-red dark:hover:text-amber-400 transition underline-offset-4 hover:underline">Recetas</Link></li>
-              <li><Link href="/community" className="text-neutral-900 dark:text-neutral-100 hover:text-cocorico-red dark:hover:text-amber-400 transition underline-offset-4 hover:underline">Comunidad</Link></li>
+              <li><Link href="/chat-unificado" className="text-neutral-900 dark:text-neutral-100 hover:text-cocorico-red dark:hover:text-amber-400 transition underline-offset-4 hover:underline">Chat</Link></li>
+              <li><Link href="/analisis" className="text-neutral-900 dark:text-neutral-100 hover:text-cocorico-red dark:hover:text-amber-400 transition underline-offset-4 hover:underline">Análisis</Link></li>
+              <li><Link href="/mis-recetas" className="text-neutral-900 dark:text-neutral-100 hover:text-cocorico-red dark:hover:text-amber-400 transition underline-offset-4 hover:underline">Mis Recetas</Link></li>
+              <li><Link href="/comunidad" className="text-neutral-900 dark:text-neutral-100 hover:text-cocorico-red dark:hover:text-amber-400 transition underline-offset-4 hover:underline">Comunidad</Link></li>
             </ul>
           </div>
 

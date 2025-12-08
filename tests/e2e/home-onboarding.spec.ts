@@ -63,10 +63,10 @@ test.describe('Home Onboarding Modal', () => {
     
     // Simulate a second visit using client-side navigation (avoid reload which runs the
     // context initScript that clears localStorage). Navigate away and back with header links.
-    const premiumLink = page.locator('header a[href^="/premium"], header a[href^="/es/premium"]');
-    await expect(premiumLink).toBeVisible({ timeout: 10000 });
-    await premiumLink.click({ force: true });
-    await page.waitForURL(/.*premium/, { timeout: 60000 });
+    const chatLink = page.locator('header a[href^="/chat-unificado"], header a[href^="/es/chat-unificado"]');
+    await expect(chatLink).toBeVisible({ timeout: 10000 });
+    await chatLink.click({ force: true });
+    await page.waitForURL(/.*chat-unificado/, { timeout: 60000 });
 
     const homeLink = page.locator('header a[href="/"], header a[href^="/es"]').first();
     await homeLink.click();
@@ -172,13 +172,13 @@ test.describe('Home Onboarding Modal', () => {
       // Wait for localStorage to be set
       await page.waitForTimeout(500);
       
-      // Ensure the header premium link is visible then click it and wait for the URL
-      const premiumLink = page.locator('header a[href^="/premium"], header a[href^="/es/premium"]');
-      await expect(premiumLink).toBeVisible({ timeout: 10000 });
-      const href = await premiumLink.getAttribute('href');
-      console.log('DEBUG: premium href ->', href);
-      await premiumLink.click({ force: true });
-      await page.waitForURL(/.*premium/, { timeout: 60000 });
+      // Ensure the header analisis link is visible then click it and wait for the URL
+      const analisisLink = page.locator('header a[href^="/analisis"], header a[href^="/es/analisis"]');
+      await expect(analisisLink).toBeVisible({ timeout: 10000 });
+      const href = await analisisLink.getAttribute('href');
+      console.log('DEBUG: analisis href ->', href);
+      await analisisLink.click({ force: true });
+      await page.waitForURL(/.*analisis/, { timeout: 60000 });
     
     // Go back to home - modal should not appear because onboarding was completed
     await page.goto('/es', { waitUntil: 'networkidle', timeout: 60000 });

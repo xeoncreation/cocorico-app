@@ -21,9 +21,10 @@ test.describe('Navbar links', () => {
     };
 
     // Links visible in navbar (give more time for header to hydrate)
-    await expect(header.locator(selectorFor('/chat'))).toBeVisible({ timeout: 10000 });
-    await expect(header.locator(selectorFor('/dashboard/favorites'))).toBeVisible({ timeout: 10000 });
-    await expect(header.locator(selectorFor('/dashboard/stats'))).toBeVisible({ timeout: 10000 });
+    await expect(header.locator(selectorFor('/chat-unificado'))).toBeVisible({ timeout: 10000 });
+    await expect(header.locator(selectorFor('/analisis'))).toBeVisible({ timeout: 10000 });
+    await expect(header.locator(selectorFor('/mis-recetas'))).toBeVisible({ timeout: 10000 });
+    await expect(header.locator(selectorFor('/comunidad'))).toBeVisible({ timeout: 10000 });
     const loginLink = header.locator(selectorFor('/login')).first();
     await expect(loginLink).toBeVisible({ timeout: 10000 });
 
