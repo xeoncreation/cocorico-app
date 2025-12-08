@@ -73,6 +73,18 @@
       "body": "Thanks for signing up. You can now create recipes, chat with AI and join the community."
     }
   },
+  "login": {
+    "title": "Log In",
+    "email": "Email",
+    "emailPlaceholder": "your@email.com",
+    "password": "Password",
+    "passwordPlaceholder": "Your password",
+    "rememberMe": "Remember me",
+    "forgotPassword": "Forgot password?",
+    "loginButton": "Log In",
+    "noAccount": "Don't have an account?",
+    "signUp": "Sign up here"
+  },
   "emails": {
     "welcome": {
       "subject": "Welcome to Cocorico!",

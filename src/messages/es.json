@@ -95,6 +95,18 @@
       "body": "Gracias por registrarte. Ya puedes empezar a crear recetas, chatear con la IA y unirte a la comunidad."
     }
   },
+  "login": {
+    "title": "Iniciar sesión",
+    "email": "Correo electrónico",
+    "emailPlaceholder": "tu@email.com",
+    "password": "Contraseña",
+    "passwordPlaceholder": "Tu contraseña",
+    "rememberMe": "Recordarme",
+    "forgotPassword": "¿Olvidaste tu contraseña?",
+    "loginButton": "Iniciar sesión",
+    "noAccount": "¿No tienes cuenta?",
+    "signUp": "Regístrate aquí"
+  },
   "emails": {
     "welcome": {
       "subject": "¡Bienvenido a Cocorico!",
