@@ -45,14 +45,13 @@ export async function POST(req: Request) {
       headers: { Authorization: `Bearer ${apiKey}` },
       body: form,
     });
+    
     if (!r.ok) {
       return NextResponse.json({ error: "STT failed", detail: await r.text() }, { status: 500 });
     }
-      const j = await r.json();
-      return NextResponse.json({ text: j.text || "" });
-    }
-
-    return NextResponse.json({ error: "Unknown provider" }, { status: 400 });
+    
+    const j = await r.json();
+    return NextResponse.json({ text: j.text || "" });
   } catch (e: any) {
     console.error("STT error:", e);
     return NextResponse.json({ error: "STT internal error" }, { status: 500 });
