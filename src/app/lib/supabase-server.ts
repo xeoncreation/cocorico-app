@@ -46,3 +46,6 @@ export function supabaseServer() {
     }
   );
 }
+
+// Export alias para compatibilidad
+export const createClient = supabaseServer;

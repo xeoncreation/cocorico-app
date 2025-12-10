@@ -47,6 +47,8 @@
     "lint:spell": "cspell \"**/*.{ts,tsx,md}\""
   },
   "dependencies": {
+    "@ai-sdk/openai": "^2.0.80",
+    "@ai-sdk/react": "^2.0.109",
     "@headlessui/react": "^2.2.9",
     "@hookform/resolvers": "^5.2.2",
     "@radix-ui/react-avatar": "^1.1.10",
@@ -63,6 +65,7 @@
     "@tensorflow/tfjs": "^4.20.0",
     "@zxing/browser": "^0.1.5",
     "@zxing/library": "^0.21.3",
+    "ai": "^5.0.108",
     "canvas-confetti": "^1.9.3",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",

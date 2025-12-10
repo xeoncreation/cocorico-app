@@ -11,6 +11,7 @@ import { Separator } from "@/components/ui/separator";
 import { Menu } from "lucide-react";
 import ThemeToggle from "@/components/ThemeToggle";
 import LanguageSelector from "@/components/LanguageSelector";
+import EmojiPicker from "@/components/EmojiPicker";
 import type { User, Session, AuthChangeEvent } from "@supabase/supabase-js";
 
 /**
@@ -82,6 +83,8 @@ const userMenuLinks: NavLink[] = [
 
 export default function UnifiedNavbar() {
   const [user, setUser] = useState<User | null>(null);
+  const [userEmoji, setUserEmoji] = useState<string>("\ud83d\udc64"); // Emoji por defecto
+  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [scannerOpen, setScannerOpen] = useState(false);
   const [communityOpen, setCommunityOpen] = useState(false);
@@ -130,6 +133,26 @@ export default function UnifiedNavbar() {
     supabase.auth.getSession().then((result: { data?: { session: Session | null } }) => {
       const session = result?.data?.session ?? null;
       setUser(session?.user ?? null);
+      
+      // Cargar emoji del usuario desde user_metadata o base de datos
+      if (session?.user) {
+        const metadata = session.user.user_metadata;
+        if (metadata?.emoji) {
+          setUserEmoji(metadata.emoji);
+        } else {
+          // Intentar obtener de la tabla user_profiles
+          supabase
+            .from('user_profiles')
+            .select('emoji')
+            .eq('id', session.user.id)
+            .single()
+            .then(({ data }) => {
+              if (data?.emoji) {
+                setUserEmoji(data.emoji);
+              }
+            });
+        }
+      }
     });
 
     // Listen for auth changes
@@ -167,6 +190,26 @@ export default function UnifiedNavbar() {
     setUser(null);
     setMenuOpen(false);
     setMobileSheetOpen(false);
+  };
+
+  const handleEmojiSelect = async (emoji: string) => {
+    setUserEmoji(emoji);
+    
+    if (user) {
+      // Guardar en user_profiles
+      await supabase
+        .from('user_profiles')
+        .upsert({
+          id: user.id,
+          emoji: emoji,
+          updated_at: new Date().toISOString(),
+        });
+      
+      // También actualizar user_metadata para acceso rápido
+      await supabase.auth.updateUser({
+        data: { emoji }
+      });
+    }
   };
 
   // Helper: prepend locale to href
@@ -216,6 +259,7 @@ export default function UnifiedNavbar() {
   `.trim();
 
   return (
+    <>
     <header className="navbar-liquid flex items-center justify-between px-6 sm:px-8 py-4 sticky top-0 z-50 transition-all duration-300">
       {/* Logo - Standalone, no glass effect to differentiate */}
       {/* Logo - Standalone, no glass effect for differentiation */}
@@ -368,8 +412,8 @@ export default function UnifiedNavbar() {
               aria-expanded={menuOpen}
               aria-haspopup="true"
             >
-              <div className="w-7 h-7 rounded-full bg-gradient-to-br from-cocorico-red to-cocorico-red/80 dark:from-amber-400 dark:to-amber-500 text-white dark:text-neutral-900 flex items-center justify-center text-xs font-black shadow-md" aria-hidden="true">
-                {user.email?.[0]?.toUpperCase() || "U"}
+              <div className="w-7 h-7 flex items-center justify-center text-xl" aria-hidden="true">
+                {userEmoji}
               </div>
               <span className="hidden md:inline max-w-[120px] truncate">
                 {user.email}
@@ -382,6 +426,20 @@ export default function UnifiedNavbar() {
                 className="absolute right-0 mt-2 w-56 coco-glass rounded-xl shadow-lg py-1 z-[100] overflow-hidden animate-in fade-in zoom-in-95 duration-200"
                 role="menu"
               >
+                {/* Botón para cambiar emoji */}
+                <button
+                  onClick={() => {
+                    setShowEmojiPicker(true);
+                    setMenuOpen(false);
+                  }}
+                  className="w-full flex items-center gap-2.5 text-left px-4 py-2.5 text-sm font-bold hover:bg-cocorico-turquoise/10 dark:hover:bg-cocorico-turquoise/20 transition-colors"
+                  role="menuitem"
+                >
+                  <span aria-hidden="true" className="text-xl">{userEmoji}</span>
+                  <span>Cambiar Emoji</span>
+                </button>
+                <Separator className="my-1" />
+                
                 {userMenuLinks.map((link) => (
                   <Link
                     key={link.href}
@@ -529,5 +587,15 @@ export default function UnifiedNavbar() {
           </Sheet>
         </div>
     </header>
+    
+    {/* Emoji Picker Modal */}
+    {showEmojiPicker && (
+      <EmojiPicker
+        currentEmoji={userEmoji}
+        onSelect={handleEmojiSelect}
+        onClose={() => setShowEmojiPicker(false)}
+      />
+    )}
+    </>
   );
 }

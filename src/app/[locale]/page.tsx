@@ -51,14 +51,14 @@ export default async function LocaleHomePage({
       {/* Video banner principal panorámico - tamaño reducido y estático */}
       <Reveal>
         <div className="mb-12 relative w-full max-w-4xl">
-          <div className="coco-glass p-3 rounded-[2rem]">
+          <div className="glass-clear p-3">
             <video
               src="/branding/nuevobannervideo-home.mp4"
               autoPlay
               loop
               muted
               playsInline
-              className="rounded-[1.5rem] w-full h-auto object-cover shadow-2xl"
+              className="rounded-[1.25rem] w-full h-auto object-cover shadow-2xl"
               style={{ maxHeight: '500px', aspectRatio: '16/9' }}
             />
           </div>
@@ -170,20 +170,19 @@ export default async function LocaleHomePage({
         </div>
       </Reveal>
 
-      <Reveal delay={1.0}>
-        <div className="relative mt-8 opacity-95">
-          <div className="glass-card glass-card-mango glass-frosted-border p-2 rounded-[2rem] inline-block">
-            <video
-              src="/branding/banner-bajo-home.mp4"
-              autoPlay
-              loop
-              muted
-              playsInline
-              className="rounded-[1.75rem] max-w-full h-auto"
-              width={500}
-              height={400}
-            />
-          </div>
+      {/* Video inferior con glass-clear */}
+      <Reveal delay={0.8}>
+        <div className="glass-clear p-2 inline-block">
+          <video
+            src="/branding/banner-bajo-home.mp4"
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="rounded-[1.25rem] max-w-full h-auto"
+            width={500}
+            height={400}
+          />
         </div>
       </Reveal>
       </main>

@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import UnifiedChatInterface from "@/components/chat/UnifiedChatInterface";
+import ChatUnified from "@/components/chat/ChatUnified";
 
 export const metadata: Metadata = {
   title: "Chat con Cocorico | IA de Cocina",
@@ -12,5 +12,5 @@ export default function ChatPage({
 }: {
   params: { locale: string };
 }) {
-  return <UnifiedChatInterface locale={locale} />;
+  return <ChatUnified locale={locale} />;
 }

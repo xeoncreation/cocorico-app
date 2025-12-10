@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🐓 Preview - Emoji Oficial de Cocorico</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: linear-gradient(135deg, #FFF8E1 0%, #FFE8B0 100%);
+            padding: 2rem;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #E36A4A;
+            margin-bottom: 1rem;
+            font-size: 2.5rem;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 3rem;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.2s;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 12px rgba(0,0,0,0.15);
+        }
+        
+        .card h2 {
+            color: #333;
+            margin-bottom: 1rem;
+            font-size: 1.25rem;
+        }
+        
+        .card img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 1rem;
+        }
+        
+        .size-label {
+            display: inline-block;
+            background: #F0CC73;
+            color: #333;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+        
+        .specs {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .specs h2 {
+            color: #E36A4A;
+            margin-bottom: 1rem;
+        }
+        
+        .color-palette {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .color-swatch {
+            flex: 1;
+            min-width: 120px;
+            padding: 1rem;
+            border-radius: 8px;
+            color: white;
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 3rem;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🐓 Emoji Oficial de Cocorico</h1>
+        <p class="subtitle">Diseño kawaii-minimal • Optimizado para UI móvil • 100% adorable</p>
+        
+        <div class="grid">
+            <div class="card">
+                <h2>Versión Principal</h2>
+                <img src="../branding/cocorico-official.png" alt="Cocorico Official" style="max-width: 200px;">
+                <span class="size-label">512×512px</span>
+            </div>
+            
+            <div class="card">
+                <h2>Avatar</h2>
+                <img src="../branding/cocorico-avatar.png" alt="Cocorico Avatar" style="max-width: 150px;">
+                <span class="size-label">220×220px</span>
+            </div>
+            
+            <div class="card">
+                <h2>Icono PWA</h2>
+                <img src="../icons/icon-512.png" alt="PWA Icon" style="max-width: 200px;">
+                <span class="size-label">512×512px</span>
+            </div>
+            
+            <div class="card">
+                <h2>Icono Small</h2>
+                <img src="../icons/icon-192.png" alt="Small Icon" style="max-width: 150px;">
+                <span class="size-label">192×192px</span>
+            </div>
+        </div>
+        
+        <div class="specs">
+            <h2>Especificaciones de Diseño</h2>
+            <p><strong>Estilo:</strong> Kawaii-minimal con contornos (#1A1A1A, 2px)</p>
+            <p><strong>Personaje:</strong> Pollito redondo con gorro de chef</p>
+            <p><strong>Formato:</strong> SVG vectorial + PNG optimizados</p>
+            
+            <h3 style="margin-top: 1.5rem; margin-bottom: 0.5rem;">Paleta de Colores</h3>
+            <div class="color-palette">
+                <div class="color-swatch" style="background-color: #E36A4A;">
+                    #E36A4A<br>Naranja-Rojo
+                </div>
+                <div class="color-swatch" style="background-color: #F0CC73; color: #333;">
+                    #F0CC73<br>Amarillo Dorado
+                </div>
+                <div class="color-swatch" style="background-color: #7FB28F;">
+                    #7FB28F<br>Verde Suave
+                </div>
+                <div class="color-swatch" style="background-color: #F2A75D;">
+                    #F2A75D<br>Pico Naranja
+                </div>
+                <div class="color-swatch" style="background-color: #D97941;">
+                    #D97941<br>Patas Naranja
+                </div>
+                <div class="color-swatch" style="background-color: #F4F0E6; color: #333;">
+                    #F4F0E6<br>Gorro Chef
+                </div>
+            </div>
+        </div>
+        
+        <div class="grid" style="margin-top: 2rem;">
+            <div class="card">
+                <h2>Default</h2>
+                <img src="../branding/cocorico/default.png" alt="Default" style="max-width: 150px;">
+            </div>
+            
+            <div class="card">
+                <h2>Happy</h2>
+                <img src="../branding/cocorico/happy.png" alt="Happy" style="max-width: 150px;">
+            </div>
+            
+            <div class="card">
+                <h2>Chef</h2>
+                <img src="../branding/cocorico/chef.png" alt="Chef" style="max-width: 150px;">
+            </div>
+            
+            <div class="card">
+                <h2>Thinking</h2>
+                <img src="../branding/cocorico/thinking.png" alt="Thinking" style="max-width: 150px;">
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>✨ Diseñado para ser adorable, reconocible y profesional</p>
+            <p style="margin-top: 0.5rem;">🔧 Para actualizar: <code>node scripts/convert-emoji-svg-to-png.js</code></p>
+        </div>
+    </div>
+</body>
+</html>

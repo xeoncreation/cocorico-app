@@ -9,6 +9,12 @@ import { Toaster } from "sonner";
 import PushNotificationPrompt from "@/components/PushNotificationPrompt";
 import MediaPermissionsPrompt from "@/components/MediaPermissionsPrompt";
 import NavbarUnified from "@/components/NavbarUnified";
+import dynamic from "next/dynamic";
+
+// Importación dinámica del AgentChat para evitar problemas de SSR
+const AgentChat = dynamic(() => import("@/components/agent/AgentChat"), {
+  ssr: false,
+});
 
 export default async function LocaleLayout({
   children,
@@ -103,6 +109,7 @@ export default async function LocaleLayout({
         <Toaster richColors position="top-center" />
         <PushNotificationPrompt />
         <MediaPermissionsPrompt />
+        <AgentChat />
       </ThemeProvider>
     </NextIntlClientProvider>
   );
