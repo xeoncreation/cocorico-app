@@ -6,6 +6,7 @@ import { GlobalErrorHandler } from "./error-handler";
 import PageTransition from "@/components/ui/PageTransition";
 import { ToastProvider } from "../components/ui/ToastProvider";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { AuthGateModalProvider } from "@/contexts/AuthGateModalContext";
 import Analytics from "@/components/Analytics";
 import type { Viewport } from "next";
 import { cookies } from "next/headers";
@@ -145,11 +146,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="app-root-bg min-h-screen font-sans antialiased">
         <div className="app-root-bg-inner">
           <ThemeProvider>
-            <ToastProvider>
-              <GlobalErrorHandler />
-              {children}
-              <Analytics />
-            </ToastProvider>
+            <AuthGateModalProvider>
+              <ToastProvider>
+                <GlobalErrorHandler />
+                {children}
+                <Analytics />
+              </ToastProvider>
+            </AuthGateModalProvider>
           </ThemeProvider>
         </div>
       </body>
