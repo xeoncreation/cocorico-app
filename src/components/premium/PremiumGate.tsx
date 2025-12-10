@@ -89,12 +89,12 @@ export default function PremiumGate({
           </div>
 
           {/* CTA Button */}
-          <Link href="/es/premium">
-            <Button className="w-full h-12 bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white font-bold">
+          <Button asChild className="w-full h-12 bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white font-bold">
+            <Link href="/es/premium">
               <Crown className="w-5 h-5 mr-2" />
               Upgrade a Premium
-            </Button>
-          </Link>
+            </Link>
+          </Button>
 
           {/* Footer */}
           <p className="text-xs text-white/50 mt-4">

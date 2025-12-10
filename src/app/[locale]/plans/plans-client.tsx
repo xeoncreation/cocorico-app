@@ -60,11 +60,9 @@ export default function PlansClient() {
             ))}
           </ul>
 
-          <Link href="/upgrade">
-            <RippleButton className="w-full bg-primary text-white mt-6">
-              Mejorar a Premium
-            </RippleButton>
-          </Link>
+          <RippleButton asChild className="w-full bg-primary text-white mt-6">
+            <Link href="/upgrade">Mejorar a Premium</Link>
+          </RippleButton>
         </div>
       </div>
     </div>

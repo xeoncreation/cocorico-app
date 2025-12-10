@@ -33,10 +33,10 @@ export default async function PremiumPage({ params }: { params: { locale: string
             Eleva tu experiencia culinaria con IA avanzada, interfaz premium y funciones exclusivas
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center pt-6">
-            <RippleButton className="coco-btn-primary text-lg px-8 py-4 label-strong">
+            <RippleButton asChild className="coco-btn-primary text-lg px-8 py-4 label-strong">
               <Link href={`/${params.locale}/checkout`}>Comenzar ahora</Link>
             </RippleButton>
-            <RippleButton className="coco-btn-secondary text-lg px-8 py-4 label-strong">
+            <RippleButton asChild className="coco-btn-secondary text-lg px-8 py-4 label-strong">
               <Link href="#features">Ver características</Link>
             </RippleButton>
           </div>
@@ -93,7 +93,7 @@ export default async function PremiumPage({ params }: { params: { locale: string
                   <span>Soporte prioritario</span>
                 </li>
               </ul>
-              <RippleButton className="w-full coco-btn-primary py-4 text-lg">
+              <RippleButton asChild className="w-full coco-btn-primary py-4 text-lg">
                 <Link href={`/${params.locale}/checkout`}>Suscribirse ahora</Link>
               </RippleButton>
               <p className="text-xs text-neutral-500">Cancela cuando quieras · Garantía de 30 días</p>
@@ -125,7 +125,7 @@ export default async function PremiumPage({ params }: { params: { locale: string
           <p className="text-lg text-neutral-600 dark:text-neutral-300 max-w-2xl mx-auto">
             Únete a miles de usuarios que ya disfrutan de Cocorico Premium
           </p>
-          <RippleButton className="coco-btn-primary text-lg px-12 py-4">
+          <RippleButton asChild className="coco-btn-primary text-lg px-12 py-4">
             <Link href={`/${params.locale}/checkout`}>Comenzar prueba gratuita</Link>
           </RippleButton>
         </GlassCard>
