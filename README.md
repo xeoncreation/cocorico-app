@@ -23,15 +23,37 @@ Abre http://localhost:3000 en tu navegador.
 ## 🔧 Variables de Entorno (`.env.local`)
 
 ```env
+# Supabase (público)
 NEXT_PUBLIC_SUPABASE_URL=https://tu-proyecto.supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY=tu-anon-key
-SUPABASE_SERVICE_ROLE_KEY=tu-service-role-key # opcional
+
+# Supabase (privado - NUNCA exponer al cliente)
+SUPABASE_SERVICE_ROLE_KEY=tu-service-role-key
+
+# OpenAI (privado - NUNCA exponer al cliente)
 OPENAI_API_KEY=tu-openai-api-key
+
+# App
 NEXT_PUBLIC_APP_URL=http://localhost:3000
+
+# Stripe (privado - NUNCA exponer al cliente)
 STRIPE_SECRET_KEY=sk_test_xxx
 STRIPE_WEBHOOK_SECRET=whsec_xxx
 NEXT_PUBLIC_STRIPE_PRICE_ID_MONTHLY=price_xxx
+
+# Admin (privado)
+ADMIN_SECRET=tu_secreto_admin_fuerte
+
+# Site Password (opcional, para beta privada)
+SITE_PASSWORD=tu_password_de_acceso
+INVITE_PASSWORD=password_para_invitados
 ```
+
+⚠️ **IMPORTANTE - SEGURIDAD:**
+- **NUNCA** commitear `.env.local` a Git
+- **NUNCA** usar claves privadas con prefijo `NEXT_PUBLIC_`
+- En producción (Vercel), configurar variables en Dashboard
+- Ver `docs/SECURITY.md` para guía completa de seguridad
 
 ## 🧩 Características Principales
 
@@ -65,6 +87,30 @@ npm run lint       # Linter
 npm test           # Unit tests (Jest)
 npm run test:e2e   # E2E (Playwright)
 ```
+
+## 🔐 Seguridad
+
+Cocorico implementa **defensa en profundidad** con múltiples capas de seguridad:
+
+### ✅ Implementado:
+- **Row Level Security (RLS)** en todas las tablas de Supabase
+- **MFA/2FA con TOTP** (Google Authenticator, Authy, etc.)
+- **Rate limiting** en APIs críticas (chat, STT, auth)
+- **Security headers** (CSP, X-Frame-Options, HSTS, etc.)
+- **Middleware de autenticación** protegiendo rutas privadas
+- **Separación de claves** (públicas vs privadas)
+- **Storage policies** por bucket y usuario
+
+### 📚 Documentación:
+Ver **`docs/SECURITY.md`** para:
+- Arquitectura completa de seguridad
+- Guía de implementación de MFA
+- Testing de seguridad
+- Matriz de amenazas y mitigaciones
+- Checklist pre-lanzamiento
+
+### 🚨 Reportar vulnerabilidades:
+**NO** crear issues públicos. Contactar: security@cocorico.app
 
 ## 🧪 QA & Tests
 

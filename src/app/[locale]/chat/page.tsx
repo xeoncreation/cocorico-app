@@ -2,9 +2,9 @@ import { Metadata } from "next";
 import ChatUnified from "@/components/chat/ChatUnified";
 
 export const metadata: Metadata = {
-  title: "Chat con Cocorico | IA de Cocina",
+  title: "Asistente Culinario | IA de Cocina",
   description:
-    "Chatea con Cocorico usando texto o voz. Obtén recetas personalizadas, consejos de cocina y respuestas instantáneas con IA avanzada.",
+    "Conversa con nuestro asistente culinario inteligente. Obtén recetas personalizadas, consejos de cocina y respuestas instantáneas.",
 };
 
 export default function ChatPage({

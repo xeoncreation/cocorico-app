@@ -1,7 +1,7 @@
 /**
- * ChatUnified Component
+ * Asistente Culinario Inteligente
  * 
- * Interfaz de chat unificada tipo ChatGPT con:
+ * Interfaz conversacional con IA especializada en cocina:
  * - Botón de voz integrado en el input de texto
  * - Transcripción en tiempo real
  * - Una sola vista para texto y voz

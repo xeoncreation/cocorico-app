@@ -15,6 +15,7 @@ interface TTSOptions {
 
 /**
  * Speech-to-Text: Transcribe audio a texto
+ * SECURITY: Siempre usa API route para evitar exponer claves
  */
 export async function sttTranscribe(
   audioBlob: Blob,
@@ -24,13 +25,10 @@ export async function sttTranscribe(
     try {
       const formData = new FormData();
       formData.append("file", audioBlob, "audio.webm");
-      formData.append("model", "whisper-1");
 
-      const response = await fetch("https://api.openai.com/v1/audio/transcriptions", {
+      // ⚠️ SECURITY: Llamar a nuestra API route en lugar de OpenAI directamente
+      const response = await fetch("/api/stt", {
         method: "POST",
-        headers: {
-          Authorization: `Bearer ${process.env.NEXT_PUBLIC_OPENAI_API_KEY}`,
-        },
         body: formData,
       });
 

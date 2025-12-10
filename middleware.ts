@@ -1,5 +1,7 @@
 import createIntlMiddleware from "next-intl/middleware";
 import { NextRequest, NextResponse } from "next/server";
+import { createServerClient } from '@supabase/ssr';
+import type { CookieOptions } from '@supabase/ssr';
 
 // BLOQUE 5: Middleware de i18n con English temporalmente deshabilitado
 // Solo Español está completamente disponible, English redirige a ES
@@ -53,11 +55,66 @@ function withSecurityHeaders(res: NextResponse, isDev = process.env.NODE_ENV !==
   return res;
 }
 
-export default function middleware(request: NextRequest) {
+export default async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const url = request.nextUrl;
   const premiumParam = url.searchParams.get('premium');
   const themeParam = url.searchParams.get('theme');
+
+  // ============================================
+  // PROTECCIÓN DE RUTAS PRIVADAS
+  // ============================================
+  const protectedPaths = [
+    '/dashboard',
+    '/mis-recetas',
+    '/favoritos',
+    '/chat-unificado',
+    '/settings',
+    '/profile'
+  ];
+
+  const isProtectedRoute = protectedPaths.some(path => 
+    pathname.includes(path) || pathname.endsWith(path)
+  );
+
+  if (isProtectedRoute) {
+    // Verificar sesión de Supabase
+    let supabaseResponse = NextResponse.next({ request });
+
+    if (process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+      const supabase = createServerClient(
+        process.env.NEXT_PUBLIC_SUPABASE_URL,
+        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+        {
+          cookies: {
+            get(name: string) {
+              return request.cookies.get(name)?.value;
+            },
+            set(name: string, value: string, options: CookieOptions) {
+              request.cookies.set({ name, value, ...options });
+              supabaseResponse = NextResponse.next({ request });
+              supabaseResponse.cookies.set({ name, value, ...options });
+            },
+            remove(name: string, options: CookieOptions) {
+              request.cookies.set({ name, value: '', ...options });
+              supabaseResponse = NextResponse.next({ request });
+              supabaseResponse.cookies.set({ name, value: '', ...options });
+            },
+          },
+        }
+      );
+
+      const { data: { user } } = await supabase.auth.getUser();
+
+      if (!user) {
+        // Redirigir a login con returnUrl
+        const locale = pathname.startsWith('/es') ? 'es' : pathname.startsWith('/en') ? 'en' : 'es';
+        const loginUrl = new URL(`/${locale}/login`, request.url);
+        loginUrl.searchParams.set('redirect', pathname);
+        return NextResponse.redirect(loginUrl);
+      }
+    }
+  }
 
   // BLOQUE 5: Redirigir /en a /es hasta que English esté completamente traducido
   if (pathname.startsWith('/en')) {

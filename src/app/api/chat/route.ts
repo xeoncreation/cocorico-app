@@ -5,6 +5,7 @@ import { validateMessage } from "@/utils/validation";
 import { supabaseServer } from "@/lib/supabase-client";
 import { getOrCreateThread, getShortMemory, getProfile, saveMessage } from "@/utils/ai";
 import { canUseAI, incrementAI } from "@/utils/limits";
+import { applyRateLimit, RateLimitPresets } from "@/lib/rate-limit";
 
 // Exponential backoff retry helper
 async function fetchWithRetry(url: string, options: RequestInit, maxRetries = 3) {
@@ -30,6 +31,28 @@ async function fetchWithRetry(url: string, options: RequestInit, maxRetries = 3)
 const MODEL = "gpt-4o-mini"; // o "gpt-3.5-turbo" si prefieres
 
 export async function POST(req: Request) {
+  // ⚠️ SECURITY: Rate limiting
+  const rateLimitResult = await applyRateLimit(req, {
+    prefix: 'api:chat',
+    config: RateLimitPresets.ai
+  });
+
+  if (!rateLimitResult.allowed) {
+    return new Response(
+      JSON.stringify({ 
+        error: 'rate_limit_exceeded', 
+        message: RateLimitPresets.ai.message 
+      }),
+      { 
+        status: 429,
+        headers: {
+          'Content-Type': 'application/json',
+          ...rateLimitResult.headers
+        }
+      }
+    );
+  }
+
   const startTime = Date.now();
   let statusCode = 500;
   let errorType = null;

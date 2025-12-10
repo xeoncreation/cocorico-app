@@ -1,19 +1,29 @@
 import { NextResponse } from "next/server";
-import { hit } from "@/utils/rate-limit";
+import { applyRateLimit, RateLimitPresets } from "@/lib/rate-limit";
 
 export const runtime = "nodejs";
 
 export async function POST(req: Request) {
-  const { searchParams } = new URL(req.url);
-  const provider = searchParams.get("provider") || "openai";
+  // ⚠️ SECURITY: Rate limiting mejorado
+  const rateLimitResult = await applyRateLimit(req, {
+    prefix: 'api:stt',
+    config: RateLimitPresets.ai
+  });
 
-  // Rate limiting
-  const uid = "anon"; // TODO: si tienes user session, usa su id
-  const rl = hit({ key: "voice-turns-daily", limit: 10, windowSec: 86400 }, uid);
-  if (!rl.ok) {
-    return NextResponse.json(
-      { error: "rate_limited", retryAfter: rl.retryAfter },
-      { status: 429 }
+  if (!rateLimitResult.allowed) {
+    return new Response(
+      JSON.stringify({ 
+        error: 'rate_limit_exceeded', 
+        message: RateLimitPresets.ai.message,
+        retryAfter: Math.floor((rateLimitResult.resetAt - Date.now()) / 1000)
+      }),
+      { 
+        status: 429,
+        headers: {
+          'Content-Type': 'application/json',
+          ...rateLimitResult.headers
+        }
+      }
     );
   }
 
@@ -22,22 +32,22 @@ export async function POST(req: Request) {
   if (!file) return NextResponse.json({ error: "file required" }, { status: 400 });
 
   try {
-    if (provider === "openai") {
-      const apiKey = process.env.OPENAI_API_KEY;
-      if (!apiKey) return NextResponse.json({ error: "OPENAI_API_KEY missing" }, { status: 500 });
+    // Solo usar OpenAI (proveedor más confiable)
+    const apiKey = process.env.OPENAI_API_KEY;
+    if (!apiKey) return NextResponse.json({ error: "OPENAI_API_KEY missing" }, { status: 500 });
 
-      const form = new FormData();
-      form.append("model", "whisper-1");
-      form.append("file", file, "audio.webm");
+    const form = new FormData();
+    form.append("model", "whisper-1");
+    form.append("file", file, "audio.webm");
 
-      const r = await fetch("https://api.openai.com/v1/audio/transcriptions", {
-        method: "POST",
-        headers: { Authorization: `Bearer ${apiKey}` },
-        body: form,
-      });
-      if (!r.ok) {
-        return NextResponse.json({ error: "STT failed", detail: await r.text() }, { status: 500 });
-      }
+    const r = await fetch("https://api.openai.com/v1/audio/transcriptions", {
+      method: "POST",
+      headers: { Authorization: `Bearer ${apiKey}` },
+      body: form,
+    });
+    if (!r.ok) {
+      return NextResponse.json({ error: "STT failed", detail: await r.text() }, { status: 500 });
+    }
       const j = await r.json();
       return NextResponse.json({ text: j.text || "" });
     }
