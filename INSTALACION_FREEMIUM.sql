@@ -3,8 +3,13 @@
 -- Ejecutar en Supabase Dashboard > SQL Editor
 -- =====================================================
 
--- 1. Crear tipo enum para niveles de plan
-CREATE TYPE IF NOT EXISTS public.plan_tier AS ENUM ('free', 'premium');
+-- 1. Crear tipo enum para niveles de plan (con manejo de existencia)
+DO $$ 
+BEGIN
+  IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'plan_tier') THEN
+    CREATE TYPE public.plan_tier AS ENUM ('free', 'premium');
+  END IF;
+END $$;
 
 -- 2. Tabla user_plans: almacena el plan actual de cada usuario
 CREATE TABLE IF NOT EXISTS public.user_plans (

@@ -5,7 +5,12 @@
 -- =====================================================
 
 -- 1. Crear tipo enum para niveles de plan
-create type if not exists public.plan_tier as enum ('free', 'premium');
+DO $$ 
+BEGIN
+  IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'plan_tier') THEN
+    CREATE TYPE public.plan_tier AS ENUM ('free', 'premium');
+  END IF;
+END $$;
 
 -- 2. Tabla user_plans: almacena el plan actual de cada usuario
 create table if not exists public.user_plans (
