@@ -53,11 +53,14 @@ export async function enrollMFA(): Promise<{ data: MFAEnrollData | null; error: 
     if (error) throw error;
     if (!data) throw new Error('No data returned from MFA enroll');
 
+    // Type assertion para manejar el tipo union de factors
+    const totpData = data as { id: string; type: 'totp'; totp: { qr_code: string; secret: string; uri: string } };
+
     return {
       data: {
-        qr: data.totp.qr_code,
-        secret: data.totp.secret,
-        factorId: data.id
+        qr: totpData.totp.qr_code,
+        secret: totpData.totp.secret,
+        factorId: totpData.id
       },
       error: null
     };
@@ -127,7 +130,7 @@ export async function challengeMFA(code: string): Promise<{ success: boolean; er
   try {
     // Obtener factor activo
     const { data: factors } = await supabase.auth.mfa.listFactors();
-    const activeFactor = factors?.totp.find(f => f.status === 'verified');
+    const activeFactor = factors?.totp.find((f: any) => f.status === 'verified');
 
     if (!activeFactor) {
       throw new Error('No active MFA factor found');

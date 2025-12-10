@@ -146,7 +146,7 @@ export default function UnifiedNavbar() {
             .select('emoji')
             .eq('id', session.user.id)
             .single()
-            .then(({ data }) => {
+            .then(({ data }: { data: { emoji?: string } | null }) => {
               if (data?.emoji) {
                 setUserEmoji(data.emoji);
               }
