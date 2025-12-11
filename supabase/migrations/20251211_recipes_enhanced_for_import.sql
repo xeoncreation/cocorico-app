@@ -22,58 +22,139 @@ END $$;
 
 -- Tabla principal de recetas
 CREATE TABLE IF NOT EXISTS public.recipes (
-  -- Identificación básica
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id uuid REFERENCES auth.users(id) ON DELETE CASCADE,
-  
-  -- Información de la receta
   title text NOT NULL,
   description text,
   image_url text,
-  
-  -- Metadata de origen
   source_type public.recipe_source_type NOT NULL DEFAULT 'user_created',
-  source_name text, -- ej: "TheMealDB", "Spoonacular", "Manual"
-  source_url text,  -- URL original de la receta
-  source_id text,   -- ID en la fuente original
-  
-  -- Contenido estructurado
-  ingredients jsonb NOT NULL DEFAULT '[]'::jsonb,  -- Array de objetos { name, amount, unit, unit_normalized }
-  steps jsonb NOT NULL DEFAULT '[]'::jsonb,        -- Array de strings con instrucciones
-  
-  -- Información cuantitativa (todas en unidades métricas normalizadas)
+  source_name text,
+  source_url text,
+  source_id text,
+  ingredients jsonb NOT NULL DEFAULT '[]'::jsonb,
+  steps jsonb NOT NULL DEFAULT '[]'::jsonb,
   servings integer,
   prep_time_minutes integer,
   cook_time_minutes integer,
   total_time_minutes integer,
-  
-  -- Categorización
-  tags text[] DEFAULT '{}',                         -- ej: ['vegetariano', 'rápido', 'postre']
-  cuisine text,                                     -- ej: 'mexicana', 'italiana'
-  category text,                                    -- ej: 'desayuno', 'cena', 'postre'
+  tags text[] DEFAULT '{}',
+  cuisine text,
+  category text,
   difficulty text CHECK (difficulty IN ('easy', 'medium', 'hard')),
-  
-  -- Información nutricional (opcional, por porción)
-  nutrition jsonb,  -- { calories, protein, carbs, fat, fiber, sugar }
-  
-  -- Control de visibilidad
+  nutrition jsonb,
   visibility public.recipe_visibility NOT NULL DEFAULT 'private',
-  
-  -- Verificación y calidad
-  is_verified boolean DEFAULT false,  -- Recetas verificadas por admin o fuentes confiables
-  quality_score decimal(3,2),         -- 0.00 a 5.00 (rating promedio)
-  
-  -- Contadores de interacción
+  is_verified boolean DEFAULT false,
+  quality_score decimal(3,2),
   views_count integer DEFAULT 0,
   favorites_count integer DEFAULT 0,
-  
-  -- Búsqueda full-text
   search_vector tsvector,
-  
-  -- Timestamps
   created_at timestamptz DEFAULT now(),
   updated_at timestamptz DEFAULT now()
 );
+
+-- Agregar columnas si la tabla ya existía pero sin estas columnas
+DO $$
+BEGIN
+  -- source_type
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema='public' AND table_name='recipes' AND column_name='source_type') THEN
+    ALTER TABLE public.recipes ADD COLUMN source_type public.recipe_source_type NOT NULL DEFAULT 'user_created';
+  END IF;
+  
+  -- source_name
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema='public' AND table_name='recipes' AND column_name='source_name') THEN
+    ALTER TABLE public.recipes ADD COLUMN source_name text;
+  END IF;
+  
+  -- source_url
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema='public' AND table_name='recipes' AND column_name='source_url') THEN
+    ALTER TABLE public.recipes ADD COLUMN source_url text;
+  END IF;
+  
+  -- source_id
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema='public' AND table_name='recipes' AND column_name='source_id') THEN
+    ALTER TABLE public.recipes ADD COLUMN source_id text;
+  END IF;
+  
+  -- ingredients
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema='public' AND table_name='recipes' AND column_name='ingredients') THEN
+    ALTER TABLE public.recipes ADD COLUMN ingredients jsonb NOT NULL DEFAULT '[]'::jsonb;
+  END IF;
+  
+  -- steps
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema='public' AND table_name='recipes' AND column_name='steps') THEN
+    ALTER TABLE public.recipes ADD COLUMN steps jsonb NOT NULL DEFAULT '[]'::jsonb;
+  END IF;
+  
+  -- tags
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema='public' AND table_name='recipes' AND column_name='tags') THEN
+    ALTER TABLE public.recipes ADD COLUMN tags text[] DEFAULT '{}';
+  END IF;
+  
+  -- cuisine
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema='public' AND table_name='recipes' AND column_name='cuisine') THEN
+    ALTER TABLE public.recipes ADD COLUMN cuisine text;
+  END IF;
+  
+  -- category
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema='public' AND table_name='recipes' AND column_name='category') THEN
+    ALTER TABLE public.recipes ADD COLUMN category text;
+  END IF;
+  
+  -- difficulty
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema='public' AND table_name='recipes' AND column_name='difficulty') THEN
+    ALTER TABLE public.recipes ADD COLUMN difficulty text CHECK (difficulty IN ('easy', 'medium', 'hard'));
+  END IF;
+  
+  -- nutrition
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema='public' AND table_name='recipes' AND column_name='nutrition') THEN
+    ALTER TABLE public.recipes ADD COLUMN nutrition jsonb;
+  END IF;
+  
+  -- is_verified
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema='public' AND table_name='recipes' AND column_name='is_verified') THEN
+    ALTER TABLE public.recipes ADD COLUMN is_verified boolean DEFAULT false;
+  END IF;
+  
+  -- quality_score
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema='public' AND table_name='recipes' AND column_name='quality_score') THEN
+    ALTER TABLE public.recipes ADD COLUMN quality_score decimal(3,2);
+  END IF;
+  
+  -- views_count
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema='public' AND table_name='recipes' AND column_name='views_count') THEN
+    ALTER TABLE public.recipes ADD COLUMN views_count integer DEFAULT 0;
+  END IF;
+  
+  -- favorites_count
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema='public' AND table_name='recipes' AND column_name='favorites_count') THEN
+    ALTER TABLE public.recipes ADD COLUMN favorites_count integer DEFAULT 0;
+  END IF;
+  
+  -- search_vector
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema='public' AND table_name='recipes' AND column_name='search_vector') THEN
+    ALTER TABLE public.recipes ADD COLUMN search_vector tsvector;
+  END IF;
+  
+  -- servings
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema='public' AND table_name='recipes' AND column_name='servings') THEN
+    ALTER TABLE public.recipes ADD COLUMN servings integer;
+  END IF;
+  
+  -- prep_time_minutes
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema='public' AND table_name='recipes' AND column_name='prep_time_minutes') THEN
+    ALTER TABLE public.recipes ADD COLUMN prep_time_minutes integer;
+  END IF;
+  
+  -- cook_time_minutes
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema='public' AND table_name='recipes' AND column_name='cook_time_minutes') THEN
+    ALTER TABLE public.recipes ADD COLUMN cook_time_minutes integer;
+  END IF;
+  
+  -- total_time_minutes
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema='public' AND table_name='recipes' AND column_name='total_time_minutes') THEN
+    ALTER TABLE public.recipes ADD COLUMN total_time_minutes integer;
+  END IF;
+END $$;
 
 -- Habilitar Row Level Security
 ALTER TABLE public.recipes ENABLE ROW LEVEL SECURITY;
