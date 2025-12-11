@@ -75,36 +75,27 @@ CREATE TABLE IF NOT EXISTS public.recipes (
   updated_at timestamptz DEFAULT now()
 );
 
--- Índices para rendimiento (solo si la tabla existe)
-DO $$ 
-BEGIN
-  IF EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'public' AND table_name = 'recipes') THEN
-    CREATE INDEX IF NOT EXISTS idx_recipes_user_id ON public.recipes(user_id);
-    CREATE INDEX IF NOT EXISTS idx_recipes_visibility ON public.recipes(visibility);
-    CREATE INDEX IF NOT EXISTS idx_recipes_source_type ON public.recipes(source_type);
-    CREATE INDEX IF NOT EXISTS idx_recipes_tags ON public.recipes USING gin(tags);
-    CREATE INDEX IF NOT EXISTS idx_recipes_cuisine ON public.recipes(cuisine);
-    CREATE INDEX IF NOT EXISTS idx_recipes_category ON public.recipes(category);
-    CREATE INDEX IF NOT EXISTS idx_recipes_difficulty ON public.recipes(difficulty);
-    CREATE INDEX IF NOT EXISTS idx_recipes_is_verified ON public.recipes(is_verified);
-    CREATE INDEX IF NOT EXISTS idx_recipes_created_at ON public.recipes(created_at DESC);
-    CREATE INDEX IF NOT EXISTS idx_recipes_search_vector ON public.recipes USING gin(search_vector);
+-- Índices para rendimiento
+CREATE INDEX IF NOT EXISTS idx_recipes_user_id ON public.recipes(user_id);
+CREATE INDEX IF NOT EXISTS idx_recipes_visibility ON public.recipes(visibility);
+CREATE INDEX IF NOT EXISTS idx_recipes_source_type ON public.recipes(source_type);
+CREATE INDEX IF NOT EXISTS idx_recipes_tags ON public.recipes USING gin(tags);
+CREATE INDEX IF NOT EXISTS idx_recipes_cuisine ON public.recipes(cuisine);
+CREATE INDEX IF NOT EXISTS idx_recipes_category ON public.recipes(category);
+CREATE INDEX IF NOT EXISTS idx_recipes_difficulty ON public.recipes(difficulty);
+CREATE INDEX IF NOT EXISTS idx_recipes_is_verified ON public.recipes(is_verified);
+CREATE INDEX IF NOT EXISTS idx_recipes_created_at ON public.recipes(created_at DESC);
+CREATE INDEX IF NOT EXISTS idx_recipes_search_vector ON public.recipes USING gin(search_vector);
 
-    -- Índice único para prevenir duplicados de fuentes externas
-    IF NOT EXISTS (SELECT 1 FROM pg_indexes WHERE indexname = 'idx_recipes_unique_source') THEN
-      CREATE UNIQUE INDEX idx_recipes_unique_source 
-      ON public.recipes(source_type, source_id) 
-      WHERE source_id IS NOT NULL;
-    END IF;
+-- Índice único para prevenir duplicados de fuentes externas
+CREATE UNIQUE INDEX IF NOT EXISTS idx_recipes_unique_source 
+ON public.recipes(source_type, source_id) 
+WHERE source_id IS NOT NULL;
 
-    -- Índice único para título por usuario (recetas propias)
-    IF NOT EXISTS (SELECT 1 FROM pg_indexes WHERE indexname = 'idx_recipes_user_title_unique') THEN
-      CREATE UNIQUE INDEX idx_recipes_user_title_unique 
-      ON public.recipes(user_id, title) 
-      WHERE source_type = 'user_created';
-    END IF;
-  END IF;
-END $$;
+-- Índice único para título por usuario (recetas propias)
+CREATE UNIQUE INDEX IF NOT EXISTS idx_recipes_user_title_unique 
+ON public.recipes(user_id, title) 
+WHERE source_type = 'user_created';
 
 -- Habilitar Row Level Security
 ALTER TABLE public.recipes ENABLE ROW LEVEL SECURITY;
