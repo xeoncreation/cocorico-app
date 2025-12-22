@@ -3,13 +3,17 @@
  * Uso: npx ts-node scripts/import-themealdb.ts [--category=Seafood] [--limit=10]
  */
 
+import * as dotenv from 'dotenv';
 import { parseTheMealDBRecipe } from '../src/lib/recipes/parsers/api';
 import { importRecipes } from '../src/lib/recipes/etl';
+
+// Cargar variables de entorno
+dotenv.config({ path: '.env.local' });
 
 // Configuración
 const THEMEALDB_API_URL = 'https://www.themealdb.com/api/json/v1/1';
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const SUPABASE_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+const SUPABASE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
 const USER_ID = process.env.IMPORT_USER_ID!; // ID del usuario que recibirá las recetas
 
 // Argumentos CLI

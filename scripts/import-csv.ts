@@ -3,15 +3,19 @@
  * Uso: npx ts-node scripts/import-csv.ts <archivo.csv> [--format=simple|custom]
  */
 
+import * as dotenv from 'dotenv';
 import * as fs from 'fs';
 import * as path from 'path';
 import { parseRecipeCSV, SIMPLE_CSV_CONFIG, CSVParserConfig } from '../src/lib/recipes/parsers/csv';
 import { importRecipes } from '../src/lib/recipes/etl';
 import { ParsedRecipe } from '../src/lib/recipes/parsers/api';
 
+// Cargar variables de entorno
+dotenv.config({ path: '.env.local' });
+
 // Configuración
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const SUPABASE_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+const SUPABASE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
 const USER_ID = process.env.IMPORT_USER_ID!;
 
 // Argumentos CLI

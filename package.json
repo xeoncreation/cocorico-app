@@ -38,6 +38,8 @@
     "start:e2e": "npm run build && npm run start",
     "test:e2e:prod": "playwright test -c playwright.prod.config.ts",
     "test:all": "npm run test && npm run test:e2e",
+    "supabase:activity": "npx tsx scripts/generate-activity.ts",
+    "supabase:keep-alive": "npx tsx scripts/generate-activity.ts",
     "scan-secrets": "secretlint \"**/*\" --ignore-path .gitignore",
     "audit:env": "ts-node scripts/audit-env.ts",
     "export:users": "ts-node scripts/export-users.ts",
@@ -70,7 +72,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "csv-parse": "^6.1.0",
-    "dotenv": "^16.4.5",
+    "dotenv": "^16.6.1",
     "elevenlabs-node": "^1.0.4",
     "firebase": "^12.6.0",
     "framer-motion": "^12.23.24",
@@ -120,6 +122,7 @@
     "tailwindcss": "3.3.5",
     "ts-jest": "^29.1.1",
     "ts-node": "^10.9.2",
+    "tsx": "^4.21.0",
     "typescript": "^5.2.2"
   }
 }
