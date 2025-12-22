@@ -112,6 +112,7 @@ export class RecipeImportPipeline {
         valid.push({
           ...recipe,
           ...cleaned,
+          difficulty: cleaned.difficulty as 'easy' | 'medium' | 'hard' | undefined,
           validation
         });
       } catch (error) {
