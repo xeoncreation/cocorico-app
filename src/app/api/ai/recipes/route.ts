@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import OpenAI from "openai";
 import { AIRecipeRequestSchema, validateRequest } from "@/lib/validation";
+import { createClient } from "@/lib/supabase/server";
+import { applyRateLimit, getRateLimitIdentifier, getClientIP } from '@/lib/rate-limiter';
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -15,6 +17,26 @@ interface RecipeRequest {
 
 export async function POST(req: NextRequest) {
   try {
+    // 🔒 SEGURIDAD: Verificar autenticación
+    const supabase = createClient();
+    const { data: { user }, error: authError } = await supabase.auth.getUser();
+    
+    if (authError || !user) {
+      return NextResponse.json(
+        { error: 'Authentication required. Please login to generate recipes.' },
+        { status: 401 }
+      );
+    }
+    
+    // 🛡️ SEGURIDAD: Rate limiting (10 generaciones/hora por usuario)
+    const ip = getClientIP(req.headers);
+    const identifier = getRateLimitIdentifier(user.id, ip);
+    const rateLimitResponse = await applyRateLimit(identifier, 'ai');
+    
+    if (rateLimitResponse) {
+      return rateLimitResponse;
+    }
+    
     const body: RecipeRequest = await req.json();
     
     // Validar request con Zod

@@ -1,7 +1,11 @@
 // Audit critical environment variables for Cocorico
 // Run with: npx ts-node scripts/audit-env.ts (ensure ts-node installed)
 
-import 'dotenv/config';
+import { config } from 'dotenv';
+import { resolve } from 'path';
+
+// Load .env.local explicitly
+config({ path: resolve(process.cwd(), '.env.local') });
 
 const required = [
   'NEXT_PUBLIC_SUPABASE_URL',

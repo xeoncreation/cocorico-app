@@ -1,11 +1,33 @@
 import { NextResponse } from "next/server";
 import { cleanRecipeText } from "@/lib/recipe-cleaner";
+import { createClient } from "@/lib/supabase/server";
+import { applyRateLimit, getRateLimitIdentifier, getClientIP } from "@/lib/rate-limiter";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 export async function POST(req: Request) {
   try {
+    // Authentication check
+    const supabase = createClient();
+    const { data: { user }, error: authError } = await supabase.auth.getUser();
+    
+    if (authError || !user) {
+      return NextResponse.json(
+        { error: "Authentication required" },
+        { status: 401 }
+      );
+    }
+
+    // Rate limiting (AI tier - 10 requests per hour)
+    const ip = getClientIP(req.headers);
+    const identifier = getRateLimitIdentifier(user.id, ip);
+    const rateLimitResponse = await applyRateLimit(identifier, 'ai');
+    
+    if (rateLimitResponse) {
+      return rateLimitResponse;
+    }
+
     const formData = await req.formData();
     const url = formData.get("url") as string | null;
     const image = formData.get("image") as File | null;

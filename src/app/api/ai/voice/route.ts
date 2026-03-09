@@ -1,13 +1,51 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
+import { createClient } from '@/lib/supabase/server';
+import { applyRateLimit, getRateLimitIdentifier, getClientIP } from '@/lib/rate-limiter';
 
 // Precomputed tiny silent MP3 (approx 0.1s) as Base64 to use as dev fallback
 const SILENT_MP3_BASE64 =
   "SUQzAwAAAAAAAEZBSUYAAACAAACkAAACAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
 
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
+  // 🔒 SEGURIDAD: Verificar autenticación
+  const supabase = createClient();
+  const { data: { user }, error: authError } = await supabase.auth.getUser();
+  
+  if (authError || !user) {
+    return NextResponse.json(
+      { error: 'Authentication required. Please login to use this feature.' },
+      { status: 401 }
+    );
+  }
+  
+  // 🛡️ SEGURIDAD: Rate limiting (20 requests/hora por usuario)
+  const ip = getClientIP(req.headers);
+  const identifier = getRateLimitIdentifier(user.id, ip);
+  const rateLimitResponse = await applyRateLimit(identifier, 'aiVoice');
+  
+  if (rateLimitResponse) {
+    return rateLimitResponse;
+  }
+  
+  // Continuar con el procesamiento original
   try {
     const { text } = await req.json();
-    if (!text) return NextResponse.json({ error: "Texto vacío" }, { status: 400 });
+    
+    // Validar entrada
+    if (!text || typeof text !== 'string') {
+      return NextResponse.json({ error: "Invalid text parameter" }, { status: 400 });
+    }
+    
+    if (text.length > 5000) {
+      return NextResponse.json(
+        { error: "Text too long. Maximum 5000 characters allowed." },
+        { status: 400 }
+      );
+    }
+    
+    if (!text.trim()) {
+      return NextResponse.json({ error: "Texto vacío" }, { status: 400 });
+    }
 
     const apiKey = process.env.ELEVENLABS_API_KEY;
     if (!apiKey) {

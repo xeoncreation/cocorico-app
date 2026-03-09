@@ -1,10 +1,32 @@
 import Replicate from "replicate";
 import { NextResponse } from "next/server";
+import { createClient } from "@/lib/supabase/server";
+import { applyRateLimit, getRateLimitIdentifier, getClientIP } from "@/lib/rate-limiter";
 
 export const maxDuration = 30;
 
 export async function POST(req: Request) {
   try {
+    // Authentication check
+    const supabase = createClient();
+    const { data: { user }, error: authError } = await supabase.auth.getUser();
+    
+    if (authError || !user) {
+      return NextResponse.json(
+        { error: "Authentication required" },
+        { status: 401 }
+      );
+    }
+
+    // Rate limiting (AI Detection tier - 15 requests per hour)
+    const ip = getClientIP(req.headers);
+    const identifier = getRateLimitIdentifier(user.id, ip);
+    const rateLimitResponse = await applyRateLimit(identifier, 'aiDetection');
+    
+    if (rateLimitResponse) {
+      return rateLimitResponse;
+    }
+
     const form = await req.formData();
     const file = form.get("image") as unknown as File | null;
     if (!file) return NextResponse.json({ error: "No image provided" }, { status: 400 });
